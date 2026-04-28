@@ -16,8 +16,8 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm space-y-6 rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+    <main className="flex min-h-dvh items-center justify-center px-4 py-8 safe-top safe-bottom">
+      <div className="w-full max-w-sm space-y-6 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
         <div>
           <h1 className="text-2xl font-semibold">Reset password</h1>
           <p className="mt-1 text-sm text-neutral-600">
@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         {message ? (
-          <div className="rounded-md bg-green-50 p-3 text-sm text-green-800">
+          <div className="rounded-lg bg-green-50 p-3 text-sm text-green-800">
             {message}
           </div>
         ) : (
@@ -41,14 +41,18 @@ export default function ForgotPasswordPage() {
                 type="email"
                 required
                 autoComplete="email"
-                className="mt-1 w-full rounded-md border border-neutral-300 px-3 py-2 text-sm focus:border-neutral-900 focus:outline-none"
+                inputMode="email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-3 focus:border-neutral-900 focus:outline-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={isPending}
-              className="w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:opacity-50"
+              className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-sm font-medium text-white hover:bg-neutral-800 active:bg-neutral-700 disabled:opacity-50"
             >
               {isPending ? 'Sending…' : 'Send reset link'}
             </button>

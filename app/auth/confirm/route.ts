@@ -24,32 +24,41 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type') as EmailOtpType | null
+  const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/dashboard'
 
   // Only allow internal redirects — never external URLs
   const safeNext =
     next.startsWith('/') && !next.startsWith('//') ? next : '/dashboard'
 
-  if (!token_hash || !type) {
-    return NextResponse.redirect(new URL('/auth/error', request.url))
-  }
-
   const supabase = await createClient()
 
-  const { error } = await supabase.auth.verifyOtp({
-    type,
-    token_hash,
-  })
-
-  if (error) {
-    console.error('verifyOtp error:', error.message)
-    return NextResponse.redirect(
-      new URL(`/auth/error?reason=${encodeURIComponent(error.message)}`, request.url)
-    )
+  // Two flows arrive here:
+  //   1. PKCE flow (default with @supabase/ssr + the default email template):
+  //      the link comes back as ?code=<pkce_code> and we exchange it for a session.
+  //   2. OTP flow (used when the email template is customized to pass
+  //      {{ .TokenHash }} directly): ?token_hash=&type=, verified via verifyOtp.
+  if (code) {
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    if (error) {
+      console.error('exchangeCodeForSession error:', error.message)
+      return NextResponse.redirect(
+        new URL(`/auth/error?reason=${encodeURIComponent(error.message)}`, request.url)
+      )
+    }
+    return NextResponse.redirect(new URL(safeNext, request.url))
   }
 
-  // For password reset, we send them to /reset-password where they set
-  // a new password. For signup, we send them to /dashboard (they're now
-  // logged in automatically).
-  return NextResponse.redirect(new URL(safeNext, request.url))
+  if (token_hash && type) {
+    const { error } = await supabase.auth.verifyOtp({ type, token_hash })
+    if (error) {
+      console.error('verifyOtp error:', error.message)
+      return NextResponse.redirect(
+        new URL(`/auth/error?reason=${encodeURIComponent(error.message)}`, request.url)
+      )
+    }
+    return NextResponse.redirect(new URL(safeNext, request.url))
+  }
+
+  return NextResponse.redirect(new URL('/auth/error', request.url))
 }

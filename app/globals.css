@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    /* Honour iOS notch / Android nav bar so content never sits under system UI. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    overscroll-behavior-y: none;
+  }
+
+  /* iOS Safari zooms inputs whose font-size is < 16px on focus.
+     Lock all form fields to 16px to disable that zoom jump. */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Buttons feel snappier without the synthesized 300ms tap delay. */
+  button,
+  [role='button'],
+  a {
+    touch-action: manipulation;
+  }
+}
+
+@layer utilities {
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+}

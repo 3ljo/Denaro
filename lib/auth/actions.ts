@@ -8,9 +8,7 @@ import { headers } from 'next/headers'
 // =====================================================================
 // Validation
 // =====================================================================
-// Strong password policy: 12+ chars, mix of letters/numbers/symbols.
-// We enforce here AND in the Supabase dashboard (Auth > Policies).
-const PASSWORD_MIN_LENGTH = 12
+const PASSWORD_MIN_LENGTH = 6
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -28,12 +26,6 @@ function validatePassword(password: unknown): string | null {
     return `Password must be at least ${PASSWORD_MIN_LENGTH} characters`
   }
   if (password.length > 128) return 'Password too long'
-  // Require some complexity. Tune to taste — or replace with a HIBP check.
-  const hasLetter = /[a-zA-Z]/.test(password)
-  const hasNumber = /\d/.test(password)
-  if (!hasLetter || !hasNumber) {
-    return 'Password must contain letters and numbers'
-  }
   return null
 }
 

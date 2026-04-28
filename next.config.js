@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV !== 'production'
+
 const nextConfig = {
   // Security headers — applied to every response.
   // Defense in depth: even if the app has bugs, these reduce blast radius.
@@ -30,11 +32,14 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'", // Next.js needs unsafe-inline for hydration
+              // Dev needs 'unsafe-eval' for Next.js's React Refresh / HMR runtime.
+              // Production stays strict.
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              `connect-src 'self' ${process.env.NEXT_PUBLIC_SUPABASE_URL || ''}`,
+              // Dev also needs the HMR websocket back to localhost.
+              `connect-src 'self' ${process.env.NEXT_PUBLIC_SUPABASE_URL || ''}${isDev ? ' ws://localhost:* http://localhost:*' : ''}`,
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
