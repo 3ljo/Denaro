@@ -60,14 +60,14 @@ export default function AuthShell({
             fill
             priority
             sizes="(min-width: 1024px) 640px, (min-width: 640px) 520px, 100vw"
-            className="object-contain object-bottom animate-float drop-shadow-[0_0_60px_rgba(34,211,238,0.3)]"
+            className="object-contain object-bottom drop-shadow-[0_0_60px_rgba(34,211,238,0.3)]"
           />
         </div>
       </div>
 
       {/* Hologram form panel — compact overlay on character chest/hologram area */}
       <div
-        className="absolute z-30 w-[min(88vw,320px)]"
+        className="absolute z-30 w-[min(86vw,300px)]"
         style={{ left: '50%', top: formY, transform: 'translate(-50%, -50%)' }}
       >
         <HologramFrame>
