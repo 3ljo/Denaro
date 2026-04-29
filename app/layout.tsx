@@ -1,16 +1,30 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter, Orbitron } from 'next/font/google'
 import './globals.css'
 import ServiceWorkerRegister from './sw-register'
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  variable: '--font-orbitron',
+  weight: ['500', '600', '700', '800'],
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'Auth System',
-  description: 'Bulletproof Supabase auth',
+  title: 'Denaro // Auth',
+  description: 'Denaro secure access portal',
   manifest: '/manifest.webmanifest',
-  applicationName: 'Auth System',
+  applicationName: 'Denaro',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
-    title: 'Auth',
+    statusBarStyle: 'black-translucent',
+    title: 'Denaro',
   },
   icons: {
     icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
@@ -26,10 +40,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
-  ],
+  themeColor: '#050810',
 }
 
 export default function RootLayout({
@@ -38,8 +49,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-dvh bg-neutral-50 text-neutral-900 antialiased">
+    <html lang="en" className={`${inter.variable} ${orbitron.variable}`}>
+      <body className="min-h-dvh bg-denaro-bg font-sans text-cyan-50 antialiased">
         {children}
         <ServiceWorkerRegister />
       </body>

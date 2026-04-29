@@ -7,32 +7,202 @@
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     text-rendering: optimizeLegibility;
+    color-scheme: dark;
   }
 
   body {
-    /* Honour iOS notch / Android nav bar so content never sits under system UI. */
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
     overscroll-behavior-y: none;
+    background-color: #050810;
+    color: #e0f2fe;
   }
 
-  /* iOS Safari zooms inputs whose font-size is < 16px on focus.
-     Lock all form fields to 16px to disable that zoom jump. */
-  input,
-  textarea,
-  select {
-    font-size: 16px;
+  /* iOS Safari zooms inputs whose font-size is < 16px on focus. */
+  input, textarea, select { font-size: 16px; }
+
+  button, [role='button'], a { touch-action: manipulation; }
+
+  /* Autofill: kill the browser's white box on dark inputs. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #e0f2fe;
+    -webkit-box-shadow: 0 0 0 1000px rgba(8, 47, 73, 0.6) inset;
+    caret-color: #7dd3fc;
+    transition: background-color 9999s ease-in-out 0s;
   }
 
-  /* Buttons feel snappier without the synthesized 300ms tap delay. */
-  button,
-  [role='button'],
-  a {
-    touch-action: manipulation;
-  }
+  ::selection { background: rgba(34, 211, 238, 0.35); color: #f0f9ff; }
 }
 
 @layer utilities {
-  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+  /* Cosmic grid backdrop */
+  .denaro-grid {
+    background-image:
+      linear-gradient(rgba(125, 211, 252, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
+            mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
+  }
+
+  .denaro-stars {
+    background-image:
+      radial-gradient(1px 1px at 20% 30%,  rgba(186, 230, 253, 0.55) 50%, transparent 100%),
+      radial-gradient(1px 1px at 70% 60%,  rgba(254, 240, 138, 0.45) 50%, transparent 100%),
+      radial-gradient(1px 1px at 40% 80%,  rgba(186, 230, 253, 0.45) 50%, transparent 100%),
+      radial-gradient(1px 1px at 85% 20%,  rgba(186, 230, 253, 0.45) 50%, transparent 100%),
+      radial-gradient(1px 1px at 10% 70%,  rgba(254, 240, 138, 0.35) 50%, transparent 100%),
+      radial-gradient(1px 1px at 55% 15%,  rgba(186, 230, 253, 0.35) 50%, transparent 100%);
+    background-size: 100% 100%;
+  }
+
+  .denaro-noise {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.7 0 0 0 0 0.9 0 0 0 0.06 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  }
+
+  /* Typewriter / scan caret line */
+  .denaro-scanline {
+    background: linear-gradient(90deg, transparent 0%, rgba(125, 211, 252, 0.35) 50%, transparent 100%);
+    box-shadow: 0 0 18px 2px rgba(125, 211, 252, 0.5);
+  }
+}
+
+@layer components {
+  /* Hologram panel border glow */
+  .denaro-panel {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(125, 211, 252, 0.10) 0%, rgba(15, 23, 42, 0.55) 60%, rgba(125, 211, 252, 0.06) 100%);
+    border: 1px solid rgba(125, 211, 252, 0.35);
+    box-shadow:
+      0 0 0 1px rgba(125, 211, 252, 0.08) inset,
+      0 0 60px rgba(34, 211, 238, 0.15),
+      0 0 120px rgba(34, 211, 238, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* Inputs */
+  .denaro-input {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid rgba(125, 211, 252, 0.25);
+    background-color: rgba(8, 47, 73, 0.35);
+    padding: 0.75rem 0.85rem;
+    color: #e0f2fe;
+    letter-spacing: 0.02em;
+    transition: border-color 200ms, background-color 200ms, box-shadow 200ms;
+    outline: none;
+  }
+  .denaro-input::placeholder { color: rgba(125, 211, 252, 0.35); }
+  .denaro-input:hover { border-color: rgba(125, 211, 252, 0.45); }
+  .denaro-input:focus {
+    border-color: rgba(125, 211, 252, 0.75);
+    background-color: rgba(8, 47, 73, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(125, 211, 252, 0.4),
+      0 0 22px rgba(34, 211, 238, 0.28),
+      inset 0 0 12px rgba(34, 211, 238, 0.08);
+  }
+
+  .denaro-label {
+    display: block;
+    font-size: 0.7rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.75);
+    margin-bottom: 0.45rem;
+  }
+
+  /* Primary button - gold gradient (Denaro's accent) */
+  .denaro-btn {
+    position: relative;
+    width: 100%;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #1a1303;
+    background: linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #d97706 100%);
+    background-size: 200% 200%;
+    transition: filter 200ms, box-shadow 200ms, transform 80ms;
+    border: 1px solid rgba(253, 230, 138, 0.6);
+    cursor: pointer;
+  }
+  .denaro-btn:hover:not(:disabled) {
+    filter: brightness(1.08);
+    box-shadow:
+      0 0 0 1px rgba(253, 230, 138, 0.7),
+      0 0 28px rgba(251, 191, 36, 0.55);
+  }
+  .denaro-btn:active:not(:disabled) { transform: translateY(1px); }
+  .denaro-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Ghost button */
+  .denaro-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid rgba(125, 211, 252, 0.35);
+    padding: 0.55rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.9);
+    background: rgba(8, 47, 73, 0.3);
+    transition: border-color 200ms, background-color 200ms, color 200ms;
+  }
+  .denaro-btn-ghost:hover {
+    border-color: rgba(125, 211, 252, 0.7);
+    background-color: rgba(8, 47, 73, 0.5);
+    color: #e0f2fe;
+  }
+
+  /* Status pill */
+  .denaro-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.75);
+  }
+  .denaro-dot {
+    display: inline-block;
+    width: 6px; height: 6px; border-radius: 9999px;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+  }
+
+  /* Inline error / info banners */
+  .denaro-banner {
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 0.65rem 0.8rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  .denaro-banner-error {
+    border-color: rgba(248, 113, 113, 0.4);
+    background-color: rgba(127, 29, 29, 0.25);
+    color: #fecaca;
+  }
+  .denaro-banner-success {
+    border-color: rgba(74, 222, 128, 0.4);
+    background-color: rgba(20, 83, 45, 0.25);
+    color: #bbf7d0;
+  }
 }

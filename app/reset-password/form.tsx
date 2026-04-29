@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { resetPassword } from '@/lib/auth/actions'
+import AuthShell from '@/app/_components/auth-shell'
 
 export default function ResetPasswordForm() {
   const [error, setError] = useState<string | null>(null)
@@ -24,67 +25,61 @@ export default function ResetPasswordForm() {
   }
 
   return (
-    <main className="flex min-h-dvh items-center justify-center px-4 py-8 safe-top safe-bottom">
-      <div className="w-full max-w-sm space-y-6 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+    <AuthShell
+      image="/pic/main%20character%20forgetpassword.png"
+      imageAlt="Denaro encoding a new key"
+      badge="// KEY ▸ REFORGE"
+      title="New Passkey"
+      subtitle="Choose a strong key you haven’t used before."
+      routeCode=">> /AUTH/RECOVER/RESET"
+    >
+      <form action={handleSubmit} className="space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold">Set new password</h1>
-          <p className="mt-1 text-sm text-neutral-600">
-            Choose a strong password you haven&apos;t used before.
-          </p>
+          <label htmlFor="password" className="denaro-label">
+            New Passkey
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autoComplete="new-password"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            minLength={6}
+            placeholder="•••••• minimum 6"
+            className="denaro-input"
+          />
         </div>
 
-        <form action={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              New password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              autoComplete="new-password"
-              autoCapitalize="none"
-              autoCorrect="off"
-              spellCheck={false}
-              minLength={6}
-              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-3 focus:border-neutral-900 focus:outline-none"
-            />
-          </div>
+        <div>
+          <label htmlFor="confirm" className="denaro-label">
+            Confirm Passkey
+          </label>
+          <input
+            id="confirm"
+            name="confirm"
+            type="password"
+            required
+            autoComplete="new-password"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            minLength={6}
+            placeholder="repeat passkey"
+            className="denaro-input"
+          />
+        </div>
 
-          <div>
-            <label htmlFor="confirm" className="block text-sm font-medium">
-              Confirm password
-            </label>
-            <input
-              id="confirm"
-              name="confirm"
-              type="password"
-              required
-              autoComplete="new-password"
-              autoCapitalize="none"
-              autoCorrect="off"
-              spellCheck={false}
-              minLength={6}
-              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-3 focus:border-neutral-900 focus:outline-none"
-            />
-          </div>
+        {error && (
+          <div className="denaro-banner denaro-banner-error">{error}</div>
+        )}
 
-          {error && (
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-800">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-sm font-medium text-white hover:bg-neutral-800 active:bg-neutral-700 disabled:opacity-50"
-          >
-            {isPending ? 'Updating…' : 'Update password'}
-          </button>
-        </form>
-      </div>
-    </main>
+        <button type="submit" disabled={isPending} className="denaro-btn">
+          {isPending ? 'Reforging…' : 'Update Passkey'}
+        </button>
+      </form>
+    </AuthShell>
   )
 }

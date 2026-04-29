@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import AuthShell from '@/app/_components/auth-shell'
 
 export default async function AuthErrorPage({
   searchParams,
@@ -8,30 +9,40 @@ export default async function AuthErrorPage({
   const { reason } = await searchParams
 
   return (
-    <main className="flex min-h-dvh items-center justify-center px-4 py-8 safe-top safe-bottom">
-      <div className="w-full max-w-sm space-y-4 rounded-2xl border border-neutral-200 bg-white p-6 text-center shadow-sm sm:p-8">
-        <h1 className="text-xl font-semibold">Something went wrong</h1>
-        <p className="text-sm text-neutral-600">
-          The link is invalid, expired, or already used.
-        </p>
-        {reason && (
-          <p className="break-words text-xs text-neutral-500">Details: {reason}</p>
-        )}
-        <div className="space-y-1 pt-2">
+    <AuthShell
+      image="/pic/main%20character.png"
+      imageAlt="Denaro on standby"
+      badge="// SIGNAL ▸ LOST"
+      title="Connection Refused"
+      subtitle="The link is invalid, expired, or already used."
+      routeCode=">> /AUTH/ERROR"
+      footer={
+        <div className="space-y-2 text-center">
           <Link
             href="/login"
-            className="block py-2 text-sm font-medium text-neutral-900 hover:underline"
+            className="block text-xs font-semibold uppercase tracking-[0.2em] text-amber-300 hover:text-amber-200"
           >
-            Back to sign in
+            ← Back to access portal
           </Link>
           <Link
             href="/forgot-password"
-            className="block py-2 text-sm text-neutral-600 hover:text-neutral-900"
+            className="block text-[0.7rem] tracking-wide text-cyan-100/60 hover:text-cyan-100"
           >
-            Request new reset link
+            Request a new recovery link
           </Link>
         </div>
-      </div>
-    </main>
+      }
+    >
+      {reason && (
+        <div className="denaro-banner denaro-banner-error break-words">
+          Details: {reason}
+        </div>
+      )}
+      {!reason && (
+        <p className="text-sm text-cyan-100/60">
+          Try signing in again, or request a new link if this was a recovery email.
+        </p>
+      )}
+    </AuthShell>
   )
 }
