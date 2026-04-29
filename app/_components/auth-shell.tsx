@@ -65,54 +65,54 @@ export default function AuthShell({
         </div>
       </div>
 
-      {/* Hologram form panel — overlay centered on character chest/hologram area */}
+      {/* Hologram form panel — compact overlay on character chest/hologram area */}
       <div
-        className="absolute z-30 w-[min(92vw,420px)]"
+        className="absolute z-30 w-[min(88vw,320px)]"
         style={{ left: '50%', top: formY, transform: 'translate(-50%, -50%)' }}
       >
         <HologramFrame>
           {/* Top status bar */}
-          <div className="flex items-center justify-between border-b border-cyan-400/25 px-4 py-2 text-[0.6rem]">
-            <span className="denaro-pill">
+          <div className="flex items-center justify-between border-b border-cyan-400/25 px-3 py-1.5 text-[0.55rem]">
+            <span className="denaro-pill text-[0.55rem]">
               <span className="denaro-dot" />
               Denaro.OS
             </span>
-            <span className="font-display tracking-[0.3em] text-cyan-200/70">
-              SECURE&nbsp;CHANNEL
+            <span className="font-display tracking-[0.28em] text-cyan-200/70">
+              SECURE
             </span>
           </div>
 
-          <div className="px-5 py-5 sm:px-6 sm:py-6">
+          <div className="px-4 py-4">
             {badge && (
-              <p className="mb-2 font-display text-[0.6rem] tracking-[0.4em] text-amber-300/90">
+              <p className="mb-1 font-display text-[0.55rem] tracking-[0.35em] text-amber-300/90">
                 {badge}
               </p>
             )}
-            <h1 className="font-display text-xl font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-2xl">
+            <h1 className="font-display text-base font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-lg">
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-1.5 text-[0.78rem] leading-relaxed text-cyan-100/60">
+              <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/60">
                 {subtitle}
               </p>
             )}
 
-            <div className="mt-5">{children}</div>
+            <div className="mt-4">{children}</div>
 
             {footer && (
-              <div className="mt-4 border-t border-cyan-400/15 pt-3.5 text-sm text-cyan-100/70">
+              <div className="mt-3 border-t border-cyan-400/15 pt-3 text-xs text-cyan-100/70">
                 {footer}
               </div>
             )}
           </div>
 
           {/* Bottom status bar */}
-          <div className="flex items-center justify-between border-t border-cyan-400/25 px-4 py-1.5 text-[0.58rem] text-cyan-200/55">
-            <span className="font-display tracking-[0.25em]">
+          <div className="flex items-center justify-between border-t border-cyan-400/25 px-3 py-1 text-[0.52rem] text-cyan-200/55">
+            <span className="font-display tracking-[0.22em]">
               {routeCode ?? '>> AUTH'}
             </span>
-            <span className="font-display tracking-[0.25em] text-amber-300/70">
-              ENC&nbsp;AES-256
+            <span className="font-display tracking-[0.22em] text-amber-300/70">
+              AES-256
             </span>
           </div>
         </HologramFrame>

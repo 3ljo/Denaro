@@ -70,13 +70,13 @@ export default function RegisterPage() {
 
   return (
     <AuthShell
-      image="/pic/denaro.png"
-      imageAlt="Denaro standing ready"
+      image="/pic/denaro-login.png"
+      imageAlt="Denaro presenting the registration hologram"
       badge="// PROFILE ▸ INITIALIZE"
       title="New Operator"
       subtitle="Register to receive a Denaro identity."
       routeCode=">> /AUTH/REGISTER"
-      formY="46%"
+      formY="50%"
       footer={
         <p className="text-center text-xs tracking-wide">
           Already onboard?{' '}
