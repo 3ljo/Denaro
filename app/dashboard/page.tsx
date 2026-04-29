@@ -1,18 +1,23 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getProfile } from '@/lib/profile/actions'
 import { logout } from '@/lib/auth/actions'
-import DenaroChat from './_components/denaro-chat'
+import { STRATEGY_LABEL } from '@/lib/profile/types'
+import DashboardContent from './_components/dashboard-content'
 
 export default async function DashboardPage() {
-  // SECURITY: This is the SECOND check (middleware does the first).
-  // Defense in depth — never rely on middleware alone for authorization.
+  // Defense in depth — middleware does the first check.
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-
   if (!user) redirect('/login')
 
+  const profile = await getProfile()
+  if (!profile?.onboarded_at) redirect('/onboarding')
+
+  const greeting = profile.display_name || user.email?.split('@')[0] || 'Operator'
+
   return (
-    <main className="relative h-dvh w-full overflow-hidden bg-denaro-bg safe-top safe-bottom">
+    <main className="relative min-h-dvh w-full bg-denaro-bg safe-top safe-bottom">
       {/* Cosmic backdrop */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-50" />
@@ -22,19 +27,24 @@ export default async function DashboardPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.7)_100%)]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex h-dvh w-full max-w-3xl flex-col gap-3 px-4 py-3 sm:py-4">
-        {/* Header */}
-        <header className="flex items-center justify-between gap-3">
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-4 px-3 py-3 sm:px-5 sm:py-5">
+        <header className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80">
               // ANALYST ▸ ONLINE
             </p>
             <h1 className="font-display text-lg font-bold uppercase tracking-[0.2em] text-cyan-50 sm:text-xl">
-              Denaro
+              Welcome back, {greeting}
             </h1>
+            <p className="mt-1 text-[0.7rem] tracking-wide text-cyan-100/50">
+              Lens:{' '}
+              <span className="text-amber-200/85">
+                {STRATEGY_LABEL[profile.strategy]}
+              </span>
+            </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="hidden break-all text-right text-[0.65rem] tracking-wide text-cyan-100/55 sm:inline">
+            <span className="hidden break-all text-right text-[0.65rem] tracking-wide text-cyan-100/45 sm:inline">
               {user.email}
             </span>
             <form action={logout}>
@@ -45,7 +55,7 @@ export default async function DashboardPage() {
           </div>
         </header>
 
-        <DenaroChat />
+        <DashboardContent profile={profile} />
       </div>
     </main>
   )

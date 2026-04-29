@@ -68,3 +68,19 @@ DROP TRIGGER IF EXISTS profiles_set_updated_at ON public.profiles;
 CREATE TRIGGER profiles_set_updated_at
   BEFORE UPDATE ON public.profiles
   FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
+
+-- =====================================================================
+-- Onboarding fields — operator's pairs / strategy / display name.
+-- onboarded_at is null until the operator finishes the survey.
+-- =====================================================================
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS pairs        TEXT[]      NOT NULL DEFAULT '{}'::text[],
+  ADD COLUMN IF NOT EXISTS strategy     TEXT        NOT NULL DEFAULT 'smc',
+  ADD COLUMN IF NOT EXISTS display_name TEXT,
+  ADD COLUMN IF NOT EXISTS onboarded_at TIMESTAMPTZ;
+
+-- Allow inserts so the upsert path in the onboarding action works even
+-- if the auto-create trigger above hasn't fired yet (e.g. for legacy users).
+DROP POLICY IF EXISTS "profiles_insert_own" ON public.profiles;
+CREATE POLICY "profiles_insert_own" ON public.profiles
+  FOR INSERT WITH CHECK (auth.uid() = id);
