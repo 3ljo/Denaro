@@ -53,13 +53,13 @@ export default function AuthShell({
         aria-hidden
         className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center"
       >
-        <div className="relative h-full w-full max-w-[420px] sm:max-w-[520px] lg:max-w-[640px]">
+        <div className="relative h-full w-full max-w-[520px] sm:max-w-[680px] lg:max-w-[820px]">
           <Image
             src={image}
             alt={imageAlt}
             fill
             priority
-            sizes="(min-width: 1024px) 640px, (min-width: 640px) 520px, 100vw"
+            sizes="(min-width: 1024px) 820px, (min-width: 640px) 680px, 100vw"
             className="object-contain object-bottom drop-shadow-[0_0_60px_rgba(34,211,238,0.3)]"
           />
         </div>

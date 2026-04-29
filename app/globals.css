@@ -73,31 +73,33 @@
 }
 
 @layer components {
-  /* Hologram panel border glow */
+  /* Hologram panel — translucent glass; Denaro shows through it */
   .denaro-panel {
     position: relative;
     background:
-      linear-gradient(180deg, rgba(125, 211, 252, 0.10) 0%, rgba(15, 23, 42, 0.55) 60%, rgba(125, 211, 252, 0.06) 100%);
-    border: 1px solid rgba(125, 211, 252, 0.35);
+      linear-gradient(180deg, rgba(125, 211, 252, 0.10) 0%, rgba(15, 23, 42, 0.20) 60%, rgba(125, 211, 252, 0.08) 100%);
+    border: 1px solid rgba(125, 211, 252, 0.40);
     box-shadow:
-      0 0 0 1px rgba(125, 211, 252, 0.08) inset,
-      0 0 60px rgba(34, 211, 238, 0.15),
-      0 0 120px rgba(34, 211, 238, 0.08);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+      0 0 0 1px rgba(125, 211, 252, 0.10) inset,
+      0 0 60px rgba(34, 211, 238, 0.18),
+      0 0 120px rgba(34, 211, 238, 0.10);
+    backdrop-filter: blur(8px) saturate(1.2);
+    -webkit-backdrop-filter: blur(8px) saturate(1.2);
   }
 
   /* Inputs */
   .denaro-input {
     width: 100%;
     border-radius: 6px;
-    border: 1px solid rgba(125, 211, 252, 0.25);
-    background-color: rgba(8, 47, 73, 0.35);
+    border: 1px solid rgba(125, 211, 252, 0.30);
+    background-color: rgba(8, 30, 55, 0.55);
     padding: 0.75rem 0.85rem;
     color: #e0f2fe;
     letter-spacing: 0.02em;
     transition: border-color 200ms, background-color 200ms, box-shadow 200ms;
     outline: none;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
   .denaro-input::placeholder { color: rgba(125, 211, 252, 0.35); }
   .denaro-input:hover { border-color: rgba(125, 211, 252, 0.45); }
