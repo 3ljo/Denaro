@@ -28,8 +28,25 @@ const PAIR_TO_YAHOO: Record<string, string> = {
   SILVER: 'SI=F',
 }
 
-export type Interval = '5m' | '15m' | '30m' | '1h' | '4h' | '1d' | '1wk'
-export const INTERVALS: Interval[] = ['5m', '15m', '30m', '1h', '4h', '1d', '1wk']
+export type Interval =
+  | '5m'
+  | '15m'
+  | '30m'
+  | '1h'
+  | '4h'
+  | '1d'
+  | '1wk'
+  | '1mo'
+export const INTERVALS: Interval[] = [
+  '5m',
+  '15m',
+  '30m',
+  '1h',
+  '4h',
+  '1d',
+  '1wk',
+  '1mo',
+]
 
 export type OHLCBar = {
   /** Unix epoch in seconds (UTC). */
@@ -49,6 +66,7 @@ const INTERVAL_PARAMS: Record<Interval, { yi: string; range: string; aggregate?:
   '4h':  { yi: '60m', range: '3mo', aggregate: 4 },
   '1d':  { yi: '1d',  range: '1y' },
   '1wk': { yi: '1wk', range: '5y' },
+  '1mo': { yi: '1mo', range: 'max' },
 }
 
 export async function fetchOHLC(
