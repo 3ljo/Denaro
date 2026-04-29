@@ -175,6 +175,26 @@
     color: #e0f2fe;
   }
 
+  /* LIVE event pulse — used by news cards when an event is in its release window */
+  .denaro-live {
+    animation: denaroLive 1.4s ease-in-out infinite;
+  }
+  @keyframes denaroLive {
+    0%, 100% {
+      box-shadow:
+        0 0 0 1px rgba(244, 63, 94, 0.4),
+        0 0 12px 0 rgba(244, 63, 94, 0.25) inset;
+      background-color: rgba(244, 63, 94, 0.08);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px rgba(244, 63, 94, 0.95),
+        0 0 22px 4px rgba(244, 63, 94, 0.35),
+        0 0 12px 0 rgba(244, 63, 94, 0.4) inset;
+      background-color: rgba(244, 63, 94, 0.18);
+    }
+  }
+
   /* Status pill */
   .denaro-pill {
     display: inline-flex;

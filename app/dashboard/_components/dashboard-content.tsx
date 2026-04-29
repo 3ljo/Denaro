@@ -6,7 +6,7 @@ import TickerBar from './ticker-bar'
 import ChartCard from './chart-card'
 import PairCard from './pair-card'
 import NewsCard from './news-card'
-import ChartUpload from './chart-upload'
+import VisionCard from './vision-card'
 import AskDenaro from './ask-denaro'
 
 export default function DashboardContent({ profile }: { profile: Profile }) {
@@ -27,16 +27,12 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
 
         <div className="space-y-5">
           {profile.pairs.map((pair) => (
-            <PairRow
-              key={pair}
-              pair={pair}
-              strategy={profile.strategy}
-            />
+            <PairRow key={pair} pair={pair} strategy={profile.strategy} />
           ))}
         </div>
       </section>
 
-      <ChartUpload />
+      <VisionCard pairs={profile.pairs} />
 
       <AskDenaro />
     </div>
