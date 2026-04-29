@@ -4,6 +4,7 @@ import {
   buildCardPrompt,
   type Card,
 } from '@/lib/denaro/structured-analysis'
+import { fetchSpotPrice } from '@/lib/market/price'
 import { isStrategy } from '@/lib/profile/types'
 import OpenAI from 'openai'
 
@@ -31,6 +32,10 @@ export async function POST(req: Request) {
   const strategy = isStrategy(body.strategy) ? body.strategy : 'smc'
   const today = new Date().toISOString().slice(0, 10)
 
+  // Fetch the live price so the model anchors levels to reality, not training
+  // data. Failure is non-fatal — buildCardPrompt has a fallback branch.
+  const spot = await fetchSpotPrice(pair)
+
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
   try {
@@ -38,10 +43,10 @@ export async function POST(req: Request) {
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: CARD_SYSTEM_PROMPT },
-        { role: 'user', content: buildCardPrompt(pair, strategy, today) },
+        { role: 'user', content: buildCardPrompt(pair, strategy, today, spot) },
       ],
       max_tokens: 600,
-      temperature: 0.55,
+      temperature: 0.45,
       response_format: { type: 'json_object' },
     })
 

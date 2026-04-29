@@ -1,6 +1,7 @@
 'use client'
 
 import type { Profile } from '@/lib/profile/types'
+import SessionBar from './session-bar'
 import TickerBar from './ticker-bar'
 import PairCard from './pair-card'
 import ChartUpload from './chart-upload'
@@ -9,6 +10,7 @@ import AskDenaro from './ask-denaro'
 export default function DashboardContent({ profile }: { profile: Profile }) {
   return (
     <div className="flex flex-1 flex-col gap-4 pb-6">
+      <SessionBar />
       <TickerBar pairs={profile.pairs} />
 
       <section>

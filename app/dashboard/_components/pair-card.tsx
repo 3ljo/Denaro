@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import type { Card } from '@/lib/denaro/structured-analysis'
 import type { Strategy } from '@/lib/profile/types'
+import DenaroChart from './denaro-chart'
 
 export default function PairCard({
   pair,
@@ -67,6 +68,8 @@ export default function PairCard({
           </button>
         </div>
       </header>
+
+      <DenaroChart symbol={pair} />
 
       {loading && !card && <Skeleton />}
       {error && !card && <ErrorView error={error} />}

@@ -1,4 +1,5 @@
 import { STRATEGY_LABEL, type Strategy } from '@/lib/profile/types'
+import type { SpotPrice } from '@/lib/market/price'
 
 /**
  * System prompt for the dashboard pair cards. Returns a single JSON object
@@ -30,9 +31,35 @@ export type Card = {
   confluence_score: number
 }
 
-export function buildCardPrompt(pair: string, strategy: Strategy, dateISO: string) {
+export function buildCardPrompt(
+  pair: string,
+  strategy: Strategy,
+  dateISO: string,
+  spot?: SpotPrice,
+) {
   const lens = STRATEGY_LABEL[strategy]
-  return `Analyze ${pair} from a ${lens} perspective. Today is ${dateISO}. Return the JSON card.`
+
+  // CRITICAL: pass the live price into the prompt, otherwise the model
+  // anchors levels to whatever range was current in its training data
+  // (e.g. citing 2000 for XAUUSD when spot is actually 4500+).
+  const liveBlock =
+    spot && spot.price != null
+      ? `\n\nLIVE MARKET DATA (USE THIS — DO NOT USE TRAINING-DATA PRICES):
+- ${pair} spot price: ${spot.price}
+- Previous close: ${spot.prev ?? 'n/a'}
+- Day change: ${spot.changePercent != null ? spot.changePercent.toFixed(2) + '%' : 'n/a'}
+- Data fetched: ${spot.asOf}
+
+HARD CONSTRAINT: every support, resistance, and invalidation level you return
+MUST sit within ±8% of the live price ${spot.price}. Levels outside that band
+are wrong and will be rejected. If you find yourself citing a level from a
+prior price era, replace it.`
+      : `\n\nLIVE MARKET DATA: unavailable. Acknowledge this in the summary
+("levels approximate — live data unavailable") and use conservative estimates.`
+
+  return `Analyze ${pair} from a ${lens} perspective. Today is ${dateISO}.${liveBlock}
+
+Return the JSON card.`
 }
 
 /**
