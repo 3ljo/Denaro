@@ -7,7 +7,8 @@
  */
 
 const PAIR_TO_YAHOO: Record<string, string> = {
-  XAUUSD: 'XAUUSD=X',
+  // Yahoo dropped spot XAUUSD=X — use gold futures (continuous contract).
+  XAUUSD: 'GC=F',
   EURUSD: 'EURUSD=X',
   GBPUSD: 'GBPUSD=X',
   USDJPY: 'USDJPY=X',
