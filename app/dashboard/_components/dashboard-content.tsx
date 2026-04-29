@@ -34,7 +34,7 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
 
       <VisionCard pairs={profile.pairs} />
 
-      <AskDenaro />
+      <AskDenaro pairs={profile.pairs} strategy={profile.strategy} />
     </div>
   )
 }
