@@ -52,7 +52,7 @@ export default function OnboardingFlow({
 
   return (
     <main className="relative min-h-dvh w-full overflow-hidden bg-denaro-bg safe-top safe-bottom">
-      {/* Cosmic backdrop */}
+      {/* Cosmic backdrop only — no character behind the form */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-60" />
         <div className="absolute inset-0 denaro-grid" />
@@ -61,27 +61,29 @@ export default function OnboardingFlow({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.7)_100%)]" />
       </div>
 
-      {/* Denaro behind */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center"
-      >
-        <div className="relative h-full w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[760px]">
-          <Image
-            src="/pic/denaro-login.png"
-            alt=""
-            fill
-            priority
-            sizes="(min-width: 1024px) 760px, (min-width: 640px) 600px, 100vw"
-            className="object-contain object-bottom drop-shadow-[0_0_50px_rgba(34,211,238,0.3)]"
-          />
+      {/* Stage: side-by-side on lg+, stacked on mobile */}
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-6xl flex-col items-center justify-center gap-4 px-4 py-6 lg:flex-row lg:gap-10 lg:px-8 lg:py-10">
+        {/* Character standing alongside the calibration */}
+        <div className="relative flex w-full justify-center lg:flex-1">
+          <div className="relative h-[28vh] w-full max-w-[260px] sm:h-[36vh] sm:max-w-[320px] lg:h-[78vh] lg:max-w-[460px]">
+            <Image
+              src="/pic/denaro.png"
+              alt="Denaro"
+              fill
+              priority
+              sizes="(min-width: 1024px) 460px, (min-width: 640px) 320px, 260px"
+              className="object-contain object-bottom drop-shadow-[0_0_50px_rgba(34,211,238,0.3)]"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute bottom-0 left-1/2 h-10 w-[55%] -translate-x-1/2 rounded-full bg-cyan-400/30 blur-2xl animate-glowPulse lg:h-24 lg:w-[260px]"
+            />
+          </div>
         </div>
-        <div className="pointer-events-none absolute bottom-2 left-1/2 h-20 w-[260px] -translate-x-1/2 rounded-full bg-cyan-400/30 blur-3xl animate-glowPulse sm:bottom-6 sm:h-32 sm:w-[420px]" />
-      </div>
 
-      {/* Form panel */}
-      <div className="relative z-30 mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center px-4 py-6">
-        <div className="denaro-panel relative w-full overflow-hidden rounded-md">
+        {/* Form panel */}
+        <div className="w-full max-w-md lg:max-w-md lg:flex-1">
+          <div className="denaro-panel relative w-full overflow-hidden rounded-md">
           {/* Top bar */}
           <div className="flex items-center justify-between border-b border-cyan-400/25 px-3 py-1.5 text-[0.55rem]">
             <span className="denaro-pill text-[0.55rem]">
@@ -142,6 +144,7 @@ export default function OnboardingFlow({
                 onSubmit={submit}
               />
             )}
+          </div>
           </div>
         </div>
       </div>
