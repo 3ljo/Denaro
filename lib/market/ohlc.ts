@@ -1,10 +1,14 @@
 /**
- * OHLC candle fetcher — Yahoo Finance unofficial chart endpoint.
+ * OHLC candle fetcher.
  *
- * Yahoo intraday intervals (1m..60m) are rate-limited and have shorter range
- * caps. We aggregate 1h bars into 4h client-side because Yahoo doesn't expose
- * a native 4h bucket.
+ * Tries TwelveData first (real-time, native 4h bucket, supports our forex /
+ * metals / crypto symbols). Falls back to Yahoo's unofficial chart endpoint
+ * for indices and instruments TwelveData doesn't cover, with 1h→4h
+ * client-side aggregation since Yahoo lacks a native 4h bucket.
  */
+
+import { withCache } from './cache'
+import { tdSymbol, tdTimeSeries } from './twelvedata'
 
 const PAIR_TO_YAHOO: Record<string, string> = {
   // Yahoo dropped spot XAUUSD=X — use gold futures (continuous contract).
@@ -57,8 +61,41 @@ export type OHLCBar = {
   close: number
 }
 
-/** Map our intervals to (yahoo interval, yahoo range) windows. */
-const INTERVAL_PARAMS: Record<Interval, { yi: string; range: string; aggregate?: number }> = {
+/* --------------- Public --------------- */
+
+export async function fetchOHLC(
+  symbol: string,
+  interval: Interval,
+): Promise<OHLCBar[]> {
+  const upper = symbol.toUpperCase()
+  const apiKey = process.env.TWELVEDATA_API_KEY
+  const ttlMs = ohlcCacheTtl(interval)
+
+  // TwelveData first when supported
+  if (apiKey && tdSymbol(upper)) {
+    try {
+      const bars = await withCache(`td-ohlc:${upper}:${interval}`, ttlMs, () =>
+        tdTimeSeries(upper, interval, apiKey, 200),
+      )
+      if (bars && bars.length > 0) return bars
+    } catch (err) {
+      console.error('twelvedata time_series failed', err)
+      // fall through to Yahoo
+    }
+  }
+
+  // Yahoo fallback
+  return withCache(`yahoo-ohlc:${upper}:${interval}`, ttlMs, () =>
+    fetchYahooOHLC(upper, interval),
+  )
+}
+
+/* --------------- Yahoo --------------- */
+
+const YAHOO_INTERVAL_PARAMS: Record<
+  Interval,
+  { yi: string; range: string; aggregate?: number }
+> = {
   '5m':  { yi: '5m',  range: '5d' },
   '15m': { yi: '15m', range: '5d' },
   '30m': { yi: '30m', range: '1mo' },
@@ -69,13 +106,12 @@ const INTERVAL_PARAMS: Record<Interval, { yi: string; range: string; aggregate?:
   '1mo': { yi: '1mo', range: 'max' },
 }
 
-export async function fetchOHLC(
+async function fetchYahooOHLC(
   symbol: string,
   interval: Interval,
 ): Promise<OHLCBar[]> {
-  const upper = symbol.toUpperCase()
-  const yahoo = PAIR_TO_YAHOO[upper] ?? upper
-  const cfg = INTERVAL_PARAMS[interval] ?? INTERVAL_PARAMS['15m']
+  const yahoo = PAIR_TO_YAHOO[symbol] ?? symbol
+  const cfg = YAHOO_INTERVAL_PARAMS[interval] ?? YAHOO_INTERVAL_PARAMS['15m']
 
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahoo)}?interval=${cfg.yi}&range=${cfg.range}`
 
@@ -98,7 +134,10 @@ export async function fetchOHLC(
 
   const bars: OHLCBar[] = []
   for (let i = 0; i < ts.length; i++) {
-    const o = opens[i], h = highs[i], l = lows[i], c = closes[i]
+    const o = opens[i]
+    const h = highs[i]
+    const l = lows[i]
+    const c = closes[i]
     if (o == null || h == null || l == null || c == null) continue
     bars.push({ time: ts[i], open: o, high: h, low: l, close: c })
   }
@@ -123,4 +162,27 @@ function aggregate(bars: OHLCBar[], factor: number): OHLCBar[] {
     })
   }
   return out
+}
+
+/* --------------- Cache TTL by timeframe --------------- */
+
+function ohlcCacheTtl(interval: Interval): number {
+  switch (interval) {
+    case '5m':
+      return 12_000 // 12s — chart polls at 20s
+    case '15m':
+      return 30_000
+    case '30m':
+      return 45_000
+    case '1h':
+      return 60_000
+    case '4h':
+      return 120_000
+    case '1d':
+      return 300_000 // 5m
+    case '1wk':
+      return 30 * 60_000 // 30m
+    case '1mo':
+      return 60 * 60_000 // 1h
+  }
 }

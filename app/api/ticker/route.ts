@@ -1,11 +1,10 @@
 /**
- * Free-tier ticker — proxies Yahoo Finance unofficial chart endpoint.
- * No API key needed. Returns last close + day change for a list of pairs.
- * Yahoo's data is delayed (15-20m for indices, ~real-time for FX/crypto)
- * and rate-limited — fine for a "what's it doing today" indicator.
+ * Live ticker — TwelveData primary, Yahoo fallback. fetchSpotPrices() does
+ * a single batched TD /quote call for all eligible pairs in one network
+ * round-trip; only un-mapped or failed pairs fall through to Yahoo.
  */
 
-import { fetchSpotPrice } from '@/lib/market/price'
+import { fetchSpotPrices } from '@/lib/market/price'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -20,6 +19,6 @@ export async function GET(req: Request) {
 
   if (symbols.length === 0) return Response.json([])
 
-  const results = await Promise.all(symbols.map(fetchSpotPrice))
+  const results = await fetchSpotPrices(symbols)
   return Response.json(results, { headers: { 'Cache-Control': 'no-store' } })
 }
