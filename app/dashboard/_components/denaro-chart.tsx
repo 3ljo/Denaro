@@ -116,14 +116,16 @@ export default function DenaroChart({ symbol }: { symbol: string }) {
     const pollMs = pollIntervalFor(interval)
     if (!pollMs) return () => { cancelled = true }
 
-    const id = setInterval(() => {
+    // window.setInterval — the local state setter is also called setInterval
+    // and would shadow the global without the qualifier.
+    const id = window.setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return
       if (!cancelled) load()
     }, pollMs)
 
     return () => {
       cancelled = true
-      clearInterval(id)
+      window.clearInterval(id)
     }
   }, [symbol, interval])
 
