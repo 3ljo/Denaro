@@ -37,9 +37,8 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
       </div>
 
       <div className="flex-1">
-        {tab === 'markets' && <MarketsTab pairs={profile.pairs} />}
-        {tab === 'analysis' && (
-          <AnalysisTab pairs={profile.pairs} strategy={profile.strategy} />
+        {tab === 'markets' && (
+          <MarketsTab pairs={profile.pairs} strategy={profile.strategy} />
         )}
         {tab === 'news' && <NewsTab pairs={profile.pairs} />}
         {tab === 'vision' && <VisionCard pairs={profile.pairs} />}
@@ -55,18 +54,11 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
 
 /* --- Tab content --- */
 
-function MarketsTab({ pairs }: { pairs: string[] }) {
-  // Charts benefit from width — go 1 col on mobile/tablet, 2 col on lg+.
-  return (
-    <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-      {pairs.map((pair) => (
-        <ChartCard key={pair} pair={pair} />
-      ))}
-    </div>
-  )
-}
-
-function AnalysisTab({
+/**
+ * Markets — one row per pair, with the live chart and the AI analysis
+ * pinned together. Mobile stacks them; lg+ runs them side-by-side.
+ */
+function MarketsTab({
   pairs,
   strategy,
 }: {
@@ -74,9 +66,15 @@ function AnalysisTab({
   strategy: Profile['strategy']
 }) {
   return (
-    <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+    <div className="space-y-5">
       {pairs.map((pair) => (
-        <PairCard key={pair} pair={pair} strategy={strategy} />
+        <div
+          key={pair}
+          className="grid grid-cols-1 gap-3 lg:grid-cols-2"
+        >
+          <ChartCard pair={pair} />
+          <PairCard pair={pair} strategy={strategy} />
+        </div>
       ))}
     </div>
   )
