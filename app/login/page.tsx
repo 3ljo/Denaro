@@ -45,12 +45,13 @@ function LoginForm() {
 
   return (
     <AuthShell
-      image="/pic/main%20character%20AWTH.png"
+      image="/pic/denaro-login.png"
       imageAlt="Denaro presenting the access hologram"
       badge="// IDENTITY ▸ VERIFY"
       title="Access Portal"
       subtitle="Authenticate to enter the Denaro grid."
       routeCode=">> /AUTH/LOGIN"
+      formY="50%"
       footer={
         <p className="text-center text-xs tracking-wide">
           No clearance yet?{' '}

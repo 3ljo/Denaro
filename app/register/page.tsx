@@ -45,12 +45,13 @@ export default function RegisterPage() {
   if (successMsg) {
     return (
       <AuthShell
-        image="/pic/main%20character%20AWTH%20verification.png"
+        image="/pic/denaro-verify.png"
         imageAlt="Denaro inspecting the verification hologram"
         badge="// LINK ▸ DISPATCHED"
         title="Verify Inbox"
         subtitle="Your verification link has been transmitted."
         routeCode=">> /AUTH/VERIFY"
+        formY="46%"
         footer={
           <p className="text-center text-xs tracking-wide">
             <Link href="/login" className="font-semibold text-amber-300 hover:text-amber-200">
@@ -69,12 +70,13 @@ export default function RegisterPage() {
 
   return (
     <AuthShell
-      image="/pic/main%20character.png"
+      image="/pic/denaro.png"
       imageAlt="Denaro standing ready"
       badge="// PROFILE ▸ INITIALIZE"
       title="New Operator"
       subtitle="Register to receive a Denaro identity."
       routeCode=">> /AUTH/REGISTER"
+      formY="46%"
       footer={
         <p className="text-center text-xs tracking-wide">
           Already onboard?{' '}
