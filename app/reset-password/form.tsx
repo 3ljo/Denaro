@@ -26,13 +26,13 @@ export default function ResetPasswordForm() {
 
   return (
     <AuthShell
-      image="/pic/denaro-recover.png"
+      image="/pic/denaro-login.png"
       imageAlt="Denaro encoding a new key"
       badge="// KEY ▸ REFORGE"
       title="New Passkey"
       subtitle="Choose a strong key you haven’t used before."
       routeCode=">> /AUTH/RECOVER/RESET"
-      formY="46%"
+      formY="50%"
     >
       <form action={handleSubmit} className="space-y-4">
         <div>

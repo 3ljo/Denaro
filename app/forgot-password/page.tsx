@@ -18,13 +18,13 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthShell
-      image="/pic/denaro-recover.png"
+      image="/pic/denaro-login.png"
       imageAlt="Denaro recovering the access hologram"
       badge="// KEY ▸ RECOVER"
       title="Reset Passkey"
       subtitle="Enter your email and we’ll transmit a recovery link."
       routeCode=">> /AUTH/RECOVER"
-      formY="46%"
+      formY="50%"
       footer={
         <p className="text-center text-xs tracking-wide">
           <Link href="/login" className="font-semibold text-amber-300 hover:text-amber-200">

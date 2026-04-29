@@ -10,13 +10,13 @@ export default async function AuthErrorPage({
 
   return (
     <AuthShell
-      image="/pic/denaro.png"
+      image="/pic/denaro-login.png"
       imageAlt="Denaro on standby"
       badge="// SIGNAL ▸ LOST"
       title="Connection Refused"
       subtitle="The link is invalid, expired, or already used."
       routeCode=">> /AUTH/ERROR"
-      formY="46%"
+      formY="50%"
       footer={
         <div className="space-y-2 text-center">
           <Link

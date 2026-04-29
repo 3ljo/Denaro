@@ -13,13 +13,13 @@ export default async function ResetPasswordPage() {
   if (!user) {
     return (
       <AuthShell
-        image="/pic/denaro-recover.png"
+        image="/pic/denaro-login.png"
         imageAlt="Denaro signaling an invalid link"
         badge="// LINK ▸ INVALID"
         title="Recovery Failed"
         subtitle="Your reset link is no longer valid or has expired."
         routeCode=">> /AUTH/RECOVER/EXPIRED"
-        formY="46%"
+        formY="50%"
         footer={
           <p className="text-center text-xs tracking-wide">
             <Link href="/login" className="font-semibold text-amber-300 hover:text-amber-200">

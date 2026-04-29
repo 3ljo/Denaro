@@ -45,13 +45,13 @@ export default function RegisterPage() {
   if (successMsg) {
     return (
       <AuthShell
-        image="/pic/denaro-verify.png"
-        imageAlt="Denaro inspecting the verification hologram"
+        image="/pic/denaro-login.png"
+        imageAlt="Denaro confirming verification dispatch"
         badge="// LINK ▸ DISPATCHED"
         title="Verify Inbox"
         subtitle="Your verification link has been transmitted."
         routeCode=">> /AUTH/VERIFY"
-        formY="46%"
+        formY="50%"
         footer={
           <p className="text-center text-xs tracking-wide">
             <Link href="/login" className="font-semibold text-amber-300 hover:text-amber-200">
