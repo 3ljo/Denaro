@@ -62,18 +62,26 @@ export default function DenaroChart({ symbol }: { symbol: string }) {
     }
   }, [])
 
-  // Pull data when symbol/interval changes.
+  // Pull data when symbol/interval changes — and keep polling so the chart
+  // stays live. Polling cadence depends on the timeframe (faster for 5m,
+  // slow / off for 1W/1M). Pan & zoom are preserved on refresh — only the
+  // initial load fits the time scale.
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    setError(null)
+    let isInitial = true
 
-    fetch(`/api/ohlc?symbol=${symbol}&interval=${interval}`, { cache: 'no-store' })
-      .then(async (r) => {
+    async function load() {
+      if (isInitial) {
+        setLoading(true)
+        setError(null)
+      }
+      try {
+        const r = await fetch(
+          `/api/ohlc?symbol=${symbol}&interval=${interval}&_=${Date.now()}`,
+          { cache: 'no-store' },
+        )
         if (!r.ok) throw new Error(`fetch failed (${r.status})`)
-        return r.json() as Promise<{ bars: OHLCBar[] }>
-      })
-      .then((data) => {
+        const data = (await r.json()) as { bars: OHLCBar[] }
         if (cancelled) return
         const newBars = data.bars ?? []
         setBars(newBars)
@@ -89,18 +97,33 @@ export default function DenaroChart({ symbol }: { symbol: string }) {
               close: b.close,
             })),
           )
-          chart.timeScale().fitContent()
+          if (isInitial) chart.timeScale().fitContent()
         }
-      })
-      .catch((err: Error) => {
-        if (!cancelled) setError(err.message)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
+      } catch (err) {
+        if (cancelled) return
+        if (isInitial) setError(err instanceof Error ? err.message : 'failed')
+        // Silent on poll failures — keep last good chart on screen.
+      } finally {
+        if (!cancelled && isInitial) {
+          setLoading(false)
+          isInitial = false
+        }
+      }
+    }
+
+    load()
+
+    const pollMs = pollIntervalFor(interval)
+    if (!pollMs) return () => { cancelled = true }
+
+    const id = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return
+      if (!cancelled) load()
+    }, pollMs)
 
     return () => {
       cancelled = true
+      clearInterval(id)
     }
   }, [symbol, interval])
 
@@ -120,6 +143,12 @@ export default function DenaroChart({ symbol }: { symbol: string }) {
         <div className="flex items-baseline gap-2 overflow-hidden">
           {last ? (
             <>
+              <span
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-pulse"
+                style={{ boxShadow: '0 0 8px rgba(74, 222, 128, 0.85)' }}
+                aria-hidden
+                title="Live"
+              />
               <span className="font-mono text-base font-semibold text-cyan-50">
                 {fmtPrice(symbol, last.close)}
               </span>
@@ -186,6 +215,24 @@ export default function DenaroChart({ symbol }: { symbol: string }) {
 
     </div>
   )
+}
+
+/**
+ * Polling cadence per timeframe. Lower TFs refresh faster so new candles
+ * appear in near real-time. Weekly / monthly are off (stable enough to load
+ * once; refresh button can force a reload).
+ */
+function pollIntervalFor(tf: Interval): number | null {
+  switch (tf) {
+    case '5m':  return 20_000   // 20s
+    case '15m': return 45_000   // 45s
+    case '30m': return 75_000
+    case '1h':  return 120_000  // 2m
+    case '4h':  return 180_000  // 3m
+    case '1d':  return 300_000  // 5m
+    case '1wk': return null
+    case '1mo': return null
+  }
 }
 
 function fmtPrice(symbol: string, p: number) {

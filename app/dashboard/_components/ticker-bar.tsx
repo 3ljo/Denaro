@@ -20,9 +20,10 @@ export default function TickerBar({ pairs }: { pairs: string[] }) {
 
     async function pull() {
       try {
-        const res = await fetch(`/api/ticker?symbols=${pairs.join(',')}`, {
-          cache: 'no-store',
-        })
+        const res = await fetch(
+          `/api/ticker?symbols=${pairs.join(',')}&_=${Date.now()}`,
+          { cache: 'no-store' },
+        )
         if (!res.ok) return
         const json = (await res.json()) as Tick[]
         if (!cancelled) {
@@ -35,7 +36,7 @@ export default function TickerBar({ pairs }: { pairs: string[] }) {
     }
 
     pull()
-    const id = setInterval(pull, 30_000)
+    const id = setInterval(pull, 12_000)
     return () => {
       cancelled = true
       clearInterval(id)

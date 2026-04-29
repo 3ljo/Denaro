@@ -223,15 +223,20 @@ function TfChart({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Pull data
+  // Pull data — initial + polling so the snap captures fresh candles.
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    fetch(`/api/ohlc?symbol=${symbol}&interval=${tf.interval}`, {
-      cache: 'no-store',
-    })
-      .then((r) => r.json())
-      .then((data: { bars: OHLCBar[] }) => {
+    let isInitial = true
+
+    async function load() {
+      if (isInitial) setLoading(true)
+      try {
+        const r = await fetch(
+          `/api/ohlc?symbol=${symbol}&interval=${tf.interval}&_=${Date.now()}`,
+          { cache: 'no-store' },
+        )
+        if (!r.ok) return
+        const data = (await r.json()) as { bars: OHLCBar[] }
         if (cancelled) return
         const newBars = data.bars ?? []
         setBars(newBars)
@@ -247,13 +252,29 @@ function TfChart({
             })),
           )
         }
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
+      } catch {
+        // ignore — keep prior data on screen
+      } finally {
+        if (!cancelled && isInitial) {
+          setLoading(false)
+          isInitial = false
+        }
+      }
+    }
+
+    load()
+
+    // Match the per-pair chart cadence: HTF polls slowly, LTF fast.
+    const pollMs =
+      tf.interval === '4h' ? 180_000 : tf.interval === '1h' ? 120_000 : 45_000
+    const id = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return
+      if (!cancelled) load()
+    }, pollMs)
+
     return () => {
       cancelled = true
+      clearInterval(id)
     }
   }, [symbol, tf.interval])
 
