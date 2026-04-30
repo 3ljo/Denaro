@@ -1,10 +1,14 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import { useTranslations } from 'next-intl'
 import { resetPassword } from '@/lib/auth/actions'
 import AuthShell from '@/app/_components/auth-shell'
 
 export default function ResetPasswordForm() {
+  const t = useTranslations('auth.reset')
+  const tErr = useTranslations('auth.errors')
+
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -14,30 +18,30 @@ export default function ResetPasswordForm() {
     const password = formData.get('password') as string
     const confirm = formData.get('confirm') as string
     if (password !== confirm) {
-      setError('Passwords do not match')
+      setError(t('passwordsDoNotMatch'))
       return
     }
 
     startTransition(async () => {
       const result = await resetPassword(formData)
-      if (result?.error) setError(result.error)
+      if (result?.errorKey) setError(tErr(result.errorKey))
     })
   }
 
   return (
     <AuthShell
       image="/pic/denaro-login.png"
-      imageAlt="Denaro encoding a new key"
-      badge="// KEY ▸ REFORGE"
-      title="New Passkey"
-      subtitle="Choose a strong key you haven’t used before."
-      routeCode=">> /AUTH/RECOVER/RESET"
+      imageAlt={t('imageAlt')}
+      badge={t('badge')}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      routeCode={t('routeCode')}
       formY="50%"
     >
       <form action={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="password" className="denaro-label">
-            New Passkey
+            {t('newPasswordLabel')}
           </label>
           <input
             id="password"
@@ -49,14 +53,14 @@ export default function ResetPasswordForm() {
             autoCorrect="off"
             spellCheck={false}
             minLength={6}
-            placeholder="•••••• minimum 6"
+            placeholder={t('newPasswordPlaceholder')}
             className="denaro-input"
           />
         </div>
 
         <div>
           <label htmlFor="confirm" className="denaro-label">
-            Confirm Passkey
+            {t('confirmLabel')}
           </label>
           <input
             id="confirm"
@@ -68,7 +72,7 @@ export default function ResetPasswordForm() {
             autoCorrect="off"
             spellCheck={false}
             minLength={6}
-            placeholder="repeat passkey"
+            placeholder={t('confirmPlaceholder')}
             className="denaro-input"
           />
         </div>
@@ -78,7 +82,7 @@ export default function ResetPasswordForm() {
         )}
 
         <button type="submit" disabled={isPending} className="denaro-btn">
-          {isPending ? 'Reforging…' : 'Update Passkey'}
+          {isPending ? t('submitting') : t('submit')}
         </button>
       </form>
     </AuthShell>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   CandlestickSeries,
   createChart,
@@ -12,12 +13,17 @@ import type { Interval, OHLCBar } from '@/lib/market/ohlc'
 import { CHART_OPTIONS, CANDLE_OPTIONS } from './chart-theme'
 import FormattedAnalysis from './formatted-analysis'
 
-type Tf = { interval: Interval; label: string; tag: string; tvInterval: string }
+type Tf = {
+  interval: Interval
+  labelKey: 'tf4h' | 'tf1h' | 'tf15m'
+  tagKey: 'htf' | 'mtf' | 'ltf'
+  tvInterval: string
+}
 
 const STACK: Tf[] = [
-  { interval: '4h',  label: '4H',  tag: 'HTF', tvInterval: '240' },
-  { interval: '1h',  label: '1H',  tag: 'MTF', tvInterval: '60'  },
-  { interval: '15m', label: '15M', tag: 'LTF', tvInterval: '15'  },
+  { interval: '4h',  labelKey: 'tf4h',  tagKey: 'htf', tvInterval: '240' },
+  { interval: '1h',  labelKey: 'tf1h',  tagKey: 'mtf', tvInterval: '60'  },
+  { interval: '15m', labelKey: 'tf15m', tagKey: 'ltf', tvInterval: '15'  },
 ]
 
 // Same map used by the Markets-tab chart + ticker.
@@ -43,6 +49,9 @@ const TV_SYMBOL: Record<string, string> = {
 }
 
 export default function VisionCard({ pairs }: { pairs: string[] }) {
+  const t = useTranslations('dashboard.vision')
+  const tStack = useTranslations('dashboard.vision.stack')
+  const tCommon = useTranslations('common')
   const [selected, setSelected] = useState<string>(pairs[0] ?? 'XAUUSD')
 
   const [analyzing, setAnalyzing] = useState(false)
@@ -65,14 +74,14 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
 
       for (let i = 0; i < STACK.length; i++) {
         const chart = chartRefs.current[i]
-        if (!chart) throw new Error(`${STACK[i].label} chart not ready`)
+        if (!chart) throw new Error(t('errorChartNotReady', { label: tStack(STACK[i].labelKey) }))
 
         const source = chart.takeScreenshot()
         const out = document.createElement('canvas')
         out.width = source.width
         out.height = source.height
         const ctx = out.getContext('2d')
-        if (!ctx) throw new Error('canvas context unavailable')
+        if (!ctx) throw new Error(t('errorCanvas'))
         ctx.fillStyle = '#0a1322'
         ctx.fillRect(0, 0, out.width, out.height)
         ctx.drawImage(source, 0, 0)
@@ -80,28 +89,25 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
         const blob: Blob | null = await new Promise((resolve) =>
           out.toBlob(resolve, 'image/png'),
         )
-        if (!blob) throw new Error('snapshot failed')
+        if (!blob) throw new Error(t('errorSnapshot'))
 
         fd.append(
           'charts',
-          new File([blob], `${selected}-${STACK[i].label}.png`, {
+          new File([blob], `${selected}-${tStack(STACK[i].labelKey)}.png`, {
             type: 'image/png',
           }),
         )
       }
 
-      fd.append(
-        'note',
-        `${selected} multi-timeframe stack — chart 1 = HTF (4H), chart 2 = MTF (1H), chart 3 = LTF (15M).`,
-      )
+      fd.append('note', t('captureNote', { pair: selected }))
 
       const res = await fetch('/api/denaro/vision', {
         method: 'POST',
         body: fd,
       })
       if (!res.ok || !res.body) {
-        const t = await res.text().catch(() => 'request failed')
-        throw new Error(t)
+        const errText = await res.text().catch(() => t('errorRequest'))
+        throw new Error(errText)
       }
 
       const reader = res.body.getReader()
@@ -114,7 +120,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
         setAnalysis(acc)
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'failed')
+      setError(err instanceof Error ? err.message : t('errorFailed'))
     } finally {
       setAnalyzing(false)
     }
@@ -126,14 +132,13 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            // VISION ▸ MULTI-TF READ
+            {t('badge')}
           </p>
           <h2 className="font-display text-base font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-lg">
-            HTF → MTF → LTF Snap
+            {t('title')}
           </h2>
           <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/55">
-            Capture 4H · 1H · 15M for the selected pair and let Denaro read the
-            full stack.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -146,7 +151,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
             }}
             className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-200/45 transition hover:text-cyan-100/80"
           >
-            CLEAR
+            {tCommon('clear')}
           </button>
         )}
       </header>
@@ -193,7 +198,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
         disabled={analyzing}
         className="denaro-btn"
       >
-        {analyzing ? 'Reading the stack…' : 'Capture HTF → LTF & Analyze'}
+        {analyzing ? t('capturing') : t('capture')}
       </button>
 
       {/* Output */}
@@ -204,7 +209,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
           )}
           {analyzing && !analysis && !error && (
             <p className="font-display text-[0.6rem] tracking-[0.32em] text-cyan-200/60">
-              // READING THE STACK…
+              {t('reading')}
             </p>
           )}
           {analysis && <FormattedAnalysis text={analysis} />}
@@ -228,6 +233,7 @@ function TfPanel({
   tf: Tf
   onChartRef: (chart: IChartApi | null) => void
 }) {
+  const tStack = useTranslations('dashboard.vision.stack')
   return (
     <div className="relative overflow-hidden rounded border border-cyan-400/20 bg-slate-950/60">
       <div className="flex items-center justify-between border-b border-cyan-400/15 bg-cyan-500/[0.04] px-2 py-1">
@@ -235,7 +241,7 @@ function TfPanel({
           {symbol}
         </span>
         <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/80">
-          {tf.tag} · {tf.label}
+          {tStack(tf.tagKey)} · {tStack(tf.labelKey)}
         </span>
       </div>
 

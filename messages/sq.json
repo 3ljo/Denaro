@@ -1,0 +1,304 @@
+{
+  "common": {
+    "back": "Mbrapa",
+    "continue": "Vazhdo",
+    "clear": "PASTRO",
+    "refresh": "Rifresko",
+    "send": "Dërgo",
+    "loading": "…",
+    "signalLost": "// sinjal i humbur — {error}",
+    "language": "Gjuha"
+  },
+  "shell": {
+    "secure": "I SIGURT",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTENTIKIM"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro duke prezantuar hologramin e qasjes",
+      "badge": "// IDENTITETI ▸ VERIFIKO",
+      "title": "Portali i Qasjes",
+      "subtitle": "Autentikohu për të hyrë në rrjetin Denaro.",
+      "routeCode": ">> /AUTH/HYRJE",
+      "noClearance": "Nuk ke ende qasje?",
+      "requestAccess": "Kërko qasje",
+      "resetSuccess": "Fjalëkalimi u përditësua. Mund të hysh tani.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Çelësi",
+      "forgot": "Harruar?",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "Aktivizo",
+      "submitting": "Po autentikohet…",
+      "needVerify": "Duhet ta verifikosh linkun?",
+      "resend": "Ridërgo verifikimin"
+    },
+    "register": {
+      "imageAlt": "Denaro duke prezantuar hologramin e regjistrimit",
+      "imageAltSent": "Denaro duke konfirmuar dërgimin e verifikimit",
+      "badge": "// PROFILI ▸ INICIALIZO",
+      "badgeSent": "// LINKU ▸ I DËRGUAR",
+      "title": "Operator i Ri",
+      "titleSent": "Verifiko Inbox-in",
+      "subtitle": "Regjistrohu për të marrë një identitet Denaro.",
+      "subtitleSent": "Linku yt i verifikimit u transmetua.",
+      "routeCode": ">> /AUTH/REGJISTRIM",
+      "routeCodeSent": ">> /AUTH/VERIFIKIM",
+      "alreadyOnboard": "Tashmë i kyçur?",
+      "signIn": "Hyr",
+      "backPortal": "← Kthehu te portali i qasjes",
+      "spamHint": "Kontrollo spam-in nëse nuk vjen brenda një minute. Linku është i vlefshëm vetëm një herë.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Çelësi",
+      "passwordPlaceholder": "•••••• minimumi 6",
+      "passwordHint": "Minimumi 6 karaktere. Përziej shkronja dhe numra.",
+      "confirmLabel": "Konfirmo Çelësin",
+      "confirmPlaceholder": "përsërit çelësin",
+      "submit": "Krijo Identitetin",
+      "submitting": "Po kompilohet…",
+      "validation": {
+        "emailRequired": "Të lutem shkruaj email-in tënd",
+        "passwordRequired": "Të lutem shkruaj një fjalëkalim",
+        "passwordTooShort": "Fjalëkalimi duhet të jetë së paku 6 karaktere",
+        "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro duke rikuperuar hologramin e qasjes",
+      "badge": "// ÇELËSI ▸ RIKUPERO",
+      "title": "Rivendos Çelësin",
+      "subtitle": "Shkruaj email-in tënd dhe do të dërgojmë një link rikuperimi.",
+      "routeCode": ">> /AUTH/RIKUPERIM",
+      "backPortal": "← Kthehu te portali i qasjes",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "Dërgo Linkun e Rikuperimit",
+      "submitting": "Po transmetohet…"
+    },
+    "reset": {
+      "imageAlt": "Denaro duke koduar një çelës të ri",
+      "imageAltInvalid": "Denaro duke sinjalizuar një link të pavlefshëm",
+      "badge": "// ÇELËSI ▸ RIFORMËSO",
+      "badgeInvalid": "// LINKU ▸ I PAVLEFSHËM",
+      "title": "Çelës i Ri",
+      "titleInvalid": "Rikuperimi Dështoi",
+      "subtitle": "Zgjidh një çelës të fortë që nuk e ke përdorur më parë.",
+      "subtitleInvalid": "Linku yt i rivendosjes nuk është më i vlefshëm ose ka skaduar.",
+      "routeCode": ">> /AUTH/RIKUPERIM/RIVENDOS",
+      "routeCodeInvalid": ">> /AUTH/RIKUPERIM/SKADUAR",
+      "backPortal": "← Kthehu te portali i qasjes",
+      "requestNew": "Kërko Link të Ri",
+      "newPasswordLabel": "Çelësi i Ri",
+      "newPasswordPlaceholder": "•••••• minimumi 6",
+      "confirmLabel": "Konfirmo Çelësin",
+      "confirmPlaceholder": "përsërit çelësin",
+      "submit": "Përditëso Çelësin",
+      "submitting": "Po riformësohet…",
+      "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen"
+    },
+    "error": {
+      "imageAlt": "Denaro në gatishmëri",
+      "badge": "// SINJALI ▸ HUMBUR",
+      "title": "Lidhja u Refuzua",
+      "subtitle": "Linku është i pavlefshëm, ka skaduar ose është përdorur më parë.",
+      "routeCode": ">> /AUTH/GABIM",
+      "backPortal": "← Kthehu te portali i qasjes",
+      "requestNew": "Kërko një link të ri rikuperimi",
+      "details": "Detaje: {reason}",
+      "fallback": "Provo të hysh përsëri, ose kërko një link të ri nëse ky ishte një email rikuperimi."
+    },
+    "errors": {
+      "invalidEmail": "Email i pavlefshëm",
+      "emailTooLong": "Email shumë i gjatë",
+      "invalidPassword": "Fjalëkalim i pavlefshëm",
+      "passwordTooShort": "Fjalëkalimi duhet të jetë së paku 6 karaktere",
+      "passwordTooLong": "Fjalëkalim shumë i gjatë",
+      "invalidCredentials": "Email ose fjalëkalim i pavlefshëm",
+      "invalidCredentialsOrUnverified": "Email ose fjalëkalim i pavlefshëm, ose email-i nuk është verifikuar ende",
+      "resetExpired": "Linku i rivendosjes është i pavlefshëm ose ka skaduar. Të lutem kërko një të ri.",
+      "couldNotUpdatePassword": "Fjalëkalimi nuk u përditësua. Të lutem provo përsëri.",
+      "unauthorized": "i paautorizuar",
+      "pickAtLeastOnePair": "Zgjidh së paku 1 çift."
+    },
+    "messages": {
+      "registerSent": "Nëse ky email është i ri, kontrollo inbox-in tënd për të verifikuar llogarinë. Nëse tashmë ke një llogari, mund të hysh.",
+      "resetSent": "Nëse ekziston një llogari për këtë email, një link rivendosjeje u dërgua.",
+      "verificationSent": "Nëse llogaria jote ka nevojë për verifikim, një email i ri u dërgua."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "KALIBRIMI {current}/{total}",
+    "welcome": {
+      "badge": "// OPERATORI ▸ I IDENTIFIKUAR",
+      "title": "Mirë se erdhe në Rrjet",
+      "intro": "Denaro është analisti yt i tregtimit me AI. Për të akorduar sistemin sipas stilit tënd, përgjigju 3 pyetjeve të shpejta — çiftet e tua kryesore, lentja e strategjisë, dhe si duhet të të thërrasim.",
+      "duration": "Zgjat rreth 30 sekonda. Cilësimet mund të ndryshohen më vonë.",
+      "begin": "Fillo Kalibrimin"
+    },
+    "pairs": {
+      "badge": "// HAPI 01 ▸ TREGJET",
+      "title": "Zgjidh 3 çiftet e tua kryesore",
+      "subtitle": "Denaro do të akordojë analizën sipas këtyre tregjeve.",
+      "selected": "{count}/3 të zgjedhura"
+    },
+    "strategy": {
+      "badge": "// HAPI 02 ▸ LENTJA",
+      "title": "Zgjidh strategjinë tënde",
+      "subtitle": "Denaro do ta përdorë këtë lente për çdo analizë.",
+      "active": "AKTIVE"
+    },
+    "name": {
+      "badge": "// HAPI 03 ▸ EMRI",
+      "title": "Si duhet të të thërrasë Denaro?",
+      "subtitle": "Opsionale. Si parazgjedhje merr emrin e email-it tënd.",
+      "label": "Emri i shfaqur",
+      "placeholder": "Operator",
+      "submit": "Hyr në Rrjet",
+      "submitting": "Po aktivizohet…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "Rrjedha institucionale e porosive. BoS, CHoCH, blloqe porosish, FVG, fshirje likuiditeti."
+    },
+    "price-action": {
+      "label": "Veprimi i Çmimit",
+      "blurb": "Strukturë e pastër. Zona oferte / kërkese, leximi i qirinjve, profili i tregut."
+    },
+    "trend": {
+      "label": "Ndjekja e Trendit",
+      "blurb": "Shoqëro trendin dominues. Thyerje, hyrje në tërheqje, vazhdimi i momentum-it."
+    },
+    "mean-reversion": {
+      "label": "Rikthimi te Mesatarja",
+      "blurb": "Kundërshto ekstremet. Lojë në varg, hyrje në lodhje në kufijtë e vargut."
+    },
+    "scalping": {
+      "label": "Scalping",
+      "blurb": "Brenda ditës i shpejtë. Setup-e M1–M15, frekuencë e lartë, rrezik i ngushtë."
+    },
+    "swing": {
+      "label": "Swing Trading",
+      "blurb": "Pozicione shumë-ditore. Bias HTF (D1+H4), hyrje me durim, TP të zgjatura."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// ANALISTI ▸ ONLINE",
+      "welcomeBack": "Mirë se u ktheve, {name}",
+      "lens": "Lentja:",
+      "logout": "Shkëputu",
+      "operatorFallback": "Operator"
+    },
+    "tabs": {
+      "markets": "Tregjet",
+      "news": "Lajme",
+      "vision": "Vizion",
+      "channel": "Pyet"
+    },
+    "session": {
+      "session": "SESIONI",
+      "overlap": "MBIVENDOSJE",
+      "utc": "UTC",
+      "local": "LOKAL",
+      "sessions": {
+        "sydney": "SYDNEY",
+        "tokyo": "TOKYO",
+        "london": "LONDËR",
+        "newYork": "NEW YORK"
+      }
+    },
+    "ticker": {
+      "title": "Shiriti i çmimeve live"
+    },
+    "chartCard": {
+      "badge": "// GRAFIKU ▸ LIVE",
+      "realTime": "KOHË REALE"
+    },
+    "pairCard": {
+      "badge": "// ANALIZA",
+      "resistance": "Rezistenca",
+      "support": "Mbështetja",
+      "nextMove": "Lëvizja tjetër",
+      "invalidation": "Invalidimi",
+      "confluenceLabel": "Konfluenca {score}",
+      "bias": {
+        "bullish": "rritës",
+        "bearish": "rënës",
+        "range": "varg"
+      }
+    },
+    "newsCard": {
+      "badge": "// LAJME · KALENDAR",
+      "feedTitle": "Feed-i {pair}",
+      "live": "LIVE",
+      "high": "I LARTË",
+      "med": "MESATAR",
+      "highBadge": "LARTË",
+      "medBadge": "MES",
+      "now": "▶ TANI",
+      "empty": "Nuk ka ngjarje me ndikim mesatar / të lartë të planifikuara për {pair} këtë javë.",
+      "forecast": "P",
+      "previous": "M"
+    },
+    "vision": {
+      "badge": "// VIZION ▸ LEXIM SHUMË-TF",
+      "title": "Snap HTF → MTF → LTF",
+      "subtitle": "Kap 4H · 1H · 15M për çiftin e zgjedhur dhe lëre Denaro-n të lexojë të gjithë stivën.",
+      "capture": "Kap HTF → LTF dhe Analizo",
+      "capturing": "Po lexohet stiva…",
+      "reading": "// PO LEXOHET STIVA…",
+      "errorChartNotReady": "Grafiku {label} nuk është gati",
+      "errorCanvas": "konteksti i kanavasës i padisponueshëm",
+      "errorSnapshot": "kapja dështoi",
+      "errorRequest": "kërkesa dështoi",
+      "errorFailed": "dështoi",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "Stiva shumë-kohore e {pair} — grafiku 1 = HTF (4H), grafiku 2 = MTF (1H), grafiku 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// KANALI",
+      "title": "Pyet Denaro-n",
+      "subtitle": "Koncepte, rishikim setup-esh, llogaritje pozicioni, lexim tregu — gjithçka që nuk ka nevojë për një foto grafiku.",
+      "placeholder": "Pyet Denaro-n... (Shift+Enter për rresht të ri)",
+      "send": "Dërgo",
+      "sending": "Po transmetohet…",
+      "channelOpen": "// KANALI I HAPUR…",
+      "errorRequest": "kërkesa dështoi",
+      "errorFailed": "dështoi",
+      "examplesBadge": "// SHEMBUJ",
+      "tip": "Këshillë: kllapat katrore si {bracket} në modele janë vendmbajtëse — zëvendësoji para se të dërgosh.",
+      "examples": [
+        "Shpjego fshirjet e likuiditetit me shembuj në XAUUSD",
+        "Bleva EURUSD në 1.1750, SL 1.1720, TP 1.1810 — a ka diçka të gabuar?",
+        "Cilat ngjarje makro këtë javë mund të lëvizin çiftet USD?",
+        "Si ta lexoj rrjedhën e porosive në një grafik 15M?"
+      ],
+      "quick": {
+        "concept": "Kërkim koncepti",
+        "conceptPrompt": "Në një paragraf secili, shpjego CHoCH kundrejt BoS, dhe kur secili sinjalizon një ndryshim të vërtetë në strukturën e tregut.",
+        "whyMoving": "Pse po lëviz {pair}?",
+        "whyMovingPrompt": "Pse mund të jetë duke lëvizur {pair} ashtu siç është tani? Jep 3 shtytës të mundshëm — makro, strukturorë, dhe të nxitur nga sesioni — dhe renditi sipas mundësisë.",
+        "sizing": "Llogaritje madhësie pozicioni",
+        "sizingPrompt": "Më ndihmo të llogaris madhësinë e një tregtie. Madhësia e llogarisë: $[1000]. Rreziku për tregti: [1]%. Çifti: {pair}. Hyrja: [çmim]. Stop loss: [çmim]. Llogarit: rrezikun në dollarë, madhësinë e pozicionit në lote/njësi, dhe një kontroll të distancës së SL.",
+        "review": "Rishiko setup-in tim",
+        "reviewPrompt": "Rishiko këtë setup për {pair} nga një perspektivë {lens}.\n\nHyrja: [çmim]\nStop loss: [çmim]\nTake profit: [çmim]\nArsyeja: [pse po e marr]\n\nThuamë: a është struktura e pastër? Çfarë e invalidon? A kam humbur diçka?",
+        "session": "Sesioni më i mirë",
+        "sessionPrompt": "Për çiftet e mia ({list}) dhe një qasje {lens}, cilat sesione tregtimi historikisht ofrojnë setup-et më të pastra, dhe pse? Ji specifik për dritaret e volatilitetit dhe shmang këshillat e përgjithshme.",
+        "backtest": "Plan backtest-i",
+        "backtestPrompt": "Më jep një plan 5-hapësh për të backtestuar një strategji {lens} në {pair}. Përfshi: dritaren e të dhënave, rregullin e hyrjes, rregullin e daljes, statistikat për të ndjekur, dhe çfarë diskualifikon strategjinë."
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import type { Profile } from '@/lib/profile/types'
 import SessionBar from './session-bar'
 import TickerBar from './ticker-bar'
@@ -12,14 +13,12 @@ import AskDenaro from './ask-denaro'
 import {
   DesktopTabBar,
   MobileBottomNav,
-  DASHBOARD_TABS,
   type TabId,
 } from './dashboard-nav'
 
 export default function DashboardContent({ profile }: { profile: Profile }) {
   const [tab, setTab] = useState<TabId>('markets')
-
-  const tabMeta = DASHBOARD_TABS.find((t) => t.id === tab)
+  const tTabs = useTranslations('dashboard.tabs')
 
   return (
     // Bottom padding clears the fixed mobile nav (~64px tall + safe area).
@@ -32,7 +31,7 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
       {/* Mobile-only contextual title for the active tab */}
       <div className="flex items-baseline justify-between lg:hidden">
         <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-          // {tabMeta?.label.toUpperCase()}
+          // {tTabs(tab).toUpperCase()}
         </p>
       </div>
 

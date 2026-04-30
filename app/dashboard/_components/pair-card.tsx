@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import type { Card } from '@/lib/denaro/structured-analysis'
 import type { Strategy } from '@/lib/profile/types'
 
@@ -11,6 +12,8 @@ export default function PairCard({
   pair: string
   strategy: Strategy
 }) {
+  const t = useTranslations('dashboard.pairCard')
+  const tCommon = useTranslations('common')
   const [card, setCard] = useState<Card | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -48,7 +51,7 @@ export default function PairCard({
       <header className="flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            // ANALYSIS
+            {t('badge')}
           </p>
           <h3 className="font-display text-lg font-bold uppercase tracking-[0.18em] text-cyan-50">
             {pair}
@@ -60,7 +63,7 @@ export default function PairCard({
             type="button"
             onClick={() => load(true)}
             disabled={loading}
-            aria-label="Refresh"
+            aria-label={tCommon('refresh')}
             className="rounded border border-cyan-400/30 bg-cyan-500/[0.06] px-2 py-1 font-display text-[0.6rem] tracking-[0.2em] text-cyan-100/80 transition hover:border-cyan-300/60 hover:bg-cyan-500/10 disabled:opacity-40"
           >
             {loading ? '…' : '↻'}
@@ -76,6 +79,7 @@ export default function PairCard({
 }
 
 function CardBody({ card }: { card: Card }) {
+  const t = useTranslations('dashboard.pairCard')
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
@@ -87,19 +91,20 @@ function CardBody({ card }: { card: Card }) {
       </p>
 
       <div className="grid grid-cols-2 gap-2">
-        <LevelList title="Resistance" levels={card.key_resistances} tone="rose" />
-        <LevelList title="Support" levels={card.key_supports} tone="emerald" />
+        <LevelList title={t('resistance')} levels={card.key_resistances} tone="rose" />
+        <LevelList title={t('support')} levels={card.key_supports} tone="emerald" />
       </div>
 
       <div className="space-y-1.5 border-t border-cyan-400/15 pt-2.5">
-        <Field label="Next move" value={card.next_move} />
-        <Field label="Invalidation" value={card.invalidation} />
+        <Field label={t('nextMove')} value={card.next_move} />
+        <Field label={t('invalidation')} value={card.invalidation} />
       </div>
     </div>
   )
 }
 
 function BiasPill({ bias }: { bias: 'bullish' | 'bearish' | 'range' }) {
+  const t = useTranslations('dashboard.pairCard.bias')
   const map = {
     bullish: 'border-emerald-400/50 bg-emerald-500/15 text-emerald-200',
     bearish: 'border-rose-400/50 bg-rose-500/15 text-rose-200',
@@ -109,7 +114,7 @@ function BiasPill({ bias }: { bias: 'bullish' | 'bearish' | 'range' }) {
     <span
       className={`rounded border px-2 py-0.5 font-display text-[0.6rem] uppercase tracking-[0.22em] ${map[bias]}`}
     >
-      {bias}
+      {t(bias)}
     </span>
   )
 }
@@ -156,13 +161,14 @@ function Field({ label, value }: { label: string; value: string }) {
 }
 
 function ConfluenceRing({ score }: { score: number }) {
+  const t = useTranslations('dashboard.pairCard')
   const clamped = Math.max(0, Math.min(100, Math.round(score || 0)))
   const r = 16
   const c = 2 * Math.PI * r
   const offset = c - (clamped / 100) * c
   const color = clamped >= 70 ? '#4ade80' : clamped >= 40 ? '#fbbf24' : '#f87171'
   return (
-    <svg width="40" height="40" viewBox="0 0 40 40" aria-label={`Confluence ${clamped}`}>
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-label={t('confluenceLabel', { score: clamped })}>
       <circle cx="20" cy="20" r={r} stroke="rgba(125,211,252,0.18)" strokeWidth="3" fill="none" />
       <circle
         cx="20"
@@ -208,9 +214,10 @@ function Skeleton() {
 }
 
 function ErrorView({ error }: { error: string }) {
+  const tCommon = useTranslations('common')
   return (
     <div className="rounded border border-rose-400/30 bg-rose-500/10 p-2.5 text-[0.7rem] text-rose-200">
-      // signal lost — {error}
+      {tCommon('signalLost', { error })}
     </div>
   )
 }

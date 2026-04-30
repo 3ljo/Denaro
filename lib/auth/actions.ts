@@ -12,20 +12,33 @@ const PASSWORD_MIN_LENGTH = 6
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-function validateEmail(email: unknown): string | null {
-  if (typeof email !== 'string') return 'Invalid email'
+/** Server actions return translation KEYS, not raw strings — the client
+ *  resolves them via next-intl so error/message text follows the user's locale. */
+export type AuthErrorKey =
+  | 'invalidEmail'
+  | 'emailTooLong'
+  | 'invalidPassword'
+  | 'passwordTooShort'
+  | 'passwordTooLong'
+  | 'invalidCredentials'
+  | 'invalidCredentialsOrUnverified'
+  | 'resetExpired'
+  | 'couldNotUpdatePassword'
+
+export type AuthMessageKey = 'registerSent' | 'resetSent' | 'verificationSent'
+
+function validateEmail(email: unknown): AuthErrorKey | null {
+  if (typeof email !== 'string') return 'invalidEmail'
   const trimmed = email.trim().toLowerCase()
-  if (!EMAIL_REGEX.test(trimmed)) return 'Invalid email'
-  if (trimmed.length > 254) return 'Email too long'
+  if (!EMAIL_REGEX.test(trimmed)) return 'invalidEmail'
+  if (trimmed.length > 254) return 'emailTooLong'
   return null
 }
 
-function validatePassword(password: unknown): string | null {
-  if (typeof password !== 'string') return 'Invalid password'
-  if (password.length < PASSWORD_MIN_LENGTH) {
-    return `Password must be at least ${PASSWORD_MIN_LENGTH} characters`
-  }
-  if (password.length > 128) return 'Password too long'
+function validatePassword(password: unknown): AuthErrorKey | null {
+  if (typeof password !== 'string') return 'invalidPassword'
+  if (password.length < PASSWORD_MIN_LENGTH) return 'passwordTooShort'
+  if (password.length > 128) return 'passwordTooLong'
   return null
 }
 
@@ -49,10 +62,10 @@ export async function register(formData: FormData) {
   const password = formData.get('password')
 
   const emailError = validateEmail(email)
-  if (emailError) return { error: emailError }
+  if (emailError) return { errorKey: emailError as AuthErrorKey }
 
   const passwordError = validatePassword(password)
-  if (passwordError) return { error: passwordError }
+  if (passwordError) return { errorKey: passwordError as AuthErrorKey }
 
   const supabase = await createClient()
   const origin = await getOrigin()
@@ -76,12 +89,7 @@ export async function register(formData: FormData) {
     console.error('Register error:', error.message)
   }
 
-  return {
-    success: true,
-    message:
-      'If this email is new, check your inbox to verify your account. ' +
-      'If you already have an account, you can log in.',
-  }
+  return { success: true, messageKey: 'registerSent' as AuthMessageKey }
 }
 
 // =====================================================================
@@ -93,10 +101,10 @@ export async function login(formData: FormData) {
   const redirectTo = formData.get('redirect')
 
   const emailError = validateEmail(email)
-  if (emailError) return { error: 'Invalid email or password' }
+  if (emailError) return { errorKey: 'invalidCredentials' as AuthErrorKey }
 
   if (typeof password !== 'string' || password.length === 0) {
-    return { error: 'Invalid email or password' }
+    return { errorKey: 'invalidCredentials' as AuthErrorKey }
   }
 
   const supabase = await createClient()
@@ -109,10 +117,7 @@ export async function login(formData: FormData) {
   if (error) {
     // We deliberately collapse "wrong password", "no such user", and
     // "email not confirmed" into one generic message to prevent enumeration.
-    // The trade-off: legitimate users who haven't verified see a confusing
-    // error. We mitigate by including a "Resend verification" link on the
-    // login page that they can click regardless.
-    return { error: 'Invalid email or password, or email not yet verified' }
+    return { errorKey: 'invalidCredentialsOrUnverified' as AuthErrorKey }
   }
 
   revalidatePath('/', 'layout')
@@ -148,11 +153,7 @@ export async function forgotPassword(formData: FormData) {
 
   const emailError = validateEmail(email)
   if (emailError) {
-    // Even on validation failure, return a generic message.
-    return {
-      success: true,
-      message: 'If an account exists for that email, a reset link has been sent.',
-    }
+    return { success: true, messageKey: 'resetSent' as AuthMessageKey }
   }
 
   const supabase = await createClient()
@@ -162,54 +163,36 @@ export async function forgotPassword(formData: FormData) {
   await supabase.auth.resetPasswordForEmail(
     (email as string).trim().toLowerCase(),
     {
-      // The link in the email goes to /auth/confirm which validates the
-      // token and then redirects to /reset-password where the user types
-      // a new password.
       redirectTo: `${origin}/auth/confirm?next=/reset-password`,
     }
   )
 
-  return {
-    success: true,
-    message: 'If an account exists for that email, a reset link has been sent.',
-  }
+  return { success: true, messageKey: 'resetSent' as AuthMessageKey }
 }
 
 // =====================================================================
 // RESET PASSWORD
 // =====================================================================
-// This is called from the /reset-password page AFTER the user clicked the
-// recovery email link. /auth/confirm has already verified the recovery
-// token and given them a session. So at this point we have a valid logged-in
-// user with a recovery-typed session, and we just update their password.
 export async function resetPassword(formData: FormData) {
   const password = formData.get('password')
 
   const passwordError = validatePassword(password)
-  if (passwordError) return { error: passwordError }
+  if (passwordError) return { errorKey: passwordError as AuthErrorKey }
 
   const supabase = await createClient()
 
-  // Make sure they actually have a session (i.e. they came from a valid
-  // recovery link). If not, /auth/confirm would have rejected them.
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  if (!user) {
-    return { error: 'Reset link is invalid or has expired. Please request a new one.' }
-  }
+  if (!user) return { errorKey: 'resetExpired' as AuthErrorKey }
 
   const { error } = await supabase.auth.updateUser({
     password: password as string,
   })
 
-  if (error) {
-    return { error: 'Could not update password. Please try again.' }
-  }
+  if (error) return { errorKey: 'couldNotUpdatePassword' as AuthErrorKey }
 
   // Sign out everywhere else — kills any other sessions that may exist.
-  // This is important: if an attacker had access via a stolen session,
-  // changing the password should kick them out.
   await supabase.auth.signOut({ scope: 'others' })
 
   revalidatePath('/', 'layout')
@@ -224,10 +207,7 @@ export async function resendVerification(formData: FormData) {
 
   const emailError = validateEmail(email)
   if (emailError) {
-    return {
-      success: true,
-      message: 'If your account needs verification, a new email has been sent.',
-    }
+    return { success: true, messageKey: 'verificationSent' as AuthMessageKey }
   }
 
   const supabase = await createClient()
@@ -241,8 +221,5 @@ export async function resendVerification(formData: FormData) {
     },
   })
 
-  return {
-    success: true,
-    message: 'If your account needs verification, a new email has been sent.',
-  }
+  return { success: true, messageKey: 'verificationSent' as AuthMessageKey }
 }

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Orbitron } from 'next/font/google'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import './globals.css'
 import ServiceWorkerRegister from './sw-register'
 
@@ -43,15 +45,19 @@ export const viewport: Viewport = {
   themeColor: '#050810',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const locale = await getLocale()
+  const messages = await getMessages()
   return (
-    <html lang="en" className={`${inter.variable} ${orbitron.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${orbitron.variable}`}>
       <body className="min-h-dvh bg-denaro-bg font-sans text-cyan-50 antialiased">
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
         <ServiceWorkerRegister />
       </body>
     </html>

@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 /**
  * Live ticker — TradingView TickerTape widget embedded as a direct iframe.
  *
@@ -36,6 +38,7 @@ const TV_TICKER: Record<string, { description: string; proName: string }> = {
 }
 
 export default function TickerBar({ pairs }: { pairs: string[] }) {
+  const t = useTranslations('dashboard.ticker')
   const symbols = pairs
     .map((p) => TV_TICKER[p.toUpperCase()])
     .filter((s): s is { description: string; proName: string } => Boolean(s))
@@ -62,7 +65,7 @@ export default function TickerBar({ pairs }: { pairs: string[] }) {
     <div className="denaro-panel relative overflow-hidden rounded-md">
       <iframe
         src={url}
-        title="Live ticker tape"
+        title={t('title')}
         className="block h-[46px] w-full border-0"
         scrolling="no"
         allowTransparency

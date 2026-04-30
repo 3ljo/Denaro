@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import LanguageSwitcher from './language-switcher'
 
 type Props = {
   /** Path to the Denaro character PNG (transparent). */
@@ -30,6 +32,7 @@ export default function AuthShell({
   children,
   footer,
 }: Props) {
+  const t = useTranslations('shell')
   return (
     <main className="relative min-h-dvh w-full overflow-hidden bg-denaro-bg safe-top safe-bottom">
       {/* Cosmic backdrop */}
@@ -65,20 +68,27 @@ export default function AuthShell({
         </div>
       </div>
 
-      {/* Hologram form panel — small overlay on character */}
+      {/* Hologram form panel — small overlay on character.
+          Both mobile and desktop sit below center so the robot's torso reads
+          above the panel; mobile drops further than desktop. */}
       <div
-        className="absolute z-30 w-[min(80vw,240px)] sm:w-[260px] lg:w-[290px]"
-        style={{ left: '50%', top: formY, transform: 'translate(-50%, -50%)' }}
+        className="absolute z-30 w-[min(80vw,240px)] sm:w-[260px] lg:w-[290px] top-[var(--form-y-mobile)] sm:top-[var(--form-y-desktop)]"
+        style={{
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          ['--form-y-desktop' as string]: `calc(${formY} + 10%)`,
+          ['--form-y-mobile' as string]: `calc(${formY} + 13%)`,
+        } as React.CSSProperties}
       >
         <HologramFrame>
           {/* Top status bar */}
           <div className="flex items-center justify-between border-b border-cyan-400/25 px-2.5 py-1 text-[0.5rem]">
             <span className="denaro-pill text-[0.5rem]">
               <span className="denaro-dot h-1.5 w-1.5" />
-              Denaro.OS
+              {t('denaroOs')}
             </span>
             <span className="font-display tracking-[0.25em] text-cyan-200/70">
-              SECURE
+              {t('secure')}
             </span>
           </div>
 
@@ -109,13 +119,18 @@ export default function AuthShell({
           {/* Bottom status bar */}
           <div className="flex items-center justify-between border-t border-cyan-400/25 px-2.5 py-0.5 text-[0.48rem] text-cyan-200/55">
             <span className="font-display tracking-[0.2em]">
-              {routeCode ?? '>> AUTH'}
+              {routeCode ?? t('defaultRoute')}
             </span>
             <span className="font-display tracking-[0.2em] text-amber-300/70">
-              AES-256
+              {t('encryption')}
             </span>
           </div>
         </HologramFrame>
+      </div>
+
+      {/* Language switcher — top-right corner, above the hologram */}
+      <div className="absolute right-3 top-3 z-40 sm:right-5 sm:top-5">
+        <LanguageSwitcher variant="pill" />
       </div>
     </main>
   )

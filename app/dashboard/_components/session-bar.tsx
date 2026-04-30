@@ -1,16 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 /**
  * Forex session windows in UTC. The Sydney session wraps midnight, so it
  * needs the wraparound branch in isActive().
  */
 const SESSIONS = [
-  { short: 'SYDNEY',  open: 22, close: 7 },
-  { short: 'TOKYO',   open: 0,  close: 9 },
-  { short: 'LONDON',  open: 8,  close: 17 },
-  { short: 'NEW YORK', open: 13, close: 22 },
+  { key: 'sydney',  open: 22, close: 7 },
+  { key: 'tokyo',   open: 0,  close: 9 },
+  { key: 'london',  open: 8,  close: 17 },
+  { key: 'newYork', open: 13, close: 22 },
 ] as const
 
 function isActive(s: (typeof SESSIONS)[number], hour: number) {
@@ -24,6 +25,7 @@ function pad(n: number) {
 }
 
 export default function SessionBar() {
+  const t = useTranslations('dashboard.session')
   // Avoid SSR/CSR mismatch — render times only after mount.
   const [now, setNow] = useState<Date | null>(null)
 
@@ -48,7 +50,7 @@ export default function SessionBar() {
     <div className="denaro-panel relative flex items-center gap-3 overflow-x-auto rounded-md px-3 py-2">
       <span className="denaro-pill shrink-0 text-[0.55rem]">
         <span className="denaro-dot" />
-        {overlap ? 'OVERLAP' : 'SESSION'}
+        {overlap ? t('overlap') : t('session')}
       </span>
 
       <div className="flex shrink-0 gap-1">
@@ -56,14 +58,14 @@ export default function SessionBar() {
           const on = now ? isActive(s, utcHour) : false
           return (
             <span
-              key={s.short}
+              key={s.key}
               className={`rounded border px-1.5 py-0.5 font-display text-[0.55rem] tracking-[0.18em] transition ${
                 on
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-200 shadow-[0_0_10px_rgba(74,222,128,0.35)]'
                   : 'border-cyan-400/15 bg-transparent text-cyan-200/35'
               }`}
             >
-              {s.short}
+              {t(`sessions.${s.key}`)}
             </span>
           )
         })}
@@ -71,11 +73,11 @@ export default function SessionBar() {
 
       <div className="ml-auto flex shrink-0 items-center gap-3 font-mono text-[0.7rem]">
         <span className="text-cyan-100/70">
-          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">UTC</span>
+          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">{t('utc')}</span>
           {utcStr}
         </span>
         <span className="hidden text-cyan-100/70 sm:inline">
-          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">LOCAL</span>
+          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">{t('local')}</span>
           {localStr}
         </span>
       </div>

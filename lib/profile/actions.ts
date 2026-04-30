@@ -24,21 +24,23 @@ export async function getProfile(): Promise<Profile | null> {
   return (data as Profile) ?? null
 }
 
+export type OnboardingErrorKey = 'unauthorized' | 'pickAtLeastOnePair'
+
 export async function saveOnboarding(input: {
   pairs: string[]
   strategy: string
   displayName?: string | null
-}): Promise<{ error?: string } | undefined> {
+}): Promise<{ errorKey?: OnboardingErrorKey; error?: string } | undefined> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { error: 'unauthorized' }
+  if (!user) return { errorKey: 'unauthorized' }
 
   const pairs = (input.pairs ?? [])
     .map((p) => p.trim().toUpperCase())
     .filter(Boolean)
     .slice(0, 3)
 
-  if (pairs.length === 0) return { error: 'Pick at least 1 pair.' }
+  if (pairs.length === 0) return { errorKey: 'pickAtLeastOnePair' }
 
   const strategy: Strategy = isStrategy(input.strategy) ? input.strategy : 'smc'
   const displayName = (input.displayName ?? '').trim() || null

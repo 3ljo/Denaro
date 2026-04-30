@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { STRATEGY_LABEL, type Strategy } from '@/lib/profile/types'
+import { useTranslations } from 'next-intl'
+import { type Strategy } from '@/lib/profile/types'
 import FormattedAnalysis from './formatted-analysis'
 
 type Props = {
@@ -11,59 +12,54 @@ type Props = {
 
 type QuickAsk = { label: string; build: () => string }
 
-function buildQuickAsks(pairs: string[], strategy: Strategy): QuickAsk[] {
-  const lens = STRATEGY_LABEL[strategy]
+function useQuickAsks(pairs: string[], strategy: Strategy): QuickAsk[] {
+  const tQuick = useTranslations('dashboard.ask.quick')
+  const tStrat = useTranslations('strategies')
+  const lens = tStrat(`${strategy}.label`)
   const first = pairs[0] ?? 'XAUUSD'
   const list = pairs.length > 0 ? pairs.join(', ') : 'XAUUSD'
 
   return [
     {
-      label: 'Concept lookup',
-      build: () =>
-        `In one paragraph each, explain CHoCH vs BoS, and when each one signals a real shift in market structure.`,
+      label: tQuick('concept'),
+      build: () => tQuick('conceptPrompt'),
     },
     {
-      label: `Why is ${first} moving?`,
-      build: () =>
-        `Why might ${first} be moving the way it is right now? Give 3 candidate drivers — macro, structural, and session-driven — and rank them by likelihood.`,
+      label: tQuick('whyMoving', { pair: first }),
+      build: () => tQuick('whyMovingPrompt', { pair: first }),
     },
     {
-      label: 'Position size calc',
-      build: () =>
-        `Help me size a trade. Account size: $[1000]. Risk per trade: [1]%. Pair: ${first}. Entry: [price]. Stop loss: [price]. Calculate: dollar risk, position size in lots/units, and a sanity check on the SL distance.`,
+      label: tQuick('sizing'),
+      build: () => tQuick('sizingPrompt', { pair: first }),
     },
     {
-      label: 'Review my setup',
-      build: () =>
-        `Review this setup for ${first} from a ${lens} perspective.\n\nEntry: [price]\nStop loss: [price]\nTake profit: [price]\nReason: [why I'm taking it]\n\nTell me: is the structure clean? What invalidates it? Anything I missed?`,
+      label: tQuick('review'),
+      build: () => tQuick('reviewPrompt', { pair: first, lens }),
     },
     {
-      label: 'Best session',
-      build: () =>
-        `For my pairs (${list}) and a ${lens} approach, which trading session(s) historically offer the cleanest setups, and why? Be specific about volatility windows and avoid generic advice.`,
+      label: tQuick('session'),
+      build: () => tQuick('sessionPrompt', { list, lens }),
     },
     {
-      label: 'Backtest plan',
-      build: () =>
-        `Give me a 5-step plan to backtest a ${lens} strategy on ${first}. Include: data window, entry rule, exit rule, what stats to track, and what disqualifies the strategy.`,
+      label: tQuick('backtest'),
+      build: () => tQuick('backtestPrompt', { pair: first, lens }),
     },
   ]
 }
 
-const EXAMPLES = [
-  'Explain liquidity sweeps with examples on XAUUSD',
-  'I bought EURUSD at 1.1750, SL 1.1720, TP 1.1810 — anything wrong?',
-  'What macro events this week could move USD pairs?',
-  'How do I read order flow on a 15M chart?',
-]
-
 export default function AskDenaro({ pairs, strategy }: Props) {
+  const t = useTranslations('dashboard.ask')
+  const tCommon = useTranslations('common')
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const quickAsks = buildQuickAsks(pairs, strategy)
+  const quickAsks = useQuickAsks(pairs, strategy)
+  const examplesRaw = useTranslations('dashboard.ask').raw('examples') as unknown
+  const examples: string[] = Array.isArray(examplesRaw)
+    ? (examplesRaw as string[])
+    : []
 
   async function send() {
     const text = input.trim()
@@ -80,7 +76,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
         }),
       })
       if (!res.ok || !res.body) {
-        const errText = await res.text().catch(() => 'request failed')
+        const errText = await res.text().catch(() => t('errorRequest'))
         throw new Error(errText)
       }
       const reader = res.body.getReader()
@@ -93,7 +89,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
         setOutput(acc)
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'failed')
+      setError(err instanceof Error ? err.message : t('errorFailed'))
     } finally {
       setLoading(false)
     }
@@ -111,14 +107,13 @@ export default function AskDenaro({ pairs, strategy }: Props) {
       <header className="flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            // CHANNEL
+            {t('badge')}
           </p>
           <h3 className="font-display text-base font-bold uppercase tracking-[0.16em] text-cyan-50">
-            Ask Denaro
+            {t('title')}
           </h3>
           <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/55">
-            Concepts, setup reviews, position sizing, market reads — anything
-            that doesn&rsquo;t need a chart screenshot.
+            {t('subtitle')}
           </p>
         </div>
         {(output || error) && !loading && (
@@ -130,7 +125,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
             }}
             className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-200/45 transition hover:text-cyan-100/80"
           >
-            CLEAR
+            {tCommon('clear')}
           </button>
         )}
       </header>
@@ -154,10 +149,10 @@ export default function AskDenaro({ pairs, strategy }: Props) {
       {!output && !loading && !error && (
         <div className="rounded border border-cyan-400/15 bg-cyan-500/[0.03] p-3">
           <p className="font-display text-[0.55rem] tracking-[0.28em] text-amber-300/80">
-            // EXAMPLES
+            {t('examplesBadge')}
           </p>
           <ul className="mt-1.5 space-y-1">
-            {EXAMPLES.map((ex, i) => (
+            {examples.map((ex, i) => (
               <li
                 key={i}
                 className="flex items-start gap-2 text-[0.72rem] leading-snug text-cyan-100/65"
@@ -168,7 +163,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
             ))}
           </ul>
           <p className="mt-2 text-[0.62rem] text-cyan-100/40">
-            Tip: square brackets like <code className="text-cyan-200/70">[1000]</code> in the templates are placeholders — replace before sending.
+            {t('tip', { bracket: '[1000]' })}
           </p>
         </div>
       )}
@@ -178,7 +173,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={onKey}
         rows={3}
-        placeholder="Ask Denaro... (Shift+Enter for newline)"
+        placeholder={t('placeholder')}
         disabled={loading}
         className="denaro-input resize-none"
       />
@@ -188,7 +183,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
         disabled={loading || !input.trim()}
         className="denaro-btn"
       >
-        {loading ? 'Streaming…' : 'Send'}
+        {loading ? t('sending') : t('send')}
       </button>
 
       {error && <p className="text-[0.7rem] text-rose-300/90">// {error}</p>}
@@ -196,7 +191,7 @@ export default function AskDenaro({ pairs, strategy }: Props) {
         <div className="rounded border border-cyan-400/20 bg-cyan-500/[0.04] p-3">
           {loading && !output && (
             <p className="font-display text-[0.6rem] tracking-[0.32em] text-cyan-200/60">
-              // CHANNEL OPEN…
+              {t('channelOpen')}
             </p>
           )}
           {output && <FormattedAnalysis text={output} />}

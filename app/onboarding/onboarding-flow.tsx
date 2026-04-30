@@ -2,14 +2,14 @@
 
 import Image from 'next/image'
 import { useState, useTransition } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   POPULAR_PAIRS,
   STRATEGIES,
-  STRATEGY_BLURB,
-  STRATEGY_LABEL,
   type Strategy,
 } from '@/lib/profile/types'
 import { saveOnboarding } from '@/lib/profile/actions'
+import LanguageSwitcher from '@/app/_components/language-switcher'
 
 type Step = 'welcome' | 'pairs' | 'strategy' | 'name'
 const STEPS: Step[] = ['welcome', 'pairs', 'strategy', 'name']
@@ -21,6 +21,9 @@ export default function OnboardingFlow({
   defaultName: string
   email: string
 }) {
+  const t = useTranslations('onboarding')
+  const tErr = useTranslations('auth.errors')
+
   const [step, setStep] = useState<Step>('welcome')
   const [pairs, setPairs] = useState<string[]>([])
   const [strategy, setStrategy] = useState<Strategy>('smc')
@@ -44,7 +47,8 @@ export default function OnboardingFlow({
         strategy,
         displayName: name,
       })
-      if (result?.error) setError(result.error)
+      if (result?.errorKey) setError(tErr(result.errorKey))
+      else if (result?.error) setError(result.error)
     })
   }
 
@@ -59,6 +63,11 @@ export default function OnboardingFlow({
         <div className="absolute -top-1/4 left-1/2 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-500/15 blur-[140px]" />
         <div className="absolute -bottom-1/4 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-amber-500/10 blur-[140px]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.7)_100%)]" />
+      </div>
+
+      {/* Language switcher — top-right */}
+      <div className="absolute right-3 top-3 z-30 sm:right-5 sm:top-5">
+        <LanguageSwitcher variant="pill" />
       </div>
 
       {/* Stage: side-by-side on lg+, stacked on mobile */}
@@ -91,7 +100,7 @@ export default function OnboardingFlow({
               Denaro.OS
             </span>
             <span className="font-display tracking-[0.28em] text-cyan-200/70">
-              CALIBRATION&nbsp;{stepIndex + 1}/{STEPS.length}
+              {t('stepCounter', { current: stepIndex + 1, total: STEPS.length })}
             </span>
           </div>
 
@@ -155,26 +164,27 @@ export default function OnboardingFlow({
 /* ----- Steps ----- */
 
 function Welcome({ email, onContinue }: { email: string; onContinue: () => void }) {
+  const t = useTranslations('onboarding.welcome')
   return (
     <div>
       <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/90">
-        // OPERATOR ▸ IDENTIFIED
+        {t('badge')}
       </p>
       <h1 className="mt-2 font-display text-xl font-bold uppercase leading-tight tracking-[0.16em] text-cyan-50 sm:text-2xl">
-        Welcome to the Grid
+        {t('title')}
       </h1>
       <p className="mt-2 break-all text-[0.7rem] tracking-wide text-cyan-100/55">
         {email}
       </p>
       <p className="mt-4 text-sm leading-relaxed text-cyan-100/75">
-        Denaro is your AI trading analyst. To tune the system to your style, answer 3 quick questions — your top pairs, your strategy lens, and what to call you.
+        {t('intro')}
       </p>
       <p className="mt-3 text-[0.7rem] leading-relaxed text-cyan-100/45">
-        Takes about 30 seconds. Settings are editable later.
+        {t('duration')}
       </p>
       <div className="mt-6">
         <button onClick={onContinue} className="denaro-btn">
-          Begin Calibration
+          {t('begin')}
         </button>
       </div>
     </div>
@@ -192,16 +202,18 @@ function Pairs({
   onBack: () => void
   onContinue: () => void
 }) {
+  const t = useTranslations('onboarding.pairs')
+  const tCommon = useTranslations('common')
   return (
     <div>
       <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/90">
-        // STEP 01 ▸ MARKETS
+        {t('badge')}
       </p>
       <h1 className="mt-2 font-display text-lg font-bold uppercase leading-tight tracking-[0.16em] text-cyan-50 sm:text-xl">
-        Pick your top 3 pairs
+        {t('title')}
       </h1>
       <p className="mt-1 text-[0.75rem] leading-snug text-cyan-100/55">
-        Denaro will tune analysis to these markets.
+        {t('subtitle')}
       </p>
 
       <div className="mt-4 flex flex-wrap gap-1.5">
@@ -226,19 +238,19 @@ function Pairs({
       </div>
 
       <p className="mt-3 text-[0.65rem] tracking-wide text-cyan-100/45">
-        {pairs.length}/3 selected
+        {t('selected', { count: pairs.length })}
       </p>
 
       <div className="mt-5 flex gap-2">
         <button onClick={onBack} className="denaro-btn-ghost flex-1">
-          Back
+          {tCommon('back')}
         </button>
         <button
           onClick={onContinue}
           disabled={pairs.length === 0}
           className="denaro-btn flex-[2]"
         >
-          Continue
+          {tCommon('continue')}
         </button>
       </div>
     </div>
@@ -256,16 +268,19 @@ function StrategyPick({
   onBack: () => void
   onContinue: () => void
 }) {
+  const t = useTranslations('onboarding.strategy')
+  const tStrat = useTranslations('strategies')
+  const tCommon = useTranslations('common')
   return (
     <div>
       <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/90">
-        // STEP 02 ▸ LENS
+        {t('badge')}
       </p>
       <h1 className="mt-2 font-display text-lg font-bold uppercase leading-tight tracking-[0.16em] text-cyan-50 sm:text-xl">
-        Pick your strategy
+        {t('title')}
       </h1>
       <p className="mt-1 text-[0.75rem] leading-snug text-cyan-100/55">
-        Denaro will use this lens for every analysis.
+        {t('subtitle')}
       </p>
 
       <div className="mt-4 space-y-2">
@@ -284,16 +299,16 @@ function StrategyPick({
             >
               <div className="flex items-center justify-between">
                 <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-cyan-50">
-                  {STRATEGY_LABEL[s]}
+                  {tStrat(`${s}.label`)}
                 </span>
                 {selected && (
                   <span className="font-display text-[0.55rem] tracking-[0.25em] text-amber-300">
-                    ACTIVE
+                    {t('active')}
                   </span>
                 )}
               </div>
               <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/60">
-                {STRATEGY_BLURB[s]}
+                {tStrat(`${s}.blurb`)}
               </p>
             </button>
           )
@@ -302,10 +317,10 @@ function StrategyPick({
 
       <div className="mt-5 flex gap-2">
         <button onClick={onBack} className="denaro-btn-ghost flex-1">
-          Back
+          {tCommon('back')}
         </button>
         <button onClick={onContinue} className="denaro-btn flex-[2]">
-          Continue
+          {tCommon('continue')}
         </button>
       </div>
     </div>
@@ -327,25 +342,27 @@ function NamePick({
   onBack: () => void
   onSubmit: () => void
 }) {
+  const t = useTranslations('onboarding.name')
+  const tCommon = useTranslations('common')
   return (
     <div>
       <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/90">
-        // STEP 03 ▸ HANDLE
+        {t('badge')}
       </p>
       <h1 className="mt-2 font-display text-lg font-bold uppercase leading-tight tracking-[0.16em] text-cyan-50 sm:text-xl">
-        What should Denaro call you?
+        {t('title')}
       </h1>
       <p className="mt-1 text-[0.75rem] leading-snug text-cyan-100/55">
-        Optional. Defaults to your email handle.
+        {t('subtitle')}
       </p>
 
       <div className="mt-4">
-        <label className="denaro-label">Display name</label>
+        <label className="denaro-label">{t('label')}</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Operator"
+          placeholder={t('placeholder')}
           maxLength={40}
           className="denaro-input"
         />
@@ -357,10 +374,10 @@ function NamePick({
 
       <div className="mt-5 flex gap-2">
         <button onClick={onBack} className="denaro-btn-ghost flex-1" disabled={isPending}>
-          Back
+          {tCommon('back')}
         </button>
         <button onClick={onSubmit} className="denaro-btn flex-[2]" disabled={isPending}>
-          {isPending ? 'Engaging…' : 'Enter the Grid'}
+          {isPending ? t('submitting') : t('submit')}
         </button>
       </div>
     </div>

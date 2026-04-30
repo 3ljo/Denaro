@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import { getProfile } from '@/lib/profile/actions'
 import { logout } from '@/lib/auth/actions'
-import { STRATEGY_LABEL } from '@/lib/profile/types'
 import DashboardContent from './_components/dashboard-content'
+import LanguageSwitcher from '@/app/_components/language-switcher'
 
 export default async function DashboardPage() {
   // Defense in depth — middleware does the first check.
@@ -14,7 +15,11 @@ export default async function DashboardPage() {
   const profile = await getProfile()
   if (!profile?.onboarded_at) redirect('/onboarding')
 
-  const greeting = profile.display_name || user.email?.split('@')[0] || 'Operator'
+  const t = await getTranslations('dashboard.header')
+  const tStrat = await getTranslations('strategies')
+
+  const greeting =
+    profile.display_name || user.email?.split('@')[0] || t('operatorFallback')
 
   return (
     <main className="relative min-h-dvh w-full bg-denaro-bg safe-top safe-bottom">
@@ -31,25 +36,26 @@ export default async function DashboardPage() {
         <header className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80">
-              // ANALYST ▸ ONLINE
+              {t('badge')}
             </p>
             <h1 className="font-display text-lg font-bold uppercase tracking-[0.2em] text-cyan-50 sm:text-xl">
-              Welcome back, {greeting}
+              {t('welcomeBack', { name: greeting })}
             </h1>
             <p className="mt-1 text-[0.7rem] tracking-wide text-cyan-100/50">
-              Lens:{' '}
+              {t('lens')}{' '}
               <span className="text-amber-200/85">
-                {STRATEGY_LABEL[profile.strategy]}
+                {tStrat(`${profile.strategy}.label`)}
               </span>
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <span className="hidden break-all text-right text-[0.65rem] tracking-wide text-cyan-100/45 sm:inline">
               {user.email}
             </span>
             <form action={logout}>
               <button type="submit" className="denaro-btn-ghost">
-                Disconnect
+                {t('logout')}
               </button>
             </form>
           </div>

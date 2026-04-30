@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import type { Impact, NewsItem } from '@/lib/market/news'
 
 /** Window in seconds where an event is treated as "LIVE" (pulses red). */
 const LIVE_WINDOW = 15 * 60
 
 export default function NewsCard({ pair }: { pair: string }) {
+  const t = useTranslations('dashboard.newsCard')
+  const tCommon = useTranslations('common')
   const [items, setItems] = useState<NewsItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -51,26 +54,26 @@ export default function NewsCard({ pair }: { pair: string }) {
       <header className="flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            // NEWS · CALENDAR
+            {t('badge')}
           </p>
           <h3 className="font-display text-lg font-bold uppercase tracking-[0.18em] text-cyan-50">
-            {pair} Feed
+            {t('feedTitle', { pair })}
           </h3>
           {items.length > 0 && (
             <div className="mt-1 flex items-center gap-2 font-display text-[0.55rem] tracking-[0.18em]">
               {liveCount > 0 && (
                 <span className="flex items-center gap-1 text-rose-200 animate-pulse">
                   <span className="h-1.5 w-1.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(248,113,113,0.9)]" />
-                  {liveCount} LIVE
+                  {liveCount} {t('live')}
                 </span>
               )}
               <span className="flex items-center gap-1 text-rose-300/85">
                 <ImpactDot impact="high" />
-                {highCount} HIGH
+                {highCount} {t('high')}
               </span>
               <span className="flex items-center gap-1 text-amber-200/85">
                 <ImpactDot impact="medium" />
-                {medCount} MED
+                {medCount} {t('med')}
               </span>
             </div>
           )}
@@ -79,7 +82,7 @@ export default function NewsCard({ pair }: { pair: string }) {
           type="button"
           onClick={load}
           disabled={loading}
-          aria-label="Refresh"
+          aria-label={tCommon('refresh')}
           className="rounded border border-cyan-400/30 bg-cyan-500/[0.06] px-2 py-1 font-display text-[0.6rem] tracking-[0.2em] text-cyan-100/80 transition hover:border-cyan-300/60 hover:bg-cyan-500/10 disabled:opacity-40"
         >
           {loading ? '…' : '↻'}
@@ -89,7 +92,7 @@ export default function NewsCard({ pair }: { pair: string }) {
       {loading && items.length === 0 && <Skeleton />}
       {error && items.length === 0 && (
         <div className="rounded border border-rose-400/30 bg-rose-500/10 p-2.5 text-[0.7rem] text-rose-200">
-          // signal lost — {error}
+          {tCommon('signalLost', { error })}
         </div>
       )}
       {items.length > 0 && (
@@ -103,7 +106,7 @@ export default function NewsCard({ pair }: { pair: string }) {
       )}
       {!loading && !error && items.length === 0 && (
         <p className="text-[0.7rem] text-cyan-100/40">
-          No medium / high-impact events scheduled for {pair} this week.
+          {t('empty', { pair })}
         </p>
       )}
     </div>
@@ -111,6 +114,7 @@ export default function NewsCard({ pair }: { pair: string }) {
 }
 
 function EventRow({ event, now }: { event: NewsItem; now: number }) {
+  const t = useTranslations('dashboard.newsCard')
   const delta = event.timeUtc - now // seconds
   const isLive = Math.abs(delta) <= LIVE_WINDOW
   const isPast = delta < -LIVE_WINDOW
@@ -147,7 +151,7 @@ function EventRow({ event, now }: { event: NewsItem; now: number }) {
           <ImpactBadge impact={event.impact} />
           {isLive && (
             <span className="rounded border border-rose-400/80 bg-rose-500/25 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-rose-100">
-              LIVE
+              {t('live')}
             </span>
           )}
         </div>
@@ -162,12 +166,12 @@ function EventRow({ event, now }: { event: NewsItem; now: number }) {
         <div className="mt-1 flex gap-3 text-[0.6rem] text-cyan-200/55">
           {event.forecast && (
             <span>
-              <span className="text-cyan-300/45">F</span> {event.forecast}
+              <span className="text-cyan-300/45">{t('forecast')}</span> {event.forecast}
             </span>
           )}
           {event.previous && (
             <span>
-              <span className="text-cyan-300/45">P</span> {event.previous}
+              <span className="text-cyan-300/45">{t('previous')}</span> {event.previous}
             </span>
           )}
         </div>
@@ -177,11 +181,12 @@ function EventRow({ event, now }: { event: NewsItem; now: number }) {
 }
 
 function Countdown({ delta }: { delta: number }) {
+  const t = useTranslations('dashboard.newsCard')
   // delta = event.timeUtc - now (seconds)
   if (Math.abs(delta) <= LIVE_WINDOW) {
     return (
       <span className="font-display tracking-[0.22em] text-rose-200">
-        ▶ NOW
+        {t('now')}
       </span>
     )
   }
@@ -223,15 +228,16 @@ const IMPACT_STYLES: Record<Impact, { container: string }> = {
 }
 
 function ImpactBadge({ impact }: { impact: Impact }) {
+  const t = useTranslations('dashboard.newsCard')
   if (impact === 'low') return null
   const cfg =
     impact === 'high'
       ? {
-          label: 'HIGH',
+          label: t('highBadge'),
           klass: 'border-rose-400/60 bg-rose-500/15 text-rose-200',
         }
       : {
-          label: 'MED',
+          label: t('medBadge'),
           klass: 'border-amber-300/60 bg-amber-400/15 text-amber-200',
         }
   return (

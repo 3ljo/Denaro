@@ -1,14 +1,16 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import TradingViewChart from './tradingview-chart'
 
 export default function ChartCard({ pair }: { pair: string }) {
+  const t = useTranslations('dashboard.chartCard')
   return (
     <div className="denaro-panel relative flex flex-col gap-3 rounded-md p-4">
       <header className="flex items-center justify-between gap-3">
         <div>
           <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            // CHART ▸ LIVE
+            {t('badge')}
           </p>
           <h3 className="font-display text-lg font-bold uppercase tracking-[0.18em] text-cyan-50">
             {pair}
@@ -20,7 +22,7 @@ export default function ChartCard({ pair }: { pair: string }) {
             style={{ boxShadow: '0 0 8px rgba(74, 222, 128, 0.8)' }}
             aria-hidden
           />
-          REAL-TIME
+          {t('realTime')}
         </span>
       </header>
 

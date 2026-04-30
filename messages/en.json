@@ -1,0 +1,304 @@
+{
+  "common": {
+    "back": "Back",
+    "continue": "Continue",
+    "clear": "CLEAR",
+    "refresh": "Refresh",
+    "send": "Send",
+    "loading": "…",
+    "signalLost": "// signal lost — {error}",
+    "language": "Language"
+  },
+  "shell": {
+    "secure": "SECURE",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro presenting the access hologram",
+      "badge": "// IDENTITY ▸ VERIFY",
+      "title": "Access Portal",
+      "subtitle": "Authenticate to enter the Denaro grid.",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "No clearance yet?",
+      "requestAccess": "Request access",
+      "resetSuccess": "Password updated. You can sign in now.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Passkey",
+      "forgot": "Forgot?",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "Engage",
+      "submitting": "Authenticating…",
+      "needVerify": "Need to verify your link?",
+      "resend": "Resend verification"
+    },
+    "register": {
+      "imageAlt": "Denaro presenting the registration hologram",
+      "imageAltSent": "Denaro confirming verification dispatch",
+      "badge": "// PROFILE ▸ INITIALIZE",
+      "badgeSent": "// LINK ▸ DISPATCHED",
+      "title": "New Operator",
+      "titleSent": "Verify Inbox",
+      "subtitle": "Register to receive a Denaro identity.",
+      "subtitleSent": "Your verification link has been transmitted.",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "Already onboard?",
+      "signIn": "Sign in",
+      "backPortal": "← Back to access portal",
+      "spamHint": "Check spam or junk if it doesn't arrive in a minute. The link is valid for a single use.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Passkey",
+      "passwordPlaceholder": "•••••• minimum 6",
+      "passwordHint": "Minimum 6 characters. Mix it up.",
+      "confirmLabel": "Confirm Passkey",
+      "confirmPlaceholder": "repeat passkey",
+      "submit": "Create Identity",
+      "submitting": "Compiling…",
+      "validation": {
+        "emailRequired": "Please enter your email",
+        "passwordRequired": "Please enter a password",
+        "passwordTooShort": "Password must be at least 6 characters",
+        "passwordsDoNotMatch": "Passwords do not match"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro recovering the access hologram",
+      "badge": "// KEY ▸ RECOVER",
+      "title": "Reset Passkey",
+      "subtitle": "Enter your email and we'll transmit a recovery link.",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← Back to access portal",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "Send Recovery Link",
+      "submitting": "Transmitting…"
+    },
+    "reset": {
+      "imageAlt": "Denaro encoding a new key",
+      "imageAltInvalid": "Denaro signaling an invalid link",
+      "badge": "// KEY ▸ REFORGE",
+      "badgeInvalid": "// LINK ▸ INVALID",
+      "title": "New Passkey",
+      "titleInvalid": "Recovery Failed",
+      "subtitle": "Choose a strong key you haven't used before.",
+      "subtitleInvalid": "Your reset link is no longer valid or has expired.",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← Back to access portal",
+      "requestNew": "Request New Link",
+      "newPasswordLabel": "New Passkey",
+      "newPasswordPlaceholder": "•••••• minimum 6",
+      "confirmLabel": "Confirm Passkey",
+      "confirmPlaceholder": "repeat passkey",
+      "submit": "Update Passkey",
+      "submitting": "Reforging…",
+      "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "error": {
+      "imageAlt": "Denaro on standby",
+      "badge": "// SIGNAL ▸ LOST",
+      "title": "Connection Refused",
+      "subtitle": "The link is invalid, expired, or already used.",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← Back to access portal",
+      "requestNew": "Request a new recovery link",
+      "details": "Details: {reason}",
+      "fallback": "Try signing in again, or request a new link if this was a recovery email."
+    },
+    "errors": {
+      "invalidEmail": "Invalid email",
+      "emailTooLong": "Email too long",
+      "invalidPassword": "Invalid password",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "passwordTooLong": "Password too long",
+      "invalidCredentials": "Invalid email or password",
+      "invalidCredentialsOrUnverified": "Invalid email or password, or email not yet verified",
+      "resetExpired": "Reset link is invalid or has expired. Please request a new one.",
+      "couldNotUpdatePassword": "Could not update password. Please try again.",
+      "unauthorized": "unauthorized",
+      "pickAtLeastOnePair": "Pick at least 1 pair."
+    },
+    "messages": {
+      "registerSent": "If this email is new, check your inbox to verify your account. If you already have an account, you can log in.",
+      "resetSent": "If an account exists for that email, a reset link has been sent.",
+      "verificationSent": "If your account needs verification, a new email has been sent."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "CALIBRATION {current}/{total}",
+    "welcome": {
+      "badge": "// OPERATOR ▸ IDENTIFIED",
+      "title": "Welcome to the Grid",
+      "intro": "Denaro is your AI trading analyst. To tune the system to your style, answer 3 quick questions — your top pairs, your strategy lens, and what to call you.",
+      "duration": "Takes about 30 seconds. Settings are editable later.",
+      "begin": "Begin Calibration"
+    },
+    "pairs": {
+      "badge": "// STEP 01 ▸ MARKETS",
+      "title": "Pick your top 3 pairs",
+      "subtitle": "Denaro will tune analysis to these markets.",
+      "selected": "{count}/3 selected"
+    },
+    "strategy": {
+      "badge": "// STEP 02 ▸ LENS",
+      "title": "Pick your strategy",
+      "subtitle": "Denaro will use this lens for every analysis.",
+      "active": "ACTIVE"
+    },
+    "name": {
+      "badge": "// STEP 03 ▸ HANDLE",
+      "title": "What should Denaro call you?",
+      "subtitle": "Optional. Defaults to your email handle.",
+      "label": "Display name",
+      "placeholder": "Operator",
+      "submit": "Enter the Grid",
+      "submitting": "Engaging…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "Institutional order flow. BoS, CHoCH, order blocks, FVGs, liquidity sweeps."
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "Pure structure. Supply / demand zones, candlestick reads, market profile."
+    },
+    "trend": {
+      "label": "Trend Following",
+      "blurb": "Ride the dominant trend. Breakouts, pullback entries, momentum continuation."
+    },
+    "mean-reversion": {
+      "label": "Mean Reversion",
+      "blurb": "Fade extremes. Range plays, exhaustion entries at range bounds."
+    },
+    "scalping": {
+      "label": "Scalping",
+      "blurb": "Fast intraday. M1–M15 setups, high frequency, tight risk."
+    },
+    "swing": {
+      "label": "Swing Trading",
+      "blurb": "Multi-day positions. HTF bias (D1+H4), patient entries, extended TPs."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// ANALYST ▸ ONLINE",
+      "welcomeBack": "Welcome back, {name}",
+      "lens": "Lens:",
+      "logout": "Disconnect",
+      "operatorFallback": "Operator"
+    },
+    "tabs": {
+      "markets": "Markets",
+      "news": "News",
+      "vision": "Vision",
+      "channel": "Ask"
+    },
+    "session": {
+      "session": "SESSION",
+      "overlap": "OVERLAP",
+      "utc": "UTC",
+      "local": "LOCAL",
+      "sessions": {
+        "sydney": "SYDNEY",
+        "tokyo": "TOKYO",
+        "london": "LONDON",
+        "newYork": "NEW YORK"
+      }
+    },
+    "ticker": {
+      "title": "Live ticker tape"
+    },
+    "chartCard": {
+      "badge": "// CHART ▸ LIVE",
+      "realTime": "REAL-TIME"
+    },
+    "pairCard": {
+      "badge": "// ANALYSIS",
+      "resistance": "Resistance",
+      "support": "Support",
+      "nextMove": "Next move",
+      "invalidation": "Invalidation",
+      "confluenceLabel": "Confluence {score}",
+      "bias": {
+        "bullish": "bullish",
+        "bearish": "bearish",
+        "range": "range"
+      }
+    },
+    "newsCard": {
+      "badge": "// NEWS · CALENDAR",
+      "feedTitle": "{pair} Feed",
+      "live": "LIVE",
+      "high": "HIGH",
+      "med": "MED",
+      "highBadge": "HIGH",
+      "medBadge": "MED",
+      "now": "▶ NOW",
+      "empty": "No medium / high-impact events scheduled for {pair} this week.",
+      "forecast": "F",
+      "previous": "P"
+    },
+    "vision": {
+      "badge": "// VISION ▸ MULTI-TF READ",
+      "title": "HTF → MTF → LTF Snap",
+      "subtitle": "Capture 4H · 1H · 15M for the selected pair and let Denaro read the full stack.",
+      "capture": "Capture HTF → LTF & Analyze",
+      "capturing": "Reading the stack…",
+      "reading": "// READING THE STACK…",
+      "errorChartNotReady": "{label} chart not ready",
+      "errorCanvas": "canvas context unavailable",
+      "errorSnapshot": "snapshot failed",
+      "errorRequest": "request failed",
+      "errorFailed": "failed",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "{pair} multi-timeframe stack — chart 1 = HTF (4H), chart 2 = MTF (1H), chart 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// CHANNEL",
+      "title": "Ask Denaro",
+      "subtitle": "Concepts, setup reviews, position sizing, market reads — anything that doesn't need a chart screenshot.",
+      "placeholder": "Ask Denaro... (Shift+Enter for newline)",
+      "send": "Send",
+      "sending": "Streaming…",
+      "channelOpen": "// CHANNEL OPEN…",
+      "errorRequest": "request failed",
+      "errorFailed": "failed",
+      "examplesBadge": "// EXAMPLES",
+      "tip": "Tip: square brackets like {bracket} in the templates are placeholders — replace before sending.",
+      "examples": [
+        "Explain liquidity sweeps with examples on XAUUSD",
+        "I bought EURUSD at 1.1750, SL 1.1720, TP 1.1810 — anything wrong?",
+        "What macro events this week could move USD pairs?",
+        "How do I read order flow on a 15M chart?"
+      ],
+      "quick": {
+        "concept": "Concept lookup",
+        "conceptPrompt": "In one paragraph each, explain CHoCH vs BoS, and when each one signals a real shift in market structure.",
+        "whyMoving": "Why is {pair} moving?",
+        "whyMovingPrompt": "Why might {pair} be moving the way it is right now? Give 3 candidate drivers — macro, structural, and session-driven — and rank them by likelihood.",
+        "sizing": "Position size calc",
+        "sizingPrompt": "Help me size a trade. Account size: $[1000]. Risk per trade: [1]%. Pair: {pair}. Entry: [price]. Stop loss: [price]. Calculate: dollar risk, position size in lots/units, and a sanity check on the SL distance.",
+        "review": "Review my setup",
+        "reviewPrompt": "Review this setup for {pair} from a {lens} perspective.\n\nEntry: [price]\nStop loss: [price]\nTake profit: [price]\nReason: [why I'm taking it]\n\nTell me: is the structure clean? What invalidates it? Anything I missed?",
+        "session": "Best session",
+        "sessionPrompt": "For my pairs ({list}) and a {lens} approach, which trading session(s) historically offer the cleanest setups, and why? Be specific about volatility windows and avoid generic advice.",
+        "backtest": "Backtest plan",
+        "backtestPrompt": "Give me a 5-step plan to backtest a {lens} strategy on {pair}. Include: data window, entry rule, exit rule, what stats to track, and what disqualifies the strategy."
+      }
+    }
+  }
+}

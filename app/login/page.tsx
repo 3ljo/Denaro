@@ -3,6 +3,7 @@
 import { Suspense, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { login, resendVerification } from '@/lib/auth/actions'
 import AuthShell from '@/app/_components/auth-shell'
 
@@ -15,6 +16,9 @@ export default function LoginPage() {
 }
 
 function LoginForm() {
+  const t = useTranslations('auth.login')
+  const tErr = useTranslations('auth.errors')
+  const tMsg = useTranslations('auth.messages')
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('redirect') ?? ''
   const resetSuccess = searchParams.get('reset') === 'success'
@@ -29,7 +33,7 @@ function LoginForm() {
     formData.set('redirect', redirectTo)
     startTransition(async () => {
       const result = await login(formData)
-      if (result?.error) setError(result.error)
+      if (result?.errorKey) setError(tErr(result.errorKey))
     })
   }
 
@@ -39,38 +43,38 @@ function LoginForm() {
     fd.set('email', email)
     startTransition(async () => {
       const result = await resendVerification(fd)
-      if (result?.message) setResendMsg(result.message)
+      if (result?.messageKey) setResendMsg(tMsg(result.messageKey))
     })
   }
 
   return (
     <AuthShell
       image="/pic/denaro-login.png"
-      imageAlt="Denaro presenting the access hologram"
-      badge="// IDENTITY ▸ VERIFY"
-      title="Access Portal"
-      subtitle="Authenticate to enter the Denaro grid."
-      routeCode=">> /AUTH/LOGIN"
+      imageAlt={t('imageAlt')}
+      badge={t('badge')}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      routeCode={t('routeCode')}
       formY="50%"
       footer={
         <p className="text-center text-xs tracking-wide">
-          No clearance yet?{' '}
+          {t('noClearance')}{' '}
           <Link href="/register" className="font-semibold text-amber-300 hover:text-amber-200">
-            Request access
+            {t('requestAccess')}
           </Link>
         </p>
       }
     >
       {resetSuccess && (
         <div className="denaro-banner denaro-banner-success mb-4">
-          Password updated. You can sign in now.
+          {t('resetSuccess')}
         </div>
       )}
 
       <form action={handleLogin} className="space-y-4">
         <div>
           <label htmlFor="email" className="denaro-label">
-            Email
+            {t('emailLabel')}
           </label>
           <input
             id="email"
@@ -84,7 +88,7 @@ function LoginForm() {
             spellCheck={false}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="operator@denaro.io"
+            placeholder={t('emailPlaceholder')}
             className="denaro-input"
           />
         </div>
@@ -92,13 +96,13 @@ function LoginForm() {
         <div>
           <div className="flex items-center justify-between">
             <label htmlFor="password" className="denaro-label">
-              Passkey
+              {t('passwordLabel')}
             </label>
             <Link
               href="/forgot-password"
               className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cyan-200/70 hover:text-cyan-100"
             >
-              Forgot?
+              {t('forgot')}
             </Link>
           </div>
           <input
@@ -110,7 +114,7 @@ function LoginForm() {
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
-            placeholder="••••••••••"
+            placeholder={t('passwordPlaceholder')}
             className="denaro-input"
           />
         </div>
@@ -120,20 +124,20 @@ function LoginForm() {
         )}
 
         <button type="submit" disabled={isPending} className="denaro-btn">
-          {isPending ? 'Authenticating…' : 'Engage'}
+          {isPending ? t('submitting') : t('submit')}
         </button>
       </form>
 
       <div className="mt-5 border-t border-cyan-400/15 pt-4">
         <p className="text-[0.7rem] tracking-wide text-cyan-100/60">
-          Need to verify your link?{' '}
+          {t('needVerify')}{' '}
           <button
             type="button"
             onClick={handleResend}
             disabled={isPending || !email}
             className="font-semibold text-amber-300 hover:text-amber-200 disabled:opacity-40"
           >
-            Resend verification
+            {t('resend')}
           </button>
         </p>
         {resendMsg && (

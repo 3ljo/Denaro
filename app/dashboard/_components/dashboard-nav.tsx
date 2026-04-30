@@ -1,10 +1,11 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import type { ReactNode, SVGProps } from 'react'
 
 export type TabId = 'markets' | 'news' | 'vision' | 'channel'
 
-export type Tab = { id: TabId; label: string; icon: ReactNode }
+export type Tab = { id: TabId; icon: ReactNode }
 
 const baseIcon: SVGProps<SVGSVGElement> = {
   width: 20,
@@ -21,7 +22,6 @@ const baseIcon: SVGProps<SVGSVGElement> = {
 export const DASHBOARD_TABS: Tab[] = [
   {
     id: 'markets',
-    label: 'Markets',
     icon: (
       <svg {...baseIcon}>
         <rect x="4" y="13" width="3.5" height="7" />
@@ -33,7 +33,6 @@ export const DASHBOARD_TABS: Tab[] = [
   },
   {
     id: 'news',
-    label: 'News',
     icon: (
       <svg {...baseIcon}>
         <rect x="3" y="5" width="18" height="16" rx="2" />
@@ -45,7 +44,6 @@ export const DASHBOARD_TABS: Tab[] = [
   },
   {
     id: 'vision',
-    label: 'Vision',
     icon: (
       <svg {...baseIcon}>
         <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
@@ -55,7 +53,6 @@ export const DASHBOARD_TABS: Tab[] = [
   },
   {
     id: 'channel',
-    label: 'Ask',
     icon: (
       <svg {...baseIcon}>
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -71,6 +68,7 @@ type Props = {
 
 /** Top horizontal tab bar — desktop only (≥ lg). */
 export function DesktopTabBar({ active, onSelect }: Props) {
+  const t = useTranslations('dashboard.tabs')
   return (
     <nav aria-label="Dashboard sections" className="hidden lg:block">
       <div className="denaro-panel rounded-md p-1">
@@ -90,7 +88,7 @@ export function DesktopTabBar({ active, onSelect }: Props) {
                 }`}
               >
                 {tab.icon}
-                {tab.label}
+                {t(tab.id)}
                 {on && (
                   <span
                     aria-hidden
@@ -108,6 +106,7 @@ export function DesktopTabBar({ active, onSelect }: Props) {
 
 /** Fixed bottom navbar — mobile + tablet (< lg). */
 export function MobileBottomNav({ active, onSelect }: Props) {
+  const t = useTranslations('dashboard.tabs')
   return (
     <nav
       aria-label="Dashboard sections"
@@ -138,7 +137,7 @@ export function MobileBottomNav({ active, onSelect }: Props) {
                     />
                   )}
                 </span>
-                <span>{tab.label}</span>
+                <span>{t(tab.id)}</span>
                 {on && (
                   <span
                     aria-hidden
