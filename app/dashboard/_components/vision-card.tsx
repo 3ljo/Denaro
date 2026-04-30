@@ -12,13 +12,35 @@ import type { Interval, OHLCBar } from '@/lib/market/ohlc'
 import { CHART_OPTIONS, CANDLE_OPTIONS } from './chart-theme'
 import FormattedAnalysis from './formatted-analysis'
 
-type Tf = { interval: Interval; label: string; tag: string }
+type Tf = { interval: Interval; label: string; tag: string; tvInterval: string }
 
 const STACK: Tf[] = [
-  { interval: '4h', label: '4H', tag: 'HTF' },
-  { interval: '1h', label: '1H', tag: 'MTF' },
-  { interval: '15m', label: '15M', tag: 'LTF' },
+  { interval: '4h',  label: '4H',  tag: 'HTF', tvInterval: '240' },
+  { interval: '1h',  label: '1H',  tag: 'MTF', tvInterval: '60'  },
+  { interval: '15m', label: '15M', tag: 'LTF', tvInterval: '15'  },
 ]
+
+// Same map used by the Markets-tab chart + ticker.
+const TV_SYMBOL: Record<string, string> = {
+  XAUUSD: 'OANDA:XAUUSD',
+  EURUSD: 'OANDA:EURUSD',
+  GBPUSD: 'OANDA:GBPUSD',
+  USDJPY: 'OANDA:USDJPY',
+  AUDUSD: 'OANDA:AUDUSD',
+  USDCAD: 'OANDA:USDCAD',
+  NZDUSD: 'OANDA:NZDUSD',
+  EURJPY: 'OANDA:EURJPY',
+  GBPJPY: 'OANDA:GBPJPY',
+  BTCUSD: 'BINANCE:BTCUSDT',
+  ETHUSD: 'BINANCE:ETHUSDT',
+  NAS100: 'NASDAQ:NDX',
+  SPX500: 'SP:SPX',
+  US30: 'DJ:DJI',
+  GER40: 'XETR:DAX',
+  UK100: 'TVC:UKX',
+  OIL: 'NYMEX:CL1!',
+  SILVER: 'OANDA:XAGUSD',
+}
 
 export default function VisionCard({ pairs }: { pairs: string[] }) {
   const [selected, setSelected] = useState<string>(pairs[0] ?? 'XAUUSD')
@@ -28,6 +50,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
   const [error, setError] = useState<string | null>(null)
 
   // Hold IChartApi for each timeframe so we can take all 3 screenshots.
+  // Charts live in off-screen capture canvases (not what the user sees).
   const chartRefs = useRef<(IChartApi | null)[]>([null, null, null])
 
   async function captureAll() {
@@ -152,7 +175,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
       {/* Three-up timeframe stack */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
         {STACK.map((tf, i) => (
-          <TfChart
+          <TfPanel
             key={`${selected}-${tf.interval}`}
             symbol={selected}
             tf={tf}
@@ -191,9 +214,12 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
   )
 }
 
-/* -- single mini-chart, fixed timeframe -- */
+/* -- Single mini-panel: TradingView live chart visible to the user, plus a
+ *    hidden lightweight-charts canvas that the Capture button screenshots
+ *    for the AI. Both fetch the same symbol/interval, so what the AI reads
+ *    matches what the user sees closely enough for swing-trading reads. */
 
-function TfChart({
+function TfPanel({
   symbol,
   tf,
   onChartRef,
@@ -202,12 +228,114 @@ function TfChart({
   tf: Tf
   onChartRef: (chart: IChartApi | null) => void
 }) {
+  return (
+    <div className="relative overflow-hidden rounded border border-cyan-400/20 bg-slate-950/60">
+      <div className="flex items-center justify-between border-b border-cyan-400/15 bg-cyan-500/[0.04] px-2 py-1">
+        <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-50">
+          {symbol}
+        </span>
+        <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/80">
+          {tf.tag} · {tf.label}
+        </span>
+      </div>
+
+      {/* Visible TradingView live chart */}
+      <div className="relative h-[200px] sm:h-[240px]">
+        <TradingViewMini symbol={symbol} tvInterval={tf.tvInterval} />
+      </div>
+
+      {/* Off-screen capture canvas — kept mounted so the Capture button can
+          screenshot it. Sized to a sensible chart aspect for the AI. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed opacity-0"
+        style={{ left: '-99999px', top: '-99999px', width: 600, height: 320 }}
+      >
+        <CaptureChart
+          symbol={symbol}
+          interval={tf.interval}
+          onChartRef={onChartRef}
+        />
+      </div>
+    </div>
+  )
+}
+
+/* -- Visible chart: TradingView official embed, sized small. -- */
+
+function TradingViewMini({
+  symbol,
+  tvInterval,
+}: {
+  symbol: string
+  tvInterval: string
+}) {
+  const tvSymbol = TV_SYMBOL[symbol.toUpperCase()] ?? symbol
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const host = containerRef.current
+    if (!host) return
+    host.innerHTML = ''
+
+    const inner = document.createElement('div')
+    inner.className = 'tradingview-widget-container__widget h-full w-full'
+    host.appendChild(inner)
+
+    const script = document.createElement('script')
+    script.src =
+      'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js'
+    script.type = 'text/javascript'
+    script.async = true
+    script.innerHTML = JSON.stringify({
+      autosize: true,
+      symbol: tvSymbol,
+      interval: tvInterval,
+      timezone: 'Etc/UTC',
+      theme: 'dark',
+      style: '1',
+      locale: 'en',
+      toolbar_bg: 'rgba(10,19,34,0.6)',
+      enable_publishing: false,
+      hide_top_toolbar: true,
+      hide_legend: true,
+      hide_side_toolbar: true,
+      allow_symbol_change: false,
+      save_image: false,
+      withdateranges: false,
+      details: false,
+      hideideas: true,
+      studies: [],
+    })
+    host.appendChild(script)
+
+    return () => {
+      host.innerHTML = ''
+    }
+  }, [tvSymbol, tvInterval])
+
+  return (
+    <div
+      ref={containerRef}
+      className="tradingview-widget-container absolute inset-0 h-full w-full"
+    />
+  )
+}
+
+/* -- Hidden canvas chart used only for the Capture button's screenshot. -- */
+
+function CaptureChart({
+  symbol,
+  interval,
+  onChartRef,
+}: {
+  symbol: string
+  interval: Interval
+  onChartRef: (chart: IChartApi | null) => void
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const seriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null)
-  const [bars, setBars] = useState<OHLCBar[]>([])
-  const [loading, setLoading] = useState(true)
 
-  // Build chart once
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -223,50 +351,38 @@ function TfChart({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Pull data — initial + polling so the snap captures fresh candles.
   useEffect(() => {
     let cancelled = false
-    let isInitial = true
 
     async function load() {
-      if (isInitial) setLoading(true)
       try {
         const r = await fetch(
-          `/api/ohlc?symbol=${symbol}&interval=${tf.interval}&_=${Date.now()}`,
+          `/api/ohlc?symbol=${symbol}&interval=${interval}&_=${Date.now()}`,
           { cache: 'no-store' },
         )
         if (!r.ok) return
         const data = (await r.json()) as { bars: OHLCBar[] }
         if (cancelled) return
-        const newBars = data.bars ?? []
-        setBars(newBars)
         const series = seriesRef.current
-        if (series) {
-          series.setData(
-            newBars.map((b) => ({
-              time: b.time as UTCTimestamp,
-              open: b.open,
-              high: b.high,
-              low: b.low,
-              close: b.close,
-            })),
-          )
-        }
+        if (!series) return
+        series.setData(
+          (data.bars ?? []).map((b) => ({
+            time: b.time as UTCTimestamp,
+            open: b.open,
+            high: b.high,
+            low: b.low,
+            close: b.close,
+          })),
+        )
       } catch {
         // ignore — keep prior data on screen
-      } finally {
-        if (!cancelled && isInitial) {
-          setLoading(false)
-          isInitial = false
-        }
       }
     }
 
     load()
 
-    // Match the per-pair chart cadence: HTF polls slowly, LTF fast.
     const pollMs =
-      tf.interval === '4h' ? 180_000 : tf.interval === '1h' ? 120_000 : 45_000
+      interval === '4h' ? 180_000 : interval === '1h' ? 120_000 : 45_000
     const id = setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return
       if (!cancelled) load()
@@ -276,28 +392,7 @@ function TfChart({
       cancelled = true
       clearInterval(id)
     }
-  }, [symbol, tf.interval])
+  }, [symbol, interval])
 
-  return (
-    <div className="relative overflow-hidden rounded border border-cyan-400/20 bg-slate-950/60">
-      <div className="flex items-center justify-between border-b border-cyan-400/15 bg-cyan-500/[0.04] px-2 py-1">
-        <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-50">
-          {symbol}
-        </span>
-        <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/80">
-          {tf.tag} · {tf.label}
-        </span>
-      </div>
-      <div className="relative h-[160px] sm:h-[200px]">
-        <div ref={containerRef} className="absolute inset-0" />
-        {loading && bars.length === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-display text-[0.55rem] tracking-[0.32em] text-cyan-200/45">
-              LOADING
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  )
+  return <div ref={containerRef} className="h-full w-full" />
 }
