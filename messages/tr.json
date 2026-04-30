@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "Geri",
+    "continue": "Devam",
+    "clear": "TEMİZLE",
+    "refresh": "Yenile",
+    "send": "Gönder",
+    "loading": "…",
+    "signalLost": "// sinyal kayboldu — {error}",
+    "language": "Dil"
+  },
+  "shell": {
+    "secure": "GÜVENLİ",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "Şifreyi göster",
+    "hidePassword": "Şifreyi gizle"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro erişim hologramını sunuyor",
+      "badge": "// KİMLİK ▸ DOĞRULA",
+      "title": "Erişim Portalı",
+      "subtitle": "Denaro ağına girmek için kimlik doğrula.",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "Henüz yetki yok mu?",
+      "requestAccess": "Erişim iste",
+      "resetSuccess": "Şifre güncellendi. Şimdi giriş yapabilirsin.",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Anahtar",
+      "forgot": "Unuttun mu?",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "Aktif Et",
+      "submitting": "Kimlik doğrulanıyor…",
+      "needVerify": "Linkini doğrulaman mı gerekiyor?",
+      "resend": "Doğrulamayı tekrar gönder"
+    },
+    "register": {
+      "imageAlt": "Denaro kayıt hologramını sunuyor",
+      "imageAltSent": "Denaro doğrulama gönderimini onaylıyor",
+      "badge": "// PROFİL ▸ BAŞLAT",
+      "badgeSent": "// LİNK ▸ GÖNDERİLDİ",
+      "title": "Yeni Operatör",
+      "titleSent": "Gelen Kutunu Kontrol Et",
+      "subtitle": "Denaro kimliği almak için kayıt ol.",
+      "subtitleSent": "Doğrulama linkin gönderildi.",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "Zaten içeride misin?",
+      "signIn": "Giriş yap",
+      "backPortal": "← Erişim portalına dön",
+      "spamHint": "Bir dakika içinde gelmezse spam veya gereksiz klasörünü kontrol et. Link tek kullanımlık.",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Anahtar",
+      "passwordPlaceholder": "•••••• minimum 6",
+      "passwordHint": "Minimum 6 karakter. Çeşitli karakterler kullan.",
+      "confirmLabel": "Anahtarı Onayla",
+      "confirmPlaceholder": "anahtarı tekrar yaz",
+      "submit": "Kimlik Oluştur",
+      "submitting": "Derleniyor…",
+      "validation": {
+        "emailRequired": "Lütfen e-postanı gir",
+        "passwordRequired": "Lütfen bir şifre gir",
+        "passwordTooShort": "Şifre en az 6 karakter olmalı",
+        "passwordsDoNotMatch": "Şifreler eşleşmiyor"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro erişim hologramını kurtarıyor",
+      "badge": "// ANAHTAR ▸ KURTAR",
+      "title": "Anahtarı Sıfırla",
+      "subtitle": "E-postanı gir, sana kurtarma linki gönderelim.",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← Erişim portalına dön",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "Kurtarma Linki Gönder",
+      "submitting": "Gönderiliyor…"
+    },
+    "reset": {
+      "imageAlt": "Denaro yeni bir anahtar kodluyor",
+      "imageAltInvalid": "Denaro geçersiz bir link sinyali veriyor",
+      "badge": "// ANAHTAR ▸ YENİDEN OLUŞTUR",
+      "badgeInvalid": "// LİNK ▸ GEÇERSİZ",
+      "title": "Yeni Anahtar",
+      "titleInvalid": "Kurtarma Başarısız",
+      "subtitle": "Daha önce kullanmadığın güçlü bir anahtar seç.",
+      "subtitleInvalid": "Sıfırlama linkin artık geçerli değil veya süresi doldu.",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← Erişim portalına dön",
+      "requestNew": "Yeni Link İste",
+      "newPasswordLabel": "Yeni Anahtar",
+      "newPasswordPlaceholder": "•••••• minimum 6",
+      "confirmLabel": "Anahtarı Onayla",
+      "confirmPlaceholder": "anahtarı tekrar yaz",
+      "submit": "Anahtarı Güncelle",
+      "submitting": "Yeniden oluşturuluyor…",
+      "passwordsDoNotMatch": "Şifreler eşleşmiyor"
+    },
+    "error": {
+      "imageAlt": "Denaro beklemede",
+      "badge": "// SİNYAL ▸ KAYIP",
+      "title": "Bağlantı Reddedildi",
+      "subtitle": "Link geçersiz, süresi dolmuş veya zaten kullanılmış.",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← Erişim portalına dön",
+      "requestNew": "Yeni bir kurtarma linki iste",
+      "details": "Detaylar: {reason}",
+      "fallback": "Tekrar giriş yapmayı dene veya bu bir kurtarma e-postasıysa yeni bir link iste."
+    },
+    "errors": {
+      "invalidEmail": "Geçersiz e-posta",
+      "emailTooLong": "E-posta çok uzun",
+      "invalidPassword": "Geçersiz şifre",
+      "passwordTooShort": "Şifre en az 6 karakter olmalı",
+      "passwordTooLong": "Şifre çok uzun",
+      "invalidCredentials": "Geçersiz e-posta veya şifre",
+      "invalidCredentialsOrUnverified": "Geçersiz e-posta veya şifre, ya da e-posta henüz doğrulanmamış",
+      "resetExpired": "Sıfırlama linki geçersiz veya süresi doldu. Lütfen yenisini iste.",
+      "couldNotUpdatePassword": "Şifre güncellenemedi. Lütfen tekrar dene.",
+      "unauthorized": "yetkisiz",
+      "pickAtLeastOnePair": "En az 1 parite seç.",
+      "deleteFailed": "Hesap silinemedi. Lütfen tekrar dene.",
+      "deleteConfirmMismatch": "Onaylamak için DELETE yazısını tam olarak yaz."
+    },
+    "messages": {
+      "registerSent": "Bu e-posta yeniyse, hesabını doğrulamak için gelen kutunu kontrol et. Zaten hesabın varsa giriş yapabilirsin.",
+      "resetSent": "Bu e-posta için bir hesap varsa, sıfırlama linki gönderildi.",
+      "verificationSent": "Hesabın doğrulama gerektiriyorsa, yeni bir e-posta gönderildi."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "KALİBRASYON {current}/{total}",
+    "welcome": {
+      "badge": "// OPERATÖR ▸ TANINDI",
+      "title": "Şebekeye Hoş Geldin",
+      "intro": "Denaro senin AI trading analistin. Sistemi tarzına göre ayarlamak için 3 hızlı soruyu cevapla — başlıca pariteler, strateji merceği ve sana nasıl hitap edileceği.",
+      "duration": "Yaklaşık 30 saniye sürer. Ayarlar daha sonra düzenlenebilir.",
+      "begin": "Kalibrasyonu Başlat"
+    },
+    "pairs": {
+      "badge": "// ADIM 01 ▸ PİYASALAR",
+      "title": "En önemli 3 paritenin seç",
+      "subtitle": "Denaro analizi bu piyasalara göre ayarlayacak.",
+      "selected": "{count}/3 seçildi"
+    },
+    "strategy": {
+      "badge": "// ADIM 02 ▸ MERCEK",
+      "title": "Stratejini seç",
+      "subtitle": "Denaro her analizde bu merceği kullanacak.",
+      "active": "AKTİF"
+    },
+    "name": {
+      "badge": "// ADIM 03 ▸ İSİM",
+      "title": "Denaro sana nasıl hitap etsin?",
+      "subtitle": "İsteğe bağlı. Varsayılan olarak e-posta kullanıcı adın.",
+      "label": "Görünen ad",
+      "placeholder": "Operator",
+      "submit": "Şebekeye Gir",
+      "submitting": "Aktif ediliyor…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "Kurumsal emir akışı. BoS, CHoCH, order block, FVG, likidite süpürmeleri."
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "Saf yapı. Arz / talep bölgeleri, mum okuma, market profile."
+    },
+    "trend": {
+      "label": "Trend Takibi",
+      "blurb": "Baskın trende uy. Kırılımlar, pullback girişleri, momentum devamı."
+    },
+    "mean-reversion": {
+      "label": "Ortalamaya Dönüş",
+      "blurb": "Aşırı uçlara karşı. Range işlemleri, range sınırlarında tükenme girişleri."
+    },
+    "scalping": {
+      "label": "Scalping",
+      "blurb": "Hızlı gün içi. M1–M15 setupları, yüksek frekans, dar risk."
+    },
+    "swing": {
+      "label": "Swing Trading",
+      "blurb": "Çok günlük pozisyonlar. HTF bias (D1+H4), sabırlı girişler, geniş TPler."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// ANALİST ▸ ÇEVRİMİÇİ",
+      "welcomeBack": "Tekrar hoş geldin, {name}",
+      "lens": "Mercek:",
+      "logout": "Bağlantıyı kes",
+      "operatorFallback": "Operator",
+      "openSettings": "Ayarları aç"
+    },
+    "tabs": {
+      "markets": "Piyasalar",
+      "news": "Haberler",
+      "vision": "Görüş",
+      "channel": "Sor"
+    },
+    "session": {
+      "session": "SEANS",
+      "overlap": "ÇAKIŞMA",
+      "utc": "UTC",
+      "local": "YEREL",
+      "sessions": {
+        "sydney": "SYDNEY",
+        "tokyo": "TOKYO",
+        "london": "LONDRA",
+        "newYork": "NEW YORK"
+      }
+    },
+    "ticker": {
+      "title": "Canlı fiyat şeridi"
+    },
+    "chartCard": {
+      "badge": "// GRAFİK ▸ CANLI",
+      "realTime": "GERÇEK ZAMAN"
+    },
+    "pairCard": {
+      "badge": "// ANALİZ",
+      "resistance": "Direnç",
+      "support": "Destek",
+      "nextMove": "Sıradaki hareket",
+      "invalidation": "Geçersizleşme",
+      "confluenceLabel": "Konfluans {score}",
+      "bias": {
+        "bullish": "yükseliş",
+        "bearish": "düşüş",
+        "range": "range"
+      }
+    },
+    "newsCard": {
+      "badge": "// HABER · TAKVİM",
+      "feedTitle": "{pair} Akışı",
+      "live": "CANLI",
+      "high": "YÜKSEK",
+      "med": "ORTA",
+      "highBadge": "YÜK",
+      "medBadge": "ORT",
+      "now": "▶ ŞİMDİ",
+      "empty": "Bu hafta {pair} için orta / yüksek etkili olay planlanmamış.",
+      "forecast": "T",
+      "previous": "Ö"
+    },
+    "vision": {
+      "badge": "// GÖRÜŞ ▸ ÇOK-ZAMAN OKUMA",
+      "title": "HTF → MTF → LTF Snap",
+      "subtitle": "Seçilen parite için 4H · 1H · 15M yakala ve Denaro tüm yığını okusun.",
+      "capture": "HTF → LTF Yakala ve Analiz Et",
+      "capturing": "Yığın okunuyor…",
+      "reading": "// YIĞIN OKUNUYOR…",
+      "errorChartNotReady": "{label} grafiği hazır değil",
+      "errorCanvas": "canvas bağlamı kullanılamıyor",
+      "errorSnapshot": "anlık görüntü başarısız",
+      "errorRequest": "istek başarısız",
+      "errorFailed": "başarısız",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "{pair} çok-zaman dilimi yığını — grafik 1 = HTF (4H), grafik 2 = MTF (1H), grafik 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// KANAL",
+      "title": "Denaro'ya Sor",
+      "subtitle": "Kavramlar, setup incelemesi, pozisyon büyüklüğü, piyasa okuma — grafik ekran görüntüsü gerektirmeyen her şey.",
+      "placeholder": "Denaro'ya sor... (Yeni satır için Shift+Enter)",
+      "send": "Gönder",
+      "sending": "Akıyor…",
+      "channelOpen": "// KANAL AÇIK…",
+      "errorRequest": "istek başarısız",
+      "errorFailed": "başarısız",
+      "examplesBadge": "// ÖRNEKLER",
+      "tip": "İpucu: Şablonlardaki {bracket} gibi köşeli parantezler yer tutucudur — göndermeden önce değiştir.",
+      "examples": [
+        "Likidite süpürmelerini XAUUSD üzerinde örneklerle açıkla",
+        "EURUSD'i 1.1750'den aldım, SL 1.1720, TP 1.1810 — bir sorun var mı?",
+        "Bu hafta hangi makro olaylar USD paritelerini hareket ettirebilir?",
+        "15M grafikte order flow'u nasıl okurum?"
+      ],
+      "quick": {
+        "concept": "Kavram araması",
+        "conceptPrompt": "Birer paragrafta CHoCH ile BoS'u açıkla, ve her birinin piyasa yapısında gerçek bir değişimi ne zaman sinyallediğini söyle.",
+        "whyMoving": "{pair} neden hareket ediyor?",
+        "whyMovingPrompt": "{pair} şu an neden böyle hareket ediyor olabilir? 3 olası sürücü ver — makro, yapısal ve seans kaynaklı — ve olasılığa göre sırala.",
+        "sizing": "Pozisyon büyüklüğü hesabı",
+        "sizingPrompt": "Bir işlemi boyutlandırmama yardım et. Hesap büyüklüğü: $[1000]. İşlem başına risk: [%1]. Parite: {pair}. Giriş: [fiyat]. Stop loss: [fiyat]. Hesapla: dolar riski, lot/birim cinsinden pozisyon büyüklüğü, ve SL mesafesinin makul olup olmadığı.",
+        "review": "Setupımı incele",
+        "reviewPrompt": "{pair} için bu setupı {lens} bakış açısıyla incele.\n\nGiriş: [fiyat]\nStop loss: [fiyat]\nTake profit: [fiyat]\nSebep: [neden alıyorum]\n\nSöyle: yapı temiz mi? Onu ne geçersiz kılar? Atladığım bir şey var mı?",
+        "session": "En iyi seans",
+        "sessionPrompt": "Paritelerim ({list}) ve {lens} yaklaşımıyla, hangi trading seans(lar)ı tarihsel olarak en temiz setupları sunar ve neden? Volatilite pencereleri konusunda spesifik ol ve genel tavsiyelerden kaçın.",
+        "backtest": "Backtest planı",
+        "backtestPrompt": "{pair} üzerinde {lens} stratejisini backtest etmek için 5 adımlık bir plan ver. Şunları içer: veri penceresi, giriş kuralı, çıkış kuralı, takip edilecek istatistikler, ve stratejiyi diskalifiye eden şey."
+      }
+    }
+  },
+  "settings": {
+    "badge": "// OPERATÖR ▸ KONFİG",
+    "title": "Ayarlar",
+    "subtitle": "Profilini, piyasalarını ve strateji merceğini ayarla.",
+    "back": "← Panele dön",
+    "saved": "Ayarlar kaydedildi.",
+    "save": "Değişiklikleri kaydet",
+    "saving": "Kaydediliyor…",
+    "sections": {
+      "identity": {
+        "title": "Kimlik",
+        "subtitle": "Denaro sana nasıl hitap ediyor ve hesap e-postan."
+      },
+      "preferences": {
+        "title": "Tercihler",
+        "subtitle": "Arayüz dili."
+      },
+      "markets": {
+        "title": "Piyasalar",
+        "subtitle": "Denaro'nun senin için izleyeceği en fazla 3 parite.",
+        "selected": "{count}/3 seçildi"
+      },
+      "strategy": {
+        "title": "Strateji merceği",
+        "subtitle": "Denaro'nun her analizde kullandığı çerçeve.",
+        "active": "AKTİF"
+      },
+      "session": {
+        "title": "Seans",
+        "subtitle": "Bu cihazda her yerden çıkış yap."
+      },
+      "danger": {
+        "title": "Tehlike bölgesi",
+        "subtitle": "Kalıcı işlemler. Devam etmeden önce dikkatlice oku.",
+        "deleteAccount": "Hesabı sil",
+        "warning": "Bu hesabını, profilini ve tüm ayarlarını siler. Geri alınamaz. Onaylamak için DELETE yaz.",
+        "confirmLabel": "Onaylamak için DELETE yaz",
+        "confirmDelete": "Kalıcı olarak sil",
+        "deleting": "Siliniyor…",
+        "cancel": "İptal"
+      }
+    },
+    "fields": {
+      "displayName": "Görünen ad",
+      "displayNamePlaceholder": "Operator",
+      "email": "E-posta",
+      "emailHint": "E-posta hesabına bağlıdır ve buradan değiştirilemez.",
+      "language": "Dil"
+    }
+  }
+}

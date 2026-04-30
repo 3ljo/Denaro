@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "Indietro",
+    "continue": "Continua",
+    "clear": "PULISCI",
+    "refresh": "Aggiorna",
+    "send": "Invia",
+    "loading": "…",
+    "signalLost": "// segnale perso — {error}",
+    "language": "Lingua"
+  },
+  "shell": {
+    "secure": "SICURO",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro che presenta l'ologramma di accesso",
+      "badge": "// IDENTITÀ ▸ VERIFICA",
+      "title": "Portale di Accesso",
+      "subtitle": "Autenticati per entrare nella griglia Denaro.",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "Nessuna autorizzazione?",
+      "requestAccess": "Richiedi accesso",
+      "resetSuccess": "Password aggiornata. Ora puoi accedere.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Chiave",
+      "forgot": "Dimenticata?",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "Avvia",
+      "submitting": "Autenticazione…",
+      "needVerify": "Devi verificare il tuo link?",
+      "resend": "Rinvia verifica"
+    },
+    "register": {
+      "imageAlt": "Denaro che presenta l'ologramma di registrazione",
+      "imageAltSent": "Denaro conferma l'invio della verifica",
+      "badge": "// PROFILO ▸ INIZIALIZZA",
+      "badgeSent": "// LINK ▸ INVIATO",
+      "title": "Nuovo Operatore",
+      "titleSent": "Verifica la Posta",
+      "subtitle": "Registrati per ricevere un'identità Denaro.",
+      "subtitleSent": "Il tuo link di verifica è stato trasmesso.",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "Già a bordo?",
+      "signIn": "Accedi",
+      "backPortal": "← Torna al portale di accesso",
+      "spamHint": "Controlla spam o posta indesiderata se non arriva entro un minuto. Il link è valido per un solo utilizzo.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Chiave",
+      "passwordPlaceholder": "•••••• minimo 6",
+      "passwordHint": "Minimo 6 caratteri. Mescolali bene.",
+      "confirmLabel": "Conferma Chiave",
+      "confirmPlaceholder": "ripeti la chiave",
+      "submit": "Crea Identità",
+      "submitting": "Compilazione…",
+      "validation": {
+        "emailRequired": "Inserisci la tua email",
+        "passwordRequired": "Inserisci una password",
+        "passwordTooShort": "La password deve avere almeno 6 caratteri",
+        "passwordsDoNotMatch": "Le password non coincidono"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro che recupera l'ologramma di accesso",
+      "badge": "// CHIAVE ▸ RECUPERA",
+      "title": "Reimposta Chiave",
+      "subtitle": "Inserisci la tua email e ti invieremo un link di recupero.",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← Torna al portale di accesso",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "Invia Link di Recupero",
+      "submitting": "Trasmissione…"
+    },
+    "reset": {
+      "imageAlt": "Denaro che codifica una nuova chiave",
+      "imageAltInvalid": "Denaro segnala un link non valido",
+      "badge": "// CHIAVE ▸ RIFORGIA",
+      "badgeInvalid": "// LINK ▸ NON VALIDO",
+      "title": "Nuova Chiave",
+      "titleInvalid": "Recupero Fallito",
+      "subtitle": "Scegli una chiave forte che non hai usato prima.",
+      "subtitleInvalid": "Il tuo link di reset non è più valido o è scaduto.",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← Torna al portale di accesso",
+      "requestNew": "Richiedi Nuovo Link",
+      "newPasswordLabel": "Nuova Chiave",
+      "newPasswordPlaceholder": "•••••• minimo 6",
+      "confirmLabel": "Conferma Chiave",
+      "confirmPlaceholder": "ripeti la chiave",
+      "submit": "Aggiorna Chiave",
+      "submitting": "Riforgiatura…",
+      "passwordsDoNotMatch": "Le password non coincidono"
+    },
+    "error": {
+      "imageAlt": "Denaro in standby",
+      "badge": "// SEGNALE ▸ PERSO",
+      "title": "Connessione Rifiutata",
+      "subtitle": "Il link non è valido, è scaduto o è già stato usato.",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← Torna al portale di accesso",
+      "requestNew": "Richiedi un nuovo link di recupero",
+      "details": "Dettagli: {reason}",
+      "fallback": "Prova ad accedere di nuovo, o richiedi un nuovo link se era un'email di recupero."
+    },
+    "errors": {
+      "invalidEmail": "Email non valida",
+      "emailTooLong": "Email troppo lunga",
+      "invalidPassword": "Password non valida",
+      "passwordTooShort": "La password deve avere almeno 6 caratteri",
+      "passwordTooLong": "Password troppo lunga",
+      "invalidCredentials": "Email o password non valide",
+      "invalidCredentialsOrUnverified": "Email o password non valide, o email non ancora verificata",
+      "resetExpired": "Il link di reset non è valido o è scaduto. Richiedine uno nuovo.",
+      "couldNotUpdatePassword": "Impossibile aggiornare la password. Riprova.",
+      "unauthorized": "non autorizzato",
+      "pickAtLeastOnePair": "Scegli almeno 1 coppia.",
+      "deleteFailed": "Impossibile eliminare l'account. Riprova.",
+      "deleteConfirmMismatch": "Digita esattamente DELETE per confermare."
+    },
+    "messages": {
+      "registerSent": "Se questa email è nuova, controlla la posta per verificare l'account. Se hai già un account, puoi accedere.",
+      "resetSent": "Se esiste un account per quell'email, è stato inviato un link di reset.",
+      "verificationSent": "Se il tuo account ha bisogno di verifica, è stata inviata una nuova email."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "CALIBRAZIONE {current}/{total}",
+    "welcome": {
+      "badge": "// OPERATORE ▸ IDENTIFICATO",
+      "title": "Benvenuto nella Griglia",
+      "intro": "Denaro è il tuo analista di trading AI. Per adattare il sistema al tuo stile, rispondi a 3 domande veloci — le tue coppie principali, la tua lente strategica, e come chiamarti.",
+      "duration": "Servono circa 30 secondi. Le impostazioni si possono modificare in seguito.",
+      "begin": "Inizia Calibrazione"
+    },
+    "pairs": {
+      "badge": "// PASSO 01 ▸ MERCATI",
+      "title": "Scegli le tue 3 coppie principali",
+      "subtitle": "Denaro adatterà l'analisi a questi mercati.",
+      "selected": "{count}/3 selezionate"
+    },
+    "strategy": {
+      "badge": "// PASSO 02 ▸ LENTE",
+      "title": "Scegli la tua strategia",
+      "subtitle": "Denaro userà questa lente per ogni analisi.",
+      "active": "ATTIVA"
+    },
+    "name": {
+      "badge": "// PASSO 03 ▸ NOME",
+      "title": "Come dovrebbe chiamarti Denaro?",
+      "subtitle": "Opzionale. Predefinito al nome dell'email.",
+      "label": "Nome visualizzato",
+      "placeholder": "Operator",
+      "submit": "Entra nella Griglia",
+      "submitting": "Avvio…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "Flusso ordini istituzionale. BoS, CHoCH, order block, FVG, sweep di liquidità."
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "Struttura pura. Zone di supply / demand, lettura candele, profilo di mercato."
+    },
+    "trend": {
+      "label": "Trend Following",
+      "blurb": "Cavalca il trend dominante. Breakout, ingressi su pullback, continuazione del momentum."
+    },
+    "mean-reversion": {
+      "label": "Ritorno alla Media",
+      "blurb": "Contrasta gli estremi. Range trading, ingressi di esaurimento ai bordi del range."
+    },
+    "scalping": {
+      "label": "Scalping",
+      "blurb": "Intraday veloce. Setup M1–M15, alta frequenza, rischio stretto."
+    },
+    "swing": {
+      "label": "Swing Trading",
+      "blurb": "Posizioni multi-giorno. Bias HTF (D1+H4), ingressi pazienti, TP estesi."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// ANALISTA ▸ ONLINE",
+      "welcomeBack": "Bentornato, {name}",
+      "lens": "Lente:",
+      "logout": "Disconnetti",
+      "operatorFallback": "Operator",
+      "openSettings": "Apri impostazioni"
+    },
+    "tabs": {
+      "markets": "Mercati",
+      "news": "Notizie",
+      "vision": "Visione",
+      "channel": "Chiedi"
+    },
+    "session": {
+      "session": "SESSIONE",
+      "overlap": "SOVRAPPOSIZIONE",
+      "utc": "UTC",
+      "local": "LOCALE",
+      "sessions": {
+        "sydney": "SYDNEY",
+        "tokyo": "TOKYO",
+        "london": "LONDRA",
+        "newYork": "NEW YORK"
+      }
+    },
+    "ticker": {
+      "title": "Striscia di prezzi live"
+    },
+    "chartCard": {
+      "badge": "// GRAFICO ▸ LIVE",
+      "realTime": "TEMPO REALE"
+    },
+    "pairCard": {
+      "badge": "// ANALISI",
+      "resistance": "Resistenza",
+      "support": "Supporto",
+      "nextMove": "Prossima mossa",
+      "invalidation": "Invalidazione",
+      "confluenceLabel": "Confluenza {score}",
+      "bias": {
+        "bullish": "rialzista",
+        "bearish": "ribassista",
+        "range": "range"
+      }
+    },
+    "newsCard": {
+      "badge": "// NOTIZIE · CALENDARIO",
+      "feedTitle": "Feed {pair}",
+      "live": "LIVE",
+      "high": "ALTO",
+      "med": "MEDIO",
+      "highBadge": "ALTO",
+      "medBadge": "MED",
+      "now": "▶ ORA",
+      "empty": "Nessun evento di impatto medio / alto previsto per {pair} questa settimana.",
+      "forecast": "P",
+      "previous": "P"
+    },
+    "vision": {
+      "badge": "// VISIONE ▸ LETTURA MULTI-TF",
+      "title": "Snap HTF → MTF → LTF",
+      "subtitle": "Cattura 4H · 1H · 15M per la coppia selezionata e lascia che Denaro legga l'intero stack.",
+      "capture": "Cattura HTF → LTF e Analizza",
+      "capturing": "Lettura dello stack…",
+      "reading": "// LETTURA DELLO STACK…",
+      "errorChartNotReady": "Grafico {label} non pronto",
+      "errorCanvas": "contesto canvas non disponibile",
+      "errorSnapshot": "snapshot fallito",
+      "errorRequest": "richiesta fallita",
+      "errorFailed": "fallito",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "Stack multi-timeframe di {pair} — grafico 1 = HTF (4H), grafico 2 = MTF (1H), grafico 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// CANALE",
+      "title": "Chiedi a Denaro",
+      "subtitle": "Concetti, revisione setup, calcolo posizione, lettura del mercato — qualsiasi cosa che non richieda uno screenshot del grafico.",
+      "placeholder": "Chiedi a Denaro... (Shift+Invio per a capo)",
+      "send": "Invia",
+      "sending": "Streaming…",
+      "channelOpen": "// CANALE APERTO…",
+      "errorRequest": "richiesta fallita",
+      "errorFailed": "fallito",
+      "examplesBadge": "// ESEMPI",
+      "tip": "Suggerimento: le parentesi quadre come {bracket} nei modelli sono segnaposto — sostituiscili prima di inviare.",
+      "examples": [
+        "Spiega gli sweep di liquidità con esempi su XAUUSD",
+        "Ho comprato EURUSD a 1.1750, SL 1.1720, TP 1.1810 — c'è qualcosa che non va?",
+        "Quali eventi macro questa settimana potrebbero muovere le coppie USD?",
+        "Come leggo l'order flow su un grafico 15M?"
+      ],
+      "quick": {
+        "concept": "Ricerca concetto",
+        "conceptPrompt": "In un paragrafo ciascuno, spiega CHoCH vs BoS, e quando ognuno segnala un vero cambio nella struttura del mercato.",
+        "whyMoving": "Perché si muove {pair}?",
+        "whyMovingPrompt": "Perché {pair} potrebbe muoversi così in questo momento? Dammi 3 driver candidati — macro, strutturali, e legati alla sessione — e classificali per probabilità.",
+        "sizing": "Calcolo dimensione posizione",
+        "sizingPrompt": "Aiutami a dimensionare un trade. Dimensione conto: $[1000]. Rischio per trade: [1]%. Coppia: {pair}. Entrata: [prezzo]. Stop loss: [prezzo]. Calcola: rischio in dollari, dimensione posizione in lotti/unità, e una verifica della distanza dello SL.",
+        "review": "Rivedi il mio setup",
+        "reviewPrompt": "Rivedi questo setup per {pair} da una prospettiva {lens}.\n\nEntrata: [prezzo]\nStop loss: [prezzo]\nTake profit: [prezzo]\nMotivo: [perché lo prendo]\n\nDimmi: la struttura è pulita? Cosa lo invalida? Mi è sfuggito qualcosa?",
+        "session": "Sessione migliore",
+        "sessionPrompt": "Per le mie coppie ({list}) e un approccio {lens}, quale sessione di trading offre storicamente i setup più puliti, e perché? Sii specifico sulle finestre di volatilità ed evita consigli generici.",
+        "backtest": "Piano di backtest",
+        "backtestPrompt": "Dammi un piano in 5 passi per fare backtest di una strategia {lens} su {pair}. Includi: finestra dati, regola di entrata, regola di uscita, statistiche da tracciare, e cosa squalifica la strategia."
+      }
+    }
+  },
+  "settings": {
+    "badge": "// OPERATORE ▸ CONFIG",
+    "title": "Impostazioni",
+    "subtitle": "Regola il tuo profilo, i mercati e la lente strategica.",
+    "back": "← Torna al pannello",
+    "saved": "Impostazioni salvate.",
+    "save": "Salva modifiche",
+    "saving": "Salvataggio…",
+    "sections": {
+      "identity": {
+        "title": "Identità",
+        "subtitle": "Come Denaro ti chiama e l'email del tuo account."
+      },
+      "preferences": {
+        "title": "Preferenze",
+        "subtitle": "Lingua dell'interfaccia."
+      },
+      "markets": {
+        "title": "Mercati",
+        "subtitle": "Fino a 3 coppie che Denaro monitorerà per te.",
+        "selected": "{count}/3 selezionate"
+      },
+      "strategy": {
+        "title": "Lente strategica",
+        "subtitle": "Il framework che Denaro usa per ogni analisi.",
+        "active": "ATTIVA"
+      },
+      "session": {
+        "title": "Sessione",
+        "subtitle": "Disconnettiti da ovunque su questo dispositivo."
+      },
+      "danger": {
+        "title": "Zona pericolo",
+        "subtitle": "Azioni permanenti. Leggi con attenzione prima di procedere.",
+        "deleteAccount": "Elimina account",
+        "warning": "Questo elimina il tuo account, profilo e tutte le impostazioni. Non può essere annullato. Digita DELETE per confermare.",
+        "confirmLabel": "Digita DELETE per confermare",
+        "confirmDelete": "Elimina definitivamente",
+        "deleting": "Eliminazione…",
+        "cancel": "Annulla"
+      }
+    },
+    "fields": {
+      "displayName": "Nome visualizzato",
+      "displayNamePlaceholder": "Operator",
+      "email": "Email",
+      "emailHint": "L'email è legata al tuo account e non può essere modificata qui.",
+      "language": "Lingua"
+    }
+  }
+}

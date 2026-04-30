@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "رجوع",
+    "continue": "متابعة",
+    "clear": "مسح",
+    "refresh": "تحديث",
+    "send": "إرسال",
+    "loading": "…",
+    "signalLost": "// فُقد الاتصال — {error}",
+    "language": "اللغة"
+  },
+  "shell": {
+    "secure": "آمن",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro يقدّم هولوغرام الدخول",
+      "badge": "// الهوية ▸ تحقق",
+      "title": "بوابة الدخول",
+      "subtitle": "تحقّق من هويتك للدخول إلى شبكة Denaro.",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "لا تملك إذن دخول بعد؟",
+      "requestAccess": "اطلب الوصول",
+      "resetSuccess": "تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "المفتاح",
+      "forgot": "نسيت؟",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "تفعيل",
+      "submitting": "جارٍ التحقق…",
+      "needVerify": "تحتاج إلى تأكيد رابطك؟",
+      "resend": "إعادة إرسال التحقق"
+    },
+    "register": {
+      "imageAlt": "Denaro يقدّم هولوغرام التسجيل",
+      "imageAltSent": "Denaro يؤكد إرسال التحقق",
+      "badge": "// الملف الشخصي ▸ تهيئة",
+      "badgeSent": "// الرابط ▸ أُرسل",
+      "title": "مشغّل جديد",
+      "titleSent": "تحقّق من بريدك",
+      "subtitle": "سجّل لاستلام هوية Denaro خاصة بك.",
+      "subtitleSent": "تم إرسال رابط التحقق الخاص بك.",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "أنت على المنصة بالفعل؟",
+      "signIn": "تسجيل الدخول",
+      "backPortal": "← العودة إلى بوابة الدخول",
+      "spamHint": "تحقّق من البريد المزعج إذا لم يصل خلال دقيقة. الرابط صالح لاستخدام واحد فقط.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "المفتاح",
+      "passwordPlaceholder": "•••••• 6 أحرف على الأقل",
+      "passwordHint": "6 أحرف على الأقل. اخلطها جيدًا.",
+      "confirmLabel": "تأكيد المفتاح",
+      "confirmPlaceholder": "كرّر المفتاح",
+      "submit": "إنشاء الهوية",
+      "submitting": "جارٍ التجميع…",
+      "validation": {
+        "emailRequired": "الرجاء إدخال بريدك الإلكتروني",
+        "passwordRequired": "الرجاء إدخال كلمة مرور",
+        "passwordTooShort": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+        "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro يستعيد هولوغرام الدخول",
+      "badge": "// المفتاح ▸ استعادة",
+      "title": "إعادة تعيين المفتاح",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل إليك رابط استعادة.",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← العودة إلى بوابة الدخول",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "إرسال رابط الاستعادة",
+      "submitting": "جارٍ الإرسال…"
+    },
+    "reset": {
+      "imageAlt": "Denaro يصوغ مفتاحًا جديدًا",
+      "imageAltInvalid": "Denaro يشير إلى رابط غير صالح",
+      "badge": "// المفتاح ▸ إعادة صياغة",
+      "badgeInvalid": "// الرابط ▸ غير صالح",
+      "title": "مفتاح جديد",
+      "titleInvalid": "فشلت الاستعادة",
+      "subtitle": "اختر مفتاحًا قويًا لم تستخدمه من قبل.",
+      "subtitleInvalid": "رابط إعادة التعيين لم يعد صالحًا أو انتهت صلاحيته.",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← العودة إلى بوابة الدخول",
+      "requestNew": "طلب رابط جديد",
+      "newPasswordLabel": "المفتاح الجديد",
+      "newPasswordPlaceholder": "•••••• 6 أحرف على الأقل",
+      "confirmLabel": "تأكيد المفتاح",
+      "confirmPlaceholder": "كرّر المفتاح",
+      "submit": "تحديث المفتاح",
+      "submitting": "جارٍ إعادة الصياغة…",
+      "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين"
+    },
+    "error": {
+      "imageAlt": "Denaro في وضع الانتظار",
+      "badge": "// الإشارة ▸ مفقودة",
+      "title": "تم رفض الاتصال",
+      "subtitle": "الرابط غير صالح أو منتهي الصلاحية أو مستخدم بالفعل.",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← العودة إلى بوابة الدخول",
+      "requestNew": "طلب رابط استعادة جديد",
+      "details": "التفاصيل: {reason}",
+      "fallback": "حاول تسجيل الدخول مرة أخرى، أو اطلب رابطًا جديدًا إذا كان هذا بريد استعادة."
+    },
+    "errors": {
+      "invalidEmail": "بريد إلكتروني غير صالح",
+      "emailTooLong": "البريد الإلكتروني طويل جدًا",
+      "invalidPassword": "كلمة مرور غير صالحة",
+      "passwordTooShort": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+      "passwordTooLong": "كلمة المرور طويلة جدًا",
+      "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صالحة",
+      "invalidCredentialsOrUnverified": "البريد الإلكتروني أو كلمة المرور غير صالحة، أو البريد لم يتم التحقق منه بعد",
+      "resetExpired": "رابط إعادة التعيين غير صالح أو انتهت صلاحيته. الرجاء طلب رابط جديد.",
+      "couldNotUpdatePassword": "تعذّر تحديث كلمة المرور. الرجاء المحاولة مرة أخرى.",
+      "unauthorized": "غير مصرح",
+      "pickAtLeastOnePair": "اختر زوجًا واحدًا على الأقل.",
+      "deleteFailed": "تعذّر حذف الحساب. الرجاء المحاولة مرة أخرى.",
+      "deleteConfirmMismatch": "اكتب DELETE تمامًا للتأكيد."
+    },
+    "messages": {
+      "registerSent": "إذا كان هذا البريد جديدًا، تحقّق من بريدك للتأكيد. إذا كان لديك حساب بالفعل، يمكنك تسجيل الدخول.",
+      "resetSent": "إذا كان هناك حساب لهذا البريد، فقد أُرسل رابط إعادة تعيين.",
+      "verificationSent": "إذا كان حسابك يحتاج إلى تحقق، فقد أُرسل بريد جديد."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "المعايرة {current}/{total}",
+    "welcome": {
+      "badge": "// المشغّل ▸ تم التعرف",
+      "title": "أهلًا بك في الشبكة",
+      "intro": "Denaro هو محلّلك للتداول بالذكاء الاصطناعي. لضبط النظام على أسلوبك، أجب عن 3 أسئلة سريعة — أهم أزواجك، عدسة استراتيجيتك، وكيف تريد أن نناديك.",
+      "duration": "تستغرق نحو 30 ثانية. يمكنك تعديل الإعدادات لاحقًا.",
+      "begin": "ابدأ المعايرة"
+    },
+    "pairs": {
+      "badge": "// الخطوة 01 ▸ الأسواق",
+      "title": "اختر أهم 3 أزواج",
+      "subtitle": "سيكيّف Denaro التحليل وفق هذه الأسواق.",
+      "selected": "{count}/3 محددة"
+    },
+    "strategy": {
+      "badge": "// الخطوة 02 ▸ العدسة",
+      "title": "اختر استراتيجيتك",
+      "subtitle": "سيستخدم Denaro هذه العدسة لكل تحليل.",
+      "active": "نشطة"
+    },
+    "name": {
+      "badge": "// الخطوة 03 ▸ الاسم",
+      "title": "كيف ينبغي أن يناديك Denaro؟",
+      "subtitle": "اختياري. الافتراضي هو اسم بريدك.",
+      "label": "الاسم الظاهر",
+      "placeholder": "Operator",
+      "submit": "ادخل إلى الشبكة",
+      "submitting": "جارٍ التفعيل…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "تدفّق الأوامر المؤسسية. BoS، CHoCH، order blocks، FVGs، اكتساحات السيولة."
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "بنية صافية. مناطق العرض / الطلب، قراءة الشموع، market profile."
+    },
+    "trend": {
+      "label": "تتبّع الترند",
+      "blurb": "اركب الترند المسيطر. الكسور، الدخول على pullback، استمرار الزخم."
+    },
+    "mean-reversion": {
+      "label": "العودة إلى المتوسط",
+      "blurb": "ضد الأطراف. تداول النطاق، الدخول عند الإنهاك على حدود النطاق."
+    },
+    "scalping": {
+      "label": "Scalping",
+      "blurb": "Intraday سريع. setups على M1–M15، تواتر مرتفع، مخاطرة ضيقة."
+    },
+    "swing": {
+      "label": "Swing Trading",
+      "blurb": "صفقات متعددة الأيام. HTF bias (D1+H4)، دخول صبور، TPs ممتدة."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// المحلّل ▸ متصل",
+      "welcomeBack": "أهلًا بعودتك، {name}",
+      "lens": "العدسة:",
+      "logout": "قطع الاتصال",
+      "operatorFallback": "Operator",
+      "openSettings": "فتح الإعدادات"
+    },
+    "tabs": {
+      "markets": "الأسواق",
+      "news": "الأخبار",
+      "vision": "الرؤية",
+      "channel": "اسأل"
+    },
+    "session": {
+      "session": "الجلسة",
+      "overlap": "تداخل",
+      "utc": "UTC",
+      "local": "محلي",
+      "sessions": {
+        "sydney": "سيدني",
+        "tokyo": "طوكيو",
+        "london": "لندن",
+        "newYork": "نيويورك"
+      }
+    },
+    "ticker": {
+      "title": "شريط الأسعار المباشر"
+    },
+    "chartCard": {
+      "badge": "// الرسم ▸ مباشر",
+      "realTime": "وقت فعلي"
+    },
+    "pairCard": {
+      "badge": "// التحليل",
+      "resistance": "المقاومة",
+      "support": "الدعم",
+      "nextMove": "الحركة التالية",
+      "invalidation": "الإلغاء",
+      "confluenceLabel": "التقاطع {score}",
+      "bias": {
+        "bullish": "صاعد",
+        "bearish": "هابط",
+        "range": "نطاق"
+      }
+    },
+    "newsCard": {
+      "badge": "// الأخبار · التقويم",
+      "feedTitle": "تغذية {pair}",
+      "live": "مباشر",
+      "high": "مرتفع",
+      "med": "متوسط",
+      "highBadge": "مرتفع",
+      "medBadge": "متوسط",
+      "now": "▶ الآن",
+      "empty": "لا توجد أحداث متوسطة / عالية التأثير مجدولة لـ {pair} هذا الأسبوع.",
+      "forecast": "ت",
+      "previous": "س"
+    },
+    "vision": {
+      "badge": "// الرؤية ▸ قراءة متعددة الأطر",
+      "title": "لقطة HTF → MTF → LTF",
+      "subtitle": "التقط 4H · 1H · 15M للزوج المحدد ودع Denaro يقرأ الكومة كاملة.",
+      "capture": "التقط HTF → LTF وحلّل",
+      "capturing": "جارٍ قراءة الكومة…",
+      "reading": "// جارٍ قراءة الكومة…",
+      "errorChartNotReady": "الرسم {label} غير جاهز",
+      "errorCanvas": "سياق الرسم غير متاح",
+      "errorSnapshot": "فشلت اللقطة",
+      "errorRequest": "فشل الطلب",
+      "errorFailed": "فشل",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "كومة {pair} متعددة الأطر — الرسم 1 = HTF (4H)، الرسم 2 = MTF (1H)، الرسم 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// القناة",
+      "title": "اسأل Denaro",
+      "subtitle": "مفاهيم، مراجعة الـ setups، حساب حجم الصفقة، قراءة السوق — أي شيء لا يحتاج لقطة شاشة من الرسم.",
+      "placeholder": "اسأل Denaro... (Shift+Enter لسطر جديد)",
+      "send": "إرسال",
+      "sending": "جارٍ البث…",
+      "channelOpen": "// القناة مفتوحة…",
+      "errorRequest": "فشل الطلب",
+      "errorFailed": "فشل",
+      "examplesBadge": "// أمثلة",
+      "tip": "تلميح: الأقواس المربعة مثل {bracket} في القوالب هي حقول نائبة — استبدلها قبل الإرسال.",
+      "examples": [
+        "اشرح اكتساحات السيولة بأمثلة على XAUUSD",
+        "اشتريت EURUSD على 1.1750، SL 1.1720، TP 1.1810 — هل هناك خطأ؟",
+        "أي أحداث ماكرو هذا الأسبوع قد تحرّك أزواج USD؟",
+        "كيف أقرأ order flow على رسم 15M؟"
+      ],
+      "quick": {
+        "concept": "بحث عن مفهوم",
+        "conceptPrompt": "في فقرة لكل منهما، اشرح CHoCH مقابل BoS، ومتى يشير كل منهما إلى تحوّل حقيقي في بنية السوق.",
+        "whyMoving": "لماذا يتحرك {pair}؟",
+        "whyMovingPrompt": "لماذا قد يتحرك {pair} بهذا الشكل الآن؟ أعطني 3 محرّكات محتملة — ماكرو، بنيوية، ومدفوعة بالجلسة — ورتّبها حسب الاحتمالية.",
+        "sizing": "حساب حجم الصفقة",
+        "sizingPrompt": "ساعدني في تحديد حجم صفقة. حجم الحساب: $[1000]. المخاطرة لكل صفقة: [1]%. الزوج: {pair}. الدخول: [السعر]. وقف الخسارة: [السعر]. احسب: المخاطرة بالدولار، حجم المركز باللوتات/الوحدات، ومدى منطقية مسافة وقف الخسارة.",
+        "review": "راجع الـ setup خاصتي",
+        "reviewPrompt": "راجع هذا الـ setup لـ {pair} من منظور {lens}.\n\nالدخول: [السعر]\nوقف الخسارة: [السعر]\nجني الأرباح: [السعر]\nالسبب: [لماذا أتخذها]\n\nأخبرني: هل البنية نظيفة؟ ما الذي يلغيها؟ هل فاتني شيء؟",
+        "session": "أفضل جلسة",
+        "sessionPrompt": "لأزواجي ({list}) ولأسلوب {lens}، أي جلسة (جلسات) تداول تقدم تاريخيًا أنظف الـ setups، ولماذا؟ كن محددًا بشأن نوافذ التقلب وتجنّب النصائح العامة.",
+        "backtest": "خطة backtest",
+        "backtestPrompt": "أعطني خطة من 5 خطوات لعمل backtest لاستراتيجية {lens} على {pair}. شاملة: نافذة البيانات، قاعدة الدخول، قاعدة الخروج، الإحصائيات الواجب تتبّعها، وما الذي يستبعد الاستراتيجية."
+      }
+    }
+  },
+  "settings": {
+    "badge": "// المشغّل ▸ تكوين",
+    "title": "الإعدادات",
+    "subtitle": "اضبط ملفك الشخصي، أسواقك، وعدسة استراتيجيتك.",
+    "back": "← العودة إلى لوحة التحكم",
+    "saved": "تم حفظ الإعدادات.",
+    "save": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ…",
+    "sections": {
+      "identity": {
+        "title": "الهوية",
+        "subtitle": "كيف يخاطبك Denaro والبريد الإلكتروني لحسابك."
+      },
+      "preferences": {
+        "title": "التفضيلات",
+        "subtitle": "لغة الواجهة."
+      },
+      "markets": {
+        "title": "الأسواق",
+        "subtitle": "حتى 3 أزواج سيراقبها Denaro من أجلك.",
+        "selected": "{count}/3 محددة"
+      },
+      "strategy": {
+        "title": "عدسة الاستراتيجية",
+        "subtitle": "الإطار الذي يستخدمه Denaro لكل تحليل.",
+        "active": "نشطة"
+      },
+      "session": {
+        "title": "الجلسة",
+        "subtitle": "تسجيل الخروج من كل مكان على هذا الجهاز."
+      },
+      "danger": {
+        "title": "منطقة الخطر",
+        "subtitle": "إجراءات دائمة. اقرأ بعناية قبل المتابعة.",
+        "deleteAccount": "حذف الحساب",
+        "warning": "هذا يحذف حسابك وملفك الشخصي وجميع إعداداتك. لا يمكن التراجع عن هذا. اكتب DELETE للتأكيد.",
+        "confirmLabel": "اكتب DELETE للتأكيد",
+        "confirmDelete": "حذف نهائي",
+        "deleting": "جارٍ الحذف…",
+        "cancel": "إلغاء"
+      }
+    },
+    "fields": {
+      "displayName": "الاسم الظاهر",
+      "displayNamePlaceholder": "Operator",
+      "email": "البريد الإلكتروني",
+      "emailHint": "البريد الإلكتروني مرتبط بحسابك ولا يمكن تغييره من هنا.",
+      "language": "اللغة"
+    }
+  }
+}

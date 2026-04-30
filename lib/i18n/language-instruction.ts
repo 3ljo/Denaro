@@ -16,6 +16,12 @@ import type { Locale } from '@/i18n/config'
 const NATIVE_LANGUAGE_NAME: Record<Locale, string> = {
   en: 'English',
   sq: 'Albanian (Shqip)',
+  it: 'Italian (Italiano)',
+  de: 'German (Deutsch)',
+  fr: 'French (Français)',
+  es: 'Spanish (Español)',
+  tr: 'Turkish (Türkçe)',
+  ar: 'Arabic (العربية)',
 }
 
 export function getChatLanguageInstruction(locale: Locale): string {
