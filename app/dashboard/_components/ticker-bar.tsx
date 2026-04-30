@@ -45,11 +45,14 @@ export default function TickerBar({ pairs }: { pairs: string[] }) {
 
   if (symbols.length === 0) return null
 
+  // 'regular' makes the tape auto-scroll horizontally so prices never get
+  // chopped at the iframe edge — adaptive truncates the right-most card on
+  // narrow viewports. Transparent so it blends with our panel chrome.
   const config = {
     symbols,
     showSymbolLogo: true,
-    isTransparent: false,
-    displayMode: 'adaptive',
+    isTransparent: true,
+    displayMode: 'regular',
     colorTheme: 'dark',
     locale: 'en',
   }
@@ -62,7 +65,16 @@ export default function TickerBar({ pairs }: { pairs: string[] }) {
     `?locale=en#${encodeURIComponent(JSON.stringify(config))}`
 
   return (
-    <div className="overflow-hidden rounded-md border border-cyan-400/30 bg-slate-950 shadow-[0_0_18px_rgba(34,211,238,0.12)]">
+    <div className="denaro-panel overflow-hidden rounded-md">
+      <div className="flex items-center justify-between gap-2 px-3 pb-1 pt-2">
+        <span className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
+          {t('label')}
+        </span>
+        <span className="flex items-center gap-1 font-display text-[0.5rem] tracking-[0.22em] text-emerald-300/80">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(74,222,128,0.9)]" />
+          LIVE
+        </span>
+      </div>
       <iframe
         src={url}
         title={t('title')}

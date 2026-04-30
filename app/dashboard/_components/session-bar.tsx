@@ -38,43 +38,52 @@ export default function SessionBar() {
     : '—'
 
   return (
-    <div className="denaro-panel flex flex-wrap items-center gap-3 rounded-md px-3 py-2">
-      {/* Section label — tells users what this row is for. */}
-      <span
-        className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80"
-        title={t('hint')}
-      >
-        {t('label')}
-      </span>
+    <div className="denaro-panel rounded-md px-3 py-2.5 sm:px-4 sm:py-3">
+      {/* Header row — section label on the left, live local clock on the
+          right. Always sits on one line so the layout reads cleanly even on
+          narrow phones. */}
+      <div className="flex items-center justify-between gap-2">
+        <span
+          className="font-display text-[0.55rem] tracking-[0.28em] text-amber-300/80 sm:text-[0.6rem] sm:tracking-[0.32em]"
+          title={t('hint')}
+        >
+          {t('label')}
+        </span>
+        <span className="flex items-baseline gap-1.5 font-mono text-[0.78rem] tabular-nums text-cyan-100/90 sm:text-[0.85rem]">
+          <span className="font-display text-[0.5rem] tracking-[0.22em] text-cyan-300/60 sm:text-[0.55rem]">
+            {t('local')}
+          </span>
+          {localStr}
+        </span>
+      </div>
 
-      {/* All four sessions — active in emerald, inactive dimmed so the user
-          can see at a glance which markets are open right now. */}
-      <div className="flex flex-wrap items-center gap-1">
+      {/* Sessions — fixed 4-column grid so the pills size evenly on every
+          viewport instead of wrapping awkwardly. Active sessions glow
+          emerald, inactive ones stay dim so the open markets pop. */}
+      <div className="mt-2 grid grid-cols-4 gap-1.5">
         {SESSIONS.map((s) => {
           const on = now ? isActive(s, now.getUTCHours()) : false
           return (
             <span
               key={s.key}
               title={on ? t('open') : t('closed')}
-              className={`rounded border px-1.5 py-0.5 font-display text-[0.55rem] tracking-[0.18em] transition ${
+              className={`flex items-center justify-center gap-1 rounded border px-1 py-1 text-center font-display text-[0.55rem] tracking-[0.16em] transition sm:text-[0.6rem] sm:tracking-[0.2em] ${
                 on
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-200 shadow-[0_0_10px_rgba(74,222,128,0.35)]'
-                  : 'border-cyan-400/15 bg-transparent text-cyan-200/35'
+                  : 'border-cyan-400/20 bg-cyan-500/[0.03] text-cyan-200/45'
               }`}
             >
-              {t(`sessions.${s.key}`)}
+              {on && (
+                <span
+                  aria-hidden
+                  className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(74,222,128,0.9)]"
+                />
+              )}
+              <span className="truncate">{t(`sessions.${s.key}`)}</span>
             </span>
           )
         })}
       </div>
-
-      {/* Local time — pushed to the right on wider screens. */}
-      <span className="ml-auto flex items-baseline gap-1.5 font-mono text-[0.75rem] text-cyan-100/80">
-        <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-300/60">
-          {t('local')}
-        </span>
-        {localStr}
-      </span>
     </div>
   )
 }
