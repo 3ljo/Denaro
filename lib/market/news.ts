@@ -11,7 +11,12 @@
  * — the SHAPE has changed but the role is the same: "headlines for this pair".
  */
 
+import { withCache } from './cache'
+
 const FEED_URL = 'https://nfs.faireconomy.media/ff_calendar_thisweek.xml'
+
+/** Calendar feed cache — fetch once per instance per 5 min, share across all pairs. */
+const FEED_TTL_MS = 5 * 60_000
 
 const PAIR_TO_CURRENCIES: Record<string, string[]> = {
   XAUUSD: ['USD'],
@@ -50,31 +55,42 @@ export type NewsItem = {
   url: string
 }
 
+/**
+ * Fetch & parse the FX Factory feed exactly ONCE per instance per TTL —
+ * shared across all pair cards. Concurrent calls during a cold cache wait on
+ * the same in-flight promise instead of each spawning its own request, which
+ * is what was making 2 of 3 simultaneous fetches come back empty.
+ */
+async function getAllEvents(): Promise<NewsItem[]> {
+  return withCache('ff-calendar', FEED_TTL_MS, async () => {
+    try {
+      const res = await fetch(FEED_URL, {
+        headers: { 'User-Agent': 'Mozilla/5.0 Denaro' },
+        cache: 'no-store',
+      })
+      if (!res.ok) return []
+      const xml = await res.text()
+      return parseEvents(xml)
+    } catch {
+      return []
+    }
+  })
+}
+
 export async function fetchNews(symbol: string, count = 8): Promise<NewsItem[]> {
   const upper = symbol.toUpperCase()
   const allowed = new Set(PAIR_TO_CURRENCIES[upper] ?? ['USD'])
 
-  try {
-    const res = await fetch(FEED_URL, {
-      headers: { 'User-Agent': 'Mozilla/5.0 Denaro' },
-      cache: 'no-store',
-    })
-    if (!res.ok) return []
-    const xml = await res.text()
-    const all = parseEvents(xml)
-
-    const nowSec = Math.floor(Date.now() / 1000)
-    return all
-      .filter((e) => allowed.has(e.currency))
-      // High + medium only — low impact = noise. Holidays already filtered.
-      .filter((e) => e.impact !== 'low')
-      // Drop deeply-past events (>2h ago) but keep recent ones so "+15m" reads.
-      .filter((e) => e.timeUtc > nowSec - 2 * 3600)
-      .sort((a, b) => a.timeUtc - b.timeUtc)
-      .slice(0, count)
-  } catch {
-    return []
-  }
+  const all = await getAllEvents()
+  const nowSec = Math.floor(Date.now() / 1000)
+  return all
+    .filter((e) => allowed.has(e.currency))
+    // High + medium only — low impact = noise. Holidays already filtered.
+    .filter((e) => e.impact !== 'low')
+    // Drop deeply-past events (>2h ago) but keep recent ones so "+15m" reads.
+    .filter((e) => e.timeUtc > nowSec - 2 * 3600)
+    .sort((a, b) => a.timeUtc - b.timeUtc)
+    .slice(0, count)
 }
 
 /* --------------- XML parsing --------------- */
