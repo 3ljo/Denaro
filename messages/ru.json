@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "Назад",
+    "continue": "Продолжить",
+    "clear": "ОЧИСТИТЬ",
+    "refresh": "Обновить",
+    "send": "Отправить",
+    "loading": "…",
+    "signalLost": "// сигнал потерян — {error}",
+    "language": "Язык"
+  },
+  "shell": {
+    "secure": "БЕЗОПАСНО",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro представляет голограмму доступа",
+      "badge": "// ЛИЧНОСТЬ ▸ ПРОВЕРКА",
+      "title": "Портал доступа",
+      "subtitle": "Авторизуйся, чтобы войти в сетку Denaro.",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "Ещё нет допуска?",
+      "requestAccess": "Запросить доступ",
+      "resetSuccess": "Пароль обновлён. Можешь войти.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Ключ",
+      "forgot": "Забыл?",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "Активировать",
+      "submitting": "Аутентификация…",
+      "needVerify": "Нужно подтвердить ссылку?",
+      "resend": "Отправить подтверждение снова"
+    },
+    "register": {
+      "imageAlt": "Denaro представляет голограмму регистрации",
+      "imageAltSent": "Denaro подтверждает отправку проверки",
+      "badge": "// ПРОФИЛЬ ▸ ИНИЦИАЛИЗАЦИЯ",
+      "badgeSent": "// ССЫЛКА ▸ ОТПРАВЛЕНА",
+      "title": "Новый Оператор",
+      "titleSent": "Проверь почту",
+      "subtitle": "Зарегистрируйся, чтобы получить идентификатор Denaro.",
+      "subtitleSent": "Твоя ссылка для подтверждения передана.",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "Уже на борту?",
+      "signIn": "Войти",
+      "backPortal": "← Назад к порталу доступа",
+      "spamHint": "Проверь спам или нежелательную почту, если письмо не пришло за минуту. Ссылка действительна для одного использования.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "Ключ",
+      "passwordPlaceholder": "•••••• минимум 6",
+      "passwordHint": "Минимум 6 символов. Смешай их.",
+      "confirmLabel": "Подтвердить ключ",
+      "confirmPlaceholder": "повтори ключ",
+      "submit": "Создать личность",
+      "submitting": "Компиляция…",
+      "validation": {
+        "emailRequired": "Введи свой email",
+        "passwordRequired": "Введи пароль",
+        "passwordTooShort": "Пароль должен быть не менее 6 символов",
+        "passwordsDoNotMatch": "Пароли не совпадают"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro восстанавливает голограмму доступа",
+      "badge": "// КЛЮЧ ▸ ВОССТАНОВЛЕНИЕ",
+      "title": "Сбросить ключ",
+      "subtitle": "Введи email, и мы отправим ссылку для восстановления.",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← Назад к порталу доступа",
+      "emailLabel": "Email",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "Отправить ссылку",
+      "submitting": "Передача…"
+    },
+    "reset": {
+      "imageAlt": "Denaro кодирует новый ключ",
+      "imageAltInvalid": "Denaro сигнализирует о недействительной ссылке",
+      "badge": "// КЛЮЧ ▸ ПЕРЕКОВКА",
+      "badgeInvalid": "// ССЫЛКА ▸ НЕДЕЙСТВИТЕЛЬНА",
+      "title": "Новый ключ",
+      "titleInvalid": "Восстановление не удалось",
+      "subtitle": "Выбери надёжный ключ, который раньше не использовал.",
+      "subtitleInvalid": "Ссылка для сброса больше недействительна или истекла.",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← Назад к порталу доступа",
+      "requestNew": "Запросить новую ссылку",
+      "newPasswordLabel": "Новый ключ",
+      "newPasswordPlaceholder": "•••••• минимум 6",
+      "confirmLabel": "Подтвердить ключ",
+      "confirmPlaceholder": "повтори ключ",
+      "submit": "Обновить ключ",
+      "submitting": "Перековка…",
+      "passwordsDoNotMatch": "Пароли не совпадают"
+    },
+    "error": {
+      "imageAlt": "Denaro в ожидании",
+      "badge": "// СИГНАЛ ▸ ПОТЕРЯН",
+      "title": "Соединение отклонено",
+      "subtitle": "Ссылка недействительна, истекла или уже использована.",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← Назад к порталу доступа",
+      "requestNew": "Запросить новую ссылку для восстановления",
+      "details": "Детали: {reason}",
+      "fallback": "Попробуй войти снова или запроси новую ссылку, если это было письмо для восстановления."
+    },
+    "errors": {
+      "invalidEmail": "Недействительный email",
+      "emailTooLong": "Email слишком длинный",
+      "invalidPassword": "Недействительный пароль",
+      "passwordTooShort": "Пароль должен быть не менее 6 символов",
+      "passwordTooLong": "Пароль слишком длинный",
+      "invalidCredentials": "Недействительный email или пароль",
+      "invalidCredentialsOrUnverified": "Недействительный email или пароль, либо email ещё не подтверждён",
+      "resetExpired": "Ссылка для сброса недействительна или истекла. Запроси новую.",
+      "couldNotUpdatePassword": "Не удалось обновить пароль. Попробуй снова.",
+      "unauthorized": "не авторизован",
+      "pickAtLeastOnePair": "Выбери хотя бы 1 пару.",
+      "deleteFailed": "Не удалось удалить аккаунт. Попробуй снова.",
+      "deleteConfirmMismatch": "Введи DELETE точно для подтверждения."
+    },
+    "messages": {
+      "registerSent": "Если этот email новый, проверь почту, чтобы подтвердить аккаунт. Если у тебя уже есть аккаунт, можешь войти.",
+      "resetSent": "Если для этого email есть аккаунт, ссылка для сброса отправлена.",
+      "verificationSent": "Если твоему аккаунту нужна проверка, новое письмо отправлено."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "КАЛИБРОВКА {current}/{total}",
+    "welcome": {
+      "badge": "// ОПЕРАТОР ▸ ОПОЗНАН",
+      "title": "Добро пожаловать в Сетку",
+      "intro": "Denaro — твой ИИ-аналитик трейдинга. Чтобы настроить систему под твой стиль, ответь на 3 коротких вопроса — твои основные пары, твоя стратегическая линза и как к тебе обращаться.",
+      "duration": "Около 30 секунд. Настройки можно изменить позже.",
+      "begin": "Начать калибровку"
+    },
+    "pairs": {
+      "badge": "// ШАГ 01 ▸ РЫНКИ",
+      "title": "Выбери 3 главные пары",
+      "subtitle": "Denaro настроит анализ под эти рынки.",
+      "selected": "Выбрано {count}/3"
+    },
+    "strategy": {
+      "badge": "// ШАГ 02 ▸ ЛИНЗА",
+      "title": "Выбери стратегию",
+      "subtitle": "Denaro будет использовать эту линзу для каждого анализа.",
+      "active": "АКТИВНА"
+    },
+    "name": {
+      "badge": "// ШАГ 03 ▸ ИМЯ",
+      "title": "Как Denaro должен к тебе обращаться?",
+      "subtitle": "Необязательно. По умолчанию — префикс твоего email.",
+      "label": "Отображаемое имя",
+      "placeholder": "Operator",
+      "submit": "Войти в Сетку",
+      "submitting": "Активация…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "Институциональный поток ордеров. BoS, CHoCH, order blocks, FVG, liquidity sweeps."
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "Чистая структура. Зоны supply / demand, чтение свечей, market profile."
+    },
+    "trend": {
+      "label": "Следование тренду",
+      "blurb": "Седлай доминирующий тренд. Пробои, входы на pullback, продолжение моментума."
+    },
+    "mean-reversion": {
+      "label": "Возврат к среднему",
+      "blurb": "Против крайностей. Range trading, входы на истощении у границ диапазона."
+    },
+    "scalping": {
+      "label": "Скальпинг",
+      "blurb": "Быстрый интрадей. Setups M1–M15, высокая частота, узкий риск."
+    },
+    "swing": {
+      "label": "Swing Trading",
+      "blurb": "Многодневные позиции. HTF bias (D1+H4), терпеливые входы, расширенные TP."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// АНАЛИТИК ▸ ОНЛАЙН",
+      "welcomeBack": "С возвращением, {name}",
+      "lens": "Линза:",
+      "logout": "Отключиться",
+      "operatorFallback": "Operator",
+      "openSettings": "Открыть настройки"
+    },
+    "tabs": {
+      "markets": "Рынки",
+      "news": "Новости",
+      "vision": "Зрение",
+      "channel": "Спросить"
+    },
+    "session": {
+      "session": "СЕССИЯ",
+      "overlap": "ПЕРЕКРЫТИЕ",
+      "utc": "UTC",
+      "local": "ЛОКАЛЬ",
+      "sessions": {
+        "sydney": "СИДНЕЙ",
+        "tokyo": "ТОКИО",
+        "london": "ЛОНДОН",
+        "newYork": "НЬЮ-ЙОРК"
+      }
+    },
+    "ticker": {
+      "title": "Лента котировок в реальном времени"
+    },
+    "chartCard": {
+      "badge": "// ГРАФИК ▸ LIVE",
+      "realTime": "РЕАЛЬНОЕ ВРЕМЯ"
+    },
+    "pairCard": {
+      "badge": "// АНАЛИЗ",
+      "resistance": "Сопротивление",
+      "support": "Поддержка",
+      "nextMove": "Следующее движение",
+      "invalidation": "Инвалидация",
+      "confluenceLabel": "Конфлюэнция {score}",
+      "bias": {
+        "bullish": "бычий",
+        "bearish": "медвежий",
+        "range": "флэт"
+      }
+    },
+    "newsCard": {
+      "badge": "// НОВОСТИ · КАЛЕНДАРЬ",
+      "feedTitle": "Лента {pair}",
+      "live": "LIVE",
+      "high": "ВЫСОК",
+      "med": "СРЕД",
+      "highBadge": "ВЫС",
+      "medBadge": "СРД",
+      "now": "▶ СЕЙЧАС",
+      "empty": "На этой неделе нет событий со средним / высоким импактом для {pair}.",
+      "forecast": "П",
+      "previous": "Пред"
+    },
+    "vision": {
+      "badge": "// ЗРЕНИЕ ▸ МУЛЬТИ-TF ЧТЕНИЕ",
+      "title": "Снимок HTF → MTF → LTF",
+      "subtitle": "Захвати 4H · 1H · 15M для выбранной пары и дай Denaro прочесть весь стек.",
+      "capture": "Захватить HTF → LTF и проанализировать",
+      "capturing": "Чтение стека…",
+      "reading": "// ЧТЕНИЕ СТЕКА…",
+      "errorChartNotReady": "График {label} не готов",
+      "errorCanvas": "контекст canvas недоступен",
+      "errorSnapshot": "снимок не удался",
+      "errorRequest": "запрос не удался",
+      "errorFailed": "не удалось",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "Мульти-таймфреймовый стек {pair} — график 1 = HTF (4H), график 2 = MTF (1H), график 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// КАНАЛ",
+      "title": "Спроси Denaro",
+      "subtitle": "Концепции, разбор сетапов, расчёт позиции, чтение рынка — всё, что не требует скриншота графика.",
+      "placeholder": "Спроси Denaro... (Shift+Enter для новой строки)",
+      "send": "Отправить",
+      "sending": "Стрим…",
+      "channelOpen": "// КАНАЛ ОТКРЫТ…",
+      "errorRequest": "запрос не удался",
+      "errorFailed": "не удалось",
+      "examplesBadge": "// ПРИМЕРЫ",
+      "tip": "Подсказка: квадратные скобки вроде {bracket} в шаблонах — это плейсхолдеры, замени их перед отправкой.",
+      "examples": [
+        "Объясни liquidity sweeps на примерах XAUUSD",
+        "Я купил EURUSD на 1.1750, SL 1.1720, TP 1.1810 — что-то не так?",
+        "Какие макро-события на этой неделе могут двинуть USD-пары?",
+        "Как читать order flow на 15M графике?"
+      ],
+      "quick": {
+        "concept": "Поиск концепции",
+        "conceptPrompt": "В одном абзаце на каждый объясни CHoCH vs BoS, и когда каждое сигнализирует реальный сдвиг в структуре рынка.",
+        "whyMoving": "Почему движется {pair}?",
+        "whyMovingPrompt": "Почему {pair} может двигаться так прямо сейчас? Дай 3 кандидата-драйвера — макро, структурный и сессионный — и расставь по вероятности.",
+        "sizing": "Расчёт размера позиции",
+        "sizingPrompt": "Помоги рассчитать размер сделки. Размер счёта: $[1000]. Риск на сделку: [1]%. Пара: {pair}. Вход: [цена]. Стоп-лосс: [цена]. Рассчитай: риск в долларах, размер позиции в лотах/единицах, проверка адекватности расстояния SL.",
+        "review": "Разбери мой сетап",
+        "reviewPrompt": "Разбери этот сетап для {pair} с точки зрения {lens}.\n\nВход: [цена]\nСтоп-лосс: [цена]\nТейк-профит: [цена]\nПричина: [почему беру]\n\nСкажи: структура чистая? Что инвалидирует? Что я упустил?",
+        "session": "Лучшая сессия",
+        "sessionPrompt": "Для моих пар ({list}) и подхода {lens}, какие сессии трейдинга исторически дают самые чистые сетапы и почему? Будь конкретным насчёт окон волатильности и избегай общих советов.",
+        "backtest": "План бэктеста",
+        "backtestPrompt": "Дай мне план из 5 шагов для бэктеста стратегии {lens} на {pair}. Включи: окно данных, правило входа, правило выхода, какие статистики отслеживать, и что дисквалифицирует стратегию."
+      }
+    }
+  },
+  "settings": {
+    "badge": "// ОПЕРАТОР ▸ КОНФИГ",
+    "title": "Настройки",
+    "subtitle": "Настрой профиль, рынки и стратегическую линзу.",
+    "back": "← Назад на дашборд",
+    "saved": "Настройки сохранены.",
+    "save": "Сохранить изменения",
+    "saving": "Сохранение…",
+    "sections": {
+      "identity": {
+        "title": "Личность",
+        "subtitle": "Как Denaro обращается к тебе и email аккаунта."
+      },
+      "preferences": {
+        "title": "Предпочтения",
+        "subtitle": "Язык интерфейса."
+      },
+      "markets": {
+        "title": "Рынки",
+        "subtitle": "До 3 пар, которые Denaro будет отслеживать.",
+        "selected": "Выбрано {count}/3"
+      },
+      "strategy": {
+        "title": "Стратегическая линза",
+        "subtitle": "Фреймворк, который Denaro использует для каждого анализа.",
+        "active": "АКТИВНА"
+      },
+      "session": {
+        "title": "Сессия",
+        "subtitle": "Выйти отовсюду на этом устройстве."
+      },
+      "danger": {
+        "title": "Опасная зона",
+        "subtitle": "Необратимые действия. Внимательно прочти перед продолжением.",
+        "deleteAccount": "Удалить аккаунт",
+        "warning": "Это удалит твой аккаунт, профиль и все настройки. Отменить нельзя. Введи DELETE для подтверждения.",
+        "confirmLabel": "Введи DELETE для подтверждения",
+        "confirmDelete": "Удалить навсегда",
+        "deleting": "Удаление…",
+        "cancel": "Отмена"
+      }
+    },
+    "fields": {
+      "displayName": "Отображаемое имя",
+      "displayNamePlaceholder": "Operator",
+      "email": "Email",
+      "emailHint": "Email привязан к аккаунту и не может быть изменён здесь.",
+      "language": "Язык"
+    }
+  }
+}

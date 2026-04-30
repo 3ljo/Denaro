@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "뒤로",
+    "continue": "계속",
+    "clear": "지우기",
+    "refresh": "새로고침",
+    "send": "전송",
+    "loading": "…",
+    "signalLost": "// 신호 끊김 — {error}",
+    "language": "언어"
+  },
+  "shell": {
+    "secure": "보안",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "비밀번호 표시",
+    "hidePassword": "비밀번호 숨기기"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro가 접속 홀로그램을 제시",
+      "badge": "// 신원 ▸ 검증",
+      "title": "접속 포털",
+      "subtitle": "Denaro 그리드에 진입하려면 인증하세요.",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "아직 권한이 없나요?",
+      "requestAccess": "접근 요청",
+      "resetSuccess": "비밀번호가 갱신되었습니다. 이제 로그인할 수 있습니다.",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "키",
+      "forgot": "잊으셨나요?",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "실행",
+      "submitting": "인증 중…",
+      "needVerify": "링크 인증이 필요한가요?",
+      "resend": "인증 메일 재전송"
+    },
+    "register": {
+      "imageAlt": "Denaro가 등록 홀로그램을 제시",
+      "imageAltSent": "Denaro가 인증 발송을 확인",
+      "badge": "// 프로필 ▸ 초기화",
+      "badgeSent": "// 링크 ▸ 발송됨",
+      "title": "신규 운영자",
+      "titleSent": "받은편지함 확인",
+      "subtitle": "Denaro 신원을 받으려면 가입하세요.",
+      "subtitleSent": "인증 링크가 전송되었습니다.",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "이미 가입했나요?",
+      "signIn": "로그인",
+      "backPortal": "← 접속 포털로 돌아가기",
+      "spamHint": "1분 내에 도착하지 않으면 스팸함을 확인하세요. 링크는 1회만 유효합니다.",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "키",
+      "passwordPlaceholder": "•••••• 최소 6자",
+      "passwordHint": "최소 6자. 다양한 문자를 섞으세요.",
+      "confirmLabel": "키 확인",
+      "confirmPlaceholder": "키 다시 입력",
+      "submit": "신원 생성",
+      "submitting": "컴파일 중…",
+      "validation": {
+        "emailRequired": "이메일을 입력하세요",
+        "passwordRequired": "비밀번호를 입력하세요",
+        "passwordTooShort": "비밀번호는 최소 6자 이상이어야 합니다",
+        "passwordsDoNotMatch": "비밀번호가 일치하지 않습니다"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro가 접속 홀로그램을 복구",
+      "badge": "// 키 ▸ 복구",
+      "title": "키 재설정",
+      "subtitle": "이메일을 입력하면 복구 링크를 보내드립니다.",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← 접속 포털로 돌아가기",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "복구 링크 전송",
+      "submitting": "전송 중…"
+    },
+    "reset": {
+      "imageAlt": "Denaro가 새 키를 인코딩",
+      "imageAltInvalid": "Denaro가 잘못된 링크를 표시",
+      "badge": "// 키 ▸ 재단조",
+      "badgeInvalid": "// 링크 ▸ 무효",
+      "title": "새 키",
+      "titleInvalid": "복구 실패",
+      "subtitle": "이전에 사용하지 않은 강력한 키를 선택하세요.",
+      "subtitleInvalid": "재설정 링크가 더 이상 유효하지 않거나 만료되었습니다.",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← 접속 포털로 돌아가기",
+      "requestNew": "새 링크 요청",
+      "newPasswordLabel": "새 키",
+      "newPasswordPlaceholder": "•••••• 최소 6자",
+      "confirmLabel": "키 확인",
+      "confirmPlaceholder": "키 다시 입력",
+      "submit": "키 갱신",
+      "submitting": "재단조 중…",
+      "passwordsDoNotMatch": "비밀번호가 일치하지 않습니다"
+    },
+    "error": {
+      "imageAlt": "Denaro 대기 중",
+      "badge": "// 신호 ▸ 끊김",
+      "title": "연결 거부됨",
+      "subtitle": "링크가 무효이거나 만료되었거나 이미 사용되었습니다.",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← 접속 포털로 돌아가기",
+      "requestNew": "새 복구 링크 요청",
+      "details": "상세: {reason}",
+      "fallback": "다시 로그인을 시도하거나, 복구 메일이었다면 새 링크를 요청하세요."
+    },
+    "errors": {
+      "invalidEmail": "유효하지 않은 이메일",
+      "emailTooLong": "이메일이 너무 깁니다",
+      "invalidPassword": "유효하지 않은 비밀번호",
+      "passwordTooShort": "비밀번호는 최소 6자 이상이어야 합니다",
+      "passwordTooLong": "비밀번호가 너무 깁니다",
+      "invalidCredentials": "이메일 또는 비밀번호가 잘못되었습니다",
+      "invalidCredentialsOrUnverified": "이메일 또는 비밀번호가 잘못되었거나, 이메일이 아직 인증되지 않았습니다",
+      "resetExpired": "재설정 링크가 무효이거나 만료되었습니다. 새 링크를 요청하세요.",
+      "couldNotUpdatePassword": "비밀번호를 갱신할 수 없습니다. 다시 시도하세요.",
+      "unauthorized": "권한 없음",
+      "pickAtLeastOnePair": "최소 1개의 페어를 선택하세요.",
+      "deleteFailed": "계정을 삭제할 수 없습니다. 다시 시도하세요.",
+      "deleteConfirmMismatch": "확인을 위해 정확히 DELETE를 입력하세요."
+    },
+    "messages": {
+      "registerSent": "이 이메일이 새 것이라면 받은편지함에서 계정을 인증하세요. 이미 계정이 있다면 로그인할 수 있습니다.",
+      "resetSent": "해당 이메일로 계정이 존재하면 재설정 링크가 전송되었습니다.",
+      "verificationSent": "계정에 인증이 필요하면 새 메일이 전송되었습니다."
+    }
+  },
+  "onboarding": {
+    "stepCounter": "교정 {current}/{total}",
+    "welcome": {
+      "badge": "// 운영자 ▸ 식별됨",
+      "title": "그리드에 오신 것을 환영합니다",
+      "intro": "Denaro는 당신의 AI 트레이딩 분석가입니다. 시스템을 당신의 스타일에 맞추기 위해 빠른 3가지 질문에 답하세요 — 주요 페어, 전략 렌즈, 그리고 호칭.",
+      "duration": "약 30초. 설정은 나중에 편집할 수 있습니다.",
+      "begin": "교정 시작"
+    },
+    "pairs": {
+      "badge": "// 단계 01 ▸ 시장",
+      "title": "주요 3개 페어 선택",
+      "subtitle": "Denaro가 이 시장에 맞춰 분석을 조정합니다.",
+      "selected": "{count}/3 선택됨"
+    },
+    "strategy": {
+      "badge": "// 단계 02 ▸ 렌즈",
+      "title": "전략 선택",
+      "subtitle": "Denaro가 모든 분석에서 이 렌즈를 사용합니다.",
+      "active": "활성"
+    },
+    "name": {
+      "badge": "// 단계 03 ▸ 호칭",
+      "title": "Denaro가 당신을 어떻게 부를까요?",
+      "subtitle": "선택 사항. 기본값은 이메일의 앞부분입니다.",
+      "label": "표시 이름",
+      "placeholder": "Operator",
+      "submit": "그리드 진입",
+      "submitting": "활성화 중…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "기관 주문 흐름. BoS, CHoCH, order block, FVG, 유동성 sweep."
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "순수 구조. supply / demand 영역, 캔들 해석, market profile."
+    },
+    "trend": {
+      "label": "추세 추종",
+      "blurb": "지배적 추세를 따라가기. 돌파, pullback 진입, 모멘텀 연속."
+    },
+    "mean-reversion": {
+      "label": "평균 회귀",
+      "blurb": "극단에 역행. 레인지 매매, 레인지 경계의 소진 진입."
+    },
+    "scalping": {
+      "label": "스캘핑",
+      "blurb": "빠른 인트라데이. M1–M15 setup, 고빈도, 좁은 리스크."
+    },
+    "swing": {
+      "label": "스윙 트레이딩",
+      "blurb": "다일 포지션. HTF 바이어스 (D1+H4), 인내심 있는 진입, 확장된 TP."
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// 분석가 ▸ 온라인",
+      "welcomeBack": "다시 오신 것을 환영합니다, {name}",
+      "lens": "렌즈:",
+      "logout": "연결 해제",
+      "operatorFallback": "Operator",
+      "openSettings": "설정 열기"
+    },
+    "tabs": {
+      "markets": "시장",
+      "news": "뉴스",
+      "vision": "비전",
+      "channel": "질문"
+    },
+    "session": {
+      "session": "세션",
+      "overlap": "겹침",
+      "utc": "UTC",
+      "local": "로컬",
+      "sessions": {
+        "sydney": "시드니",
+        "tokyo": "도쿄",
+        "london": "런던",
+        "newYork": "뉴욕"
+      }
+    },
+    "ticker": {
+      "title": "실시간 시세 표시줄"
+    },
+    "chartCard": {
+      "badge": "// 차트 ▸ 라이브",
+      "realTime": "실시간"
+    },
+    "pairCard": {
+      "badge": "// 분석",
+      "resistance": "저항",
+      "support": "지지",
+      "nextMove": "다음 움직임",
+      "invalidation": "무효화",
+      "confluenceLabel": "합류 {score}",
+      "bias": {
+        "bullish": "강세",
+        "bearish": "약세",
+        "range": "박스권"
+      }
+    },
+    "newsCard": {
+      "badge": "// 뉴스 · 캘린더",
+      "feedTitle": "{pair} 피드",
+      "live": "라이브",
+      "high": "높음",
+      "med": "중간",
+      "highBadge": "높음",
+      "medBadge": "중간",
+      "now": "▶ 지금",
+      "empty": "이번 주 {pair}에 예정된 중간 / 높은 영향 이벤트가 없습니다.",
+      "forecast": "예",
+      "previous": "전"
+    },
+    "vision": {
+      "badge": "// 비전 ▸ 멀티-TF 해독",
+      "title": "HTF → MTF → LTF 스냅",
+      "subtitle": "선택한 페어의 4H · 1H · 15M을 캡처해 Denaro가 전체 스택을 해독하게 하세요.",
+      "capture": "HTF → LTF 캡처 및 분석",
+      "capturing": "스택 해독 중…",
+      "reading": "// 스택 해독 중…",
+      "errorChartNotReady": "{label} 차트가 준비되지 않음",
+      "errorCanvas": "canvas 컨텍스트를 사용할 수 없음",
+      "errorSnapshot": "스냅샷 실패",
+      "errorRequest": "요청 실패",
+      "errorFailed": "실패",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "{pair} 멀티-타임프레임 스택 — 차트 1 = HTF (4H), 차트 2 = MTF (1H), 차트 3 = LTF (15M)."
+    },
+    "ask": {
+      "badge": "// 채널",
+      "title": "Denaro에게 묻기",
+      "subtitle": "개념, 셋업 리뷰, 포지션 사이징, 시장 해석 — 차트 스크린샷이 필요 없는 모든 것.",
+      "placeholder": "Denaro에게 묻기... (Shift+Enter로 줄바꿈)",
+      "send": "전송",
+      "sending": "스트리밍 중…",
+      "channelOpen": "// 채널 열림…",
+      "errorRequest": "요청 실패",
+      "errorFailed": "실패",
+      "examplesBadge": "// 예시",
+      "tip": "팁: 템플릿의 {bracket}와 같은 대괄호는 자리 표시자입니다 — 보내기 전에 교체하세요.",
+      "examples": [
+        "XAUUSD 예시로 liquidity sweep을 설명해줘",
+        "EURUSD를 1.1750에 매수, SL 1.1720, TP 1.1810 — 문제 있어?",
+        "이번 주 어떤 매크로 이벤트가 USD 페어를 움직일 수 있어?",
+        "15M 차트에서 order flow를 어떻게 읽어?"
+      ],
+      "quick": {
+        "concept": "개념 검색",
+        "conceptPrompt": "각각 한 단락으로 CHoCH와 BoS를 설명하고, 각각이 시장 구조의 진정한 변화를 신호하는 시점을 알려줘.",
+        "whyMoving": "{pair}는 왜 움직여?",
+        "whyMovingPrompt": "{pair}가 지금 이렇게 움직이는 이유는? 후보 드라이버 3가지를 — 매크로, 구조, 세션 — 가능성 순으로 정렬해줘.",
+        "sizing": "포지션 사이즈 계산",
+        "sizingPrompt": "거래 사이즈 계산을 도와줘. 계좌 크기: $[1000]. 거래당 리스크: [1]%. 페어: {pair}. 진입: [가격]. 스톱로스: [가격]. 계산: 달러 리스크, 랏/단위 포지션 사이즈, SL 거리의 합리성 점검.",
+        "review": "내 셋업 리뷰",
+        "reviewPrompt": "이 {pair} 셋업을 {lens} 관점에서 리뷰해줘.\n\n진입: [가격]\n스톱로스: [가격]\n테이크프로핏: [가격]\n이유: [왜 진입]\n\n알려줘: 구조가 깔끔해? 무엇이 무효화시켜? 놓친 게 있어?",
+        "session": "최적 세션",
+        "sessionPrompt": "내 페어({list})와 {lens} 접근법으로, 역사적으로 어떤 트레이딩 세션이 가장 깔끔한 셋업을 제공하고 왜 그래? 변동성 윈도우에 대해 구체적으로, 일반적인 조언은 피해줘.",
+        "backtest": "백테스트 계획",
+        "backtestPrompt": "{pair}에서 {lens} 전략을 백테스트하기 위한 5단계 계획을 줘. 포함: 데이터 윈도우, 진입 규칙, 청산 규칙, 추적할 통계, 전략을 실격시키는 조건."
+      }
+    }
+  },
+  "settings": {
+    "badge": "// 운영자 ▸ 설정",
+    "title": "설정",
+    "subtitle": "프로필, 시장, 전략 렌즈를 조정하세요.",
+    "back": "← 대시보드로 돌아가기",
+    "saved": "설정이 저장되었습니다.",
+    "save": "변경사항 저장",
+    "saving": "저장 중…",
+    "sections": {
+      "identity": {
+        "title": "신원",
+        "subtitle": "Denaro가 당신을 어떻게 부르는지와 계정 이메일."
+      },
+      "preferences": {
+        "title": "환경설정",
+        "subtitle": "인터페이스 언어."
+      },
+      "markets": {
+        "title": "시장",
+        "subtitle": "Denaro가 모니터링할 최대 3개 페어.",
+        "selected": "{count}/3 선택됨"
+      },
+      "strategy": {
+        "title": "전략 렌즈",
+        "subtitle": "Denaro가 모든 분석에서 사용하는 프레임워크.",
+        "active": "활성"
+      },
+      "session": {
+        "title": "세션",
+        "subtitle": "이 기기의 모든 위치에서 로그아웃."
+      },
+      "danger": {
+        "title": "위험 구역",
+        "subtitle": "영구적 작업입니다. 진행 전 주의 깊게 읽으세요.",
+        "deleteAccount": "계정 삭제",
+        "warning": "이는 계정, 프로필, 모든 설정을 삭제합니다. 되돌릴 수 없습니다. 확인을 위해 DELETE를 입력하세요.",
+        "confirmLabel": "확인을 위해 DELETE 입력",
+        "confirmDelete": "영구 삭제",
+        "deleting": "삭제 중…",
+        "cancel": "취소"
+      }
+    },
+    "fields": {
+      "displayName": "표시 이름",
+      "displayNamePlaceholder": "Operator",
+      "email": "이메일",
+      "emailHint": "이메일은 계정에 연결되어 있으며 여기서 변경할 수 없습니다.",
+      "language": "언어"
+    }
+  }
+}

@@ -20,8 +20,13 @@ const NATIVE_LANGUAGE_NAME: Record<Locale, string> = {
   de: 'German (Deutsch)',
   fr: 'French (Français)',
   es: 'Spanish (Español)',
+  pt: 'Brazilian Portuguese (Português)',
   tr: 'Turkish (Türkçe)',
+  ru: 'Russian (Русский)',
   ar: 'Arabic (العربية)',
+  ja: 'Japanese (日本語)',
+  ko: 'Korean (한국어)',
+  zh: 'Simplified Chinese (简体中文)',
 }
 
 export function getChatLanguageInstruction(locale: Locale): string {

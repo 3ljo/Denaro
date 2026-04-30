@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "返回",
+    "continue": "继续",
+    "clear": "清除",
+    "refresh": "刷新",
+    "send": "发送",
+    "loading": "…",
+    "signalLost": "// 信号丢失 — {error}",
+    "language": "语言"
+  },
+  "shell": {
+    "secure": "安全",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaro 展示访问全息图",
+      "badge": "// 身份 ▸ 验证",
+      "title": "访问门户",
+      "subtitle": "通过身份验证进入 Denaro 网格。",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "还没有授权？",
+      "requestAccess": "申请访问",
+      "resetSuccess": "密码已更新。现在可以登录。",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "密钥",
+      "forgot": "忘记了？",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "启动",
+      "submitting": "验证中…",
+      "needVerify": "需要验证你的链接？",
+      "resend": "重新发送验证"
+    },
+    "register": {
+      "imageAlt": "Denaro 展示注册全息图",
+      "imageAltSent": "Denaro 确认验证已发送",
+      "badge": "// 资料 ▸ 初始化",
+      "badgeSent": "// 链接 ▸ 已发送",
+      "title": "新操作员",
+      "titleSent": "查看收件箱",
+      "subtitle": "注册以获取 Denaro 身份。",
+      "subtitleSent": "你的验证链接已发送。",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "已经入驻了？",
+      "signIn": "登录",
+      "backPortal": "← 返回访问门户",
+      "spamHint": "如果一分钟内没收到，请检查垃圾邮件。链接仅可使用一次。",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "密钥",
+      "passwordPlaceholder": "•••••• 至少 6 位",
+      "passwordHint": "至少 6 个字符。混合使用。",
+      "confirmLabel": "确认密钥",
+      "confirmPlaceholder": "重复密钥",
+      "submit": "创建身份",
+      "submitting": "编译中…",
+      "validation": {
+        "emailRequired": "请输入你的邮箱",
+        "passwordRequired": "请输入密码",
+        "passwordTooShort": "密码至少需要 6 个字符",
+        "passwordsDoNotMatch": "两次密码不一致"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaro 恢复访问全息图",
+      "badge": "// 密钥 ▸ 恢复",
+      "title": "重置密钥",
+      "subtitle": "输入邮箱，我们将发送恢复链接。",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← 返回访问门户",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "发送恢复链接",
+      "submitting": "发送中…"
+    },
+    "reset": {
+      "imageAlt": "Denaro 编码新密钥",
+      "imageAltInvalid": "Denaro 提示链接无效",
+      "badge": "// 密钥 ▸ 重铸",
+      "badgeInvalid": "// 链接 ▸ 无效",
+      "title": "新密钥",
+      "titleInvalid": "恢复失败",
+      "subtitle": "选择一个之前未使用过的强密钥。",
+      "subtitleInvalid": "重置链接已失效或过期。",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← 返回访问门户",
+      "requestNew": "申请新链接",
+      "newPasswordLabel": "新密钥",
+      "newPasswordPlaceholder": "•••••• 至少 6 位",
+      "confirmLabel": "确认密钥",
+      "confirmPlaceholder": "重复密钥",
+      "submit": "更新密钥",
+      "submitting": "重铸中…",
+      "passwordsDoNotMatch": "两次密码不一致"
+    },
+    "error": {
+      "imageAlt": "Denaro 待机中",
+      "badge": "// 信号 ▸ 丢失",
+      "title": "连接被拒",
+      "subtitle": "链接无效、已过期或已被使用。",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← 返回访问门户",
+      "requestNew": "申请新的恢复链接",
+      "details": "详情：{reason}",
+      "fallback": "请再次尝试登录，或者如果是恢复邮件，请申请新链接。"
+    },
+    "errors": {
+      "invalidEmail": "邮箱无效",
+      "emailTooLong": "邮箱过长",
+      "invalidPassword": "密码无效",
+      "passwordTooShort": "密码至少需要 6 个字符",
+      "passwordTooLong": "密码过长",
+      "invalidCredentials": "邮箱或密码错误",
+      "invalidCredentialsOrUnverified": "邮箱或密码错误，或邮箱尚未验证",
+      "resetExpired": "重置链接无效或已过期，请重新申请。",
+      "couldNotUpdatePassword": "无法更新密码，请重试。",
+      "unauthorized": "未授权",
+      "pickAtLeastOnePair": "请至少选择 1 个交易对。",
+      "deleteFailed": "无法删除账户，请重试。",
+      "deleteConfirmMismatch": "请准确输入 DELETE 以确认。"
+    },
+    "messages": {
+      "registerSent": "如果这是新邮箱，请查看收件箱以验证账户。如果你已有账户，可以直接登录。",
+      "resetSent": "如果该邮箱有账户，重置链接已发送。",
+      "verificationSent": "如果你的账户需要验证，新邮件已发送。"
+    }
+  },
+  "onboarding": {
+    "stepCounter": "校准 {current}/{total}",
+    "welcome": {
+      "badge": "// 操作员 ▸ 已识别",
+      "title": "欢迎来到网格",
+      "intro": "Denaro 是你的 AI 交易分析师。为了让系统适配你的风格，请回答 3 个简短问题 — 你的主要交易对、策略视角，以及如何称呼你。",
+      "duration": "大约 30 秒。设置以后可以编辑。",
+      "begin": "开始校准"
+    },
+    "pairs": {
+      "badge": "// 步骤 01 ▸ 市场",
+      "title": "选择你的 3 个主要交易对",
+      "subtitle": "Denaro 将根据这些市场调整分析。",
+      "selected": "已选择 {count}/3"
+    },
+    "strategy": {
+      "badge": "// 步骤 02 ▸ 视角",
+      "title": "选择你的策略",
+      "subtitle": "Denaro 将在每次分析中使用此视角。",
+      "active": "激活"
+    },
+    "name": {
+      "badge": "// 步骤 03 ▸ 称呼",
+      "title": "Denaro 应该如何称呼你？",
+      "subtitle": "可选。默认使用邮箱前缀。",
+      "label": "显示名称",
+      "placeholder": "Operator",
+      "submit": "进入网格",
+      "submitting": "启动中…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "机构订单流。BoS、CHoCH、order block、FVG、流动性扫荡。"
+    },
+    "price-action": {
+      "label": "价格行为",
+      "blurb": "纯结构。supply / demand 区域、K线解读、market profile。"
+    },
+    "trend": {
+      "label": "趋势跟随",
+      "blurb": "顺主导趋势。突破、回撤入场、动量延续。"
+    },
+    "mean-reversion": {
+      "label": "均值回归",
+      "blurb": "对抗极端。区间交易、区间边界的衰竭入场。"
+    },
+    "scalping": {
+      "label": "剥头皮",
+      "blurb": "快速日内。M1–M15 setups、高频、紧风险。"
+    },
+    "swing": {
+      "label": "波段交易",
+      "blurb": "多日持仓。HTF bias（D1+H4）、耐心入场、扩展 TP。"
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// 分析师 ▸ 在线",
+      "welcomeBack": "欢迎回来，{name}",
+      "lens": "视角:",
+      "logout": "断开",
+      "operatorFallback": "Operator",
+      "openSettings": "打开设置"
+    },
+    "tabs": {
+      "markets": "市场",
+      "news": "新闻",
+      "vision": "视觉",
+      "channel": "提问"
+    },
+    "session": {
+      "session": "时段",
+      "overlap": "重叠",
+      "utc": "UTC",
+      "local": "本地",
+      "sessions": {
+        "sydney": "悉尼",
+        "tokyo": "东京",
+        "london": "伦敦",
+        "newYork": "纽约"
+      }
+    },
+    "ticker": {
+      "title": "实时价格滚动条"
+    },
+    "chartCard": {
+      "badge": "// 图表 ▸ 实时",
+      "realTime": "实时"
+    },
+    "pairCard": {
+      "badge": "// 分析",
+      "resistance": "阻力",
+      "support": "支撑",
+      "nextMove": "下一步",
+      "invalidation": "失效",
+      "confluenceLabel": "共振 {score}",
+      "bias": {
+        "bullish": "看涨",
+        "bearish": "看跌",
+        "range": "区间"
+      }
+    },
+    "newsCard": {
+      "badge": "// 新闻 · 日历",
+      "feedTitle": "{pair} 资讯",
+      "live": "实时",
+      "high": "高",
+      "med": "中",
+      "highBadge": "高",
+      "medBadge": "中",
+      "now": "▶ 现在",
+      "empty": "本周没有 {pair} 的中／高影响事件。",
+      "forecast": "预",
+      "previous": "前"
+    },
+    "vision": {
+      "badge": "// 视觉 ▸ 多周期解读",
+      "title": "HTF → MTF → LTF 快照",
+      "subtitle": "为所选交易对捕获 4H · 1H · 15M，让 Denaro 解读整堆栈。",
+      "capture": "捕获 HTF → LTF 并分析",
+      "capturing": "正在解读堆栈…",
+      "reading": "// 正在解读堆栈…",
+      "errorChartNotReady": "{label} 图表未就绪",
+      "errorCanvas": "canvas 上下文不可用",
+      "errorSnapshot": "快照失败",
+      "errorRequest": "请求失败",
+      "errorFailed": "失败",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "{pair} 多周期堆栈 — 图表 1 = HTF (4H)，图表 2 = MTF (1H)，图表 3 = LTF (15M)。"
+    },
+    "ask": {
+      "badge": "// 频道",
+      "title": "向 Denaro 提问",
+      "subtitle": "概念、setup 复盘、仓位计算、市场解读 — 任何不需要图表截图的问题。",
+      "placeholder": "向 Denaro 提问...（Shift+Enter 换行）",
+      "send": "发送",
+      "sending": "流式输出中…",
+      "channelOpen": "// 频道开启…",
+      "errorRequest": "请求失败",
+      "errorFailed": "失败",
+      "examplesBadge": "// 示例",
+      "tip": "提示：模板中像 {bracket} 这样的方括号是占位符 — 发送前请替换。",
+      "examples": [
+        "用 XAUUSD 例子解释流动性扫荡",
+        "我在 1.1750 买入 EURUSD，SL 1.1720，TP 1.1810 — 有什么问题吗？",
+        "本周哪些宏观事件可能影响 USD 货币对？",
+        "如何在 15M 图表上读 order flow？"
+      ],
+      "quick": {
+        "concept": "概念查询",
+        "conceptPrompt": "各用一段话解释 CHoCH 与 BoS，以及它们何时真正标志着市场结构的转变。",
+        "whyMoving": "{pair} 为什么在动？",
+        "whyMovingPrompt": "{pair} 现在为什么这样移动？给出 3 个候选驱动因素 — 宏观、结构、时段驱动 — 并按可能性排序。",
+        "sizing": "仓位计算",
+        "sizingPrompt": "帮我计算交易仓位。账户规模：$[1000]。每笔风险：[1]%。交易对：{pair}。入场：[价格]。止损：[价格]。计算：美元风险、以手数／单位计的仓位规模、SL 距离的合理性检查。",
+        "review": "复盘我的 setup",
+        "reviewPrompt": "从 {lens} 的角度复盘 {pair} 的这个 setup。\n\n入场：[价格]\n止损：[价格]\n止盈：[价格]\n理由：[为什么进场]\n\n告诉我：结构干净吗？什么会使其失效？我有遗漏吗？",
+        "session": "最佳时段",
+        "sessionPrompt": "对于我的交易对（{list}）和 {lens} 方法，历史上哪个交易时段提供最干净的 setup，为什么？请具体说明波动窗口，避免泛泛建议。",
+        "backtest": "回测计划",
+        "backtestPrompt": "给我一个 5 步计划在 {pair} 上回测 {lens} 策略。包括：数据窗口、入场规则、出场规则、要追踪的统计、什么会让策略失格。"
+      }
+    }
+  },
+  "settings": {
+    "badge": "// 操作员 ▸ 配置",
+    "title": "设置",
+    "subtitle": "调整你的资料、市场和策略视角。",
+    "back": "← 返回控制面板",
+    "saved": "设置已保存。",
+    "save": "保存修改",
+    "saving": "保存中…",
+    "sections": {
+      "identity": {
+        "title": "身份",
+        "subtitle": "Denaro 如何称呼你以及账户邮箱。"
+      },
+      "preferences": {
+        "title": "偏好",
+        "subtitle": "界面语言。"
+      },
+      "markets": {
+        "title": "市场",
+        "subtitle": "Denaro 将为你监控最多 3 个交易对。",
+        "selected": "已选择 {count}/3"
+      },
+      "strategy": {
+        "title": "策略视角",
+        "subtitle": "Denaro 在每次分析中使用的框架。",
+        "active": "激活"
+      },
+      "session": {
+        "title": "会话",
+        "subtitle": "在此设备上从所有位置登出。"
+      },
+      "danger": {
+        "title": "危险区域",
+        "subtitle": "永久性操作。继续前请仔细阅读。",
+        "deleteAccount": "删除账户",
+        "warning": "这将删除你的账户、资料和所有设置，无法撤销。输入 DELETE 以确认。",
+        "confirmLabel": "输入 DELETE 以确认",
+        "confirmDelete": "永久删除",
+        "deleting": "删除中…",
+        "cancel": "取消"
+      }
+    },
+    "fields": {
+      "displayName": "显示名称",
+      "displayNamePlaceholder": "Operator",
+      "email": "邮箱",
+      "emailHint": "邮箱与你的账户绑定，无法在此修改。",
+      "language": "语言"
+    }
+  }
+}

@@ -1,0 +1,359 @@
+{
+  "common": {
+    "back": "戻る",
+    "continue": "続ける",
+    "clear": "クリア",
+    "refresh": "更新",
+    "send": "送信",
+    "loading": "…",
+    "signalLost": "// 信号喪失 — {error}",
+    "language": "言語"
+  },
+  "shell": {
+    "secure": "セキュア",
+    "denaroOs": "Denaro.OS",
+    "encryption": "AES-256",
+    "defaultRoute": ">> AUTH",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを非表示"
+  },
+  "auth": {
+    "login": {
+      "imageAlt": "Denaroがアクセスホログラムを提示",
+      "badge": "// ID ▸ 認証",
+      "title": "アクセスポータル",
+      "subtitle": "認証してDenaroグリッドへ入る。",
+      "routeCode": ">> /AUTH/LOGIN",
+      "noClearance": "まだ権限がない？",
+      "requestAccess": "アクセスを申請",
+      "resetSuccess": "パスワードを更新しました。サインインできます。",
+      "emailLabel": "メール",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "キー",
+      "forgot": "忘れた？",
+      "passwordPlaceholder": "••••••••••",
+      "submit": "実行",
+      "submitting": "認証中…",
+      "needVerify": "リンクの確認が必要？",
+      "resend": "確認メールを再送"
+    },
+    "register": {
+      "imageAlt": "Denaroが登録ホログラムを提示",
+      "imageAltSent": "Denaroが認証送信を確認",
+      "badge": "// プロフィール ▸ 初期化",
+      "badgeSent": "// リンク ▸ 送信済み",
+      "title": "新規オペレーター",
+      "titleSent": "受信箱を確認",
+      "subtitle": "Denaro IDを取得するには登録してください。",
+      "subtitleSent": "確認リンクを送信しました。",
+      "routeCode": ">> /AUTH/REGISTER",
+      "routeCodeSent": ">> /AUTH/VERIFY",
+      "alreadyOnboard": "すでに登録済み？",
+      "signIn": "サインイン",
+      "backPortal": "← アクセスポータルへ戻る",
+      "spamHint": "1分以内に届かない場合は迷惑メールを確認してください。リンクは1回限り有効です。",
+      "emailLabel": "メール",
+      "emailPlaceholder": "operator@denaro.io",
+      "passwordLabel": "キー",
+      "passwordPlaceholder": "•••••• 最低6文字",
+      "passwordHint": "最低6文字。複雑にしてください。",
+      "confirmLabel": "キーを確認",
+      "confirmPlaceholder": "キーを再入力",
+      "submit": "ID作成",
+      "submitting": "コンパイル中…",
+      "validation": {
+        "emailRequired": "メールを入力してください",
+        "passwordRequired": "パスワードを入力してください",
+        "passwordTooShort": "パスワードは最低6文字必要です",
+        "passwordsDoNotMatch": "パスワードが一致しません"
+      }
+    },
+    "forgot": {
+      "imageAlt": "Denaroがアクセスホログラムを復元",
+      "badge": "// キー ▸ 復元",
+      "title": "キーをリセット",
+      "subtitle": "メールを入力すると復元リンクを送信します。",
+      "routeCode": ">> /AUTH/RECOVER",
+      "backPortal": "← アクセスポータルへ戻る",
+      "emailLabel": "メール",
+      "emailPlaceholder": "operator@denaro.io",
+      "submit": "復元リンクを送信",
+      "submitting": "送信中…"
+    },
+    "reset": {
+      "imageAlt": "Denaroが新しいキーをエンコード",
+      "imageAltInvalid": "Denaroが無効なリンクを通知",
+      "badge": "// キー ▸ 再鍛造",
+      "badgeInvalid": "// リンク ▸ 無効",
+      "title": "新しいキー",
+      "titleInvalid": "復元失敗",
+      "subtitle": "以前に使ったことのない強力なキーを選んでください。",
+      "subtitleInvalid": "リセットリンクは無効か期限切れです。",
+      "routeCode": ">> /AUTH/RECOVER/RESET",
+      "routeCodeInvalid": ">> /AUTH/RECOVER/EXPIRED",
+      "backPortal": "← アクセスポータルへ戻る",
+      "requestNew": "新しいリンクを要求",
+      "newPasswordLabel": "新しいキー",
+      "newPasswordPlaceholder": "•••••• 最低6文字",
+      "confirmLabel": "キーを確認",
+      "confirmPlaceholder": "キーを再入力",
+      "submit": "キーを更新",
+      "submitting": "再鍛造中…",
+      "passwordsDoNotMatch": "パスワードが一致しません"
+    },
+    "error": {
+      "imageAlt": "Denaroが待機中",
+      "badge": "// 信号 ▸ 喪失",
+      "title": "接続を拒否",
+      "subtitle": "リンクが無効、期限切れ、またはすでに使用済みです。",
+      "routeCode": ">> /AUTH/ERROR",
+      "backPortal": "← アクセスポータルへ戻る",
+      "requestNew": "新しい復元リンクを要求",
+      "details": "詳細: {reason}",
+      "fallback": "もう一度サインインしてみるか、復元メールだった場合は新しいリンクを要求してください。"
+    },
+    "errors": {
+      "invalidEmail": "無効なメール",
+      "emailTooLong": "メールが長すぎます",
+      "invalidPassword": "無効なパスワード",
+      "passwordTooShort": "パスワードは最低6文字必要です",
+      "passwordTooLong": "パスワードが長すぎます",
+      "invalidCredentials": "無効なメールまたはパスワード",
+      "invalidCredentialsOrUnverified": "無効なメールまたはパスワード、もしくはメールが未確認です",
+      "resetExpired": "リセットリンクが無効または期限切れです。新しいものを要求してください。",
+      "couldNotUpdatePassword": "パスワードを更新できませんでした。もう一度お試しください。",
+      "unauthorized": "未承認",
+      "pickAtLeastOnePair": "少なくとも1ペアを選択してください。",
+      "deleteFailed": "アカウントを削除できませんでした。もう一度お試しください。",
+      "deleteConfirmMismatch": "確認のため正確に DELETE と入力してください。"
+    },
+    "messages": {
+      "registerSent": "このメールが新規であれば、受信箱を確認してアカウントを認証してください。すでにアカウントがある場合はサインインできます。",
+      "resetSent": "そのメールにアカウントが存在する場合、リセットリンクを送信しました。",
+      "verificationSent": "アカウントが認証を必要とする場合、新しいメールを送信しました。"
+    }
+  },
+  "onboarding": {
+    "stepCounter": "キャリブレーション {current}/{total}",
+    "welcome": {
+      "badge": "// オペレーター ▸ 認識済み",
+      "title": "グリッドへようこそ",
+      "intro": "DenaroはあなたのAIトレーディングアナリストです。あなたのスタイルに合わせるため、3つの簡単な質問に答えてください — トップペア、戦略レンズ、そして呼び方。",
+      "duration": "約30秒。設定は後で編集できます。",
+      "begin": "キャリブレーション開始"
+    },
+    "pairs": {
+      "badge": "// ステップ 01 ▸ マーケット",
+      "title": "トップ3ペアを選択",
+      "subtitle": "Denaroはこれらのマーケットに分析を合わせます。",
+      "selected": "{count}/3 選択済み"
+    },
+    "strategy": {
+      "badge": "// ステップ 02 ▸ レンズ",
+      "title": "戦略を選択",
+      "subtitle": "Denaroは全分析でこのレンズを使います。",
+      "active": "アクティブ"
+    },
+    "name": {
+      "badge": "// ステップ 03 ▸ 呼び名",
+      "title": "Denaroはあなたを何と呼ぶべき？",
+      "subtitle": "任意。デフォルトはメールのローカル部分。",
+      "label": "表示名",
+      "placeholder": "Operator",
+      "submit": "グリッドへ入る",
+      "submitting": "起動中…"
+    }
+  },
+  "strategies": {
+    "smc": {
+      "label": "Smart Money Concepts",
+      "blurb": "機関投資家のオーダーフロー。BoS、CHoCH、order block、FVG、liquidity sweep。"
+    },
+    "price-action": {
+      "label": "Price Action",
+      "blurb": "純粋な構造。supply / demandゾーン、ローソク足の読解、market profile。"
+    },
+    "trend": {
+      "label": "トレンドフォロー",
+      "blurb": "支配的なトレンドに乗る。ブレイクアウト、pullbackエントリー、モメンタムの継続。"
+    },
+    "mean-reversion": {
+      "label": "平均回帰",
+      "blurb": "極端値に逆らう。レンジトレード、レンジ境界での疲弊エントリー。"
+    },
+    "scalping": {
+      "label": "スキャルピング",
+      "blurb": "高速イントラデイ。M1–M15のセットアップ、高頻度、タイトなリスク。"
+    },
+    "swing": {
+      "label": "スイングトレード",
+      "blurb": "複数日ポジション。HTFバイアス（D1+H4）、忍耐強いエントリー、拡張TP。"
+    }
+  },
+  "dashboard": {
+    "header": {
+      "badge": "// アナリスト ▸ オンライン",
+      "welcomeBack": "おかえりなさい、{name}",
+      "lens": "レンズ:",
+      "logout": "切断",
+      "operatorFallback": "Operator",
+      "openSettings": "設定を開く"
+    },
+    "tabs": {
+      "markets": "マーケット",
+      "news": "ニュース",
+      "vision": "ビジョン",
+      "channel": "質問"
+    },
+    "session": {
+      "session": "セッション",
+      "overlap": "オーバーラップ",
+      "utc": "UTC",
+      "local": "ローカル",
+      "sessions": {
+        "sydney": "シドニー",
+        "tokyo": "東京",
+        "london": "ロンドン",
+        "newYork": "ニューヨーク"
+      }
+    },
+    "ticker": {
+      "title": "ライブ価格テープ"
+    },
+    "chartCard": {
+      "badge": "// チャート ▸ ライブ",
+      "realTime": "リアルタイム"
+    },
+    "pairCard": {
+      "badge": "// 分析",
+      "resistance": "レジスタンス",
+      "support": "サポート",
+      "nextMove": "次の動き",
+      "invalidation": "無効化",
+      "confluenceLabel": "コンフルエンス {score}",
+      "bias": {
+        "bullish": "強気",
+        "bearish": "弱気",
+        "range": "レンジ"
+      }
+    },
+    "newsCard": {
+      "badge": "// ニュース · カレンダー",
+      "feedTitle": "{pair} フィード",
+      "live": "ライブ",
+      "high": "高",
+      "med": "中",
+      "highBadge": "高",
+      "medBadge": "中",
+      "now": "▶ 現在",
+      "empty": "今週、{pair} に予定されている中／高インパクトのイベントはありません。",
+      "forecast": "予",
+      "previous": "前"
+    },
+    "vision": {
+      "badge": "// ビジョン ▸ マルチTF読解",
+      "title": "HTF → MTF → LTF スナップ",
+      "subtitle": "選択したペアの 4H · 1H · 15M をキャプチャし、Denaroにスタック全体を読ませます。",
+      "capture": "HTF → LTF をキャプチャして分析",
+      "capturing": "スタックを読解中…",
+      "reading": "// スタックを読解中…",
+      "errorChartNotReady": "{label} チャートが未準備",
+      "errorCanvas": "canvasコンテキストが利用不可",
+      "errorSnapshot": "スナップショット失敗",
+      "errorRequest": "リクエスト失敗",
+      "errorFailed": "失敗",
+      "stack": {
+        "htf": "HTF",
+        "mtf": "MTF",
+        "ltf": "LTF",
+        "tf4h": "4H",
+        "tf1h": "1H",
+        "tf15m": "15M"
+      },
+      "captureNote": "{pair} マルチタイムフレームスタック — チャート1 = HTF (4H)、チャート2 = MTF (1H)、チャート3 = LTF (15M)。"
+    },
+    "ask": {
+      "badge": "// チャネル",
+      "title": "Denaroに聞く",
+      "subtitle": "コンセプト、セットアップレビュー、ポジションサイジング、市場読解 — チャートのスクリーンショットを必要としないあらゆること。",
+      "placeholder": "Denaroに聞く...（改行は Shift+Enter）",
+      "send": "送信",
+      "sending": "ストリーミング…",
+      "channelOpen": "// チャネル開通…",
+      "errorRequest": "リクエスト失敗",
+      "errorFailed": "失敗",
+      "examplesBadge": "// 例",
+      "tip": "ヒント: テンプレート内の {bracket} のような角括弧はプレースホルダーです — 送信前に置き換えてください。",
+      "examples": [
+        "XAUUSD の例で liquidity sweep を説明して",
+        "EURUSD を 1.1750 で買って、SL 1.1720、TP 1.1810 — 何か問題は？",
+        "今週どのマクロイベントが USD ペアを動かす？",
+        "15M チャートで order flow をどう読む？"
+      ],
+      "quick": {
+        "concept": "コンセプト検索",
+        "conceptPrompt": "それぞれ1段落で、CHoCH と BoS の違いと、それぞれが市場構造の本当の変化を示すのはいつかを説明して。",
+        "whyMoving": "{pair} はなぜ動いている？",
+        "whyMovingPrompt": "{pair} が今このように動いているのはなぜ？ 候補となる3つのドライバーを — マクロ、構造、セッション要因 — 与え、可能性順に並べて。",
+        "sizing": "ポジションサイズ計算",
+        "sizingPrompt": "トレードのサイズ計算を手伝って。口座サイズ: $[1000]。1トレードあたりリスク: [1]%。ペア: {pair}。エントリー: [価格]。ストップロス: [価格]。計算: ドルリスク、ロット／ユニット単位のポジションサイズ、SL距離の妥当性チェック。",
+        "review": "セットアップをレビュー",
+        "reviewPrompt": "このセットアップを {lens} の視点で {pair} についてレビューして。\n\nエントリー: [価格]\nストップロス: [価格]\nテイクプロフィット: [価格]\n理由: [なぜ取るか]\n\n教えて: 構造はクリーン？ 何が無効化する？ 見落としは？",
+        "session": "ベストセッション",
+        "sessionPrompt": "私のペア（{list}）と {lens} アプローチで、歴史的にどのトレーディングセッションが最もクリーンなセットアップを提供するか、なぜ？ ボラティリティウィンドウを具体的に、一般的なアドバイスは避けて。",
+        "backtest": "バックテスト計画",
+        "backtestPrompt": "{pair} で {lens} 戦略をバックテストする5ステップの計画を。含めるもの: データ期間、エントリー規則、エグジット規則、追跡する統計、戦略を失格にする条件。"
+      }
+    }
+  },
+  "settings": {
+    "badge": "// オペレーター ▸ CONFIG",
+    "title": "設定",
+    "subtitle": "プロフィール、マーケット、戦略レンズを調整。",
+    "back": "← ダッシュボードへ戻る",
+    "saved": "設定を保存しました。",
+    "save": "変更を保存",
+    "saving": "保存中…",
+    "sections": {
+      "identity": {
+        "title": "ID",
+        "subtitle": "Denaroがあなたを呼ぶ方法とアカウントのメール。"
+      },
+      "preferences": {
+        "title": "環境設定",
+        "subtitle": "インターフェース言語。"
+      },
+      "markets": {
+        "title": "マーケット",
+        "subtitle": "Denaroが監視する最大3ペア。",
+        "selected": "{count}/3 選択済み"
+      },
+      "strategy": {
+        "title": "戦略レンズ",
+        "subtitle": "Denaroが全分析で使うフレームワーク。",
+        "active": "アクティブ"
+      },
+      "session": {
+        "title": "セッション",
+        "subtitle": "このデバイスのすべての場所からサインアウト。"
+      },
+      "danger": {
+        "title": "危険ゾーン",
+        "subtitle": "永続的な操作。続行する前に注意深くお読みください。",
+        "deleteAccount": "アカウント削除",
+        "warning": "アカウント、プロフィール、すべての設定を削除します。元に戻せません。確認のため DELETE と入力してください。",
+        "confirmLabel": "確認のため DELETE と入力",
+        "confirmDelete": "永続的に削除",
+        "deleting": "削除中…",
+        "cancel": "キャンセル"
+      }
+    },
+    "fields": {
+      "displayName": "表示名",
+      "displayNamePlaceholder": "Operator",
+      "email": "メール",
+      "emailHint": "メールはアカウントに紐づいており、ここでは変更できません。",
+      "language": "言語"
+    }
+  }
+}
