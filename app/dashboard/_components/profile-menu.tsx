@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { logout } from '@/lib/auth/actions'
-import LanguageSwitcher from '@/app/_components/language-switcher'
 
 /** Avatar that opens a menu with greeting, settings, language, and logout.
  *  Replaces three separate header controls (logout / language / avatar) so
@@ -81,14 +80,6 @@ export default function ProfileMenu({
             <p className="mt-1.5 text-[0.6rem] tracking-wide text-cyan-100/55">
               {t('lens')} <span className="text-amber-200/85">{lensLabel}</span>
             </p>
-          </div>
-
-          {/* Language */}
-          <div className="flex items-center justify-between gap-2 border-b border-cyan-400/15 px-3 py-2">
-            <span className="font-display text-[0.6rem] tracking-[0.22em] uppercase text-cyan-100/65">
-              {t('language')}
-            </span>
-            <LanguageSwitcher variant="compact" />
           </div>
 
           {/* Settings link */}

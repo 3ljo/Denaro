@@ -197,7 +197,10 @@
       "lens": "レンズ:",
       "logout": "切断",
       "operatorFallback": "Operator",
-      "openSettings": "設定を開く"
+      "openSettings": "設定を開く",
+      "welcomeShort": "// おかえりなさい",
+      "settings": "設定",
+      "language": "言語"
     },
     "tabs": {
       "markets": "マーケット",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "ライブ価格テープ"
+      "title": "ライブ価格テープ",
+      "label": "// ライブ価格"
     },
     "chartCard": {
       "badge": "// チャート ▸ ライブ",

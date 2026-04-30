@@ -194,6 +194,7 @@
     "header": {
       "badge": "// ANALISTI ▸ ONLINE",
       "welcomeBack": "Mirë se u ktheve, {name}",
+      "welcomeShort": "// MIRË SE U KTHEVE",
       "lens": "Lentja:",
       "logout": "Shkëputu",
       "operatorFallback": "Operator",
@@ -220,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Shiriti i çmimeve live"
+      "title": "Shiriti i çmimeve live",
+      "label": "// ÇMIMET LIVE"
     },
     "chartCard": {
       "badge": "// GRAFIKU ▸ LIVE",

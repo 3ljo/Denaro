@@ -42,7 +42,16 @@ export default async function DashboardPage() {
             <p className="hidden font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80 sm:block">
               {t('badge')}
             </p>
-            <h1 className="truncate font-display text-base font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-xl sm:tracking-[0.2em]">
+            {/* Mobile: tiny label on first line, name on its own line so a
+                long display_name wraps cleanly instead of being truncated.
+                Desktop: original single-line heading. */}
+            <p className="block font-display text-[0.55rem] tracking-[0.32em] text-amber-300/70 sm:hidden">
+              {t('welcomeShort')}
+            </p>
+            <h1 className="break-words font-display text-base font-bold uppercase leading-tight tracking-[0.16em] text-cyan-50 sm:hidden">
+              {greeting}
+            </h1>
+            <h1 className="hidden truncate font-display text-xl font-bold uppercase tracking-[0.2em] text-cyan-50 sm:block">
               {t('welcomeBack', { name: greeting })}
             </h1>
             <p className="mt-1 hidden text-[0.7rem] tracking-wide text-cyan-100/50 sm:block">
@@ -52,10 +61,10 @@ export default async function DashboardPage() {
               </span>
             </p>
           </div>
-          <div className="flex shrink-0 items-center gap-3">
-            <div className="hidden sm:block">
-              <LanguageSwitcher />
-            </div>
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            {/* Same compact flag+code dropdown on both viewports — one tap
+                opens the language list. Doesn't bloat the mobile header. */}
+            <LanguageSwitcher />
             <form action={logout} className="hidden sm:block">
               <button type="submit" className="denaro-btn-ghost">
                 {t('logout')}

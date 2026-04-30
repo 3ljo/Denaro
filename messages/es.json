@@ -197,7 +197,10 @@
       "lens": "Lente:",
       "logout": "Desconectar",
       "operatorFallback": "Operator",
-      "openSettings": "Abrir ajustes"
+      "openSettings": "Abrir ajustes",
+      "welcomeShort": "// BIENVENIDO",
+      "settings": "Ajustes",
+      "language": "Idioma"
     },
     "tabs": {
       "markets": "Mercados",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Cinta de cotizaciones en vivo"
+      "title": "Cinta de cotizaciones en vivo",
+      "label": "// PRECIOS EN VIVO"
     },
     "chartCard": {
       "badge": "// GRÁFICO ▸ LIVE",

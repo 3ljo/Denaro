@@ -194,6 +194,7 @@
     "header": {
       "badge": "// ANALYST ▸ ONLINE",
       "welcomeBack": "Welcome back, {name}",
+      "welcomeShort": "// WELCOME BACK",
       "lens": "Lens:",
       "logout": "Disconnect",
       "operatorFallback": "Operator",
@@ -220,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Live ticker tape"
+      "title": "Live ticker tape",
+      "label": "// LIVE PRICES"
     },
     "chartCard": {
       "badge": "// CHART ▸ LIVE",

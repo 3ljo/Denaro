@@ -197,7 +197,10 @@
       "lens": "Lente:",
       "logout": "Desconectar",
       "operatorFallback": "Operator",
-      "openSettings": "Abrir configurações"
+      "openSettings": "Abrir configurações",
+      "welcomeShort": "// BEM-VINDO DE VOLTA",
+      "settings": "Definições",
+      "language": "Idioma"
     },
     "tabs": {
       "markets": "Mercados",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Fita de cotações ao vivo"
+      "title": "Fita de cotações ao vivo",
+      "label": "// PREÇOS AO VIVO"
     },
     "chartCard": {
       "badge": "// GRÁFICO ▸ AO VIVO",

@@ -197,7 +197,10 @@
       "lens": "Lente:",
       "logout": "Disconnetti",
       "operatorFallback": "Operator",
-      "openSettings": "Apri impostazioni"
+      "openSettings": "Apri impostazioni",
+      "welcomeShort": "// BENTORNATO",
+      "settings": "Impostazioni",
+      "language": "Lingua"
     },
     "tabs": {
       "markets": "Mercati",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Striscia di prezzi live"
+      "title": "Striscia di prezzi live",
+      "label": "// PREZZI LIVE"
     },
     "chartCard": {
       "badge": "// GRAFICO ▸ LIVE",

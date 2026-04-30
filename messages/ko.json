@@ -197,7 +197,10 @@
       "lens": "렌즈:",
       "logout": "연결 해제",
       "operatorFallback": "Operator",
-      "openSettings": "설정 열기"
+      "openSettings": "설정 열기",
+      "welcomeShort": "// 다시 오신 것을 환영합니다",
+      "settings": "설정",
+      "language": "언어"
     },
     "tabs": {
       "markets": "시장",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "실시간 시세 표시줄"
+      "title": "실시간 시세 표시줄",
+      "label": "// 실시간 시세"
     },
     "chartCard": {
       "badge": "// 차트 ▸ 라이브",

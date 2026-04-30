@@ -197,7 +197,10 @@
       "lens": "Lentille :",
       "logout": "Déconnecter",
       "operatorFallback": "Operator",
-      "openSettings": "Ouvrir les paramètres"
+      "openSettings": "Ouvrir les paramètres",
+      "welcomeShort": "// BON RETOUR",
+      "settings": "Paramètres",
+      "language": "Langue"
     },
     "tabs": {
       "markets": "Marchés",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Bandeau de cotation live"
+      "title": "Bandeau de cotation live",
+      "label": "// PRIX LIVE"
     },
     "chartCard": {
       "badge": "// GRAPHIQUE ▸ LIVE",

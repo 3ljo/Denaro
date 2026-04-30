@@ -197,7 +197,10 @@
       "lens": "Linse:",
       "logout": "Trennen",
       "operatorFallback": "Operator",
-      "openSettings": "Einstellungen öffnen"
+      "openSettings": "Einstellungen öffnen",
+      "welcomeShort": "// WILLKOMMEN ZURÜCK",
+      "settings": "Einstellungen",
+      "language": "Sprache"
     },
     "tabs": {
       "markets": "Märkte",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Live-Tickerleiste"
+      "title": "Live-Tickerleiste",
+      "label": "// LIVE-PREISE"
     },
     "chartCard": {
       "badge": "// CHART ▸ LIVE",

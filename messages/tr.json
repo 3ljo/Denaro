@@ -197,7 +197,10 @@
       "lens": "Mercek:",
       "logout": "Bağlantıyı kes",
       "operatorFallback": "Operator",
-      "openSettings": "Ayarları aç"
+      "openSettings": "Ayarları aç",
+      "welcomeShort": "// TEKRAR HOŞ GELDİN",
+      "settings": "Ayarlar",
+      "language": "Dil"
     },
     "tabs": {
       "markets": "Piyasalar",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Canlı fiyat şeridi"
+      "title": "Canlı fiyat şeridi",
+      "label": "// CANLI FİYATLAR"
     },
     "chartCard": {
       "badge": "// GRAFİK ▸ CANLI",

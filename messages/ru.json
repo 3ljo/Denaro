@@ -197,7 +197,10 @@
       "lens": "Линза:",
       "logout": "Отключиться",
       "operatorFallback": "Operator",
-      "openSettings": "Открыть настройки"
+      "openSettings": "Открыть настройки",
+      "welcomeShort": "// С ВОЗВРАЩЕНИЕМ",
+      "settings": "Настройки",
+      "language": "Язык"
     },
     "tabs": {
       "markets": "Рынки",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "Лента котировок в реальном времени"
+      "title": "Лента котировок в реальном времени",
+      "label": "// ЦЕНЫ В РЕАЛЬНОМ ВРЕМЕНИ"
     },
     "chartCard": {
       "badge": "// ГРАФИК ▸ LIVE",

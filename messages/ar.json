@@ -197,7 +197,10 @@
       "lens": "العدسة:",
       "logout": "قطع الاتصال",
       "operatorFallback": "Operator",
-      "openSettings": "فتح الإعدادات"
+      "openSettings": "فتح الإعدادات",
+      "welcomeShort": "// مرحبًا بعودتك",
+      "settings": "الإعدادات",
+      "language": "اللغة"
     },
     "tabs": {
       "markets": "الأسواق",
@@ -218,7 +221,8 @@
       }
     },
     "ticker": {
-      "title": "شريط الأسعار المباشر"
+      "title": "شريط الأسعار المباشر",
+      "label": "// الأسعار المباشرة"
     },
     "chartCard": {
       "badge": "// الرسم ▸ مباشر",

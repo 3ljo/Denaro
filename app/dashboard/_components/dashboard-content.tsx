@@ -94,12 +94,12 @@ function PairAccordion({
 }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className="denaro-panel overflow-hidden rounded-md">
+    <div className={`overflow-hidden rounded-md border border-cyan-400/25 bg-cyan-500/[0.04] transition ${open ? 'shadow-[0_0_18px_rgba(34,211,238,0.15)]' : ''}`}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.04]"
+        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.06]"
       >
         <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cyan-50">
           {pair}
@@ -122,7 +122,7 @@ function PairAccordion({
         </svg>
       </button>
       {open && (
-        <div className="flex flex-col gap-3 border-t border-cyan-400/15 p-3">
+        <div className="flex flex-col gap-3 border-t border-cyan-400/15 p-2.5">
           <ChartCard pair={pair} />
           <PairCard pair={pair} strategy={strategy} />
         </div>
@@ -133,10 +133,65 @@ function PairAccordion({
 
 function NewsTab({ pairs }: { pairs: string[] }) {
   return (
-    <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-      {pairs.map((pair) => (
-        <NewsCard key={pair} pair={pair} />
-      ))}
+    <>
+      {/* Mobile: accordion — one feed expanded at a time. */}
+      <div className="space-y-2 md:hidden">
+        {pairs.map((pair, i) => (
+          <NewsAccordion key={pair} pair={pair} defaultOpen={i === 0} />
+        ))}
+      </div>
+
+      {/* Tablet+: original grid, all feeds visible. */}
+      <div className="hidden grid-cols-1 gap-3 md:grid md:grid-cols-2 xl:grid-cols-3">
+        {pairs.map((pair) => (
+          <NewsCard key={pair} pair={pair} />
+        ))}
+      </div>
+    </>
+  )
+}
+
+function NewsAccordion({
+  pair,
+  defaultOpen,
+}: {
+  pair: string
+  defaultOpen: boolean
+}) {
+  const [open, setOpen] = useState(defaultOpen)
+  return (
+    <div className={`overflow-hidden rounded-md border border-cyan-400/25 bg-cyan-500/[0.04] transition ${open ? 'shadow-[0_0_18px_rgba(34,211,238,0.15)]' : ''}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.06]"
+      >
+        <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cyan-50">
+          {pair}
+        </span>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 12 12"
+          fill="none"
+          aria-hidden
+          className={`shrink-0 text-cyan-200/70 transition ${open ? 'rotate-180' : ''}`}
+        >
+          <path
+            d="M2.5 4.5l3.5 3 3.5-3"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+      {open && (
+        <div className="border-t border-cyan-400/15 p-2.5">
+          <NewsCard pair={pair} />
+        </div>
+      )}
     </div>
   )
 }
