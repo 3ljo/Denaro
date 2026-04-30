@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { register } from '@/lib/auth/actions'
 import AuthShell from '@/app/_components/auth-shell'
+import PasswordInput from '@/app/_components/password-input'
 
 export default function RegisterPage() {
   const t = useTranslations('auth.register')
@@ -116,10 +117,9 @@ export default function RegisterPage() {
           <label htmlFor="password" className="denaro-label">
             {t('passwordLabel')}
           </label>
-          <input
+          <PasswordInput
             id="password"
             name="password"
-            type="password"
             required
             autoComplete="new-password"
             autoCapitalize="none"
@@ -127,7 +127,6 @@ export default function RegisterPage() {
             spellCheck={false}
             minLength={6}
             placeholder={t('passwordPlaceholder')}
-            className="denaro-input"
           />
           <p className="mt-1.5 text-[0.65rem] tracking-wide text-cyan-100/45">
             {t('passwordHint')}
@@ -138,10 +137,9 @@ export default function RegisterPage() {
           <label htmlFor="confirm" className="denaro-label">
             {t('confirmLabel')}
           </label>
-          <input
+          <PasswordInput
             id="confirm"
             name="confirm"
-            type="password"
             required
             autoComplete="new-password"
             autoCapitalize="none"
@@ -149,7 +147,6 @@ export default function RegisterPage() {
             spellCheck={false}
             minLength={6}
             placeholder={t('confirmPlaceholder')}
-            className="denaro-input"
           />
         </div>
 

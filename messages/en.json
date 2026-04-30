@@ -13,7 +13,9 @@
     "secure": "SECURE",
     "denaroOs": "Denaro.OS",
     "encryption": "AES-256",
-    "defaultRoute": ">> AUTH"
+    "defaultRoute": ">> AUTH",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "auth": {
     "login": {

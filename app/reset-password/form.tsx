@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import { resetPassword } from '@/lib/auth/actions'
 import AuthShell from '@/app/_components/auth-shell'
+import PasswordInput from '@/app/_components/password-input'
 
 export default function ResetPasswordForm() {
   const t = useTranslations('auth.reset')
@@ -43,10 +44,9 @@ export default function ResetPasswordForm() {
           <label htmlFor="password" className="denaro-label">
             {t('newPasswordLabel')}
           </label>
-          <input
+          <PasswordInput
             id="password"
             name="password"
-            type="password"
             required
             autoComplete="new-password"
             autoCapitalize="none"
@@ -54,7 +54,6 @@ export default function ResetPasswordForm() {
             spellCheck={false}
             minLength={6}
             placeholder={t('newPasswordPlaceholder')}
-            className="denaro-input"
           />
         </div>
 
@@ -62,10 +61,9 @@ export default function ResetPasswordForm() {
           <label htmlFor="confirm" className="denaro-label">
             {t('confirmLabel')}
           </label>
-          <input
+          <PasswordInput
             id="confirm"
             name="confirm"
-            type="password"
             required
             autoComplete="new-password"
             autoCapitalize="none"
@@ -73,7 +71,6 @@ export default function ResetPasswordForm() {
             spellCheck={false}
             minLength={6}
             placeholder={t('confirmPlaceholder')}
-            className="denaro-input"
           />
         </div>
 

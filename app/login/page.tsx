@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { login, resendVerification } from '@/lib/auth/actions'
 import AuthShell from '@/app/_components/auth-shell'
+import PasswordInput from '@/app/_components/password-input'
 
 export default function LoginPage() {
   return (
@@ -105,17 +106,15 @@ function LoginForm() {
               {t('forgot')}
             </Link>
           </div>
-          <input
+          <PasswordInput
             id="password"
             name="password"
-            type="password"
             required
             autoComplete="current-password"
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
             placeholder={t('passwordPlaceholder')}
-            className="denaro-input"
           />
         </div>
 

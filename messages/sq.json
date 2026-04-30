@@ -13,7 +13,9 @@
     "secure": "I SIGURT",
     "denaroOs": "Denaro.OS",
     "encryption": "AES-256",
-    "defaultRoute": ">> AUTENTIKIM"
+    "defaultRoute": ">> AUTENTIKIM",
+    "showPassword": "Shfaq fjalëkalimin",
+    "hidePassword": "Fshih fjalëkalimin"
   },
   "auth": {
     "login": {
