@@ -34,12 +34,18 @@ const nextConfig = {
               "default-src 'self'",
               // Dev needs 'unsafe-eval' for Next.js's React Refresh / HMR runtime.
               // Production stays strict.
-              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+              // TradingView chart embed loads its bootstrap script from s3.tradingview.com.
+              `script-src 'self' 'unsafe-inline' https://s3.tradingview.com https://*.tradingview.com${isDev ? " 'unsafe-eval'" : ''}`,
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
               // Dev also needs the HMR websocket back to localhost.
-              `connect-src 'self' ${process.env.NEXT_PUBLIC_SUPABASE_URL || ''}${isDev ? ' ws://localhost:* http://localhost:*' : ''}`,
+              // TradingView script makes XHR/WS calls to its data endpoints.
+              `connect-src 'self' ${process.env.NEXT_PUBLIC_SUPABASE_URL || ''} https://*.tradingview.com https://*.tradingview-widget.com wss://*.tradingview.com${isDev ? ' ws://localhost:* http://localhost:*' : ''}`,
+              // TradingView chart + ticker-tape iframes (Markets tab + ticker bar).
+              // Without this, frame-src falls back to default-src 'self' and the
+              // iframes render as blank panels.
+              "frame-src https://s.tradingview.com https://www.tradingview.com https://www.tradingview-widget.com https://*.tradingview.com https://*.tradingview-widget.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",

@@ -1,18 +1,22 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
+
 /**
- * TradingView Advanced Chart embedded as a direct iframe.
+ * TradingView Advanced Chart Widget — official script-tag embed.
  *
- * The previous script-tag embed pattern is finicky in React (StrictMode
- * double-mount, async script timing) — direct iframe is deterministic and
- * loads on first render.
+ * Why script tag and not a direct iframe URL: TradingView's iframe URLs
+ * (`s.tradingview.com/widgetembed/`, `tradingview-widget.com/embed-widget/`)
+ * refuse to render when loaded directly — they send X-Frame-Options or check
+ * the referrer chain that the official script sets up. The browser shows
+ * "This content is blocked." Loading via the official script gets the iframe
+ * provisioned the way TradingView expects.
  *
- * URL: https://s.tradingview.com/widgetembed/  (verified 200 OK).
- *
- * Live data comes from TradingView's licensed real-time feed, which is what
- * we wanted — tick-by-tick candle formation. Tradeoff: lives in an iframe
- * so we can't snapshot it for the Snap-to-AI flow. Vision-tab mini-charts
- * (lightweight-charts) are kept exactly for that purpose.
+ * React lifecycle: we mount the script into a unique container, give the
+ * outer wrapper a `key` derived from `symbol`, and on unmount clear the
+ * container. StrictMode double-mounts in dev are tolerated because both
+ * mounts target the same container id — the second script invocation
+ * overwrites the first.
  */
 
 const TV_SYMBOL: Record<string, string> = {
@@ -38,37 +42,56 @@ const TV_SYMBOL: Record<string, string> = {
 
 export default function TradingViewChart({ symbol }: { symbol: string }) {
   const tvSymbol = TV_SYMBOL[symbol.toUpperCase()] ?? symbol
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const params = new URLSearchParams({
-    symbol: tvSymbol,
-    interval: '15',
-    timezone: 'Etc/UTC',
-    theme: 'dark',
-    style: '1', // candlestick
-    locale: 'en',
-    toolbarbg: 'rgba(10,19,34,0.6)',
-    hidesidetoolbar: '0',
-    hidetoptoolbar: '0',
-    saveimage: '0',
-    studies: '[]',
-    hideideas: '1',
-    allow_symbol_change: '0',
-    details: '0',
-    withdateranges: '1',
-  })
+  useEffect(() => {
+    const host = containerRef.current
+    if (!host) return
 
-  const url = `https://s.tradingview.com/widgetembed/?${params.toString()}`
+    // Clear any prior render (StrictMode double-mount or symbol change).
+    host.innerHTML = ''
+
+    const inner = document.createElement('div')
+    inner.className = 'tradingview-widget-container__widget h-full w-full'
+    host.appendChild(inner)
+
+    const script = document.createElement('script')
+    script.src =
+      'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js'
+    script.type = 'text/javascript'
+    script.async = true
+    script.innerHTML = JSON.stringify({
+      autosize: true,
+      symbol: tvSymbol,
+      interval: '15',
+      timezone: 'Etc/UTC',
+      theme: 'dark',
+      style: '1',
+      locale: 'en',
+      toolbar_bg: 'rgba(10,19,34,0.6)',
+      enable_publishing: false,
+      hide_top_toolbar: false,
+      hide_legend: false,
+      hide_side_toolbar: false,
+      allow_symbol_change: false,
+      save_image: false,
+      withdateranges: true,
+      details: false,
+      hideideas: true,
+      studies: [],
+    })
+    host.appendChild(script)
+
+    return () => {
+      host.innerHTML = ''
+    }
+  }, [tvSymbol])
 
   return (
     <div className="relative h-[460px] overflow-hidden rounded border border-cyan-400/20 bg-slate-950/50">
-      <iframe
-        src={url}
-        title={`${tvSymbol} chart`}
-        className="absolute inset-0 h-full w-full"
-        frameBorder={0}
-        scrolling="no"
-        allowTransparency
-        allow="clipboard-write; fullscreen"
+      <div
+        ref={containerRef}
+        className="tradingview-widget-container absolute inset-0 h-full w-full"
       />
     </div>
   )
