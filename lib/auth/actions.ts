@@ -251,6 +251,11 @@ export async function deleteAccount(formData: FormData) {
   if (!user) return { errorKey: 'unauthorized' as AuthErrorKey }
 
   const admin = createAdminClient()
+  if (!admin) {
+    console.error('deleteAccount: SUPABASE_SERVICE_ROLE_KEY is not set')
+    return { errorKey: 'deleteFailed' as AuthErrorKey }
+  }
+
   const { error } = await admin.auth.admin.deleteUser(user.id)
   if (error) {
     console.error('deleteAccount', error.message)
