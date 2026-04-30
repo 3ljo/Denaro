@@ -123,7 +123,9 @@
       "resetExpired": "Linku i rivendosjes është i pavlefshëm ose ka skaduar. Të lutem kërko një të ri.",
       "couldNotUpdatePassword": "Fjalëkalimi nuk u përditësua. Të lutem provo përsëri.",
       "unauthorized": "i paautorizuar",
-      "pickAtLeastOnePair": "Zgjidh së paku 1 çift."
+      "pickAtLeastOnePair": "Zgjidh së paku 1 çift.",
+      "deleteFailed": "Llogaria nuk u fshi. Të lutem provo përsëri.",
+      "deleteConfirmMismatch": "Shkruaj saktësisht DELETE për të konfirmuar."
     },
     "messages": {
       "registerSent": "Nëse ky email është i ri, kontrollo inbox-in tënd për të verifikuar llogarinë. Nëse tashmë ke një llogari, mund të hysh.",
@@ -334,6 +336,16 @@
       "session": {
         "title": "Sesioni",
         "subtitle": "Shkëputu nga të gjitha sesionet në këtë pajisje."
+      },
+      "danger": {
+        "title": "Zona e rrezikut",
+        "subtitle": "Veprime të përhershme. Lexoji me kujdes para se të vazhdosh.",
+        "deleteAccount": "Fshi llogarinë",
+        "warning": "Kjo fshin llogarinë, profilin dhe të gjitha cilësimet e tua. Nuk mund të anulohet. Shkruaj DELETE për të konfirmuar.",
+        "confirmLabel": "Shkruaj DELETE për të konfirmuar",
+        "confirmDelete": "Fshij përgjithmonë",
+        "deleting": "Po fshihet…",
+        "cancel": "Anulo"
       }
     },
     "fields": {

@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { headers } from 'next/headers'
@@ -24,6 +25,9 @@ export type AuthErrorKey =
   | 'invalidCredentialsOrUnverified'
   | 'resetExpired'
   | 'couldNotUpdatePassword'
+  | 'deleteFailed'
+  | 'deleteConfirmMismatch'
+  | 'unauthorized'
 
 export type AuthMessageKey = 'registerSent' | 'resetSent' | 'verificationSent'
 
@@ -222,4 +226,39 @@ export async function resendVerification(formData: FormData) {
   })
 
   return { success: true, messageKey: 'verificationSent' as AuthMessageKey }
+}
+
+// =====================================================================
+// DELETE ACCOUNT
+// =====================================================================
+// Permanently removes the operator's auth user (and cascades to the
+// `profiles` row via the FK on profiles.id → auth.users.id). Requires the
+// user to type the literal string "DELETE" as a confirmation safeguard.
+//
+// Uses the service-role admin client because the anon client cannot delete
+// auth users. Caller must be authenticated; we delete *their own* user id —
+// never an arbitrary one passed in.
+export async function deleteAccount(formData: FormData) {
+  const confirm = formData.get('confirm')
+  if (typeof confirm !== 'string' || confirm.trim() !== 'DELETE') {
+    return { errorKey: 'deleteConfirmMismatch' as AuthErrorKey }
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { errorKey: 'unauthorized' as AuthErrorKey }
+
+  const admin = createAdminClient()
+  const { error } = await admin.auth.admin.deleteUser(user.id)
+  if (error) {
+    console.error('deleteAccount', error.message)
+    return { errorKey: 'deleteFailed' as AuthErrorKey }
+  }
+
+  // Auth user is gone — clear our session cookie too.
+  await supabase.auth.signOut()
+  revalidatePath('/', 'layout')
+  redirect('/login?deleted=1')
 }

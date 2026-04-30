@@ -10,7 +10,7 @@ import {
   type Strategy,
 } from '@/lib/profile/types'
 import { saveSettings } from '@/lib/profile/actions'
-import { logout } from '@/lib/auth/actions'
+import { deleteAccount, logout } from '@/lib/auth/actions'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
 export default function SettingsForm({
@@ -23,6 +23,7 @@ export default function SettingsForm({
   const t = useTranslations('settings')
   const tSec = useTranslations('settings.sections')
   const tField = useTranslations('settings.fields')
+  const tDanger = useTranslations('settings.sections.danger')
   const tStrat = useTranslations('strategies')
   const tHeader = useTranslations('dashboard.header')
   const tErr = useTranslations('auth.errors')
@@ -33,6 +34,22 @@ export default function SettingsForm({
   const [error, setError] = useState<string | null>(null)
   const [savedAt, setSavedAt] = useState<number | null>(null)
   const [isPending, startTransition] = useTransition()
+
+  const [showDelete, setShowDelete] = useState(false)
+  const [deleteConfirm, setDeleteConfirm] = useState('')
+  const [deleteError, setDeleteError] = useState<string | null>(null)
+  const [isDeleting, startDeleting] = useTransition()
+  const canDelete = deleteConfirm.trim() === 'DELETE'
+
+  function submitDelete() {
+    setDeleteError(null)
+    const fd = new FormData()
+    fd.set('confirm', deleteConfirm.trim())
+    startDeleting(async () => {
+      const result = await deleteAccount(fd)
+      if (result?.errorKey) setDeleteError(tErr(result.errorKey))
+    })
+  }
 
   function togglePair(symbol: string) {
     setPairs((curr) => {
@@ -230,6 +247,79 @@ export default function SettingsForm({
             {tHeader('logout')}
           </button>
         </form>
+      </section>
+
+      {/* Danger zone */}
+      <section className="denaro-panel rounded-md border-rose-500/30 p-4 ring-1 ring-rose-500/15">
+        <div>
+          <h2 className="font-display text-[0.78rem] font-bold uppercase tracking-[0.2em] text-rose-200">
+            {tDanger('title')}
+          </h2>
+          <p className="mt-1 text-[0.7rem] leading-snug text-rose-100/60">
+            {tDanger('subtitle')}
+          </p>
+        </div>
+
+        {!showDelete ? (
+          <button
+            type="button"
+            onClick={() => {
+              setDeleteError(null)
+              setDeleteConfirm('')
+              setShowDelete(true)
+            }}
+            className="mt-3 w-full rounded-md border border-rose-500/50 bg-rose-500/10 px-4 py-2 font-display text-[0.72rem] font-bold uppercase tracking-[0.2em] text-rose-100 transition hover:border-rose-400/80 hover:bg-rose-500/20"
+          >
+            {tDanger('deleteAccount')}
+          </button>
+        ) : (
+          <div className="mt-3 space-y-2">
+            <p className="text-[0.7rem] leading-snug text-rose-100/80">
+              {tDanger('warning')}
+            </p>
+            <label htmlFor="delete-confirm" className="denaro-label">
+              {tDanger('confirmLabel')}
+            </label>
+            <input
+              id="delete-confirm"
+              type="text"
+              value={deleteConfirm}
+              onChange={(e) => setDeleteConfirm(e.target.value)}
+              placeholder="DELETE"
+              autoCapitalize="characters"
+              autoComplete="off"
+              spellCheck={false}
+              className="denaro-input"
+            />
+            {deleteError && (
+              <div className="denaro-banner denaro-banner-error">
+                {deleteError}
+              </div>
+            )}
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <button
+                type="button"
+                onClick={submitDelete}
+                disabled={!canDelete || isDeleting}
+                className="flex-1 rounded-md border border-rose-500/70 bg-rose-500/30 px-4 py-2 font-display text-[0.72rem] font-bold uppercase tracking-[0.2em] text-rose-50 transition hover:bg-rose-500/45 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {isDeleting ? tDanger('deleting') : tDanger('confirmDelete')}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowDelete(false)
+                  setDeleteError(null)
+                  setDeleteConfirm('')
+                }}
+                disabled={isDeleting}
+                className="rounded-md border border-cyan-400/30 bg-cyan-500/[0.06] px-4 py-2 font-display text-[0.7rem] tracking-[0.2em] text-cyan-100/80 transition hover:border-cyan-300/50 hover:bg-cyan-500/10 disabled:opacity-40"
+              >
+                {tDanger('cancel')}
+              </button>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   )

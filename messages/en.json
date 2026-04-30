@@ -123,7 +123,9 @@
       "resetExpired": "Reset link is invalid or has expired. Please request a new one.",
       "couldNotUpdatePassword": "Could not update password. Please try again.",
       "unauthorized": "unauthorized",
-      "pickAtLeastOnePair": "Pick at least 1 pair."
+      "pickAtLeastOnePair": "Pick at least 1 pair.",
+      "deleteFailed": "Could not delete account. Please try again.",
+      "deleteConfirmMismatch": "Type DELETE exactly to confirm."
     },
     "messages": {
       "registerSent": "If this email is new, check your inbox to verify your account. If you already have an account, you can log in.",
@@ -334,6 +336,16 @@
       "session": {
         "title": "Session",
         "subtitle": "Sign out everywhere on this device."
+      },
+      "danger": {
+        "title": "Danger zone",
+        "subtitle": "Permanent actions. Read carefully before proceeding.",
+        "deleteAccount": "Delete account",
+        "warning": "This deletes your account, profile, and all settings. This cannot be undone. Type DELETE to confirm.",
+        "confirmLabel": "Type DELETE to confirm",
+        "confirmDelete": "Permanently delete",
+        "deleting": "Deleting…",
+        "cancel": "Cancel"
       }
     },
     "fields": {
