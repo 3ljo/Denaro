@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getProfile } from '@/lib/profile/actions'
 import { logout } from '@/lib/auth/actions'
 import DashboardContent from './_components/dashboard-content'
-import ProfileButton from './_components/profile-button'
+import ProfileMenu from './_components/profile-menu'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
 export default async function DashboardPage() {
@@ -34,31 +34,37 @@ export default async function DashboardPage() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-4 px-3 py-3 sm:px-5 sm:py-5">
-        <header className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80">
+        {/* Header — mobile keeps only the welcome + avatar menu (which holds
+            language, settings, and logout). Desktop expands with badge,
+            subtitle, and the standalone language/logout controls. */}
+        <header className="flex items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="hidden font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80 sm:block">
               {t('badge')}
             </p>
-            <h1 className="font-display text-lg font-bold uppercase tracking-[0.2em] text-cyan-50 sm:text-xl">
+            <h1 className="truncate font-display text-base font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-xl sm:tracking-[0.2em]">
               {t('welcomeBack', { name: greeting })}
             </h1>
-            <p className="mt-1 text-[0.7rem] tracking-wide text-cyan-100/50">
+            <p className="mt-1 hidden text-[0.7rem] tracking-wide text-cyan-100/50 sm:block">
               {t('lens')}{' '}
               <span className="text-amber-200/85">
                 {tStrat(`${profile.strategy}.label`)}
               </span>
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            <form action={logout}>
+          <div className="flex shrink-0 items-center gap-3">
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
+            <form action={logout} className="hidden sm:block">
               <button type="submit" className="denaro-btn-ghost">
                 {t('logout')}
               </button>
             </form>
-            <ProfileButton
+            <ProfileMenu
               displayName={profile.display_name}
               email={user.email ?? ''}
+              lensLabel={tStrat(`${profile.strategy}.label`)}
             />
           </div>
         </header>

@@ -197,7 +197,9 @@
       "lens": "Lentja:",
       "logout": "Shkëputu",
       "operatorFallback": "Operator",
-      "openSettings": "Hap cilësimet"
+      "openSettings": "Hap cilësimet",
+      "settings": "Cilësimet",
+      "language": "Gjuha"
     },
     "tabs": {
       "markets": "Tregjet",

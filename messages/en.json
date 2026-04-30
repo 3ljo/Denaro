@@ -197,7 +197,9 @@
       "lens": "Lens:",
       "logout": "Disconnect",
       "operatorFallback": "Operator",
-      "openSettings": "Open settings"
+      "openSettings": "Open settings",
+      "settings": "Settings",
+      "language": "Language"
     },
     "tabs": {
       "markets": "Markets",

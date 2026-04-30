@@ -47,12 +47,13 @@ export default function SessionBar() {
   const overlap = active.length > 1
 
   return (
-    <div className="denaro-panel relative flex items-center gap-3 overflow-x-auto rounded-md px-3 py-2">
+    <div className="denaro-panel relative flex items-center gap-3 rounded-md px-3 py-2 sm:overflow-x-auto">
       <span className="denaro-pill shrink-0 text-[0.55rem]">
         <span className="denaro-dot" />
         {overlap ? t('overlap') : t('session')}
       </span>
 
+      {/* Mobile: only the active session(s); desktop: all four for context. */}
       <div className="flex shrink-0 gap-1">
         {SESSIONS.map((s) => {
           const on = now ? isActive(s, utcHour) : false
@@ -62,7 +63,7 @@ export default function SessionBar() {
               className={`rounded border px-1.5 py-0.5 font-display text-[0.55rem] tracking-[0.18em] transition ${
                 on
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-200 shadow-[0_0_10px_rgba(74,222,128,0.35)]'
-                  : 'border-cyan-400/15 bg-transparent text-cyan-200/35'
+                  : 'hidden border-cyan-400/15 bg-transparent text-cyan-200/35 sm:inline-block'
               }`}
             >
               {t(`sessions.${s.key}`)}
@@ -72,12 +73,13 @@ export default function SessionBar() {
       </div>
 
       <div className="ml-auto flex shrink-0 items-center gap-3 font-mono text-[0.7rem]">
-        <span className="text-cyan-100/70">
+        {/* Mobile shows local time; desktop adds UTC alongside. */}
+        <span className="hidden text-cyan-100/70 sm:inline">
           <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">{t('utc')}</span>
           {utcStr}
         </span>
-        <span className="hidden text-cyan-100/70 sm:inline">
-          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">{t('local')}</span>
+        <span className="text-cyan-100/70">
+          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55 sm:inline">{t('local')}</span>
           {localStr}
         </span>
       </div>
