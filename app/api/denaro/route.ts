@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { DENARO_SYSTEM_PROMPT } from '@/lib/denaro/system-prompt'
+import { resolveLocale } from '@/i18n/request'
+import { getChatLanguageInstruction } from '@/lib/i18n/language-instruction'
 import OpenAI from 'openai'
 
 export const runtime = 'nodejs'
@@ -40,12 +42,14 @@ export async function POST(req: Request) {
   }
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  const locale = await resolveLocale()
+  const systemContent = DENARO_SYSTEM_PROMPT + getChatLanguageInstruction(locale)
 
   try {
     const stream = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: DENARO_SYSTEM_PROMPT },
+        { role: 'system', content: systemContent },
         ...safeMessages,
       ],
       max_tokens: 1500,

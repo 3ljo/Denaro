@@ -130,7 +130,7 @@ export default function AuthShell({
 
       {/* Language switcher — top-right corner, above the hologram */}
       <div className="absolute right-3 top-3 z-40 sm:right-5 sm:top-5">
-        <LanguageSwitcher variant="pill" />
+        <LanguageSwitcher />
       </div>
     </main>
   )

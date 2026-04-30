@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { VISION_SYSTEM_PROMPT } from '@/lib/denaro/structured-analysis'
+import { resolveLocale } from '@/i18n/request'
+import { getVisionLanguageInstruction } from '@/lib/i18n/language-instruction'
 import OpenAI from 'openai'
 
 export const runtime = 'nodejs'
@@ -50,6 +52,8 @@ export async function POST(req: Request) {
   )
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  const locale = await resolveLocale()
+  const systemContent = VISION_SYSTEM_PROMPT + getVisionLanguageInstruction(locale)
 
   const userText =
     `Analyze these ${files.length} chart screenshot(s), ordered highest TF to lowest.` +
@@ -59,7 +63,7 @@ export async function POST(req: Request) {
     const stream = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: VISION_SYSTEM_PROMPT },
+        { role: 'system', content: systemContent },
         {
           role: 'user',
           content: [

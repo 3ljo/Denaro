@@ -6,6 +6,8 @@ import {
 } from '@/lib/denaro/structured-analysis'
 import { fetchSpotPrice } from '@/lib/market/price'
 import { isStrategy } from '@/lib/profile/types'
+import { resolveLocale } from '@/i18n/request'
+import { getCardLanguageInstruction } from '@/lib/i18n/language-instruction'
 import OpenAI from 'openai'
 
 export const runtime = 'nodejs'
@@ -37,12 +39,14 @@ export async function POST(req: Request) {
   const spot = await fetchSpotPrice(pair)
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  const locale = await resolveLocale()
+  const systemContent = CARD_SYSTEM_PROMPT + getCardLanguageInstruction(locale)
 
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: CARD_SYSTEM_PROMPT },
+        { role: 'system', content: systemContent },
         { role: 'user', content: buildCardPrompt(pair, strategy, today, spot) },
       ],
       max_tokens: 600,

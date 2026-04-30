@@ -67,7 +67,7 @@ export default function OnboardingFlow({
 
       {/* Language switcher — top-right */}
       <div className="absolute right-3 top-3 z-30 sm:right-5 sm:top-5">
-        <LanguageSwitcher variant="pill" />
+        <LanguageSwitcher />
       </div>
 
       {/* Stage: side-by-side on lg+, stacked on mobile */}
