@@ -68,3 +68,44 @@ export async function saveOnboarding(input: {
   revalidatePath('/dashboard')
   redirect('/dashboard')
 }
+
+export type SettingsErrorKey = 'unauthorized' | 'pickAtLeastOnePair'
+
+/** Updates profile fields editable from /settings. Reuses the same validation
+ *  as onboarding. Returns errorKey for the client to translate. */
+export async function saveSettings(input: {
+  pairs: string[]
+  strategy: string
+  displayName?: string | null
+}): Promise<{ errorKey?: SettingsErrorKey; error?: string; success?: true }> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { errorKey: 'unauthorized' }
+
+  const pairs = (input.pairs ?? [])
+    .map((p) => p.trim().toUpperCase())
+    .filter(Boolean)
+    .slice(0, 3)
+
+  if (pairs.length === 0) return { errorKey: 'pickAtLeastOnePair' }
+
+  const strategy: Strategy = isStrategy(input.strategy) ? input.strategy : 'smc'
+  const displayName = (input.displayName ?? '').trim() || null
+  const now = new Date().toISOString()
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({
+      pairs,
+      strategy,
+      display_name: displayName,
+      updated_at: now,
+    })
+    .eq('id', user.id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/dashboard')
+  revalidatePath('/settings')
+  return { success: true }
+}

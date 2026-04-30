@@ -194,7 +194,8 @@
       "welcomeBack": "Mirë se u ktheve, {name}",
       "lens": "Lentja:",
       "logout": "Shkëputu",
-      "operatorFallback": "Operator"
+      "operatorFallback": "Operator",
+      "openSettings": "Hap cilësimet"
     },
     "tabs": {
       "markets": "Tregjet",
@@ -301,6 +302,46 @@
         "backtest": "Plan backtest-i",
         "backtestPrompt": "Më jep një plan 5-hapësh për të backtestuar një strategji {lens} në {pair}. Përfshi: dritaren e të dhënave, rregullin e hyrjes, rregullin e daljes, statistikat për të ndjekur, dhe çfarë diskualifikon strategjinë."
       }
+    }
+  },
+  "settings": {
+    "badge": "// OPERATORI ▸ KONFIG",
+    "title": "Cilësimet",
+    "subtitle": "Akordo profilin, tregjet dhe lentën e strategjisë.",
+    "back": "← Kthehu te paneli",
+    "saved": "Cilësimet u ruajtën.",
+    "save": "Ruaj ndryshimet",
+    "saving": "Po ruhet…",
+    "sections": {
+      "identity": {
+        "title": "Identiteti",
+        "subtitle": "Si të të thërrasë Denaro dhe email-i i llogarisë."
+      },
+      "preferences": {
+        "title": "Preferencat",
+        "subtitle": "Gjuha e ndërfaqes."
+      },
+      "markets": {
+        "title": "Tregjet",
+        "subtitle": "Deri në 3 çifte që Denaro do t'i monitorojë për ty.",
+        "selected": "{count}/3 të zgjedhura"
+      },
+      "strategy": {
+        "title": "Lentja e strategjisë",
+        "subtitle": "Korniza që Denaro përdor për çdo analizë.",
+        "active": "AKTIVE"
+      },
+      "session": {
+        "title": "Sesioni",
+        "subtitle": "Shkëputu nga të gjitha sesionet në këtë pajisje."
+      }
+    },
+    "fields": {
+      "displayName": "Emri i shfaqur",
+      "displayNamePlaceholder": "Operator",
+      "email": "Email",
+      "emailHint": "Email-i lidhet me llogarinë dhe nuk mund të ndryshohet këtu.",
+      "language": "Gjuha"
     }
   }
 }

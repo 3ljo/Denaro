@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getProfile } from '@/lib/profile/actions'
 import { logout } from '@/lib/auth/actions'
 import DashboardContent from './_components/dashboard-content'
+import ProfileButton from './_components/profile-button'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
 export default async function DashboardPage() {
@@ -50,14 +51,15 @@ export default async function DashboardPage() {
           </div>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
-            <span className="hidden break-all text-right text-[0.65rem] tracking-wide text-cyan-100/45 sm:inline">
-              {user.email}
-            </span>
             <form action={logout}>
               <button type="submit" className="denaro-btn-ghost">
                 {t('logout')}
               </button>
             </form>
+            <ProfileButton
+              displayName={profile.display_name}
+              email={user.email ?? ''}
+            />
           </div>
         </header>
 

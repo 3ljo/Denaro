@@ -194,7 +194,8 @@
       "welcomeBack": "Welcome back, {name}",
       "lens": "Lens:",
       "logout": "Disconnect",
-      "operatorFallback": "Operator"
+      "operatorFallback": "Operator",
+      "openSettings": "Open settings"
     },
     "tabs": {
       "markets": "Markets",
@@ -301,6 +302,46 @@
         "backtest": "Backtest plan",
         "backtestPrompt": "Give me a 5-step plan to backtest a {lens} strategy on {pair}. Include: data window, entry rule, exit rule, what stats to track, and what disqualifies the strategy."
       }
+    }
+  },
+  "settings": {
+    "badge": "// OPERATOR ▸ CONFIG",
+    "title": "Settings",
+    "subtitle": "Tune your profile, markets, and strategy lens.",
+    "back": "← Back to dashboard",
+    "saved": "Settings saved.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "sections": {
+      "identity": {
+        "title": "Identity",
+        "subtitle": "How Denaro addresses you and your account email."
+      },
+      "preferences": {
+        "title": "Preferences",
+        "subtitle": "Interface language."
+      },
+      "markets": {
+        "title": "Markets",
+        "subtitle": "Up to 3 pairs Denaro will monitor for you.",
+        "selected": "{count}/3 selected"
+      },
+      "strategy": {
+        "title": "Strategy lens",
+        "subtitle": "The framework Denaro uses for every analysis.",
+        "active": "ACTIVE"
+      },
+      "session": {
+        "title": "Session",
+        "subtitle": "Sign out everywhere on this device."
+      }
+    },
+    "fields": {
+      "displayName": "Display name",
+      "displayNamePlaceholder": "Operator",
+      "email": "Email",
+      "emailHint": "Email is tied to your account and can't be changed here.",
+      "language": "Language"
     }
   }
 }

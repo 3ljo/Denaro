@@ -1,0 +1,255 @@
+'use client'
+
+import Link from 'next/link'
+import { useState, useTransition } from 'react'
+import { useTranslations } from 'next-intl'
+import {
+  POPULAR_PAIRS,
+  STRATEGIES,
+  type Profile,
+  type Strategy,
+} from '@/lib/profile/types'
+import { saveSettings } from '@/lib/profile/actions'
+import { logout } from '@/lib/auth/actions'
+import LanguageSwitcher from '@/app/_components/language-switcher'
+
+export default function SettingsForm({
+  profile,
+  email,
+}: {
+  profile: Profile
+  email: string
+}) {
+  const t = useTranslations('settings')
+  const tSec = useTranslations('settings.sections')
+  const tField = useTranslations('settings.fields')
+  const tStrat = useTranslations('strategies')
+  const tHeader = useTranslations('dashboard.header')
+  const tErr = useTranslations('auth.errors')
+
+  const [displayName, setDisplayName] = useState(profile.display_name ?? '')
+  const [pairs, setPairs] = useState<string[]>(profile.pairs ?? [])
+  const [strategy, setStrategy] = useState<Strategy>(profile.strategy)
+  const [error, setError] = useState<string | null>(null)
+  const [savedAt, setSavedAt] = useState<number | null>(null)
+  const [isPending, startTransition] = useTransition()
+
+  function togglePair(symbol: string) {
+    setPairs((curr) => {
+      if (curr.includes(symbol)) return curr.filter((s) => s !== symbol)
+      if (curr.length >= 3) return curr
+      return [...curr, symbol]
+    })
+  }
+
+  function submit() {
+    setError(null)
+    startTransition(async () => {
+      const result = await saveSettings({
+        pairs,
+        strategy,
+        displayName,
+      })
+      if (result?.errorKey) setError(tErr(result.errorKey))
+      else if (result?.error) setError(result.error)
+      else if (result?.success) setSavedAt(Date.now())
+    })
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Header strip */}
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80">
+            {t('badge')}
+          </p>
+          <h1 className="font-display text-lg font-bold uppercase tracking-[0.2em] text-cyan-50 sm:text-xl">
+            {t('title')}
+          </h1>
+          <p className="mt-1 text-[0.7rem] tracking-wide text-cyan-100/55">
+            {t('subtitle')}
+          </p>
+        </div>
+        <Link
+          href="/dashboard"
+          className="font-display text-[0.65rem] tracking-[0.22em] text-cyan-200/70 transition hover:text-cyan-100"
+        >
+          {t('back')}
+        </Link>
+      </header>
+
+      {/* Identity */}
+      <section className="denaro-panel rounded-md p-4">
+        <SectionHeader
+          title={tSec('identity.title')}
+          subtitle={tSec('identity.subtitle')}
+        />
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label htmlFor="display-name" className="denaro-label">
+              {tField('displayName')}
+            </label>
+            <input
+              id="display-name"
+              type="text"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder={tField('displayNamePlaceholder')}
+              maxLength={40}
+              className="denaro-input"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="denaro-label">
+              {tField('email')}
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              readOnly
+              className="denaro-input cursor-not-allowed opacity-70"
+            />
+            <p className="mt-1.5 text-[0.62rem] tracking-wide text-cyan-100/45">
+              {tField('emailHint')}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Preferences */}
+      <section className="denaro-panel rounded-md p-4">
+        <SectionHeader
+          title={tSec('preferences.title')}
+          subtitle={tSec('preferences.subtitle')}
+        />
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+          <span className="font-display text-[0.7rem] tracking-[0.2em] text-cyan-100/85">
+            {tField('language')}
+          </span>
+          <LanguageSwitcher />
+        </div>
+      </section>
+
+      {/* Markets */}
+      <section className="denaro-panel rounded-md p-4">
+        <SectionHeader
+          title={tSec('markets.title')}
+          subtitle={tSec('markets.subtitle')}
+        />
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {POPULAR_PAIRS.map((p) => {
+            const selected = pairs.includes(p.symbol)
+            return (
+              <button
+                key={p.symbol}
+                type="button"
+                onClick={() => togglePair(p.symbol)}
+                className={`rounded border px-2.5 py-1.5 font-display text-[0.65rem] tracking-[0.18em] transition ${
+                  selected
+                    ? 'border-amber-300/80 bg-amber-400/15 text-amber-100 shadow-[0_0_18px_rgba(251,191,36,0.35)]'
+                    : 'border-cyan-400/30 bg-cyan-500/[0.04] text-cyan-100/80 hover:border-cyan-300/50 hover:bg-cyan-500/10'
+                }`}
+              >
+                {selected && <span className="mr-1 text-amber-300">✓</span>}
+                {p.symbol}
+              </button>
+            )
+          })}
+        </div>
+        <p className="mt-2 text-[0.65rem] tracking-wide text-cyan-100/45">
+          {tSec('markets.selected', { count: pairs.length })}
+        </p>
+      </section>
+
+      {/* Strategy */}
+      <section className="denaro-panel rounded-md p-4">
+        <SectionHeader
+          title={tSec('strategy.title')}
+          subtitle={tSec('strategy.subtitle')}
+        />
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {STRATEGIES.map((s) => {
+            const selected = strategy === s
+            return (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setStrategy(s)}
+                className={`block rounded-md border px-3 py-2.5 text-left transition ${
+                  selected
+                    ? 'border-amber-300/80 bg-amber-400/10 shadow-[0_0_22px_rgba(251,191,36,0.25)]'
+                    : 'border-cyan-400/25 bg-cyan-500/[0.04] hover:border-cyan-300/50 hover:bg-cyan-500/[0.07]'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-display text-[0.74rem] font-bold uppercase tracking-[0.16em] text-cyan-50">
+                    {tStrat(`${s}.label`)}
+                  </span>
+                  {selected && (
+                    <span className="font-display text-[0.55rem] tracking-[0.25em] text-amber-300">
+                      {tSec('strategy.active')}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/60">
+                  {tStrat(`${s}.blurb`)}
+                </p>
+              </button>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Save bar */}
+      <div className="sticky bottom-3 z-20 flex flex-col gap-2">
+        {error && (
+          <div className="denaro-banner denaro-banner-error">{error}</div>
+        )}
+        {savedAt && !error && (
+          <div className="denaro-banner denaro-banner-success">{t('saved')}</div>
+        )}
+        <button
+          onClick={submit}
+          disabled={isPending}
+          className="denaro-btn"
+        >
+          {isPending ? t('saving') : t('save')}
+        </button>
+      </div>
+
+      {/* Session */}
+      <section className="denaro-panel rounded-md p-4">
+        <SectionHeader
+          title={tSec('session.title')}
+          subtitle={tSec('session.subtitle')}
+        />
+        <form action={logout} className="mt-3">
+          <button type="submit" className="denaro-btn-ghost">
+            {tHeader('logout')}
+          </button>
+        </form>
+      </section>
+    </div>
+  )
+}
+
+function SectionHeader({
+  title,
+  subtitle,
+}: {
+  title: string
+  subtitle: string
+}) {
+  return (
+    <div>
+      <h2 className="font-display text-[0.78rem] font-bold uppercase tracking-[0.2em] text-cyan-50">
+        {title}
+      </h2>
+      <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/55">
+        {subtitle}
+      </p>
+    </div>
+  )
+}
