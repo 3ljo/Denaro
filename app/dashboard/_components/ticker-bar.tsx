@@ -1,101 +1,73 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+/**
+ * Live ticker — TradingView TickerTape widget embedded as a direct iframe.
+ *
+ * Why this over our own /api/ticker polling:
+ *   - Polling at 12s vs. TradingView's licensed stream isn't really live.
+ *   - The widget shows asset logos out of the box (currency flags, crypto
+ *     coin icons, index badges) — operator asked for those.
+ *   - Tick-by-tick price + change %, theme-matched dark transparent panel.
+ *
+ * Symbols are mapped to TradingView's exchange-prefixed format (OANDA, BINANCE,
+ * etc.) — same map the chart card uses. Pairs we don't recognise get dropped
+ * before the iframe renders.
+ */
 
-type Tick = {
-  symbol: string
-  price: number | null
-  change: number | null
-  changePercent: number | null
-  error?: string
+const TV_TICKER: Record<string, { description: string; proName: string }> = {
+  XAUUSD: { description: 'Gold',     proName: 'OANDA:XAUUSD'   },
+  EURUSD: { description: 'EUR/USD',  proName: 'OANDA:EURUSD'   },
+  GBPUSD: { description: 'GBP/USD',  proName: 'OANDA:GBPUSD'   },
+  USDJPY: { description: 'USD/JPY',  proName: 'OANDA:USDJPY'   },
+  AUDUSD: { description: 'AUD/USD',  proName: 'OANDA:AUDUSD'   },
+  USDCAD: { description: 'USD/CAD',  proName: 'OANDA:USDCAD'   },
+  NZDUSD: { description: 'NZD/USD',  proName: 'OANDA:NZDUSD'   },
+  EURJPY: { description: 'EUR/JPY',  proName: 'OANDA:EURJPY'   },
+  GBPJPY: { description: 'GBP/JPY',  proName: 'OANDA:GBPJPY'   },
+  BTCUSD: { description: 'Bitcoin',  proName: 'BINANCE:BTCUSDT' },
+  ETHUSD: { description: 'Ethereum', proName: 'BINANCE:ETHUSDT' },
+  NAS100: { description: 'Nasdaq 100', proName: 'NASDAQ:NDX'   },
+  SPX500: { description: 'S&P 500',  proName: 'SP:SPX'         },
+  US30:   { description: 'Dow',      proName: 'DJ:DJI'         },
+  GER40:  { description: 'DAX',      proName: 'XETR:DAX'       },
+  UK100:  { description: 'FTSE 100', proName: 'TVC:UKX'        },
+  OIL:    { description: 'Crude Oil', proName: 'NYMEX:CL1!'    },
+  SILVER: { description: 'Silver',   proName: 'OANDA:XAGUSD'   },
 }
 
 export default function TickerBar({ pairs }: { pairs: string[] }) {
-  const [data, setData] = useState<Tick[]>([])
-  const [updatedAt, setUpdatedAt] = useState<Date | null>(null)
+  const symbols = pairs
+    .map((p) => TV_TICKER[p.toUpperCase()])
+    .filter((s): s is { description: string; proName: string } => Boolean(s))
 
-  useEffect(() => {
-    if (pairs.length === 0) return
-    let cancelled = false
+  if (symbols.length === 0) return null
 
-    async function pull() {
-      try {
-        const res = await fetch(
-          `/api/ticker?symbols=${pairs.join(',')}&_=${Date.now()}`,
-          { cache: 'no-store' },
-        )
-        if (!res.ok) return
-        const json = (await res.json()) as Tick[]
-        if (!cancelled) {
-          setData(json)
-          setUpdatedAt(new Date())
-        }
-      } catch {
-        // soft-fail
-      }
-    }
-
-    pull()
-    const id = setInterval(pull, 12_000)
-    return () => {
-      cancelled = true
-      clearInterval(id)
-    }
-  }, [pairs.join(',')])
-
-  return (
-    <div className="denaro-panel relative flex items-center gap-4 overflow-x-auto rounded-md px-3 py-2">
-      <span className="denaro-pill shrink-0 text-[0.55rem]">
-        <span className="denaro-dot" />
-        LIVE
-      </span>
-      {pairs.map((p) => {
-        const t = data.find((d) => d.symbol === p)
-        return <TickerItem key={p} symbol={p} t={t} />
-      })}
-      {updatedAt && (
-        <span className="ml-auto shrink-0 font-display text-[0.55rem] tracking-[0.18em] text-cyan-200/40">
-          {fmtTime(updatedAt)}
-        </span>
-      )}
-    </div>
-  )
-}
-
-function TickerItem({ symbol, t }: { symbol: string; t?: Tick }) {
-  const up = (t?.changePercent ?? 0) >= 0
-  return (
-    <div className="flex shrink-0 items-baseline gap-2 whitespace-nowrap">
-      <span className="font-display text-[0.62rem] tracking-[0.2em] text-cyan-200/80">
-        {symbol}
-      </span>
-      <span className="font-mono text-[0.85rem] text-cyan-50">
-        {t?.price != null ? formatPrice(symbol, t.price) : '—'}
-      </span>
-      {t?.changePercent != null && (
-        <span
-          className={`font-mono text-[0.7rem] ${
-            up ? 'text-emerald-400' : 'text-rose-400'
-          }`}
-        >
-          {up ? '+' : ''}
-          {t.changePercent.toFixed(2)}%
-        </span>
-      )}
-    </div>
-  )
-}
-
-function formatPrice(symbol: string, p: number) {
-  if (symbol.includes('JPY')) return p.toFixed(3)
-  if (['XAUUSD', 'OIL', 'SILVER'].includes(symbol)) return p.toFixed(2)
-  if (symbol === 'BTCUSD' || symbol === 'ETHUSD') return p.toFixed(0)
-  if (['NAS100', 'SPX500', 'US30', 'GER40', 'UK100'].includes(symbol)) {
-    return p.toFixed(0)
+  const config = {
+    symbols,
+    showSymbolLogo: true,
+    isTransparent: true,
+    displayMode: 'adaptive',
+    colorTheme: 'dark',
+    locale: 'en',
   }
-  return p.toFixed(5)
-}
 
-function fmtTime(d: Date) {
-  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+  // The script-based embed widget targets this exact URL internally.
+  // Building it ourselves removes the script-load timing issue and lets
+  // us SSR-friendly-render in one shot.
+  const url =
+    `https://www.tradingview-widget.com/embed-widget/ticker-tape/` +
+    `?locale=en#${encodeURIComponent(JSON.stringify(config))}`
+
+  return (
+    <div className="denaro-panel relative overflow-hidden rounded-md">
+      <iframe
+        src={url}
+        title="Live ticker tape"
+        className="block h-[46px] w-full border-0"
+        scrolling="no"
+        allowTransparency
+        allow="clipboard-write"
+      />
+    </div>
+  )
 }
