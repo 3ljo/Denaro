@@ -218,7 +218,11 @@
         "tokyo": "TOKIO",
         "london": "LONDRES",
         "newYork": "NUEVA YORK"
-      }
+      },
+      "label": "// SESIONES DE TRADING",
+      "hint": "Sesiones de forex activas ahora",
+      "open": "Abierto ahora",
+      "closed": "Cerrado"
     },
     "ticker": {
       "title": "Cinta de cotizaciones en vivo",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// GRÁFICO ▸ LIVE",
-      "realTime": "TIEMPO REAL"
+      "realTime": "TIEMPO REAL",
+      "maximize": "Maximizar",
+      "close": "Cerrar",
+      "fullscreenLabel": "Gráfico {pair}, pantalla completa"
     },
     "pairCard": {
       "badge": "// ANÁLISIS",
@@ -239,7 +246,13 @@
         "bullish": "alcista",
         "bearish": "bajista",
         "range": "rango"
-      }
+      },
+      "confluenceTooltip": "Confluencia: {score}/100 — convicción de la IA en las señales (tendencia, estructura, niveles clave, momentum, macro). Mayor = más acuerdo.",
+      "confluenceLegendTitle": "Puntuación de confluencia",
+      "confluenceLegendBody": "Cuánto coinciden las señales de la IA con el sesgo. Mayor significa setup más sólido.",
+      "confluenceLegendHigh": "Fuerte — señales alineadas",
+      "confluenceLegendMed": "Mixto — esperar",
+      "confluenceLegendLow": "Débil — evitar"
     },
     "newsCard": {
       "badge": "// NOTICIAS · CALENDARIO",
@@ -308,6 +321,10 @@
         "backtest": "Plan de backtest",
         "backtestPrompt": "Dame un plan de 5 pasos para hacer backtest de una estrategia {lens} en {pair}. Incluye: ventana de datos, regla de entrada, regla de salida, estadísticas a seguir, y qué descalifica la estrategia."
       }
+    },
+    "accordion": {
+      "tapToOpen": "Toca para abrir",
+      "tapToClose": "Toca para cerrar"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "Correo",
       "emailHint": "El correo está vinculado a tu cuenta y no se puede cambiar aquí.",
       "language": "Idioma"
+    },
+    "tabs": {
+      "profile": "Perfil",
+      "trading": "Trading",
+      "account": "Cuenta"
     }
   }
 }

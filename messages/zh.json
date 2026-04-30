@@ -218,7 +218,11 @@
         "tokyo": "东京",
         "london": "伦敦",
         "newYork": "纽约"
-      }
+      },
+      "label": "// 交易时段",
+      "hint": "当前活跃的外汇交易时段",
+      "open": "正在开市",
+      "closed": "已收市"
     },
     "ticker": {
       "title": "实时价格滚动条",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// 图表 ▸ 实时",
-      "realTime": "实时"
+      "realTime": "实时",
+      "maximize": "最大化",
+      "close": "关闭",
+      "fullscreenLabel": "{pair} 图表，全屏"
     },
     "pairCard": {
       "badge": "// 分析",
@@ -239,7 +246,13 @@
         "bullish": "看涨",
         "bearish": "看跌",
         "range": "区间"
-      }
+      },
+      "confluenceTooltip": "汇聚度：{score}/100 — AI 在多项信号上的确信度（趋势、结构、关键位、动能、宏观）。越高越一致。",
+      "confluenceLegendTitle": "汇聚度评分",
+      "confluenceLegendBody": "AI 信号对方向判断的一致程度。越高代表配置越强。",
+      "confluenceLegendHigh": "强 — 信号一致",
+      "confluenceLegendMed": "混合 — 观望",
+      "confluenceLegendLow": "弱 — 回避"
     },
     "newsCard": {
       "badge": "// 新闻 · 日历",
@@ -308,6 +321,10 @@
         "backtest": "回测计划",
         "backtestPrompt": "给我一个 5 步计划在 {pair} 上回测 {lens} 策略。包括：数据窗口、入场规则、出场规则、要追踪的统计、什么会让策略失格。"
       }
+    },
+    "accordion": {
+      "tapToOpen": "点按展开",
+      "tapToClose": "点按收起"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "邮箱",
       "emailHint": "邮箱与你的账户绑定，无法在此修改。",
       "language": "语言"
+    },
+    "tabs": {
+      "profile": "资料",
+      "trading": "交易",
+      "account": "账户"
     }
   }
 }

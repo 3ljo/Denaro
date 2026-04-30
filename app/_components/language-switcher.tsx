@@ -85,6 +85,26 @@ export default function LanguageSwitcher({
   )
 }
 
+function GlobeIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  )
+}
+
 function Dropdown({
   current,
   pick,
@@ -129,15 +149,13 @@ function Dropdown({
         disabled={isPending}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className={`inline-flex items-center gap-1.5 rounded-md border bg-cyan-500/[0.04] px-2.5 py-1.5 font-display text-[0.65rem] tracking-[0.2em] uppercase transition disabled:opacity-50 ${
+        className={`inline-flex items-center gap-1.5 rounded-md border bg-cyan-500/[0.04] px-2 py-1.5 font-display text-[0.65rem] tracking-[0.2em] uppercase transition disabled:opacity-50 ${
           open
             ? 'border-amber-300/60 text-amber-100 shadow-[0_0_12px_rgba(251,191,36,0.25)]'
             : 'border-cyan-400/25 text-cyan-100/85 hover:border-cyan-300/55 hover:bg-cyan-500/[0.08] hover:text-cyan-50'
         }`}
       >
-        <span className="text-base leading-none" aria-hidden>
-          {LOCALE_FLAG[current]}
-        </span>
+        <GlobeIcon />
         <span>{LOCALE_SHORT[current]}</span>
         <svg
           width="10"

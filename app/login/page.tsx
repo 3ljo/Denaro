@@ -82,13 +82,17 @@ function LoginForm() {
             name="email"
             type="email"
             required
+            autoFocus
             autoComplete="email"
             inputMode="email"
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              if (error) setError(null)
+            }}
             placeholder={t('emailPlaceholder')}
             className="denaro-input"
           />
@@ -115,6 +119,9 @@ function LoginForm() {
             autoCorrect="off"
             spellCheck={false}
             placeholder={t('passwordPlaceholder')}
+            onChange={() => {
+              if (error) setError(null)
+            }}
           />
         </div>
 

@@ -212,13 +212,17 @@
       "session": "세션",
       "overlap": "겹침",
       "utc": "UTC",
-      "local": "로컬",
+      "local": "현지",
       "sessions": {
         "sydney": "시드니",
         "tokyo": "도쿄",
         "london": "런던",
         "newYork": "뉴욕"
-      }
+      },
+      "label": "// 거래 세션",
+      "hint": "현재 활성 외환 거래 세션",
+      "open": "열림",
+      "closed": "닫힘"
     },
     "ticker": {
       "title": "실시간 시세 표시줄",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// 차트 ▸ 라이브",
-      "realTime": "실시간"
+      "realTime": "실시간",
+      "maximize": "최대화",
+      "close": "닫기",
+      "fullscreenLabel": "{pair} 차트, 전체 화면"
     },
     "pairCard": {
       "badge": "// 분석",
@@ -239,7 +246,13 @@
         "bullish": "강세",
         "bearish": "약세",
         "range": "박스권"
-      }
+      },
+      "confluenceTooltip": "컨플루언스: {score}/100 — 신호 전반에 걸친 AI의 확신도(추세, 구조, 핵심 레벨, 모멘텀, 매크로). 높을수록 일치.",
+      "confluenceLegendTitle": "컨플루언스 점수",
+      "confluenceLegendBody": "AI 신호들이 바이어스 판단에 얼마나 동의하는지. 높을수록 더 강한 셋업입니다.",
+      "confluenceLegendHigh": "강함 — 신호 정렬",
+      "confluenceLegendMed": "혼재 — 관망",
+      "confluenceLegendLow": "약함 — 회피"
     },
     "newsCard": {
       "badge": "// 뉴스 · 캘린더",
@@ -308,6 +321,10 @@
         "backtest": "백테스트 계획",
         "backtestPrompt": "{pair}에서 {lens} 전략을 백테스트하기 위한 5단계 계획을 줘. 포함: 데이터 윈도우, 진입 규칙, 청산 규칙, 추적할 통계, 전략을 실격시키는 조건."
       }
+    },
+    "accordion": {
+      "tapToOpen": "눌러 열기",
+      "tapToClose": "눌러 닫기"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "이메일",
       "emailHint": "이메일은 계정에 연결되어 있으며 여기서 변경할 수 없습니다.",
       "language": "언어"
+    },
+    "tabs": {
+      "profile": "프로필",
+      "trading": "트레이딩",
+      "account": "계정"
     }
   }
 }

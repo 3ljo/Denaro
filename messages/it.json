@@ -218,7 +218,11 @@
         "tokyo": "TOKYO",
         "london": "LONDRA",
         "newYork": "NEW YORK"
-      }
+      },
+      "label": "// SESSIONI DI TRADING",
+      "hint": "Sessioni forex attive in questo momento",
+      "open": "Aperto ora",
+      "closed": "Chiuso"
     },
     "ticker": {
       "title": "Striscia di prezzi live",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// GRAFICO ▸ LIVE",
-      "realTime": "TEMPO REALE"
+      "realTime": "TEMPO REALE",
+      "maximize": "Ingrandisci",
+      "close": "Chiudi",
+      "fullscreenLabel": "Grafico {pair}, schermo intero"
     },
     "pairCard": {
       "badge": "// ANALISI",
@@ -239,7 +246,13 @@
         "bullish": "rialzista",
         "bearish": "ribassista",
         "range": "range"
-      }
+      },
+      "confluenceTooltip": "Confluenza: {score}/100 — convinzione dell’IA sui segnali (trend, struttura, livelli chiave, momentum, macro). Più alto = più accordo.",
+      "confluenceLegendTitle": "Punteggio di confluenza",
+      "confluenceLegendBody": "Quanto i segnali dell’IA concordano sul bias. Più alto significa setup più forte.",
+      "confluenceLegendHigh": "Forte — segnali allineati",
+      "confluenceLegendMed": "Misto — attendere",
+      "confluenceLegendLow": "Debole — evitare"
     },
     "newsCard": {
       "badge": "// NOTIZIE · CALENDARIO",
@@ -308,6 +321,10 @@
         "backtest": "Piano di backtest",
         "backtestPrompt": "Dammi un piano in 5 passi per fare backtest di una strategia {lens} su {pair}. Includi: finestra dati, regola di entrata, regola di uscita, statistiche da tracciare, e cosa squalifica la strategia."
       }
+    },
+    "accordion": {
+      "tapToOpen": "Tocca per aprire",
+      "tapToClose": "Tocca per chiudere"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "Email",
       "emailHint": "L'email è legata al tuo account e non può essere modificata qui.",
       "language": "Lingua"
+    },
+    "tabs": {
+      "profile": "Profilo",
+      "trading": "Trading",
+      "account": "Account"
     }
   }
 }

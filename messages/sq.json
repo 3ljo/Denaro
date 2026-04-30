@@ -218,7 +218,11 @@
         "tokyo": "TOKYO",
         "london": "LONDËR",
         "newYork": "NEW YORK"
-      }
+      },
+      "label": "// SESIONET E TREGUT",
+      "hint": "Sesionet aktive të tregtimit në forex tani",
+      "open": "I hapur tani",
+      "closed": "I mbyllur"
     },
     "ticker": {
       "title": "Shiriti i çmimeve live",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// GRAFIKU ▸ LIVE",
-      "realTime": "KOHË REALE"
+      "realTime": "KOHË REALE",
+      "maximize": "Zmadho",
+      "close": "Mbyll",
+      "fullscreenLabel": "Grafiku {pair}, ekran i plotë"
     },
     "pairCard": {
       "badge": "// ANALIZA",
@@ -239,7 +246,13 @@
         "bullish": "rritës",
         "bearish": "rënës",
         "range": "varg"
-      }
+      },
+      "confluenceTooltip": "Konfluenca: {score}/100 — bindja e AI-së përgjatë sinjaleve (trend, strukturë, nivele, momentum, makro). Sa më e lartë, aq më shumë pajtim.",
+      "confluenceLegendTitle": "Pikët e Konfluencës",
+      "confluenceLegendBody": "Sa shumë pajtohen sinjalet e AI-së me thirrjen e biases. Më e lartë do të thotë konfigurim më i fortë.",
+      "confluenceLegendHigh": "E fortë — sinjalet pajtohen",
+      "confluenceLegendMed": "Të përziera — prit & shiko",
+      "confluenceLegendLow": "E dobët — shmang"
     },
     "newsCard": {
       "badge": "// LAJME · KALENDAR",
@@ -308,6 +321,10 @@
         "backtest": "Plan backtest-i",
         "backtestPrompt": "Më jep një plan 5-hapësh për të backtestuar një strategji {lens} në {pair}. Përfshi: dritaren e të dhënave, rregullin e hyrjes, rregullin e daljes, statistikat për të ndjekur, dhe çfarë diskualifikon strategjinë."
       }
+    },
+    "accordion": {
+      "tapToOpen": "Prek për ta hapur",
+      "tapToClose": "Prek për ta mbyllur"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "Email",
       "emailHint": "Email-i lidhet me llogarinë dhe nuk mund të ndryshohet këtu.",
       "language": "Gjuha"
+    },
+    "tabs": {
+      "profile": "Profili",
+      "trading": "Tregtimi",
+      "account": "Llogaria"
     }
   }
 }

@@ -218,7 +218,11 @@
         "tokyo": "TÓQUIO",
         "london": "LONDRES",
         "newYork": "NOVA YORK"
-      }
+      },
+      "label": "// SESSÕES DE TRADING",
+      "hint": "Sessões de forex ativas agora",
+      "open": "Aberto agora",
+      "closed": "Fechado"
     },
     "ticker": {
       "title": "Fita de cotações ao vivo",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// GRÁFICO ▸ AO VIVO",
-      "realTime": "TEMPO REAL"
+      "realTime": "TEMPO REAL",
+      "maximize": "Maximizar",
+      "close": "Fechar",
+      "fullscreenLabel": "Gráfico de {pair}, tela cheia"
     },
     "pairCard": {
       "badge": "// ANÁLISE",
@@ -239,7 +246,13 @@
         "bullish": "altista",
         "bearish": "baixista",
         "range": "range"
-      }
+      },
+      "confluenceTooltip": "Confluência: {score}/100 — convicção da IA nos sinais (tendência, estrutura, níveis-chave, momentum, macro). Maior = mais acordo.",
+      "confluenceLegendTitle": "Pontuação de confluência",
+      "confluenceLegendBody": "O quanto os sinais da IA concordam com o viés. Mais alto significa setup mais forte.",
+      "confluenceLegendHigh": "Forte — sinais alinhados",
+      "confluenceLegendMed": "Misto — aguardar",
+      "confluenceLegendLow": "Fraco — evitar"
     },
     "newsCard": {
       "badge": "// NOTÍCIAS · CALENDÁRIO",
@@ -308,6 +321,10 @@
         "backtest": "Plano de backtest",
         "backtestPrompt": "Me dê um plano de 5 passos para fazer backtest de uma estratégia {lens} em {pair}. Inclua: janela de dados, regra de entrada, regra de saída, estatísticas a acompanhar, e o que desqualifica a estratégia."
       }
+    },
+    "accordion": {
+      "tapToOpen": "Toque para abrir",
+      "tapToClose": "Toque para fechar"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "E-mail",
       "emailHint": "O e-mail está vinculado à sua conta e não pode ser alterado aqui.",
       "language": "Idioma"
+    },
+    "tabs": {
+      "profile": "Perfil",
+      "trading": "Trading",
+      "account": "Conta"
     }
   }
 }

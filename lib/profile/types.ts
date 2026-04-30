@@ -10,6 +10,7 @@ export type Profile = {
   id: string
   email: string
   display_name: string | null
+  avatar_url: string | null
   pairs: string[]
   strategy: Strategy
   onboarded_at: string | null

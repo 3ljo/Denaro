@@ -3,10 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-/**
- * Forex session windows in UTC. The Sydney session wraps midnight, so it
- * needs the wraparound branch in isActive().
- */
+/** Forex session windows in UTC. Sydney wraps midnight. */
 const SESSIONS = [
   { key: 'sydney',  open: 22, close: 7 },
   { key: 'tokyo',   open: 0,  close: 9 },
@@ -20,10 +17,7 @@ function isActive(s: (typeof SESSIONS)[number], hour: number) {
     : hour >= s.open || hour < s.close
 }
 
-function pad(n: number) {
-  return String(n).padStart(2, '0')
-}
-
+/** Compact clock + only the currently-open trading session(s). */
 export default function SessionBar() {
   const t = useTranslations('dashboard.session')
   // Avoid SSR/CSR mismatch — render times only after mount.
@@ -35,35 +29,37 @@ export default function SessionBar() {
     return () => clearInterval(id)
   }, [])
 
-  const utcHour = now?.getUTCHours() ?? 0
-  const utcStr = now
-    ? `${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())}`
-    : '—'
   const localStr = now
-    ? now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+    ? now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      })
     : '—'
-
-  const active = SESSIONS.filter((s) => isActive(s, utcHour))
-  const overlap = active.length > 1
 
   return (
-    <div className="denaro-panel relative flex items-center gap-3 rounded-md px-3 py-2 sm:overflow-x-auto">
-      <span className="denaro-pill shrink-0 text-[0.55rem]">
-        <span className="denaro-dot" />
-        {overlap ? t('overlap') : t('session')}
+    <div className="denaro-panel flex flex-wrap items-center gap-3 rounded-md px-3 py-2">
+      {/* Section label — tells users what this row is for. */}
+      <span
+        className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80"
+        title={t('hint')}
+      >
+        {t('label')}
       </span>
 
-      {/* Mobile: only the active session(s); desktop: all four for context. */}
-      <div className="flex shrink-0 gap-1">
+      {/* All four sessions — active in emerald, inactive dimmed so the user
+          can see at a glance which markets are open right now. */}
+      <div className="flex flex-wrap items-center gap-1">
         {SESSIONS.map((s) => {
-          const on = now ? isActive(s, utcHour) : false
+          const on = now ? isActive(s, now.getUTCHours()) : false
           return (
             <span
               key={s.key}
+              title={on ? t('open') : t('closed')}
               className={`rounded border px-1.5 py-0.5 font-display text-[0.55rem] tracking-[0.18em] transition ${
                 on
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-200 shadow-[0_0_10px_rgba(74,222,128,0.35)]'
-                  : 'hidden border-cyan-400/15 bg-transparent text-cyan-200/35 sm:inline-block'
+                  : 'border-cyan-400/15 bg-transparent text-cyan-200/35'
               }`}
             >
               {t(`sessions.${s.key}`)}
@@ -72,17 +68,13 @@ export default function SessionBar() {
         })}
       </div>
 
-      <div className="ml-auto flex shrink-0 items-center gap-3 font-mono text-[0.7rem]">
-        {/* Mobile shows local time; desktop adds UTC alongside. */}
-        <span className="hidden text-cyan-100/70 sm:inline">
-          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55">{t('utc')}</span>
-          {utcStr}
+      {/* Local time — pushed to the right on wider screens. */}
+      <span className="ml-auto flex items-baseline gap-1.5 font-mono text-[0.75rem] text-cyan-100/80">
+        <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-300/60">
+          {t('local')}
         </span>
-        <span className="text-cyan-100/70">
-          <span className="mr-1 font-display tracking-[0.2em] text-cyan-300/55 sm:inline">{t('local')}</span>
-          {localStr}
-        </span>
-      </div>
+        {localStr}
+      </span>
     </div>
   )
 }

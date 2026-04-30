@@ -48,12 +48,16 @@ export default function ResetPasswordForm() {
             id="password"
             name="password"
             required
+            autoFocus
             autoComplete="new-password"
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
             minLength={6}
             placeholder={t('newPasswordPlaceholder')}
+            onChange={() => {
+              if (error) setError(null)
+            }}
           />
         </div>
 
@@ -71,6 +75,9 @@ export default function ResetPasswordForm() {
             spellCheck={false}
             minLength={6}
             placeholder={t('confirmPlaceholder')}
+            onChange={() => {
+              if (error) setError(null)
+            }}
           />
         </div>
 

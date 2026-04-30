@@ -218,7 +218,11 @@
         "tokyo": "TOKYO",
         "london": "LONDRA",
         "newYork": "NEW YORK"
-      }
+      },
+      "label": "// İŞLEM SEANSLARI",
+      "hint": "Şu anda aktif forex işlem seansları",
+      "open": "Şimdi açık",
+      "closed": "Kapalı"
     },
     "ticker": {
       "title": "Canlı fiyat şeridi",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// GRAFİK ▸ CANLI",
-      "realTime": "GERÇEK ZAMAN"
+      "realTime": "GERÇEK ZAMAN",
+      "maximize": "Büyüt",
+      "close": "Kapat",
+      "fullscreenLabel": "{pair} grafiği, tam ekran"
     },
     "pairCard": {
       "badge": "// ANALİZ",
@@ -239,7 +246,13 @@
         "bullish": "yükseliş",
         "bearish": "düşüş",
         "range": "range"
-      }
+      },
+      "confluenceTooltip": "Konfluans: {score}/100 — yapay zekanın sinyaller arası kanaati (trend, yapı, kilit seviyeler, momentum, makro). Yüksek = daha fazla uyum.",
+      "confluenceLegendTitle": "Konfluans skoru",
+      "confluenceLegendBody": "AI sinyallerinin bias çağrısında ne kadar hemfikir olduğu. Yüksek olması daha güçlü kurulum demektir.",
+      "confluenceLegendHigh": "Güçlü — sinyaller uyumlu",
+      "confluenceLegendMed": "Karışık — bekle gör",
+      "confluenceLegendLow": "Zayıf — kaçın"
     },
     "newsCard": {
       "badge": "// HABER · TAKVİM",
@@ -308,6 +321,10 @@
         "backtest": "Backtest planı",
         "backtestPrompt": "{pair} üzerinde {lens} stratejisini backtest etmek için 5 adımlık bir plan ver. Şunları içer: veri penceresi, giriş kuralı, çıkış kuralı, takip edilecek istatistikler, ve stratejiyi diskalifiye eden şey."
       }
+    },
+    "accordion": {
+      "tapToOpen": "Açmak için dokun",
+      "tapToClose": "Kapatmak için dokun"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "E-posta",
       "emailHint": "E-posta hesabına bağlıdır ve buradan değiştirilemez.",
       "language": "Dil"
+    },
+    "tabs": {
+      "profile": "Profil",
+      "trading": "İşlem",
+      "account": "Hesap"
     }
   }
 }

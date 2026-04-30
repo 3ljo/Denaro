@@ -50,6 +50,7 @@ export default function ForgotPasswordPage() {
               name="email"
               type="email"
               required
+              autoFocus
               autoComplete="email"
               inputMode="email"
               autoCapitalize="none"

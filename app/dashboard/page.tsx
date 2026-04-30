@@ -34,10 +34,11 @@ export default async function DashboardPage() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-4 px-3 py-3 sm:px-5 sm:py-5">
-        {/* Header — mobile keeps only the welcome + avatar menu (which holds
-            language, settings, and logout). Desktop expands with badge,
-            subtitle, and the standalone language/logout controls. */}
-        <header className="flex items-center justify-between gap-3">
+        {/* Header — lifted above sibling panels (`relative z-50`) so the
+            language dropdown (and any other absolute-positioned control popups
+            inside .denaro-panel stacking contexts) renders OVER the dashboard
+            cards below instead of being clipped behind them. */}
+        <header className="relative z-50 flex items-center justify-between gap-3">
           <div className="min-w-0 flex-1">
             <p className="hidden font-display text-[0.55rem] tracking-[0.4em] text-amber-300/80 sm:block">
               {t('badge')}
@@ -61,13 +62,20 @@ export default async function DashboardPage() {
               </span>
             </p>
           </div>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            {/* Same compact flag+code dropdown on both viewports — one tap
-                opens the language list. Doesn't bloat the mobile header. */}
+          {/* Single panel grouping the three header controls so they read as
+              one unit. Language (globe + code) on the left, small red Sign out
+              with icon, then the avatar menu on the right. */}
+          <div className="denaro-panel flex shrink-0 items-center gap-1.5 rounded-md p-1">
             <LanguageSwitcher />
             <form action={logout} className="hidden sm:block">
-              <button type="submit" className="denaro-btn-ghost">
-                {t('logout')}
+              <button
+                type="submit"
+                aria-label={t('logout')}
+                title={t('logout')}
+                className="inline-flex items-center gap-1.5 rounded border border-rose-500/40 bg-rose-500/10 px-2 py-1.5 font-display text-[0.6rem] tracking-[0.22em] text-rose-200 transition hover:border-rose-400/70 hover:bg-rose-500/20 hover:text-rose-100"
+              >
+                <LogoutIcon />
+                <span>{t('logout')}</span>
               </button>
             </form>
             <ProfileMenu
@@ -81,5 +89,25 @@ export default async function DashboardPage() {
         <DashboardContent profile={profile} />
       </div>
     </main>
+  )
+}
+
+function LogoutIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" x2="9" y1="12" y2="12" />
+    </svg>
   )
 }

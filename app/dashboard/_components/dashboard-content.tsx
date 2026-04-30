@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { Profile } from '@/lib/profile/types'
 import SessionBar from './session-bar'
 import TickerBar from './ticker-bar'
@@ -15,8 +17,29 @@ import {
   type TabId,
 } from './dashboard-nav'
 
+const VALID_TABS: TabId[] = ['markets', 'news', 'vision', 'channel']
+
+function isTabId(v: string | null): v is TabId {
+  return !!v && (VALID_TABS as string[]).includes(v)
+}
+
 export default function DashboardContent({ profile }: { profile: Profile }) {
-  const [tab, setTab] = useState<TabId>('markets')
+  const router = useRouter()
+  const pathname = usePathname()
+  const params = useSearchParams()
+  const urlTab = params.get('tab')
+  const tab: TabId = isTabId(urlTab) ? urlTab : 'markets'
+
+  const setTab = useCallback(
+    (next: TabId) => {
+      const usp = new URLSearchParams(params.toString())
+      if (next === 'markets') usp.delete('tab')
+      else usp.set('tab', next)
+      const qs = usp.toString()
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+    },
+    [params, pathname, router],
+  )
 
   return (
     // Bottom padding clears the fixed mobile nav (~64px tall + safe area).
@@ -45,9 +68,9 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
 /* --- Tab content --- */
 
 /**
- * Markets — mobile collapses each pair into an accordion (first one open) so
- * users aren't forced to scroll past hundreds of pixels of chart + analysis
- * per pair. Desktop renders the original side-by-side grid for all pairs.
+ * Markets — single-pair-open accordion. Opening one closes the others so the
+ * page never becomes a wall. On lg+ the expanded body splits chart-left /
+ * analysis-right to use the wide screen.
  */
 function MarketsTab({
   pairs,
@@ -56,73 +79,81 @@ function MarketsTab({
   pairs: string[]
   strategy: Profile['strategy']
 }) {
+  // Single open pair — null means everything collapsed.
+  const [openPair, setOpenPair] = useState<string | null>(pairs[0] ?? null)
   return (
-    <>
-      {/* Mobile: accordion — one pair expanded at a time. */}
-      <div className="space-y-2 lg:hidden">
-        {pairs.map((pair, i) => (
-          <PairAccordion
-            key={pair}
-            pair={pair}
-            strategy={strategy}
-            defaultOpen={i === 0}
-          />
-        ))}
-      </div>
-
-      {/* Desktop: full grid, all pairs visible. */}
-      <div className="hidden space-y-5 lg:block">
-        {pairs.map((pair) => (
-          <div key={pair} className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-            <ChartCard pair={pair} />
-            <PairCard pair={pair} strategy={strategy} />
-          </div>
-        ))}
-      </div>
-    </>
+    <div className="space-y-2">
+      {pairs.map((pair) => (
+        <PairAccordion
+          key={pair}
+          pair={pair}
+          strategy={strategy}
+          open={openPair === pair}
+          onToggle={() =>
+            setOpenPair((curr) => (curr === pair ? null : pair))
+          }
+        />
+      ))}
+    </div>
   )
 }
 
 function PairAccordion({
   pair,
   strategy,
-  defaultOpen,
+  open,
+  onToggle,
 }: {
   pair: string
   strategy: Profile['strategy']
-  defaultOpen: boolean
+  open: boolean
+  onToggle: () => void
 }) {
-  const [open, setOpen] = useState(defaultOpen)
+  const tAcc = useTranslations('dashboard.accordion')
+  const panelId = `pair-panel-${pair}`
   return (
-    <div className={`overflow-hidden rounded-md border border-cyan-400/25 bg-cyan-500/[0.04] transition ${open ? 'shadow-[0_0_18px_rgba(34,211,238,0.15)]' : ''}`}>
+    <div
+      className={`overflow-hidden rounded-md border border-cyan-400/25 bg-cyan-500/[0.04] transition ${
+        open ? 'shadow-[0_0_18px_rgba(34,211,238,0.15)]' : ''
+      }`}
+    >
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={onToggle}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.06]"
+        aria-controls={panelId}
+        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.06] sm:px-4 sm:py-3"
       >
-        <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cyan-50">
+        <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-[0.85rem] sm:tracking-[0.2em]">
           {pair}
         </span>
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 12 12"
-          fill="none"
-          aria-hidden
-          className={`shrink-0 text-cyan-200/70 transition ${open ? 'rotate-180' : ''}`}
-        >
-          <path
-            d="M2.5 4.5l3.5 3 3.5-3"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <span className="flex items-center gap-2">
+          <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-200/55">
+            {open ? tAcc('tapToClose') : tAcc('tapToOpen')}
+          </span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden
+            className={`shrink-0 text-cyan-200/70 transition ${open ? 'rotate-180' : ''}`}
+          >
+            <path
+              d="M2.5 4.5l3.5 3 3.5-3"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
       </button>
       {open && (
-        <div className="flex flex-col gap-3 border-t border-cyan-400/15 p-2.5">
+        <div
+          id={panelId}
+          className="grid grid-cols-1 gap-3 border-t border-cyan-400/15 p-2.5 lg:grid-cols-2 lg:gap-4 lg:p-4"
+        >
           <ChartCard pair={pair} />
           <PairCard pair={pair} strategy={strategy} />
         </div>
@@ -132,63 +163,77 @@ function PairAccordion({
 }
 
 function NewsTab({ pairs }: { pairs: string[] }) {
+  const [openPair, setOpenPair] = useState<string | null>(pairs[0] ?? null)
   return (
-    <>
-      {/* Mobile: accordion — one feed expanded at a time. */}
-      <div className="space-y-2 md:hidden">
-        {pairs.map((pair, i) => (
-          <NewsAccordion key={pair} pair={pair} defaultOpen={i === 0} />
-        ))}
-      </div>
-
-      {/* Tablet+: original grid, all feeds visible. */}
-      <div className="hidden grid-cols-1 gap-3 md:grid md:grid-cols-2 xl:grid-cols-3">
-        {pairs.map((pair) => (
-          <NewsCard key={pair} pair={pair} />
-        ))}
-      </div>
-    </>
+    <div className="space-y-2">
+      {pairs.map((pair) => (
+        <NewsAccordion
+          key={pair}
+          pair={pair}
+          open={openPair === pair}
+          onToggle={() =>
+            setOpenPair((curr) => (curr === pair ? null : pair))
+          }
+        />
+      ))}
+    </div>
   )
 }
 
 function NewsAccordion({
   pair,
-  defaultOpen,
+  open,
+  onToggle,
 }: {
   pair: string
-  defaultOpen: boolean
+  open: boolean
+  onToggle: () => void
 }) {
-  const [open, setOpen] = useState(defaultOpen)
+  const tAcc = useTranslations('dashboard.accordion')
+  const panelId = `news-panel-${pair}`
   return (
-    <div className={`overflow-hidden rounded-md border border-cyan-400/25 bg-cyan-500/[0.04] transition ${open ? 'shadow-[0_0_18px_rgba(34,211,238,0.15)]' : ''}`}>
+    <div
+      className={`overflow-hidden rounded-md border border-cyan-400/25 bg-cyan-500/[0.04] transition ${
+        open ? 'shadow-[0_0_18px_rgba(34,211,238,0.15)]' : ''
+      }`}
+    >
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={onToggle}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.06]"
+        aria-controls={panelId}
+        className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left transition hover:bg-cyan-500/[0.06] sm:px-4 sm:py-3"
       >
-        <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cyan-50">
+        <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.18em] text-cyan-50 sm:text-[0.85rem] sm:tracking-[0.2em]">
           {pair}
         </span>
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 12 12"
-          fill="none"
-          aria-hidden
-          className={`shrink-0 text-cyan-200/70 transition ${open ? 'rotate-180' : ''}`}
-        >
-          <path
-            d="M2.5 4.5l3.5 3 3.5-3"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <span className="flex items-center gap-2">
+          <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-200/55">
+            {open ? tAcc('tapToClose') : tAcc('tapToOpen')}
+          </span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden
+            className={`shrink-0 text-cyan-200/70 transition ${open ? 'rotate-180' : ''}`}
+          >
+            <path
+              d="M2.5 4.5l3.5 3 3.5-3"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
       </button>
       {open && (
-        <div className="border-t border-cyan-400/15 p-2.5">
+        <div
+          id={panelId}
+          className="border-t border-cyan-400/15 p-2.5 lg:p-4"
+        >
           <NewsCard pair={pair} />
         </div>
       )}

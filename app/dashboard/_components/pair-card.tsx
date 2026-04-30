@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import type { Card } from '@/lib/denaro/structured-analysis'
 import type { Strategy } from '@/lib/profile/types'
@@ -48,15 +48,10 @@ export default function PairCard({
 
   return (
     <div className="denaro-panel relative flex flex-col gap-3 rounded-md p-4">
-      <header className="flex items-start justify-between gap-3">
-        <div>
-          <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            {t('badge')}
-          </p>
-          <h3 className="font-display text-lg font-bold uppercase tracking-[0.18em] text-cyan-50">
-            {pair}
-          </h3>
-        </div>
+      <header className="flex items-center justify-between gap-3">
+        <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
+          {t('badge')}
+        </p>
         <div className="flex items-center gap-2">
           {card && <ConfluenceRing score={card.confluence_score} />}
           <button
@@ -64,6 +59,7 @@ export default function PairCard({
             onClick={() => load(true)}
             disabled={loading}
             aria-label={tCommon('refresh')}
+            title={tCommon('refresh')}
             className="rounded border border-cyan-400/30 bg-cyan-500/[0.06] px-2 py-1 font-display text-[0.6rem] tracking-[0.2em] text-cyan-100/80 transition hover:border-cyan-300/60 hover:bg-cyan-500/10 disabled:opacity-40"
           >
             {loading ? '…' : '↻'}
@@ -162,39 +158,105 @@ function Field({ label, value }: { label: string; value: string }) {
 
 function ConfluenceRing({ score }: { score: number }) {
   const t = useTranslations('dashboard.pairCard')
+  const [open, setOpen] = useState(false)
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const clamped = Math.max(0, Math.min(100, Math.round(score || 0)))
   const r = 16
   const c = 2 * Math.PI * r
   const offset = c - (clamped / 100) * c
   const color = clamped >= 70 ? '#4ade80' : clamped >= 40 ? '#fbbf24' : '#f87171'
+
+  useEffect(() => {
+    if (!open) return
+    function onDoc(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  const tooltip = t('confluenceTooltip', { score: clamped })
+
   return (
-    <svg width="40" height="40" viewBox="0 0 40 40" aria-label={t('confluenceLabel', { score: clamped })}>
-      <circle cx="20" cy="20" r={r} stroke="rgba(125,211,252,0.18)" strokeWidth="3" fill="none" />
-      <circle
-        cx="20"
-        cy="20"
-        r={r}
-        stroke={color}
-        strokeWidth="3"
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray={c}
-        strokeDashoffset={offset}
-        transform="rotate(-90 20 20)"
-        style={{ filter: `drop-shadow(0 0 4px ${color}88)` }}
-      />
-      <text
-        x="20"
-        y="24"
-        textAnchor="middle"
-        fill={color}
-        fontFamily="var(--font-orbitron), system-ui"
-        fontSize="11"
-        fontWeight="700"
+    <div ref={wrapperRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={tooltip}
+        aria-expanded={open}
+        title={tooltip}
+        className="block rounded-full transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
       >
-        {clamped}
-      </text>
-    </svg>
+        <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden>
+          <circle cx="20" cy="20" r={r} stroke="rgba(125,211,252,0.18)" strokeWidth="3" fill="none" />
+          <circle
+            cx="20"
+            cy="20"
+            r={r}
+            stroke={color}
+            strokeWidth="3"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray={c}
+            strokeDashoffset={offset}
+            transform="rotate(-90 20 20)"
+            style={{ filter: `drop-shadow(0 0 4px ${color}88)` }}
+          />
+          <text
+            x="20"
+            y="24"
+            textAnchor="middle"
+            fill={color}
+            fontFamily="var(--font-orbitron), system-ui"
+            fontSize="11"
+            fontWeight="700"
+          >
+            {clamped}
+          </text>
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          role="dialog"
+          aria-label={t('confluenceLegendTitle')}
+          className="absolute right-0 top-full z-50 mt-2 w-64 rounded-md border border-cyan-400/25 bg-denaro-bg/95 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+        >
+          <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-cyan-50">
+            {t('confluenceLegendTitle')}
+          </p>
+          <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/70">
+            {t('confluenceLegendBody')}
+          </p>
+          <ul className="mt-2.5 space-y-1.5 text-[0.7rem] text-cyan-100/85">
+            <li className="flex items-center gap-2">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(74,222,128,0.7)]" />
+              <span className="font-mono text-emerald-200/90">70–100</span>
+              <span className="text-cyan-100/65">— {t('confluenceLegendHigh')}</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(251,191,36,0.7)]" />
+              <span className="font-mono text-amber-200/90">40–69</span>
+              <span className="text-cyan-100/65">— {t('confluenceLegendMed')}</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-rose-400 shadow-[0_0_6px_rgba(248,113,113,0.7)]" />
+              <span className="font-mono text-rose-200/90">0–39</span>
+              <span className="text-cyan-100/65">— {t('confluenceLegendLow')}</span>
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
   )
 }
 

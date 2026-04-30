@@ -218,7 +218,11 @@
         "tokyo": "TOKYO",
         "london": "LONDRES",
         "newYork": "NEW YORK"
-      }
+      },
+      "label": "// SESSIONS DE TRADING",
+      "hint": "Sessions forex actuellement actives",
+      "open": "Ouvert",
+      "closed": "Fermé"
     },
     "ticker": {
       "title": "Bandeau de cotation live",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// GRAPHIQUE ▸ LIVE",
-      "realTime": "TEMPS RÉEL"
+      "realTime": "TEMPS RÉEL",
+      "maximize": "Agrandir",
+      "close": "Fermer",
+      "fullscreenLabel": "Graphique {pair}, plein écran"
     },
     "pairCard": {
       "badge": "// ANALYSE",
@@ -239,7 +246,13 @@
         "bullish": "haussier",
         "bearish": "baissier",
         "range": "range"
-      }
+      },
+      "confluenceTooltip": "Confluence : {score}/100 — conviction de l’IA sur les signaux (tendance, structure, niveaux clés, momentum, macro). Plus haut = plus d’accord.",
+      "confluenceLegendTitle": "Score de confluence",
+      "confluenceLegendBody": "À quel point les signaux de l’IA s’accordent avec le biais. Plus haut signifie un setup plus solide.",
+      "confluenceLegendHigh": "Fort — signaux alignés",
+      "confluenceLegendMed": "Mitigé — attendre",
+      "confluenceLegendLow": "Faible — éviter"
     },
     "newsCard": {
       "badge": "// ACTUS · CALENDRIER",
@@ -308,6 +321,10 @@
         "backtest": "Plan de backtest",
         "backtestPrompt": "Donne-moi un plan en 5 étapes pour backtester une stratégie {lens} sur {pair}. Inclus : fenêtre de données, règle d'entrée, règle de sortie, stats à suivre, et ce qui disqualifie la stratégie."
       }
+    },
+    "accordion": {
+      "tapToOpen": "Toucher pour ouvrir",
+      "tapToClose": "Toucher pour fermer"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "E-mail",
       "emailHint": "L'e-mail est lié à ton compte et ne peut pas être modifié ici.",
       "language": "Langue"
+    },
+    "tabs": {
+      "profile": "Profil",
+      "trading": "Trading",
+      "account": "Compte"
     }
   }
 }

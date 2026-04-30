@@ -103,6 +103,7 @@ export default function RegisterPage() {
             name="email"
             type="email"
             required
+            autoFocus
             autoComplete="email"
             inputMode="email"
             autoCapitalize="none"
@@ -110,6 +111,9 @@ export default function RegisterPage() {
             spellCheck={false}
             placeholder={t('emailPlaceholder')}
             className="denaro-input"
+            onChange={() => {
+              if (error) setError(null)
+            }}
           />
         </div>
 
@@ -127,6 +131,9 @@ export default function RegisterPage() {
             spellCheck={false}
             minLength={6}
             placeholder={t('passwordPlaceholder')}
+            onChange={() => {
+              if (error) setError(null)
+            }}
           />
           <p className="mt-1.5 text-[0.65rem] tracking-wide text-cyan-100/45">
             {t('passwordHint')}
@@ -147,6 +154,9 @@ export default function RegisterPage() {
             spellCheck={false}
             minLength={6}
             placeholder={t('confirmPlaceholder')}
+            onChange={() => {
+              if (error) setError(null)
+            }}
           />
         </div>
 

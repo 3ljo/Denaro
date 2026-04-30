@@ -218,7 +218,11 @@
         "tokyo": "東京",
         "london": "ロンドン",
         "newYork": "ニューヨーク"
-      }
+      },
+      "label": "// 取引セッション",
+      "hint": "現在アクティブなFXセッション",
+      "open": "取引中",
+      "closed": "閉場中"
     },
     "ticker": {
       "title": "ライブ価格テープ",
@@ -226,7 +230,10 @@
     },
     "chartCard": {
       "badge": "// チャート ▸ ライブ",
-      "realTime": "リアルタイム"
+      "realTime": "リアルタイム",
+      "maximize": "最大化",
+      "close": "閉じる",
+      "fullscreenLabel": "{pair} チャート、全画面"
     },
     "pairCard": {
       "badge": "// 分析",
@@ -239,7 +246,13 @@
         "bullish": "強気",
         "bearish": "弱気",
         "range": "レンジ"
-      }
+      },
+      "confluenceTooltip": "コンフルエンス: {score}/100 — シグナル全体でのAIの確信度（トレンド、構造、キーレベル、モメンタム、マクロ）。高いほど一致。",
+      "confluenceLegendTitle": "コンフルエンス・スコア",
+      "confluenceLegendBody": "AIのシグナルがバイアス判定にどれだけ一致しているか。高いほど強いセットアップ。",
+      "confluenceLegendHigh": "強 — シグナル一致",
+      "confluenceLegendMed": "混在 — 様子見",
+      "confluenceLegendLow": "弱 — 回避"
     },
     "newsCard": {
       "badge": "// ニュース · カレンダー",
@@ -308,6 +321,10 @@
         "backtest": "バックテスト計画",
         "backtestPrompt": "{pair} で {lens} 戦略をバックテストする5ステップの計画を。含めるもの: データ期間、エントリー規則、エグジット規則、追跡する統計、戦略を失格にする条件。"
       }
+    },
+    "accordion": {
+      "tapToOpen": "タップで開く",
+      "tapToClose": "タップで閉じる"
     }
   },
   "settings": {
@@ -358,6 +375,11 @@
       "email": "メール",
       "emailHint": "メールはアカウントに紐づいており、ここでは変更できません。",
       "language": "言語"
+    },
+    "tabs": {
+      "profile": "プロフィール",
+      "trading": "トレード",
+      "account": "アカウント"
     }
   }
 }
