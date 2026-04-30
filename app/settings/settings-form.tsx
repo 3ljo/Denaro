@@ -135,8 +135,9 @@ export default function SettingsForm({
         </div>
       </section>
 
-      {/* Preferences */}
-      <section className="denaro-panel rounded-md p-4">
+      {/* Preferences — z-30 so the language dropdown sits above sibling panels
+          (each .denaro-panel creates its own stacking context via backdrop-filter). */}
+      <section className="denaro-panel relative z-30 rounded-md p-4">
         <SectionHeader
           title={tSec('preferences.title')}
           subtitle={tSec('preferences.subtitle')}
