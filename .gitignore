@@ -41,3 +41,7 @@ next-env.d.ts
 .claude
 
 .vercel
+
+# template reference (mykd source kit + docs — not part of build)
+/mykd
+/documentation

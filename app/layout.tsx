@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { getDir, type Locale } from '@/i18n/config'
 import './globals.css'
+import './template-globals.scss'
 import ServiceWorkerRegister from './sw-register'
 
 const inter = Inter({
