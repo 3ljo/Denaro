@@ -381,5 +381,218 @@
       "trading": "Tregtimi",
       "account": "Llogaria"
     }
+  },
+  "marketing": {
+    "nav": {
+      "features": "Karakteristikat",
+      "strategies": "Strategjitë",
+      "pricing": "Çmimet",
+      "signIn": "Hyr",
+      "signUp": "Regjistrohu falas",
+      "openApp": "Hap aplikacionin",
+      "menu": "Menyja",
+      "close": "Mbyll"
+    },
+    "landing": {
+      "hero": {
+        "badge": "// AI ▸ ANALIST TREGTIMI",
+        "title": "Lexo tregun.",
+        "titleHighlight": "Bëj thirrjen.",
+        "subtitle": "Denaro është një ko-pilot AI për trader-ët. Lexime në shumë afate, lajme në kohë reale, dhe një kanal 24/7 që mendon në strategjinë tënde.",
+        "ctaPrimary": "Fillo — falas",
+        "ctaSecondary": "Shih çmimet",
+        "ctaOpen": "Hap panelin",
+        "trust": "Pa kartë · 13 gjuhë · Anuloje në çdo kohë"
+      },
+      "stats": {
+        "pairs": "Çifte forex",
+        "languages": "Gjuhë",
+        "strategies": "Lente strategjike",
+        "uptime": "Disponueshmëri"
+      },
+      "features": {
+        "badge": "// AFTËSITË",
+        "title": "Gjithçka që i duhet vërtet një trader-i",
+        "subtitle": "Një panel. Gjashtë mjete. Ndërtuar rreth mënyrës se si bëhen leximet realisht — bias, strukturë, nivele kyçe, lajme dhe pyetja që të dëshirohet ta bësh.",
+        "markets": {
+          "title": "Tregjet",
+          "blurb": "Grafikë live, bias, mbështetje / rezistencë, invalidim — për çdo çift që ndjek."
+        },
+        "vision": {
+          "title": "Vision",
+          "blurb": "Foto e plotë HTF → MTF → LTF. Denaro lexon të treja afatet njëherësh."
+        },
+        "news": {
+          "title": "Lajmet & kalendari",
+          "blurb": "Ngjarje me ndikim të lartë për çdo çift. Tregues live kur ngjarja po publikohet."
+        },
+        "ask": {
+          "title": "Pyet Denaron",
+          "blurb": "Përgjigje në streaming. Madhësia e pozicionit, rishikim setup-esh, koncepte — gjithçka pa screenshot."
+        },
+        "sessions": {
+          "title": "Sesionet",
+          "blurb": "Sydney · Tokyo · Londër · Nju Jork. Dije menjëherë në çfarë dritareje je."
+        },
+        "confluence": {
+          "title": "Pikët e konfluencës",
+          "blurb": "Bindje 0–100 mes trendit, strukturës, niveleve, momentumit dhe makros."
+        }
+      },
+      "strategies": {
+        "badge": "// LENTE ▸ STRATEGJIE",
+        "title": "Gjashtë lente. Zgjidh tënden.",
+        "subtitle": "Çdo analizë e Denaro-s filtrohet përmes kornizës që ti tregton."
+      },
+      "pricingTeaser": {
+        "badge": "// ÇMIMET",
+        "title": "Plane që rriten me ty",
+        "subtitle": "Fillo falas. Përmirëso kur do më shumë çifte, Vision dhe Ask të pakufizuar.",
+        "cta": "Shih çmimet e plota"
+      },
+      "ctaBand": {
+        "badge": "// GATI",
+        "title": "Mos tregto me ndjenja.",
+        "subtitle": "Dy minuta për t'u konfiguruar. Falas përgjithmonë në planin starter.",
+        "button": "Krijo llogarinë"
+      },
+      "footer": {
+        "tagline": "Analist tregtimi me AI. Ndërtuar për operatorë.",
+        "product": "Produkti",
+        "company": "Kompania",
+        "legal": "Ligjore",
+        "links": {
+          "features": "Karakteristikat",
+          "pricing": "Çmimet",
+          "strategies": "Strategjitë",
+          "signIn": "Hyr",
+          "register": "Regjistrohu",
+          "terms": "Kushte",
+          "privacy": "Privatësia"
+        },
+        "rights": "Të gjitha të drejtat e rezervuara.",
+        "disclaimer": "Denaro ofron analizë dhe edukim, jo këshillim financiar. Tregtimi mbart rrezik humbjeje."
+      }
+    },
+    "pricing": {
+      "hero": {
+        "badge": "// ÇMIMET ▸ MATRICA",
+        "title": "Zgjidh nivelin tënd",
+        "subtitle": "Fillo falas. Përmirëso kur ia vlen avantazhi. Anulo në çdo kohë."
+      },
+      "billing": {
+        "monthly": "Mujor",
+        "yearly": "Vjetor",
+        "save": "Kurseni 20%",
+        "perMonth": "/ muaj",
+        "perMonthBilledYearly": "faturuar vjetor",
+        "free": "Falas përgjithmonë"
+      },
+      "tiers": {
+        "popular": "MË POPULLOR",
+        "current": "PLANI AKTUAL",
+        "free": {
+          "name": "Recon",
+          "tagline": "Provo sistemin.",
+          "cta": "Fillo falas",
+          "features": [
+            "1 çift i monitoruar",
+            "Analizë bazë (bias, S/R)",
+            "5 pyetje Ask Denaro / ditë",
+            "Të 13 gjuhët",
+            "Mobile + desktop"
+          ]
+        },
+        "pro": {
+          "name": "Operator",
+          "tagline": "Për trader-ët që ndjekin çdo sesion.",
+          "cta": "Bëhu Operator",
+          "features": [
+            "Deri në 3 çifte",
+            "Analizë e plotë në shumë afate",
+            "Kalendar lajmesh me ngjarje me ndikim të lartë",
+            "Vision (HTF → MTF → LTF)",
+            "Ask Denaro i pakufizuar",
+            "Të 6 lentet strategjike",
+            "Pikë konfluence 0–100"
+          ]
+        },
+        "elite": {
+          "name": "Architect",
+          "tagline": "Për profesionistë, prop traders dhe ndërtues sinjalesh.",
+          "cta": "Bëhu Architect",
+          "features": [
+            "Gjithçka në Operator",
+            "Deri në 10 çifte",
+            "Modeli AI me prioritet",
+            "Lente strategjike të personalizuara",
+            "Gjenerues plani backtest",
+            "Mbështetje me prioritet",
+            "Akses i hershëm në veçori"
+          ]
+        }
+      },
+      "comparison": {
+        "title": "Krahaso planet",
+        "feature": "Veçoria",
+        "yes": "✓",
+        "no": "—",
+        "rows": {
+          "pairs": "Çifte të monitoruar",
+          "analysis": "Analizë në shumë afate",
+          "vision": "Vision (HTF → LTF)",
+          "news": "Kalendar lajmesh",
+          "ask": "Ask Denaro",
+          "strategies": "Lente strategjike",
+          "confluence": "Pikë konfluence",
+          "priorityModel": "Model AI prioritar",
+          "backtest": "Plan backtest",
+          "support": "Mbështetje"
+        },
+        "values": {
+          "freePairs": "1",
+          "proPairs": "3",
+          "elitePairs": "10",
+          "askFree": "5 / ditë",
+          "askPro": "Pakufi",
+          "askElite": "Pakufi",
+          "stratFree": "1",
+          "stratPro": "Të 6",
+          "stratElite": "Të 6 + custom",
+          "supportFree": "Komuniteti",
+          "supportPro": "Email",
+          "supportElite": "Prioritet"
+        }
+      },
+      "faq": {
+        "title": "Pyetje",
+        "items": {
+          "q1": {
+            "q": "A është plani falas vërtet falas?",
+            "a": "Po. Pa kartë, pa numërim mbrapsht. Merr 1 çift, analizë bazë dhe 5 pyetje Ask në ditë përgjithmonë."
+          },
+          "q2": {
+            "q": "A mund ta ndryshoj ose anuloj në çdo kohë?",
+            "a": "Po. Përmirëso, ul nivelin ose anulo nga cilësimet. Ndryshimet zbatohen në ciklin tjetër — pa kontrata."
+          },
+          "q3": {
+            "q": "Cili është dallimi midis Operator dhe Architect?",
+            "a": "Operator është për trader aktivë me deri 3 çifte. Architect shton 10 çifte, model AI prioritar, lente custom dhe gjenerues backtest."
+          },
+          "q4": {
+            "q": "A jep Denaro këshilla financiare?",
+            "a": "Jo. Denaro shpjegon strukturën, bias-in dhe arsyetimin — ti bën thirrjen. Tregtimi mbart rrezik humbjeje."
+          },
+          "q5": {
+            "q": "Cilat metoda pagese mbështeten?",
+            "a": "Të gjitha kartat kryesore përmes Stripe. Faturimi vjetor është një herë në vit dhe kursen 20% kundrejt mujorit."
+          },
+          "q6": {
+            "q": "A mund ta përdor në mobile?",
+            "a": "Po — Denaro është PWA. Instaloje në iOS ose Android nga shfletuesi yt."
+          }
+        }
+      }
+    }
   }
 }

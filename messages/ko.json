@@ -381,5 +381,218 @@
       "trading": "트레이딩",
       "account": "계정"
     }
+  },
+  "marketing": {
+    "nav": {
+      "features": "기능",
+      "strategies": "전략",
+      "pricing": "가격",
+      "signIn": "로그인",
+      "signUp": "무료 가입",
+      "openApp": "앱 열기",
+      "menu": "메뉴",
+      "close": "닫기"
+    },
+    "landing": {
+      "hero": {
+        "badge": "// AI ▸ 트레이딩 애널리스트",
+        "title": "시장을 읽어라.",
+        "titleHighlight": "판단을 내려라.",
+        "subtitle": "Denaro는 트레이더를 위한 AI 부조종사. 멀티 타임프레임 리딩, 라이브 뉴스, 그리고 당신의 전략으로 사고하는 24/7 채널.",
+        "ctaPrimary": "시작하기 — 무료",
+        "ctaSecondary": "가격 보기",
+        "ctaOpen": "대시보드 열기",
+        "trust": "카드 불필요 · 13개 언어 · 언제든 취소"
+      },
+      "stats": {
+        "pairs": "FX 페어",
+        "languages": "언어",
+        "strategies": "전략 렌즈",
+        "uptime": "가동률"
+      },
+      "features": {
+        "badge": "// 기능",
+        "title": "실전 트레이더에게 진짜 필요한 모든 것",
+        "subtitle": "하나의 패널, 여섯 개의 도구. 실제 리딩 방식 그대로 — 바이어스, 구조, 핵심 레벨, 뉴스, 그리고 묻고 싶었던 그 질문.",
+        "markets": {
+          "title": "마켓",
+          "blurb": "라이브 차트, 바이어스, 지지 / 저항, 무효화 — 페어별로."
+        },
+        "vision": {
+          "title": "Vision",
+          "blurb": "HTF → MTF → LTF 스냅샷. Denaro가 3개 타임프레임을 한 번에 읽는다."
+        },
+        "news": {
+          "title": "뉴스 & 캘린더",
+          "blurb": "페어별 고임팩트 이벤트. 발표 순간 라이브 표시."
+        },
+        "ask": {
+          "title": "Denaro에게 묻기",
+          "blurb": "스트리밍 답변. 사이징, 셋업 리뷰, 컨셉 — 스크린샷 없이."
+        },
+        "sessions": {
+          "title": "세션",
+          "blurb": "시드니 · 도쿄 · 런던 · 뉴욕. 지금 어느 윈도우인지 즉시."
+        },
+        "confluence": {
+          "title": "컨플루언스 스코어",
+          "blurb": "트렌드 · 구조 · 레벨 · 모멘텀 · 매크로 전반의 0–100 확신도."
+        }
+      },
+      "strategies": {
+        "badge": "// 렌즈 ▸ 전략",
+        "title": "여섯 개의 렌즈. 당신의 것을 골라라.",
+        "subtitle": "모든 분석은 당신의 트레이딩 프레임워크를 통과한다."
+      },
+      "pricingTeaser": {
+        "badge": "// 가격",
+        "title": "당신과 함께 성장하는 플랜",
+        "subtitle": "무료로 시작. 더 많은 페어, Vision, 무제한 Ask가 필요할 때 업그레이드.",
+        "cta": "전체 가격 보기"
+      },
+      "ctaBand": {
+        "badge": "// 준비 완료",
+        "title": "감으로 트레이딩하는 건 끝.",
+        "subtitle": "셋업 2분. 스타터는 영구 무료.",
+        "button": "계정 만들기"
+      },
+      "footer": {
+        "tagline": "AI 트레이딩 애널리스트. 오퍼레이터를 위해.",
+        "product": "제품",
+        "company": "회사",
+        "legal": "법적 고지",
+        "links": {
+          "features": "기능",
+          "pricing": "가격",
+          "strategies": "전략",
+          "signIn": "로그인",
+          "register": "가입",
+          "terms": "이용약관",
+          "privacy": "개인정보"
+        },
+        "rights": "모든 권리 보유.",
+        "disclaimer": "Denaro는 분석과 교육을 제공합니다. 금융 자문이 아닙니다. 트레이딩에는 손실 위험이 있습니다."
+      }
+    },
+    "pricing": {
+      "hero": {
+        "badge": "// 가격 ▸ 매트릭스",
+        "title": "티어를 선택하세요",
+        "subtitle": "무료로 시작. 가치 있을 때 업그레이드. 언제든 취소."
+      },
+      "billing": {
+        "monthly": "월간",
+        "yearly": "연간",
+        "save": "20% 할인",
+        "perMonth": "/ 월",
+        "perMonthBilledYearly": "연간 청구",
+        "free": "영구 무료"
+      },
+      "tiers": {
+        "popular": "가장 인기",
+        "current": "현재 플랜",
+        "free": {
+          "name": "Recon",
+          "tagline": "시스템에 익숙해지기.",
+          "cta": "무료 시작",
+          "features": [
+            "1페어 모니터링",
+            "기본 분석 (바이어스, S/R)",
+            "하루 5회 Ask",
+            "13개 언어 모두",
+            "모바일 + 데스크탑"
+          ]
+        },
+        "pro": {
+          "name": "Operator",
+          "tagline": "세션마다 차트를 보는 트레이더용.",
+          "cta": "Operator 가기",
+          "features": [
+            "최대 3페어",
+            "풀 멀티 타임프레임 분석",
+            "고임팩트 이벤트 캘린더",
+            "Vision (HTF → MTF → LTF)",
+            "무제한 Ask Denaro",
+            "6개 전략 렌즈 모두",
+            "컨플루언스 0–100"
+          ]
+        },
+        "elite": {
+          "name": "Architect",
+          "tagline": "프로, 프롭, 시그널 빌더용.",
+          "cta": "Architect 가기",
+          "features": [
+            "Operator의 모든 것",
+            "최대 10페어",
+            "우선 AI 모델",
+            "커스텀 전략 렌즈",
+            "백테스트 플랜 생성기",
+            "우선 지원",
+            "신기능 얼리 액세스"
+          ]
+        }
+      },
+      "comparison": {
+        "title": "플랜 비교",
+        "feature": "기능",
+        "yes": "✓",
+        "no": "—",
+        "rows": {
+          "pairs": "모니터링 페어",
+          "analysis": "멀티 타임프레임 분석",
+          "vision": "Vision (HTF → LTF)",
+          "news": "뉴스 캘린더",
+          "ask": "Ask Denaro",
+          "strategies": "전략 렌즈",
+          "confluence": "컨플루언스 스코어",
+          "priorityModel": "우선 AI 모델",
+          "backtest": "백테스트 플랜",
+          "support": "지원"
+        },
+        "values": {
+          "freePairs": "1",
+          "proPairs": "3",
+          "elitePairs": "10",
+          "askFree": "5 / 일",
+          "askPro": "무제한",
+          "askElite": "무제한",
+          "stratFree": "1",
+          "stratPro": "6개 모두",
+          "stratElite": "6개 + 커스텀",
+          "supportFree": "커뮤니티",
+          "supportPro": "이메일",
+          "supportElite": "우선"
+        }
+      },
+      "faq": {
+        "title": "질문",
+        "items": {
+          "q1": {
+            "q": "무료 플랜이 정말 무료인가요?",
+            "a": "네. 카드 없음, 카운트다운 없음. 1페어, 기본 분석, 하루 5회 Ask — 영구."
+          },
+          "q2": {
+            "q": "언제든 변경/취소할 수 있나요?",
+            "a": "네. 설정에서 업그레이드/다운그레이드/취소 가능. 다음 사이클부터 적용 — 약정 없음."
+          },
+          "q3": {
+            "q": "Operator와 Architect의 차이?",
+            "a": "Operator는 3페어 활성 트레이더용. Architect는 10페어, 우선 AI, 커스텀 렌즈, 백테스트 생성기를 추가."
+          },
+          "q4": {
+            "q": "Denaro가 금융 자문을 주나요?",
+            "a": "아니요. 구조 · 바이어스 · 논리를 설명하지만 판단은 당신. 트레이딩에는 위험이 있습니다."
+          },
+          "q5": {
+            "q": "결제 수단은?",
+            "a": "Stripe를 통한 모든 주요 카드. 연간 결제는 연 1회로 월간 대비 20% 절약."
+          },
+          "q6": {
+            "q": "모바일에서도 되나요?",
+            "a": "네 — Denaro는 PWA. 브라우저에서 iOS/Android에 설치 가능."
+          }
+        }
+      }
+    }
   }
 }

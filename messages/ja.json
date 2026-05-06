@@ -381,5 +381,218 @@
       "trading": "トレード",
       "account": "アカウント"
     }
+  },
+  "marketing": {
+    "nav": {
+      "features": "機能",
+      "strategies": "戦略",
+      "pricing": "料金",
+      "signIn": "ログイン",
+      "signUp": "無料登録",
+      "openApp": "アプリを開く",
+      "menu": "メニュー",
+      "close": "閉じる"
+    },
+    "landing": {
+      "hero": {
+        "badge": "// AI ▸ トレーディング・アナリスト",
+        "title": "相場を読め。",
+        "titleHighlight": "判断を下せ。",
+        "subtitle": "Denaroはトレーダーのための AI 副操縦士。マルチタイムフレーム読み、ライブニュース、戦略で考える 24/7 チャンネル。",
+        "ctaPrimary": "はじめる — 無料",
+        "ctaSecondary": "料金を見る",
+        "ctaOpen": "ダッシュボードを開く",
+        "trust": "カード不要 · 13言語 · いつでも解約"
+      },
+      "stats": {
+        "pairs": "FXペア",
+        "languages": "言語",
+        "strategies": "戦略レンズ",
+        "uptime": "稼働率"
+      },
+      "features": {
+        "badge": "// 機能",
+        "title": "本気のトレーダーが本当に必要なものすべて",
+        "subtitle": "1つのパネル、6つのツール。実際の読みのために設計 — バイアス、構造、キーレベル、ニュース、そして聞きたかったその質問。",
+        "markets": {
+          "title": "マーケット",
+          "blurb": "ライブチャート、バイアス、サポート / レジスタンス、無効化 — 各ペアごとに。"
+        },
+        "vision": {
+          "title": "Vision",
+          "blurb": "HTF → MTF → LTF スナップショット。Denaroが3時間軸を一気に読む。"
+        },
+        "news": {
+          "title": "ニュース＆カレンダー",
+          "blurb": "ペアごとの高インパクトイベント。発表時にライブ表示。"
+        },
+        "ask": {
+          "title": "Denaroに聞く",
+          "blurb": "ストリーミング回答。サイジング、セットアップ確認、概念 — スクショ不要。"
+        },
+        "sessions": {
+          "title": "セッション",
+          "blurb": "シドニー · 東京 · ロンドン · ニューヨーク。今どの窓か一目で。"
+        },
+        "confluence": {
+          "title": "コンフルエンススコア",
+          "blurb": "トレンド・構造・レベル・モメンタム・マクロ全体で 0–100 の確信度。"
+        }
+      },
+      "strategies": {
+        "badge": "// レンズ ▸ 戦略",
+        "title": "6つのレンズ。あなたのを選ぼう。",
+        "subtitle": "すべての分析はあなたのフレームワークを通る。"
+      },
+      "pricingTeaser": {
+        "badge": "// 料金",
+        "title": "あなたと一緒に成長するプラン",
+        "subtitle": "無料で開始。ペア、Vision、無制限Askが必要になったらアップグレード。",
+        "cta": "全料金を見る"
+      },
+      "ctaBand": {
+        "badge": "// 準備完了",
+        "title": "感覚で取引するのはやめよう。",
+        "subtitle": "セットアップは2分。スターターは永久無料。",
+        "button": "アカウント作成"
+      },
+      "footer": {
+        "tagline": "AIトレーディング・アナリスト。オペレーターのために。",
+        "product": "プロダクト",
+        "company": "会社",
+        "legal": "法的事項",
+        "links": {
+          "features": "機能",
+          "pricing": "料金",
+          "strategies": "戦略",
+          "signIn": "ログイン",
+          "register": "登録",
+          "terms": "利用規約",
+          "privacy": "プライバシー"
+        },
+        "rights": "All rights reserved.",
+        "disclaimer": "Denaroは分析と教育を提供します。投資助言ではありません。取引には損失リスクがあります。"
+      }
+    },
+    "pricing": {
+      "hero": {
+        "badge": "// 料金 ▸ マトリクス",
+        "title": "プランを選ぼう",
+        "subtitle": "無料で始める。価値があるならアップグレード。いつでも解約可能。"
+      },
+      "billing": {
+        "monthly": "月額",
+        "yearly": "年額",
+        "save": "20%お得",
+        "perMonth": "/ 月",
+        "perMonthBilledYearly": "年一括請求",
+        "free": "ずっと無料"
+      },
+      "tiers": {
+        "popular": "人気No.1",
+        "current": "現在のプラン",
+        "free": {
+          "name": "Recon",
+          "tagline": "システムに慣れる。",
+          "cta": "無料で開始",
+          "features": [
+            "1ペア監視",
+            "基本分析（バイアス、S/R）",
+            "1日5回のAsk",
+            "13言語すべて",
+            "モバイル + デスクトップ"
+          ]
+        },
+        "pro": {
+          "name": "Operator",
+          "tagline": "セッション毎に張り付くトレーダー向け。",
+          "cta": "Operatorへ",
+          "features": [
+            "最大3ペア",
+            "マルチタイムフレーム完全分析",
+            "高インパクトイベントカレンダー",
+            "Vision (HTF → MTF → LTF)",
+            "Ask 無制限",
+            "6つの戦略レンズ",
+            "コンフルエンス 0–100"
+          ]
+        },
+        "elite": {
+          "name": "Architect",
+          "tagline": "プロ・プロップ・シグナル作成者向け。",
+          "cta": "Architectへ",
+          "features": [
+            "Operatorのすべて",
+            "最大10ペア",
+            "優先AIモデル",
+            "カスタム戦略レンズ",
+            "バックテストプラン生成",
+            "優先サポート",
+            "新機能への早期アクセス"
+          ]
+        }
+      },
+      "comparison": {
+        "title": "プラン比較",
+        "feature": "機能",
+        "yes": "✓",
+        "no": "—",
+        "rows": {
+          "pairs": "監視ペア数",
+          "analysis": "マルチタイムフレーム分析",
+          "vision": "Vision (HTF → LTF)",
+          "news": "ニュースカレンダー",
+          "ask": "Ask Denaro",
+          "strategies": "戦略レンズ",
+          "confluence": "コンフルエンススコア",
+          "priorityModel": "優先AIモデル",
+          "backtest": "バックテストプラン",
+          "support": "サポート"
+        },
+        "values": {
+          "freePairs": "1",
+          "proPairs": "3",
+          "elitePairs": "10",
+          "askFree": "5 / 日",
+          "askPro": "無制限",
+          "askElite": "無制限",
+          "stratFree": "1",
+          "stratPro": "6つすべて",
+          "stratElite": "6つ + カスタム",
+          "supportFree": "コミュニティ",
+          "supportPro": "メール",
+          "supportElite": "優先"
+        }
+      },
+      "faq": {
+        "title": "よくある質問",
+        "items": {
+          "q1": {
+            "q": "無料プランは本当に無料？",
+            "a": "はい。カード不要、カウントダウンなし。1ペア・基本分析・1日5回のAskが永久に。"
+          },
+          "q2": {
+            "q": "いつでも変更・解約できる？",
+            "a": "はい。設定からアップグレード/ダウングレード/解約できます。次のサイクルから反映 — 縛りなし。"
+          },
+          "q3": {
+            "q": "OperatorとArchitectの違いは？",
+            "a": "Operatorは3ペアまでの個人トレーダー向け。Architectは10ペア、優先AI、カスタムレンズ、バックテスト生成を追加。"
+          },
+          "q4": {
+            "q": "Denaroは投資助言を行う？",
+            "a": "いいえ。構造・バイアス・根拠を説明しますが、判断はあなた。取引にはリスクがあります。"
+          },
+          "q5": {
+            "q": "支払い方法は？",
+            "a": "Stripe経由の主要カード。年払いは年1回で月額より20%お得です。"
+          },
+          "q6": {
+            "q": "モバイルでも使える？",
+            "a": "はい — DenaroはPWAです。ブラウザからiOSまたはAndroidにインストール可能。"
+          }
+        }
+      }
+    }
   }
 }

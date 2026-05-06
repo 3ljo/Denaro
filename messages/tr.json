@@ -381,5 +381,218 @@
       "trading": "İşlem",
       "account": "Hesap"
     }
+  },
+  "marketing": {
+    "nav": {
+      "features": "Özellikler",
+      "strategies": "Stratejiler",
+      "pricing": "Fiyatlar",
+      "signIn": "Giriş yap",
+      "signUp": "Ücretsiz kayıt",
+      "openApp": "Uygulamayı aç",
+      "menu": "Menü",
+      "close": "Kapat"
+    },
+    "landing": {
+      "hero": {
+        "badge": "// AI ▸ TRADING ANALİSTİ",
+        "title": "Piyasayı oku.",
+        "titleHighlight": "Kararı sen ver.",
+        "subtitle": "Denaro, traderlar için bir AI yardımcı pilot. Çoklu zaman dilimi okumaları, canlı haberler ve stratejine göre düşünen 7/24 bir kanal.",
+        "ctaPrimary": "Başla — ücretsiz",
+        "ctaSecondary": "Fiyatları gör",
+        "ctaOpen": "Paneli aç",
+        "trust": "Kart yok · 13 dil · İstediğin zaman iptal"
+      },
+      "stats": {
+        "pairs": "Forex paritesi",
+        "languages": "Dil",
+        "strategies": "Strateji lensi",
+        "uptime": "Çalışma süresi"
+      },
+      "features": {
+        "badge": "// YETENEKLER",
+        "title": "Bir trader'ın gerçekten ihtiyaç duyduğu her şey",
+        "subtitle": "Tek panel. Altı araç. Gerçek okumaların etrafında inşa edildi — bias, yapı, anahtar seviyeler, haberler ve sormak isteyeceğin soru.",
+        "markets": {
+          "title": "Piyasalar",
+          "blurb": "Canlı grafikler, bias, destek / direnç, geçersizlik — her parite için."
+        },
+        "vision": {
+          "title": "Vision",
+          "blurb": "HTF → MTF → LTF anlık görüntü. Denaro üç zaman dilimini birden okur."
+        },
+        "news": {
+          "title": "Haberler & takvim",
+          "blurb": "Pariteye göre yüksek etkili olaylar. Yayın anında canlı gösterge."
+        },
+        "ask": {
+          "title": "Denaro'ya sor",
+          "blurb": "Akış halinde yanıtlar. Pozisyon büyüklüğü, setup incelemesi, kavramlar — ekran görüntüsüz."
+        },
+        "sessions": {
+          "title": "Seanslar",
+          "blurb": "Sidney · Tokyo · Londra · New York. Hangi penceredeysen anla."
+        },
+        "confluence": {
+          "title": "Konfluens skoru",
+          "blurb": "Trend, yapı, seviyeler, momentum ve makro arasında 0–100 inanç."
+        }
+      },
+      "strategies": {
+        "badge": "// LENS ▸ STRATEJİ",
+        "title": "Altı lens. Seninkini seç.",
+        "subtitle": "Her analiz, sen hangi çerçevede işlem yapıyorsan ondan filtrelenir."
+      },
+      "pricingTeaser": {
+        "badge": "// FİYATLAR",
+        "title": "Seninle büyüyen planlar",
+        "subtitle": "Ücretsiz başla. Daha fazla parite, Vision ve sınırsız Ask için yükselt.",
+        "cta": "Tüm fiyatları gör"
+      },
+      "ctaBand": {
+        "badge": "// HAZIR",
+        "title": "Hisle işlem yapmayı bırak.",
+        "subtitle": "İki dakikada kurulum. Başlangıç planı sonsuza kadar ücretsiz.",
+        "button": "Hesap oluştur"
+      },
+      "footer": {
+        "tagline": "AI trading analisti. Operatörler için inşa edildi.",
+        "product": "Ürün",
+        "company": "Şirket",
+        "legal": "Yasal",
+        "links": {
+          "features": "Özellikler",
+          "pricing": "Fiyatlar",
+          "strategies": "Stratejiler",
+          "signIn": "Giriş",
+          "register": "Kayıt",
+          "terms": "Koşullar",
+          "privacy": "Gizlilik"
+        },
+        "rights": "Tüm hakları saklıdır.",
+        "disclaimer": "Denaro analiz ve eğitim sağlar, finansal tavsiye değil. İşlem yapmak kayıp riski içerir."
+      }
+    },
+    "pricing": {
+      "hero": {
+        "badge": "// FİYAT ▸ MATRİS",
+        "title": "Kademeni seç",
+        "subtitle": "Ücretsiz başla. Avantaj değdiğinde yükselt. Her zaman iptal."
+      },
+      "billing": {
+        "monthly": "Aylık",
+        "yearly": "Yıllık",
+        "save": "%20 tasarruf",
+        "perMonth": "/ ay",
+        "perMonthBilledYearly": "yıllık faturalanır",
+        "free": "Sonsuza kadar ücretsiz"
+      },
+      "tiers": {
+        "popular": "EN POPÜLER",
+        "current": "GEÇERLİ PLAN",
+        "free": {
+          "name": "Recon",
+          "tagline": "Sistemi tanı.",
+          "cta": "Ücretsiz başla",
+          "features": [
+            "1 parite takibi",
+            "Temel analiz (bias, S/R)",
+            "Günde 5 Ask sorgusu",
+            "13 dil",
+            "Mobil + masaüstü"
+          ]
+        },
+        "pro": {
+          "name": "Operator",
+          "tagline": "Her seans ekrana yapışan trader'lar için.",
+          "cta": "Operator ol",
+          "features": [
+            "3 pariteye kadar",
+            "Tam çoklu zaman dilimi analizi",
+            "Yüksek etkili olay takvimi",
+            "Vision (HTF → MTF → LTF)",
+            "Sınırsız Ask Denaro",
+            "6 lensin tamamı",
+            "Konfluens skoru 0–100"
+          ]
+        },
+        "elite": {
+          "name": "Architect",
+          "tagline": "Profesyoneller, prop trader ve sinyal kurucuları için.",
+          "cta": "Architect ol",
+          "features": [
+            "Operator'daki her şey",
+            "10 pariteye kadar",
+            "Öncelikli AI modeli",
+            "Özel strateji lensleri",
+            "Backtest plan üreteci",
+            "Öncelikli destek",
+            "Yeni özelliklere erken erişim"
+          ]
+        }
+      },
+      "comparison": {
+        "title": "Planları karşılaştır",
+        "feature": "Özellik",
+        "yes": "✓",
+        "no": "—",
+        "rows": {
+          "pairs": "Takip edilen parite",
+          "analysis": "Çoklu zaman dilimi analizi",
+          "vision": "Vision (HTF → LTF)",
+          "news": "Haber takvimi",
+          "ask": "Ask Denaro",
+          "strategies": "Strateji lensleri",
+          "confluence": "Konfluens skoru",
+          "priorityModel": "Öncelikli AI modeli",
+          "backtest": "Backtest planı",
+          "support": "Destek"
+        },
+        "values": {
+          "freePairs": "1",
+          "proPairs": "3",
+          "elitePairs": "10",
+          "askFree": "5 / gün",
+          "askPro": "Sınırsız",
+          "askElite": "Sınırsız",
+          "stratFree": "1",
+          "stratPro": "6'sı da",
+          "stratElite": "6'sı + özel",
+          "supportFree": "Topluluk",
+          "supportPro": "E-posta",
+          "supportElite": "Öncelikli"
+        }
+      },
+      "faq": {
+        "title": "Sorular",
+        "items": {
+          "q1": {
+            "q": "Ücretsiz plan gerçekten ücretsiz mi?",
+            "a": "Evet. Kart yok, geri sayım yok. 1 parite, temel analiz ve günde 5 Ask sorgusu — sonsuza kadar."
+          },
+          "q2": {
+            "q": "İstediğim zaman değiştirip iptal edebilir miyim?",
+            "a": "Evet. Yükseltme, düşürme veya iptali ayarlardan yapabilirsin. Değişiklikler bir sonraki döngüde geçerli — bağlayıcı yok."
+          },
+          "q3": {
+            "q": "Operator ile Architect farkı?",
+            "a": "Operator, 3 pariteye kadar aktif perakende trader içindir. Architect 10 parite, daha hızlı öncelikli model, özel lensler ve backtest üreteci ekler."
+          },
+          "q4": {
+            "q": "Denaro finansal tavsiye verir mi?",
+            "a": "Hayır. Denaro yapı, bias ve mantığı açıklar — kararı sen verirsin. Trading kayıp riski içerir."
+          },
+          "q5": {
+            "q": "Hangi ödeme yöntemleri?",
+            "a": "Stripe üzerinden tüm büyük kartlar. Yıllık faturalama yılda bir defadır ve aylığa göre %20 tasarruf sağlar."
+          },
+          "q6": {
+            "q": "Mobilde çalışıyor mu?",
+            "a": "Evet — Denaro PWA'dır. iOS veya Android tarayıcından yükleyebilirsin."
+          }
+        }
+      }
+    }
   }
 }

@@ -381,5 +381,218 @@
       "trading": "Trading",
       "account": "Conta"
     }
+  },
+  "marketing": {
+    "nav": {
+      "features": "Recursos",
+      "strategies": "Estratégias",
+      "pricing": "Preços",
+      "signIn": "Entrar",
+      "signUp": "Cadastre-se grátis",
+      "openApp": "Abrir app",
+      "menu": "Menu",
+      "close": "Fechar"
+    },
+    "landing": {
+      "hero": {
+        "badge": "// IA ▸ ANALISTA DE TRADING",
+        "title": "Leia o mercado.",
+        "titleHighlight": "Tome a decisão.",
+        "subtitle": "Denaro é seu copiloto IA para trading. Leituras multi-timeframe, notícias ao vivo e um canal 24/7 que pensa na sua estratégia.",
+        "ctaPrimary": "Começar — grátis",
+        "ctaSecondary": "Ver preços",
+        "ctaOpen": "Abrir painel",
+        "trust": "Sem cartão · 13 idiomas · Cancele a qualquer momento"
+      },
+      "stats": {
+        "pairs": "Pares forex",
+        "languages": "Idiomas",
+        "strategies": "Lentes",
+        "uptime": "Uptime"
+      },
+      "features": {
+        "badge": "// CAPACIDADES",
+        "title": "Tudo que um trader realmente precisa",
+        "subtitle": "Um painel. Seis ferramentas. Feito em torno de leituras reais — viés, estrutura, níveis-chave, notícias e a pergunta que você queria fazer.",
+        "markets": {
+          "title": "Mercados",
+          "blurb": "Gráficos ao vivo, viés, suporte / resistência, invalidação — por par."
+        },
+        "vision": {
+          "title": "Vision",
+          "blurb": "Snapshot HTF → MTF → LTF. Denaro lê os três timeframes juntos."
+        },
+        "news": {
+          "title": "Notícias & calendário",
+          "blurb": "Eventos de alto impacto por par. Indicador ao vivo no momento do release."
+        },
+        "ask": {
+          "title": "Pergunte ao Denaro",
+          "blurb": "Respostas em streaming. Sizing, revisão de setup, conceitos — sem precisar de print."
+        },
+        "sessions": {
+          "title": "Sessões",
+          "blurb": "Sydney · Tóquio · Londres · Nova York. Saiba a janela na hora."
+        },
+        "confluence": {
+          "title": "Score de confluência",
+          "blurb": "Convicção 0–100 entre tendência, estrutura, níveis, momentum e macro."
+        }
+      },
+      "strategies": {
+        "badge": "// LENTE ▸ ESTRATÉGIA",
+        "title": "Seis lentes. Escolha a sua.",
+        "subtitle": "Toda análise passa pelo seu framework."
+      },
+      "pricingTeaser": {
+        "badge": "// PREÇOS",
+        "title": "Planos que crescem com você",
+        "subtitle": "Comece grátis. Faça upgrade quando quiser mais pares, Vision e Ask ilimitado.",
+        "cta": "Ver preços completos"
+      },
+      "ctaBand": {
+        "badge": "// PRONTO",
+        "title": "Pare de operar no feeling.",
+        "subtitle": "Dois minutos pra começar. Plano starter grátis pra sempre.",
+        "button": "Criar conta"
+      },
+      "footer": {
+        "tagline": "Analista de trading com IA. Feito para operadores.",
+        "product": "Produto",
+        "company": "Empresa",
+        "legal": "Legal",
+        "links": {
+          "features": "Recursos",
+          "pricing": "Preços",
+          "strategies": "Estratégias",
+          "signIn": "Entrar",
+          "register": "Cadastrar",
+          "terms": "Termos",
+          "privacy": "Privacidade"
+        },
+        "rights": "Todos os direitos reservados.",
+        "disclaimer": "Denaro fornece análise e educação, não consultoria financeira. Trading envolve risco de perda."
+      }
+    },
+    "pricing": {
+      "hero": {
+        "badge": "// PREÇOS ▸ MATRIZ",
+        "title": "Escolha seu nível",
+        "subtitle": "Comece grátis. Faça upgrade quando o edge valer. Cancele quando quiser."
+      },
+      "billing": {
+        "monthly": "Mensal",
+        "yearly": "Anual",
+        "save": "Economize 20%",
+        "perMonth": "/ mês",
+        "perMonthBilledYearly": "cobrado anualmente",
+        "free": "Grátis para sempre"
+      },
+      "tiers": {
+        "popular": "MAIS POPULAR",
+        "current": "PLANO ATUAL",
+        "free": {
+          "name": "Recon",
+          "tagline": "Pegue o jeito do sistema.",
+          "cta": "Começar grátis",
+          "features": [
+            "1 par monitorado",
+            "Análise básica (viés, S/R)",
+            "5 consultas Ask por dia",
+            "Todos os 13 idiomas",
+            "Mobile + desktop"
+          ]
+        },
+        "pro": {
+          "name": "Operator",
+          "tagline": "Para traders que vivem na tela.",
+          "cta": "Virar Operator",
+          "features": [
+            "Até 3 pares",
+            "Análise multi-timeframe completa",
+            "Calendário com eventos de alto impacto",
+            "Vision (HTF → MTF → LTF)",
+            "Ask Denaro ilimitado",
+            "Todas as 6 lentes",
+            "Confluência 0–100"
+          ]
+        },
+        "elite": {
+          "name": "Architect",
+          "tagline": "Para pros, prop traders e criadores de sinal.",
+          "cta": "Virar Architect",
+          "features": [
+            "Tudo de Operator",
+            "Até 10 pares",
+            "Modelo IA prioritário",
+            "Lentes personalizadas",
+            "Gerador de plano de backtest",
+            "Suporte prioritário",
+            "Acesso antecipado a novidades"
+          ]
+        }
+      },
+      "comparison": {
+        "title": "Comparar planos",
+        "feature": "Recurso",
+        "yes": "✓",
+        "no": "—",
+        "rows": {
+          "pairs": "Pares monitorados",
+          "analysis": "Análise multi-timeframe",
+          "vision": "Vision (HTF → LTF)",
+          "news": "Calendário de notícias",
+          "ask": "Ask Denaro",
+          "strategies": "Lentes",
+          "confluence": "Score de confluência",
+          "priorityModel": "Modelo IA prioritário",
+          "backtest": "Plano de backtest",
+          "support": "Suporte"
+        },
+        "values": {
+          "freePairs": "1",
+          "proPairs": "3",
+          "elitePairs": "10",
+          "askFree": "5 / dia",
+          "askPro": "Ilimitado",
+          "askElite": "Ilimitado",
+          "stratFree": "1",
+          "stratPro": "Todas as 6",
+          "stratElite": "Todas as 6 + custom",
+          "supportFree": "Comunidade",
+          "supportPro": "E-mail",
+          "supportElite": "Prioritário"
+        }
+      },
+      "faq": {
+        "title": "Perguntas",
+        "items": {
+          "q1": {
+            "q": "O plano grátis é mesmo grátis?",
+            "a": "Sim. Sem cartão e sem contagem regressiva. 1 par, análise básica e 5 consultas por dia — para sempre."
+          },
+          "q2": {
+            "q": "Posso trocar ou cancelar a qualquer momento?",
+            "a": "Sim. Upgrade, downgrade ou cancelar nas configurações. Mudanças entram no próximo ciclo — sem fidelidade."
+          },
+          "q3": {
+            "q": "Diferença entre Operator e Architect?",
+            "a": "Operator para traders ativos em até 3 pares. Architect adiciona 10 pares, modelo IA prioritário, lentes custom e gerador de backtest."
+          },
+          "q4": {
+            "q": "Denaro dá conselho financeiro?",
+            "a": "Não. Denaro explica estrutura, viés e raciocínio — você decide. Trading envolve risco."
+          },
+          "q5": {
+            "q": "Quais métodos de pagamento?",
+            "a": "Todos os principais cartões via Stripe. A cobrança anual é uma vez por ano e economiza 20%."
+          },
+          "q6": {
+            "q": "Funciona no celular?",
+            "a": "Sim — Denaro é PWA. Instale no iOS ou Android pelo navegador."
+          }
+        }
+      }
+    }
   }
 }

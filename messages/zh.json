@@ -381,5 +381,218 @@
       "trading": "交易",
       "account": "账户"
     }
+  },
+  "marketing": {
+    "nav": {
+      "features": "功能",
+      "strategies": "策略",
+      "pricing": "价格",
+      "signIn": "登录",
+      "signUp": "免费注册",
+      "openApp": "打开应用",
+      "menu": "菜单",
+      "close": "关闭"
+    },
+    "landing": {
+      "hero": {
+        "badge": "// AI ▸ 交易分析师",
+        "title": "读懂市场。",
+        "titleHighlight": "做出判断。",
+        "subtitle": "Denaro 是面向交易者的 AI 副驾驶。多周期解读、实时新闻，以及 24/7 按你的策略思考的频道。",
+        "ctaPrimary": "免费开始",
+        "ctaSecondary": "查看价格",
+        "ctaOpen": "打开仪表盘",
+        "trust": "无需信用卡 · 13种语言 · 随时取消"
+      },
+      "stats": {
+        "pairs": "外汇货币对",
+        "languages": "语言",
+        "strategies": "策略视角",
+        "uptime": "可用性"
+      },
+      "features": {
+        "badge": "// 能力",
+        "title": "盯盘交易者真正需要的一切",
+        "subtitle": "一块面板、六件工具。围绕真实解读构建 — 偏向、结构、关键位、新闻，还有你想问的那个问题。",
+        "markets": {
+          "title": "市场",
+          "blurb": "实时图表、偏向、支撑 / 阻力、无效条件 — 每个货币对都有。"
+        },
+        "vision": {
+          "title": "Vision",
+          "blurb": "HTF → MTF → LTF 快照。Denaro 同时读取三个周期。"
+        },
+        "news": {
+          "title": "新闻与日历",
+          "blurb": "按货币对的高影响事件。发布时实时提示。"
+        },
+        "ask": {
+          "title": "问 Denaro",
+          "blurb": "流式回答。仓位计算、setup 检查、概念解释 — 无需截图。"
+        },
+        "sessions": {
+          "title": "交易时段",
+          "blurb": "悉尼 · 东京 · 伦敦 · 纽约。一眼知道当前窗口。"
+        },
+        "confluence": {
+          "title": "汇合分数",
+          "blurb": "在趋势、结构、关键位、动量与宏观之间 0–100 的信心度。"
+        }
+      },
+      "strategies": {
+        "badge": "// 视角 ▸ 策略",
+        "title": "六个视角。选你的。",
+        "subtitle": "每一份分析都通过你的交易框架过滤。"
+      },
+      "pricingTeaser": {
+        "badge": "// 价格",
+        "title": "随你成长的方案",
+        "subtitle": "免费起步。需要更多货币对、Vision 和无限 Ask 时升级。",
+        "cta": "查看完整价格"
+      },
+      "ctaBand": {
+        "badge": "// 就绪",
+        "title": "别再凭感觉交易。",
+        "subtitle": "两分钟设置完成。Starter 永久免费。",
+        "button": "创建账号"
+      },
+      "footer": {
+        "tagline": "AI 交易分析师。为操作员而生。",
+        "product": "产品",
+        "company": "公司",
+        "legal": "法律",
+        "links": {
+          "features": "功能",
+          "pricing": "价格",
+          "strategies": "策略",
+          "signIn": "登录",
+          "register": "注册",
+          "terms": "条款",
+          "privacy": "隐私"
+        },
+        "rights": "保留所有权利。",
+        "disclaimer": "Denaro 提供分析与教育，不构成投资建议。交易存在亏损风险。"
+      }
+    },
+    "pricing": {
+      "hero": {
+        "badge": "// 价格 ▸ 矩阵",
+        "title": "选择你的等级",
+        "subtitle": "免费开始。值得时升级。随时取消。"
+      },
+      "billing": {
+        "monthly": "月付",
+        "yearly": "年付",
+        "save": "省 20%",
+        "perMonth": "/ 月",
+        "perMonthBilledYearly": "按年计费",
+        "free": "永久免费"
+      },
+      "tiers": {
+        "popular": "最受欢迎",
+        "current": "当前方案",
+        "free": {
+          "name": "Recon",
+          "tagline": "熟悉系统。",
+          "cta": "免费开始",
+          "features": [
+            "监控 1 个货币对",
+            "基础分析（偏向、S/R）",
+            "每天 5 次 Ask",
+            "全部 13 种语言",
+            "移动端 + 桌面端"
+          ]
+        },
+        "pro": {
+          "name": "Operator",
+          "tagline": "为每场交易盯盘的人。",
+          "cta": "加入 Operator",
+          "features": [
+            "最多 3 个货币对",
+            "完整多周期分析",
+            "高影响事件日历",
+            "Vision (HTF → MTF → LTF)",
+            "无限 Ask Denaro",
+            "全部 6 个策略视角",
+            "汇合分数 0–100"
+          ]
+        },
+        "elite": {
+          "name": "Architect",
+          "tagline": "为专业、自营和信号构建者。",
+          "cta": "加入 Architect",
+          "features": [
+            "Operator 全部内容",
+            "最多 10 个货币对",
+            "优先 AI 模型",
+            "自定义策略视角",
+            "回测计划生成器",
+            "优先支持",
+            "新功能抢先体验"
+          ]
+        }
+      },
+      "comparison": {
+        "title": "方案对比",
+        "feature": "功能",
+        "yes": "✓",
+        "no": "—",
+        "rows": {
+          "pairs": "监控的货币对",
+          "analysis": "多周期分析",
+          "vision": "Vision (HTF → LTF)",
+          "news": "新闻日历",
+          "ask": "Ask Denaro",
+          "strategies": "策略视角",
+          "confluence": "汇合分数",
+          "priorityModel": "优先 AI 模型",
+          "backtest": "回测计划",
+          "support": "支持"
+        },
+        "values": {
+          "freePairs": "1",
+          "proPairs": "3",
+          "elitePairs": "10",
+          "askFree": "5 / 天",
+          "askPro": "无限",
+          "askElite": "无限",
+          "stratFree": "1",
+          "stratPro": "全 6 个",
+          "stratElite": "全 6 + 自定义",
+          "supportFree": "社区",
+          "supportPro": "邮件",
+          "supportElite": "优先"
+        }
+      },
+      "faq": {
+        "title": "常见问题",
+        "items": {
+          "q1": {
+            "q": "免费方案真的免费吗？",
+            "a": "是的。无需信用卡，没有倒计时。1 个货币对、基础分析、每天 5 次 Ask — 永久。"
+          },
+          "q2": {
+            "q": "可以随时更换或取消吗？",
+            "a": "可以。在设置中升级/降级/取消。变更在下一周期生效 — 无锁定。"
+          },
+          "q3": {
+            "q": "Operator 和 Architect 有何不同？",
+            "a": "Operator 面向最多 3 个货币对的活跃零售交易者。Architect 增加 10 个货币对、优先 AI、自定义视角和回测生成器。"
+          },
+          "q4": {
+            "q": "Denaro 提供投资建议吗？",
+            "a": "不。它解释结构、偏向与逻辑 — 决定权在你。交易存在亏损风险。"
+          },
+          "q5": {
+            "q": "支持哪些支付方式？",
+            "a": "通过 Stripe 支持所有主流信用卡。年付一年一次，比月付节省 20%。"
+          },
+          "q6": {
+            "q": "能在手机上用吗？",
+            "a": "可以 — Denaro 是 PWA。从浏览器在 iOS 或 Android 上安装。"
+          }
+        }
+      }
+    }
   }
 }
