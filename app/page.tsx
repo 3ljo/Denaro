@@ -1,22 +1,28 @@
 import { Metadata } from "next";
+import { createClient } from "@/lib/supabase/server";
 import Wrapper from "@t/layout/wrapper";
 import Header from "@t/layout/header/header";
 import HeroBannerTwo from "@t/app/components/hero-banner/hero-banner-2";
 import MatchResultArea from "@t/app/components/match-result/match-result-area";
-import area_bg from '@t/assets/img/bg/area_bg02.jpg';
+const area_bg = { src: '/pic/Gemini_Generated_Image_jlp2fyjlp2fyjlp2.png' };
 import AboutAreaTwo from "@t/app/components/about-area/about-area-2";
-import StreamersArea from "@t/app/components/streamers/streamers-area";
+import MarketsArea from "@t/app/components/streamers/streamers-area";
 import UpcomingMatches from "@t/app/components/upcoming-match/upcoming-matches";
-import ProjectArea from "@t/app/components/projects/project-area";
 import SocialArea from "@t/app/components/social/social-area";
 import BrandArea from "@t/app/components/brand/brand-area";
 import FooterTwo from "@t/layout/footer/footer-2";
+import HomePricing from "./_components/home-pricing";
+
 
 export const metadata: Metadata = {
   title: "Denaro // Home",
 };
 
-export default function HomeTwo() {
+export default async function HomeTwo() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const isAuthed = !!user;
+
   return (
     <Wrapper>
       {/* header start */}
@@ -41,9 +47,9 @@ export default function HomeTwo() {
         <AboutAreaTwo/>
         {/* about-area-end */}
 
-        {/* streamers area start */}
-        <StreamersArea/>
-        {/* streamers area end */}
+        {/* markets area start */}
+        <MarketsArea/>
+        {/* markets area end */}
 
         </div>
         {/* area-background-end */}
@@ -52,9 +58,9 @@ export default function HomeTwo() {
         <UpcomingMatches/>
         {/* upcoming matches end */}
 
-        {/* project area start */}
-        <ProjectArea/>
-        {/* project area end */}
+        {/* pricing teaser */}
+        <HomePricing isAuthed={isAuthed} />
+        {/* pricing teaser end */}
 
         {/* social area start */}
         <SocialArea/>
@@ -63,7 +69,6 @@ export default function HomeTwo() {
         {/* brand area start */}
         <BrandArea/>
         {/* brand area end */}
-
 
       </main>
       {/* main area end */}

@@ -393,6 +393,46 @@
       "menu": "Menu",
       "close": "Close"
     },
+    "home": {
+      "nav": {
+        "home": "Home",
+        "about": "About",
+        "features": "Features",
+        "pricing": "Pricing",
+        "news": "News",
+        "contact": "Contact"
+      },
+      "heroCta": {
+        "eyebrow": "AI Trading Analyst",
+        "title": "Denaro",
+        "subtitle": "The intelligent co-pilot for serious traders. Real-time analysis across every chart, every session — built for clarity, calibrated for conviction.",
+        "ctaPrimary": "Get started",
+        "ctaSecondary": "See pricing",
+        "trust": "No credit card required · 14-day Pro trial · Cancel anytime"
+      },
+      "about": {
+        "title": "Real-Time Analysis,",
+        "titleLine2": "Calibrated for Conviction",
+        "body": "Denaro reads the market the way a senior analyst would — across every timeframe, every session, every instrument. No noise, no hype, just clear signals built on the indicators that actually shape your edge.",
+        "statsCharts": "Charts",
+        "statsCoverage": "Coverage",
+        "statsUptime": "Uptime",
+        "circleText": "ai · trading · analyst · denaro ·",
+        "ctaPrimary": "see pricing",
+        "ctaSecondary": "How It Works"
+      },
+      "news": {
+        "titlePart1": "Predict the news.",
+        "titlePart2": "Position",
+        "titleAccent": "before",
+        "titlePart3": "the wire prints.",
+        "subtitle": "AI-driven forecasts of market-moving events, hours before they hit."
+      },
+      "social": {
+        "eyebrow": "connect with us",
+        "title": "stay connected"
+      }
+    },
     "landing": {
       "hero": {
         "badge": "// AI ▸ TRADING ANALYST",

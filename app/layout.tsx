@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Orbitron } from 'next/font/google'
+import { Inter, Orbitron, Poppins, Barlow } from 'next/font/google'
+import localFont from 'next/font/local'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { getDir, type Locale } from '@/i18n/config'
@@ -17,6 +18,39 @@ const orbitron = Orbitron({
   subsets: ['latin'],
   variable: '--font-orbitron',
   weight: ['500', '600', '700', '800'],
+  display: 'swap',
+})
+
+// Template fonts — names + CSS-var keys must match what
+// app/_landing/assets/scss/utils/_typography.scss expects.
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  variable: '--tg-body-font-family',
+  display: 'swap',
+})
+
+const barlow = Barlow({
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  variable: '--tg-heading-font-family',
+  display: 'swap',
+})
+
+const berlin = localFont({
+  src: [
+    {
+      path: './_landing/assets/fonts/berlin_sans_fb_demi_bold-webfont.woff2',
+      weight: 'normal',
+      style: 'normal',
+    },
+    {
+      path: './_landing/assets/fonts/berlin_sans_fb_demi_bold-webfont.woff',
+      weight: 'normal',
+      style: 'normal',
+    },
+  ],
+  variable: '--tg-berlin-font-family',
   display: 'swap',
 })
 
@@ -59,9 +93,12 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${orbitron.variable}`}
+      className={`${inter.variable} ${orbitron.variable} ${poppins.variable} ${barlow.variable} ${berlin.variable}`}
     >
-      <body className="min-h-dvh bg-denaro-bg font-sans text-cyan-50 antialiased">
+      <body
+        suppressHydrationWarning
+        className="min-h-dvh bg-denaro-bg font-sans text-cyan-50 antialiased"
+      >
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

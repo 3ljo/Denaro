@@ -4,4 +4,1694 @@
 @import "swiper/css/bundle";
 @import "react-responsive-modal/styles.css";
 
-@import '../template/assets/scss/main.scss';
+/* Template-bundled vendor CSS — webpack-resolved (was @forward in main.scss
+   but @forward of plain .css files no-ops in Sass). */
+@import './_landing/assets/css/animate.min.css';
+@import './_landing/assets/css/bootstrap.min.css';
+@import './_landing/assets/css/flaticon.css';
+@import './_landing/assets/css/fontawesome-all.min.css';
+@import './_landing/assets/css/spacing.css';
+
+@import './_landing/assets/scss/main.scss';
+
+/* ===========================================================================
+   Denaro overrides — landing-page hero CTA copy (rendered inside
+   .denaro-cta-section in match-result-area.tsx). Kept here, after the
+   template's main.scss, so they win on specificity tie.
+   =========================================================================== */
+
+/* HERO — image-only banner. Drop the template's huge padding (it was
+   sized for a centered text block) and lock the section to the banner
+   image's native aspect ratio so the full character is always visible
+   and the head isn't half-cropped.
+
+   Mobile: switch to `background-size: contain` so the entire image fits
+   inside the section width — the character stays horizontally centered
+   without any side-crop. The section's aspect ratio adapts to leave
+   matching black bars top + bottom (handled by the section's own black
+   background showing through). */
+.banner__area {
+  aspect-ratio: 1920 / 880;
+  max-height: 70vh;
+  position: relative;
+  background-color: #0a0a0a;
+
+  &.banner__padding {
+    padding: 0;
+  }
+
+  & .banner__bg {
+    /* Use `contain` so the FULL source image is always visible — head,
+       body, and legs all fit inside the section. Section's dark
+       #0a0a0a fills any horizontal gaps on ultra-wide viewports. */
+    background-size: contain !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* Tablet — tighter crop so the character fills the frame. */
+  @media (max-width: 991.98px) {
+    aspect-ratio: 5 / 6;
+    max-height: 80vh;
+    & .banner__bg {
+      background-size: auto 130% !important;
+      background-position: center 30% !important;
+    }
+  }
+
+  /* Mobile — portrait crop, character only, head-to-mid-thigh. */
+  @media (max-width: 575.98px) {
+    aspect-ratio: 4 / 5;
+    max-height: 75vh;
+    & .banner__bg {
+      background-size: auto 150% !important;
+      background-position: center 30% !important;
+    }
+  }
+
+  /* Gold diagonal stripes at the bottom — restored from the template's
+     original .slider__area::before/::after pattern, in Denaro gold instead
+     of the original neon green. Acts as a section divider into the CTA
+     section below. */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 38px;
+    background-color: #fbbf24;
+    -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%);
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    z-index: 2;
+
+    @media (max-width: 1500px) { height: 32px; }
+    @media (max-width: 991.98px) { height: 24px; }
+    @media (max-width: 575.98px) { height: 18px; }
+  }
+  &::after {
+    left: auto;
+    right: 0;
+    -webkit-clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+}
+
+.denaro-cta-section {
+  position: relative;
+  padding: 65px 0 75px;
+  overflow: hidden;
+
+  @media (max-width: 991.98px) {
+    padding: 55px 0 60px;
+  }
+  @media (max-width: 575.98px) {
+    padding: 45px 0 50px;
+  }
+}
+
+/* Pure-CSS background — designed to disappear into the hero above and the
+   chart section below. No frame, no vignette, no vertical bands —
+   just a single dark navy backdrop matching the surrounding sections,
+   with one soft gold pool sitting behind the title. */
+.denaro-cta-bg {
+  background:
+    /* Soft warm spotlight behind the title */
+    radial-gradient(
+      ellipse 90% 70% at 50% 35%,
+      rgba(251, 191, 36, 0.14) 0%,
+      rgba(251, 191, 36, 0.05) 35%,
+      transparent 75%
+    ),
+    /* Dark navy at the top, lifting to a gray "pool" through the
+       middle, then easing back down to near-black at the bottom so
+       the seam into the chart section below disappears */
+    linear-gradient(
+      to bottom,
+      #0a0d13 0%,
+      #161922 30%,
+      #21242c 55%,
+      #14171e 80%,
+      #0a0c11 100%
+    ) !important;
+
+  &::before,
+  &::after {
+    content: none;
+  }
+}
+
+/* Top + bottom fade overlays on the area-background image so its top
+   pixel matches the CTA section above (#0a0c11) and its bottom pixel
+   matches the upcoming-match section below — kills both seams. */
+.area-background {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      #0a0c11 0%,
+      rgba(10, 12, 17, 0.85) 25%,
+      rgba(10, 12, 17, 0.5) 55%,
+      rgba(10, 12, 17, 0) 100%
+    );
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      #06080c 0%,
+      rgba(6, 8, 12, 0.9) 25%,
+      rgba(6, 8, 12, 0.55) 55%,
+      rgba(6, 8, 12, 0) 100%
+    );
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.denaro-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Eyebrow — thin lines on either side of refined small caps text.
+   Looks editorial / fintech-serious instead of glow-y eSports. */
+.denaro-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+
+  &__line {
+    width: 36px;
+    height: 1px;
+    background: rgba(251, 191, 36, 0.55);
+
+    @media (max-width: 575.98px) {
+      width: 22px;
+    }
+  }
+
+  &__text {
+    font-family: var(--tg-body-font-family);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: rgba(251, 191, 36, 0.85);
+
+    @media (max-width: 575.98px) {
+      font-size: 10px;
+      letter-spacing: 0.32em;
+    }
+  }
+}
+
+/* Title — calmer than before. Smaller, normal weight (not Berlin's
+   blocky display font), tighter letter-spacing, no aggressive glow.
+   Reads as a wordmark, not a billboard. */
+.denaro-title {
+  font-family: var(--tg-heading-font-family);
+  font-weight: 800;
+  font-size: 76px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #f4f4f5;
+  margin: 0 0 24px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+
+  @media (max-width: 1199.98px) { font-size: 64px; }
+  @media (max-width: 991.98px)  { font-size: 56px; }
+  @media (max-width: 575.98px)  { font-size: 13vw; }
+}
+
+/* Gold "D" — refined, single solid muted-gold tone (not a loud
+   gradient + glow pop). Subtle and editorial. */
+.denaro-title__d {
+  color: #d4a637 !important;
+  -webkit-text-fill-color: #d4a637;
+}
+
+/* Subtitle — actual sentence, normal case, comfortable reading width.
+   Eliminates the all-caps-tracked block that read like a button. */
+.denaro-subtitle {
+  max-width: 600px;
+  font-family: var(--tg-body-font-family) !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.65 !important;
+  text-transform: none !important;
+  color: rgba(229, 231, 235, 0.78) !important;
+  margin: 0 auto 38px !important;
+
+  @media (max-width: 575.98px) {
+    font-size: 14px !important;
+    margin-bottom: 28px !important;
+  }
+}
+
+.denaro-cta-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.denaro-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 28px;
+  font-family: var(--tg-heading-font-family);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  border-radius: 4px;
+  transition: color 200ms, border-color 200ms, background-color 200ms,
+              box-shadow 200ms, transform 80ms;
+
+  &:hover {
+    color: #fff;
+    border-color: rgba(251, 191, 36, 0.85);
+    background: rgba(251, 191, 36, 0.06);
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.18);
+  }
+
+  &:active { transform: translateY(1px); }
+}
+
+/* Mobile off-canvas — sign in + sign up + language switcher block.
+   Replaces the template's search bar (which we removed) and matches
+   the gold theme of the desktop navbar. */
+.denaro-mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 25px;
+  margin-bottom: 22px;
+
+  & > * { width: 100%; }
+}
+
+.denaro-mobile-signin,
+.denaro-mobile-signup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 18px;
+  font-family: var(--tg-heading-font-family);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: color 180ms, background-color 180ms, border-color 180ms,
+              box-shadow 180ms;
+}
+
+.denaro-mobile-signin {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(15, 22, 27, 0.55);
+  border: 1px solid rgba(251, 191, 36, 0.32);
+
+  &:hover {
+    color: #fff;
+    border-color: rgba(251, 191, 36, 0.7);
+    background: rgba(251, 191, 36, 0.08);
+  }
+}
+
+.denaro-mobile-signup {
+  color: #1a1303;
+  background: linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #d97706 100%);
+  border: 1px solid rgba(253, 230, 138, 0.55);
+
+  &:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 0 22px rgba(251, 191, 36, 0.45);
+  }
+}
+
+/* Mobile off-canvas — color-correct any leftover green nav items, links
+   and the close button to the gold theme. */
+.tgmobile__menu {
+  & .close-btn,
+  & .close-btn i {
+    color: #fbbf24 !important;
+  }
+  & .navigation li.active > a,
+  & .navigation li > a:hover {
+    color: #fbbf24 !important;
+  }
+  & .social-links a:hover {
+    color: #fbbf24 !important;
+    border-color: rgba(251, 191, 36, 0.6) !important;
+  }
+}
+
+/* Quiet trust line under the CTAs — the kind of fine-print that signals
+   "this is a real product" without shouting. */
+.denaro-trust {
+  margin: 26px 0 0 !important;
+  font-family: var(--tg-body-font-family);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(229, 231, 235, 0.4);
+
+  @media (max-width: 575.98px) {
+    font-size: 11px;
+  }
+}
+
+/* ===========================================================================
+   Ultrawide-safe page frame — cap the layout on monitors wider than ~1920px
+   so the design doesn't visually drift to the left edge with empty black
+   space on the right. Body gets a max-width with auto margins; the
+   position-fixed header is re-centered to match.
+   =========================================================================== */
+@media (min-width: 1921px) {
+  html {
+    background-color: #050810;
+  }
+  body {
+    max-width: 1920px;
+    margin-inline: auto;
+  }
+  /* Position-fixed sticky header — recenter to the same 1920px frame.
+     Using left + width (not transform) so it doesn't fight the sticky
+     slide-in animation, which already uses translateY. */
+  .transparent-header,
+  .tg-sticky-menu {
+    left: calc((100vw - 1920px) / 2);
+    width: 1920px;
+  }
+}
+
+/* ===========================================================================
+   Economic Calendar — repurposed from the gaming "Upcoming Matches" cards.
+   The team_1/team_2 image slots are now currency / asset monogram badges,
+   and the game tag becomes an impact pill (HIGH / MEDIUM / LOW).
+   =========================================================================== */
+
+/* Card frame — drop the gaming hexagonal SVG outline + the decorative
+   line.png that crosses through the middle of each card. Replace with a
+   clean rounded-rectangle background, subtle gold-accent left edge, and
+   gold border on hover. */
+.upcoming-match__item {
+  background: linear-gradient(180deg, rgba(15, 22, 27, 0.85), rgba(8, 11, 15, 0.92));
+  border: 1px solid rgba(56, 60, 78, 0.6);
+  border-left: 2px solid rgba(251, 191, 36, 0.5);
+  border-radius: 10px;
+  padding: 22px 28px !important;
+  margin: 0 0 18px !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+
+  &:hover {
+    border-color: rgba(251, 191, 36, 0.55);
+    border-left-color: rgba(251, 191, 36, 0.85);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 60px rgba(251, 191, 36, 0.06);
+  }
+
+  /* Kill the horizontal line.png decoration crossing through center. */
+  &::before { display: none !important; }
+
+  /* Kill the angular hexagonal SVG frame (residual from sports template). */
+  & .svg-icon { display: none !important; }
+
+  @media (max-width: 767.98px) {
+    padding: 20px 18px !important;
+    margin: 0 0 14px !important;
+  }
+}
+
+/* Row layout — flow normally inside the card padding. The template had
+   __position absolutely-positioned (so it could float over the SVG row
+   frame). With the frame gone, flow it as a real flex row. */
+.upcoming-match__position {
+  position: static !important;
+  display: flex !important;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+
+  @media (max-width: 991.98px) { gap: 16px; }
+
+  @media (max-width: 767.98px) {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 18px;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+}
+
+/* Middle content cluster — event meta · time · forecast. */
+.upcoming-match__content {
+  display: flex !important;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 22px;
+
+  @media (max-width: 991.98px) { gap: 14px; }
+
+  @media (max-width: 767.98px) {
+    order: 2;
+    flex: 0 0 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  & .team--info .name {
+    margin: 0 !important;
+
+    & a:hover { color: var(--tg-theme-primary); }
+  }
+}
+
+/* Event title block (impact pill + title + date). */
+.upcoming-match__content .team--info.info-left {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left !important;
+
+  @media (max-width: 767.98px) {
+    flex: 0 0 100%;
+    text-align: center !important;
+  }
+
+  & .name {
+    font-size: 22px !important;
+    font-weight: var(--tg-fw-extra-bold);
+    line-height: 1.2 !important;
+    letter-spacing: 0.5px;
+
+    @media (max-width: 991.98px) { font-size: 19px !important; }
+    @media (max-width: 575.98px) { font-size: 16px !important; }
+  }
+}
+
+/* Inline date subtitle — replaces the absolutely-positioned ribbon ::after
+   that was bleeding into the next row. */
+.upcoming-match__date-inline {
+  margin-top: 8px;
+  font-family: var(--tg-body-font-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(229, 231, 235, 0.5);
+  line-height: 1;
+
+  @media (max-width: 575.98px) {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    margin-top: 6px;
+  }
+}
+
+/* Time tile — compact, consistent with the rest of the card. The template
+   had it as a 140×110 box with 4px borders; that doesn't fit a row. */
+.upcoming-match__time {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 12px 22px !important;
+  border: 1px solid rgba(251, 191, 36, 0.32) !important;
+  background: rgba(8, 11, 15, 0.72) !important;
+  border-radius: 8px !important;
+  flex: 0 0 auto;
+  position: static !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+
+  @media (max-width: 575.98px) { padding: 10px 18px !important; }
+
+  & .upcoming-match__time-label {
+    font-family: var(--tg-body-font-family);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: rgba(251, 191, 36, 0.7);
+    margin-bottom: 4px;
+  }
+
+  & .time {
+    font-size: 26px !important;
+    margin: 0 !important;
+    color: #fde68a;
+    font-family: var(--tg-heading-font-family);
+    line-height: 1;
+    letter-spacing: 0.02em;
+
+    @media (max-width: 991.98px) { font-size: 22px !important; }
+    @media (max-width: 575.98px) { font-size: 20px !important; }
+  }
+}
+
+/* Forecast block (label + value). */
+.upcoming-match__content .team--info.info-right {
+  flex: 0 0 auto;
+  min-width: 130px;
+  text-align: right !important;
+
+  @media (max-width: 991.98px) { min-width: 100px; }
+
+  @media (max-width: 767.98px) {
+    text-align: center !important;
+    min-width: 0;
+  }
+
+  & .name {
+    font-size: 17px !important;
+    color: #fde68a;
+    line-height: 1.2 !important;
+    letter-spacing: 0.4px;
+
+    @media (max-width: 991.98px) { font-size: 15px !important; }
+    @media (max-width: 575.98px) { font-size: 14px !important; }
+  }
+}
+
+/* Tighten the side badges — they no longer need to fit a character image. */
+.upcoming-match__team {
+  width: 88px !important;
+  height: 88px !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  flex: 0 0 auto;
+  margin: 0 !important;
+
+  @media (max-width: 991.98px) {
+    width: 76px !important;
+    height: 76px !important;
+  }
+
+  @media (max-width: 575.98px) {
+    width: 68px !important;
+    height: 68px !important;
+  }
+}
+.upcoming-match__team:hover {
+  border-color: rgba(251, 191, 36, 0.35) !important;
+}
+
+/* Hide any residual __date wrappers left over from the template's
+   ribbon-shaped bottom date (we now render date inline under the title). */
+.upcoming-match__date { display: none !important; }
+
+/* Bg image — anchor the TOP of the image to the section so the holographic
+   "GLOBAL MARKET / BREAKING NEWS" text at the top of the image is fully
+   visible (with cover + center, the top ~100px was getting cropped off).
+   Heavy darken on the LEFT (where the copy sits) and light on the RIGHT
+   (so the AI character in the photo actually shows through). */
+.upcoming-match__area {
+  position: relative;
+  /* 3168×1344 source — anchor top so "GLOBAL MARKET" stays in frame. */
+  background-position: center top !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden;
+  /* Match the image's aspect ratio so the entire frame is shown without
+     vertical crop. The section can still grow if content demands more. */
+  min-height: clamp(420px, 42vw, 760px);
+
+  /* Horizontal gradient — left curtain, right window. Doesn't touch the
+     top edge so "GLOBAL MARKET" stays legible against the image. */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(6, 8, 12, 0.92) 0%,
+        rgba(6, 8, 12, 0.78) 28%,
+        rgba(6, 8, 12, 0.35) 52%,
+        rgba(6, 8, 12, 0.08) 75%,
+        rgba(6, 8, 12, 0.18) 100%
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* Vertical seams — top fade (kills the seam against the chart section
+     above) and bottom fade (drops fully into the near-black page bg
+     before PROJECTS). The fades end before the holographic "GLOBAL
+     MARKET PULSE" text so it stays legible. */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(6, 8, 12, 1.0)  0%,
+        rgba(6, 8, 12, 0.7)  3%,
+        rgba(6, 8, 12, 0.0)  10%,
+        rgba(6, 8, 12, 0.0)  55%,
+        rgba(6, 8, 12, 0.55) 70%,
+        rgba(6, 8, 12, 0.95) 82%,
+        rgba(6, 8, 12, 1.0)  90%,
+        rgba(6, 8, 12, 1.0)  100%
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+  & > .container { position: relative; z-index: 1; }
+
+  /* Mobile / narrow screens — the copy goes full-width so we can't keep a
+     transparent right side. Switch to a uniform readable darken instead. */
+  @media (max-width: 767.98px) {
+    background-position: center 18% !important;
+    min-height: clamp(360px, 80vw, 540px);
+
+    &::before {
+      background: linear-gradient(
+        180deg,
+        rgba(6, 8, 12, 0.50) 0%,
+        rgba(6, 8, 12, 0.74) 45%,
+        rgba(6, 8, 12, 0.82) 100%
+      );
+    }
+  }
+}
+
+/* ===========================================================================
+   Live Newsroom — replaces the 3 hardcoded "FOMC / EUROZONE CPI / NFP"
+   event cards. The new panel is editorial copy + an abstract, animated
+   "live feed" terminal mock (skeleton rows with shimmer). No fake events,
+   no fake dates — it represents the *capability* (live news streamed in)
+   without pretending to show real news.
+   =========================================================================== */
+.denaro-newsroom {
+  padding: 110px 0 130px;
+
+  @media (max-width: 991.98px) { padding: 90px 0 100px; }
+  @media (max-width: 575.98px) { padding: 70px 0 80px; }
+
+  &__copy {
+    margin-bottom: 38px;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--tg-body-font-family);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: rgba(251, 191, 36, 0.92);
+    margin-bottom: 22px;
+    padding: 6px 14px 6px 12px;
+    border: 1px solid rgba(251, 191, 36, 0.32);
+    border-radius: 999px;
+    background: rgba(251, 191, 36, 0.05);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  &__pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ef4444;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    animation: denaroNewsroomPulse 1.6s ease-out infinite;
+  }
+
+  &__title {
+    font-family: var(--tg-heading-font-family);
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: #f4f4f5;
+    text-transform: none;
+    margin: 0 0 16px;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+
+    @media (max-width: 1199.98px) { font-size: 32px; }
+    @media (max-width: 991.98px)  { font-size: 28px; }
+    @media (max-width: 575.98px)  { font-size: 22px; }
+  }
+
+  &__title-accent {
+    background: linear-gradient(90deg, #fde68a 0%, #fbbf24 50%, #d97706 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-style: italic;
+  }
+
+  &__sub {
+    max-width: 580px;
+    font-family: var(--tg-body-font-family);
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(229, 231, 235, 0.72);
+    margin: 0;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
+
+    @media (max-width: 575.98px) { font-size: 12px; }
+  }
+
+  /* ---- The terminal panel ------------------------------------------------ */
+  &__panel {
+    position: relative;
+    max-width: 620px;
+    border: 1px solid rgba(251, 191, 36, 0.28);
+    border-radius: 10px;
+    background:
+      linear-gradient(180deg, rgba(15, 18, 26, 0.78) 0%, rgba(8, 10, 14, 0.86) 100%);
+    backdrop-filter: blur(10px) saturate(1.15);
+    -webkit-backdrop-filter: blur(10px) saturate(1.15);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.45),
+      0 24px 70px rgba(0, 0, 0, 0.55),
+      0 0 80px rgba(251, 191, 36, 0.06);
+    overflow: hidden;
+
+    /* HUD corner accents — top-left + bottom-right gold L's, like the
+       about-area image frame. Ties the section into the rest of the page. */
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+    }
+    &::before {
+      top: -1px; left: -1px;
+      border-top: 2px solid #fbbf24;
+      border-left: 2px solid #fbbf24;
+      border-top-left-radius: 10px;
+    }
+    &::after {
+      bottom: -1px; right: -1px;
+      border-bottom: 2px solid #fbbf24;
+      border-right: 2px solid #fbbf24;
+      border-bottom-right-radius: 10px;
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.14);
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.04), transparent);
+  }
+
+  &__live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--tg-body-font-family);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #fef3c7;
+    padding: 5px 10px;
+    border: 1px solid rgba(239, 68, 68, 0.55);
+    border-radius: 4px;
+    background: rgba(239, 68, 68, 0.12);
+  }
+
+  &__live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ef4444;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.85);
+    animation: denaroNewsroomBlink 1.05s steps(2, end) infinite;
+  }
+
+  &__head-meta {
+    font-family: var(--tg-body-font-family);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.55);
+  }
+
+  /* ---- Skeleton rows ----------------------------------------------------- */
+  &__rows {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(125, 211, 252, 0.06);
+    opacity: 0;
+    transform: translateY(6px);
+    animation: denaroNewsroomRowIn 600ms cubic-bezier(0.2, 0.7, 0.25, 1) forwards;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  &__impact {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+
+    &--high {
+      background: #ef4444;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 10px rgba(239, 68, 68, 0.7);
+    }
+    &--medium {
+      background: #fbbf24;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 8px rgba(251, 191, 36, 0.5);
+    }
+    &--low {
+      background: rgba(125, 211, 252, 0.6);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__bar {
+    position: relative;
+    height: 10px;
+    border-radius: 3px;
+    background: rgba(125, 211, 252, 0.08);
+    overflow: hidden;
+
+    /* Shimmer wash — left-to-right gold pass that loops, conveying live data. */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(251, 191, 36, 0.0) 20%,
+        rgba(251, 191, 36, 0.32) 50%,
+        rgba(251, 191, 36, 0.0) 80%,
+        transparent 100%
+      );
+      animation: denaroNewsroomShimmer 2.4s ease-in-out infinite;
+    }
+
+    &--title { flex: 1 1 auto; }
+    &--meta  { flex: 0 0 auto; height: 9px; opacity: 0.8; }
+  }
+
+  /* ---- Footer stats ------------------------------------------------------ */
+  &__foot {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    padding: 14px 18px;
+    border-top: 1px solid rgba(251, 191, 36, 0.14);
+    background: linear-gradient(0deg, rgba(251, 191, 36, 0.04), transparent);
+    font-family: var(--tg-body-font-family);
+  }
+
+  &__foot-stat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  &__foot-num {
+    font-weight: 800;
+    font-size: 14px;
+    color: #fde68a;
+    letter-spacing: 0.02em;
+  }
+
+  &__foot-lbl {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.55);
+  }
+
+  &__foot-sep {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(251, 191, 36, 0.35);
+  }
+}
+
+@keyframes denaroNewsroomPulse {
+  0%   { box-shadow: 0 0 0 0    rgba(239, 68, 68, 0.55); }
+  100% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);    }
+}
+
+@keyframes denaroNewsroomBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@keyframes denaroNewsroomShimmer {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(110%); }
+  100% { transform: translateX(110%); }
+}
+
+@keyframes denaroNewsroomRowIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+/* EventBadge — fills the 104×104 .upcoming-match__team frame. Real flag /
+   coin SVG on top, code label below. Letter fallback for assets without a
+   public icon (XAU → Au, XAG → Ag). */
+.event-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.event-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(15, 22, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+  font-family: var(--tg-body-font-family);
+  font-weight: 700;
+  font-size: 14px;
+  color: #fde68a;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.event-badge__icon--letter {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.32), rgba(15, 22, 27, 0.92));
+  border-color: rgba(251, 191, 36, 0.5);
+}
+
+.event-badge__code {
+  font-family: var(--tg-body-font-family);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(229, 231, 235, 0.78);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 1199.98px) {
+  .event-badge__icon { width: 36px; height: 36px; font-size: 12px; }
+  .event-badge__code { font-size: 9px; letter-spacing: 0.10em; }
+}
+@media (max-width: 767.98px) {
+  .event-badge__icon { width: 32px; height: 32px; font-size: 11px; }
+  .event-badge__code { font-size: 8px; }
+}
+
+/* Impact pill — replaces the green "dota2 / valorant" game-name label.
+   Inline-flex with a glowing dot. Reset inherited .game-name typography. */
+.event-impact {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--tg-body-font-family) !important;
+  font-weight: 700 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.22em !important;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+  line-height: 1 !important;
+  margin: 0 0 14px !important;
+  text-transform: uppercase;
+
+  .event-impact__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
+    flex-shrink: 0;
+  }
+
+  &--high   { color: #f87171 !important; background: rgba(248, 113, 113, 0.12) !important; border-color: rgba(248, 113, 113, 0.55) !important; }
+  &--medium { color: #fbbf24 !important; background: rgba(251, 191, 36, 0.12) !important; border-color: rgba(251, 191, 36, 0.55) !important; }
+  &--low    { color: #34d399 !important; background: rgba(52, 211, 153, 0.12) !important; border-color: rgba(52, 211, 153, 0.55) !important; }
+}
+
+/* Forecast label — muted small-caps above the value. Override the gold
+   .game-name color so it doesn't compete with the value. */
+.event-forecast-label {
+  color: rgba(229, 231, 235, 0.55) !important;
+  font-family: var(--tg-body-font-family) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.22em !important;
+  margin: 0 0 8px !important;
+}
+
+/* ===========================================================================
+   Markets section — overrides on top of .streamers__* card styles. Each
+   card is a chart tile: SVG sparkline filling the thumb area, category
+   badge top-left, % change top-right, symbol + name overlaid at the bottom
+   with a fade-to-black gradient (handled by the inherited ::before).
+   =========================================================================== */
+.market__thumb {
+  background: linear-gradient(180deg, rgba(15, 22, 27, 0.55) 0%, rgba(8, 11, 15, 0.92) 100%);
+  border-radius: 6px;
+  border: 1px solid rgba(56, 60, 78, 0.6);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  display: block;
+
+  @media (max-width: 575.98px) {
+    aspect-ratio: 16 / 11;
+  }
+
+  & .market-spark {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+/* Markets pagination — with 24 slides the bullets balloon into a wrapping
+   blob that crowds the prev/next arrows on mobile. Cap the dot row width
+   and let dynamicBullets shrink it; arrows stay flanking the centered row. */
+.markets__area .streamers__pagination {
+  flex-wrap: nowrap;
+  gap: 5px 18px;
+
+  & .streamers__pagination-dots {
+    max-width: 160px;
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
+}
+
+/* =============================================================================
+   PairIcon — unified system. Every icon is a 36px circle with a ring color
+   driven by the CSS custom property --icon-tone (set per-pair from the
+   component, derived from the asset's brand/national identity). Forex pairs
+   are the only special case: two overlapping 28px circles (base on top with
+   the tone ring, quote behind in neutral white).
+   ========================================================================== */
+.market__icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  --icon-tone: #fbbf24;
+}
+
+.market__icon-img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(15, 22, 27, 0.92);
+  border: 2px solid var(--icon-tone);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* Letter fallback (only used when no icon resolves). */
+.market__icon-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(15, 22, 27, 0.92);
+  border: 2px solid var(--icon-tone);
+  color: var(--icon-tone);
+  font-family: var(--tg-body-font-family);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* Iconify-sourced icons are line drawings — give them inset padding so they
+   don't crop at the circle edges. Tone-tinted gradient backdrop. */
+.market__icon--contain .market__icon-img {
+  object-fit: contain;
+  padding: 6px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--icon-tone) 16%, transparent), rgba(15, 22, 27, 0.92));
+}
+
+/* Forex pair — two overlapping 28px flags. Base on top with the tone ring,
+   quote behind in neutral. */
+.market__icon--pair .market__icon-img {
+  width: 28px;
+  height: 28px;
+  border-width: 2px;
+}
+.market__icon--pair .market__icon-img--quote {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.market__icon--pair .market__icon-img--base {
+  position: relative;
+  z-index: 2;
+  margin-left: -10px;
+  border-color: var(--icon-tone);
+}
+
+.market__change {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--tg-body-font-family);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  z-index: 3;
+  padding: 4px 7px;
+  border-radius: 3px;
+  background: rgba(15, 22, 27, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  line-height: 1;
+
+  &.is-up   { color: #34d399; border: 1px solid rgba(52, 211, 153, 0.35); }
+  &.is-down { color: #f87171; border: 1px solid rgba(248, 113, 113, 0.35); }
+}
+
+.market__symbol {
+  font-family: var(--tg-heading-font-family) !important;
+  font-weight: 800 !important;
+  font-size: 22px !important;
+  letter-spacing: 0.06em !important;
+  color: #f4f4f5 !important;
+  margin: 0 0 4px !important;
+  line-height: 1 !important;
+
+  @media (max-width: 575.98px) {
+    font-size: 20px !important;
+  }
+}
+
+.market__name {
+  font-family: var(--tg-body-font-family);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(229, 231, 235, 0.55);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* On hover, gold-tint the card frame (template default) plus subtly brighten
+   the chart line. */
+.market__item:hover .market__thumb {
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+/* ===========================================================================
+   Kill the second scrollbar on wide screens. Two culprits, both render at
+   the right edge of the viewport with the global gold ::-webkit-scrollbar-
+   thumb styling, even when the elements themselves are visually offscreen:
+
+   1. .tgmobile__menu-box — position:absolute inside the position:fixed
+      .tgmobile__menu, with overflow-y:auto + height:100%. The sibling
+      .offCanvas__wrap already hides its scrollbar (width:0); this one was
+      missed. Mirror the same fix.
+   2. .project-area .swiper-scrollbar — Swiper's draggable horizontal
+      scrubber bar at the bottom of the projects section. Visually reads
+      as a stray scrollbar; the carousel still works without it.
+   =========================================================================== */
+.tgmobile__menu-box::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+.tgmobile__menu-box { scrollbar-width: none; }
+.project-area .swiper-scrollbar { display: none !important; }
+
+/* ===========================================================================
+   About / "Real-Time Analysis" section — replace the template's gold-block
+   collage (a tilted yellow ::after rectangle + a fun_fact_shape PNG behind
+   the character) with a clean editorial frame: soft amber outer glow, thin
+   gold border, single offset accent panel. Suits the new AI render.
+   =========================================================================== */
+.about__funFact-images {
+  /* Drop the leftover PNG decoration entirely. */
+  & .bg-shape { display: none !important; }
+
+  /* Backdrop spotlight — dramatic amber pool behind the figure so the
+     character emerges from light instead of sitting in a rectangle. */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -50px -30px -30px -50px;
+    background:
+      radial-gradient(
+        ellipse 65% 75% at 50% 55%,
+        rgba(251, 191, 36, 0.32) 0%,
+        rgba(251, 191, 36, 0.10) 35%,
+        transparent 70%
+      );
+    filter: blur(24px);
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  /* HUD corner brackets — replaces the offset gold panel completely.
+     Eight thin gold strokes drawn with stacked linear-gradients form an
+     L at each corner. Reads like a scanning HUD, not a photo frame. */
+  &::after {
+    content: "" !important;
+    position: absolute !important;
+    top: -14px !important;
+    left: -14px !important;
+    right: -14px !important;
+    bottom: -14px !important;
+    width: auto !important;
+    height: auto !important;
+    background:
+      linear-gradient(#fbbf24, #fbbf24) top    left  / 32px 2px  no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) top    left  / 2px  32px no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) top    right / 32px 2px  no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) top    right / 2px  32px no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) bottom left  / 32px 2px  no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) bottom left  / 2px  32px no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) bottom right / 32px 2px  no-repeat,
+      linear-gradient(#fbbf24, #fbbf24) bottom right / 2px  32px no-repeat !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: 2 !important;
+    pointer-events: none;
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.55));
+    transition: top 350ms ease, left 350ms ease, right 350ms ease,
+                bottom 350ms ease, filter 350ms ease;
+  }
+  &:hover::after {
+    top: -18px !important;
+    left: -18px !important;
+    right: -18px !important;
+    bottom: -18px !important;
+    filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.75));
+  }
+
+  /* Image sits naked — no border, no rounded corners, hard edges.
+     Only a deep drop shadow + ambient amber bloom anchor it. */
+  & .main-img {
+    position: static !important;
+    max-width: 100% !important;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    border: none;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.7),
+      0 0 120px rgba(251, 191, 36, 0.18);
+    transition: box-shadow 400ms ease;
+  }
+  &:hover .main-img {
+    box-shadow:
+      0 36px 100px rgba(0, 0, 0, 0.8),
+      0 0 160px rgba(251, 191, 36, 0.30);
+  }
+
+  @media (max-width: 575.98px) {
+    &::before { inset: -25px -15px -15px -25px; }
+    &::after {
+      top: -8px !important;
+      left: -8px !important;
+      right: -8px !important;
+      bottom: -8px !important;
+      background:
+        linear-gradient(#fbbf24, #fbbf24) top    left  / 22px 2px  no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) top    left  / 2px  22px no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) top    right / 22px 2px  no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) top    right / 2px  22px no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) bottom left  / 22px 2px  no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) bottom left  / 2px  22px no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) bottom right / 22px 2px  no-repeat,
+        linear-gradient(#fbbf24, #fbbf24) bottom right / 2px  22px no-repeat !important;
+    }
+  }
+}
+
+/* ===========================================================================
+   Home pricing section — styled to match the template UI (amber accents,
+   dark cards with corner notches, hexagon CTA buttons via .tg-btn-3).
+   Used by app/_components/home-pricing.tsx on the home page.
+   =========================================================================== */
+.denaro-pricing {
+  background: #06080c;
+  position: relative;
+
+  &__sub {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(232, 236, 244, 0.65);
+  }
+
+  &__toggle-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 8px 0 50px;
+  }
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid rgba(251, 191, 36, 0.28);
+    background: rgba(251, 191, 36, 0.04);
+    border-radius: 999px;
+  }
+
+  &__toggle-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 22px;
+    border: 0;
+    background: transparent;
+    color: rgba(232, 236, 244, 0.7);
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+
+    &:hover { color: #fff; }
+    &.is-active {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fde68a;
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.18);
+    }
+  }
+
+  &__save {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid rgba(251, 191, 36, 0.5);
+    background: rgba(251, 191, 36, 0.18);
+    color: #fde68a;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    border-radius: 999px;
+  }
+
+  /* Card — dark surface with thin amber border + subtle corner notches.
+     Mirrors the template's chiseled UI mood without an external bg image. */
+  &__card {
+    position: relative;
+    height: 100%;
+    padding: 38px 32px 36px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.005));
+    border: 1px solid rgba(251, 191, 36, 0.18);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+    /* Diagonal corner notches — top-right and bottom-left, amber stroke.
+       Echoes the hexagon-cut feel of .tg-btn-3 buttons. */
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 0 solid rgba(251, 191, 36, 0.55);
+      pointer-events: none;
+    }
+    &::before {
+      top: -1px;
+      right: -1px;
+      border-top-width: 2px;
+      border-right-width: 2px;
+    }
+    &::after {
+      bottom: -1px;
+      left: -1px;
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      border-color: rgba(251, 191, 36, 0.4);
+      box-shadow: 0 18px 48px -24px rgba(251, 191, 36, 0.22);
+    }
+
+    &.is-popular {
+      border-color: rgba(251, 191, 36, 0.55);
+      background:
+        linear-gradient(180deg, rgba(251, 191, 36, 0.07), rgba(251, 191, 36, 0.015)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.005));
+      box-shadow: 0 0 38px rgba(251, 191, 36, 0.16);
+
+      &::before,
+      &::after {
+        border-color: rgba(251, 191, 36, 0.85);
+      }
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 5px 11px;
+    background: rgba(251, 191, 36, 0.22);
+    border: 1px solid rgba(251, 191, 36, 0.55);
+    color: #fde68a;
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    border-radius: 999px;
+  }
+
+  &__eyebrow {
+    margin: 0 0 8px;
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: rgba(251, 191, 36, 0.85);
+  }
+
+  &__name {
+    margin: 0 0 6px;
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  &__tagline {
+    margin: 0 0 24px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(232, 236, 244, 0.6);
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 26px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.14);
+    min-height: 78px;
+  }
+
+  &__amount {
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+  }
+
+  &__per {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: rgba(232, 236, 244, 0.7);
+
+    small {
+      margin-top: 2px;
+      font-family: var(--tg-heading-font-family, inherit);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(232, 236, 244, 0.45);
+    }
+  }
+
+  &__features {
+    list-style: none;
+    margin: 0 0 30px;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 7px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(232, 236, 244, 0.85);
+    }
+  }
+
+  &__check {
+    flex: 0 0 auto;
+    margin-top: 3px;
+    color: rgba(251, 191, 36, 0.95);
+  }
+
+  /* CTA — re-uses .tg-btn-3 hexagon shape but locks width to 100%. */
+  &__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__compare {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #fde68a;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.4);
+    transition: color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      color: #fff;
+      border-color: #fbbf24;
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    &__card { padding: 32px 26px 30px; }
+    &__amount { font-size: 38px; }
+  }
+}
+
+/* /pricing page extras — comparison table + FAQ. Section spacing matches
+   the rest of the template (.section-pt-* equivalents) and the section
+   title shares the template's heading look. */
+.denaro-pricing-extras,
+.denaro-pricing-faq {
+  background: #06080c;
+  padding: 70px 0 80px;
+
+  @media (max-width: 991.98px) {
+    padding: 50px 0 60px;
+  }
+
+  &__title {
+    text-align: center;
+    margin: 0 0 8px;
+    font-family: var(--tg-heading-font-family, inherit);
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+
+    @media (max-width: 575.98px) { font-size: 24px; }
+  }
+}
+
+.denaro-pricing-faq {
+  padding-top: 0;
+}

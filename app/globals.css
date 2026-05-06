@@ -16,6 +16,7 @@
     overscroll-behavior-y: none;
     background-color: #050810;
     color: #e0f2fe;
+    overflow-x: clip;
   }
 
   /* iOS Safari zooms inputs whose font-size is < 16px on focus. */

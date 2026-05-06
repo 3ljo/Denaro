@@ -393,6 +393,46 @@
       "menu": "Menyja",
       "close": "Mbyll"
     },
+    "home": {
+      "nav": {
+        "home": "Kreu",
+        "about": "Rreth",
+        "features": "Karakteristikat",
+        "pricing": "Çmimet",
+        "news": "Lajmet",
+        "contact": "Kontakt"
+      },
+      "heroCta": {
+        "eyebrow": "Analist Tregtimi me AI",
+        "title": "Denaro",
+        "subtitle": "Ko-piloti inteligjent për trader-ët seriozë. Analizë në kohë reale për çdo grafik, çdo seancë — i ndërtuar për qartësi, i kalibruar për bindje.",
+        "ctaPrimary": "Fillo tani",
+        "ctaSecondary": "Shih çmimet",
+        "trust": "Pa kartë krediti · 14 ditë provë Pro · Anuloje në çdo kohë"
+      },
+      "about": {
+        "title": "Analizë në Kohë Reale,",
+        "titleLine2": "E Kalibruar për Bindje",
+        "body": "Denaro e lexon tregun ashtu si do ta lexonte një analist i lartë — përgjatë çdo afati kohor, çdo seance, çdo instrumenti. Pa zhurmë, pa hype, vetëm sinjale të qarta të ndërtuara mbi treguesit që e formësojnë vërtet avantazhin tënd.",
+        "statsCharts": "Grafikë",
+        "statsCoverage": "Mbulim",
+        "statsUptime": "Aktivitet",
+        "circleText": "ai · tregtim · analist · denaro ·",
+        "ctaPrimary": "shih çmimet",
+        "ctaSecondary": "Si funksionon"
+      },
+      "news": {
+        "titlePart1": "Parashiko lajmin.",
+        "titlePart2": "Pozicionohu",
+        "titleAccent": "para",
+        "titlePart3": "se të dalë në linjë.",
+        "subtitle": "Parashikime me AI për ngjarje që lëvizin tregun, orë para se të ndodhin."
+      },
+      "social": {
+        "eyebrow": "lidhu me ne",
+        "title": "rri i lidhur"
+      }
+    },
     "landing": {
       "hero": {
         "badge": "// AI ▸ ANALIST TREGTIMI",
