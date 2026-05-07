@@ -1,4 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#0a0a0a"/>
-  <path d="M256 128 L368 384 H304 L283 332 H229 L208 384 H144 Z M249 222 L235 268 H277 L263 222 Z" fill="#fafafa"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1623"/>
+      <stop offset="100%" stop-color="#050810"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0.15" y1="0.1" x2="0.85" y2="0.9">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="55%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <path
+    fill="url(#gold)"
+    fill-rule="evenodd"
+    d="M120 96 H224 C320 96 392 168 392 256 C392 344 320 416 224 416 H120 Z M192 168 H224 C280 168 320 208 320 256 C320 304 280 344 224 344 H192 Z"
+  />
 </svg>
