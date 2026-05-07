@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import social_bg from '@t/assets/img/bg/social_bg.png';
 import TextAnimation from '../common/text-animation';
 import Link from 'next/link';
+import ContactForm from './contact-form';
 
 // social item
 const social_data:{
@@ -77,6 +78,15 @@ const SocialArea = () => {
                 </div>
             </div>
             ))}
+        </div>
+        <div className="row justify-content-center mt-80">
+            <div className="col-xl-8 col-lg-10">
+                <div className="section__title text-center mb-40">
+                    <TextAnimation title={t('form.eyebrow')}/>
+                    <h3 className="title">{t('form.title')}</h3>
+                </div>
+                <ContactForm />
+            </div>
         </div>
     </div>
   </section>

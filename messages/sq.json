@@ -430,7 +430,28 @@
       },
       "social": {
         "eyebrow": "lidhu me ne",
-        "title": "rri i lidhur"
+        "title": "rri i lidhur",
+        "form": {
+          "eyebrow": "na shkruaj",
+          "title": "Na dërgo një mesazh",
+          "name": "Emri",
+          "namePlaceholder": "Emri yt",
+          "email": "Email",
+          "emailPlaceholder": "ti@shembull.com",
+          "subject": "Subjekti",
+          "subjectPlaceholder": "Për çfarë bëhet fjalë? (opsional)",
+          "message": "Mesazhi",
+          "messagePlaceholder": "Na trego si mund të ndihmojmë…",
+          "submit": "Dërgo mesazhin",
+          "sending": "Po dërgohet…",
+          "success": "Faleminderit — mesazhi u dërgua.",
+          "errors": {
+            "invalidName": "Ju lutemi shkruani emrin tuaj.",
+            "invalidEmail": "Ju lutemi shkruani një email të vlefshëm.",
+            "invalidMessage": "Mesazhi duhet të ketë të paktën 10 karaktere.",
+            "sendFailed": "Mesazhi nuk u dërgua. Provoni përsëri."
+          }
+        }
       }
     },
     "landing": {
