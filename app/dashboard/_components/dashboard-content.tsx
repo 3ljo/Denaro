@@ -16,7 +16,7 @@ import {
 } from './dashboard-nav'
 
 const VALID_TABS: TabId[] = ['news', 'vision', 'channel']
-const DEFAULT_TAB: TabId = 'news'
+const DEFAULT_TAB: TabId = 'vision'
 
 function isTabId(v: string | null): v is TabId {
   return !!v && (VALID_TABS as string[]).includes(v)
