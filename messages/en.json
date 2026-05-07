@@ -445,10 +445,15 @@
           "submit": "Send message",
           "sending": "Sending…",
           "success": "Thanks — your message is on its way.",
+          "successTitle": "Message sent",
+          "successBody": "Thanks for reaching out — we'll get back to you within 1–2 business days.",
+          "sendAnother": "Send another",
+          "privacy": "We respect your inbox. No marketing, no sharing — just a reply from a real human.",
           "errors": {
-            "invalidName": "Please enter your name.",
+            "invalidName": "Please enter your name (at least 2 characters).",
             "invalidEmail": "Please enter a valid email address.",
-            "invalidMessage": "Message must be at least 10 characters.",
+            "invalidMessage": "Message must be between 10 and 5000 characters.",
+            "subjectTooLong": "Subject is too long.",
             "sendFailed": "Could not send your message. Please try again."
           }
         }

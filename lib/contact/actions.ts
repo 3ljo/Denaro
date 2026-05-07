@@ -6,6 +6,7 @@ export type ContactErrorKey =
   | 'invalidName'
   | 'invalidEmail'
   | 'invalidMessage'
+  | 'subjectTooLong'
   | 'sendFailed'
 
 export type ContactResult =
@@ -15,6 +16,10 @@ export type ContactResult =
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function sendContactMessage(formData: FormData): Promise<ContactResult> {
+  // Honeypot: real users leave this empty; bots fill it. Pretend success silently.
+  const honeypot = String(formData.get('website') ?? '').trim()
+  if (honeypot.length > 0) return { ok: true }
+
   const name = String(formData.get('name') ?? '').trim()
   const email = String(formData.get('email') ?? '').trim().toLowerCase()
   const subject = String(formData.get('subject') ?? '').trim()
@@ -25,6 +30,9 @@ export async function sendContactMessage(formData: FormData): Promise<ContactRes
   }
   if (!EMAIL_REGEX.test(email) || email.length > 254) {
     return { ok: false, errorKey: 'invalidEmail' }
+  }
+  if (subject.length > 200) {
+    return { ok: false, errorKey: 'subjectTooLong' }
   }
   if (!message || message.length < 10 || message.length > 5000) {
     return { ok: false, errorKey: 'invalidMessage' }

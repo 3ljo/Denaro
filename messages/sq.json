@@ -445,10 +445,15 @@
           "submit": "Dërgo mesazhin",
           "sending": "Po dërgohet…",
           "success": "Faleminderit — mesazhi u dërgua.",
+          "successTitle": "Mesazhi u dërgua",
+          "successBody": "Faleminderit që na kontaktove — do të të kthejmë përgjigje brenda 1–2 ditë pune.",
+          "sendAnother": "Dërgo një tjetër",
+          "privacy": "E respektojmë inbox-in tënd. Pa marketing, pa ndarje — vetëm një përgjigje nga një njeri i vërtetë.",
           "errors": {
-            "invalidName": "Ju lutemi shkruani emrin tuaj.",
+            "invalidName": "Ju lutemi shkruani emrin tuaj (të paktën 2 karaktere).",
             "invalidEmail": "Ju lutemi shkruani një email të vlefshëm.",
-            "invalidMessage": "Mesazhi duhet të ketë të paktën 10 karaktere.",
+            "invalidMessage": "Mesazhi duhet të jetë mes 10 dhe 5000 karaktere.",
+            "subjectTooLong": "Subjekti është shumë i gjatë.",
             "sendFailed": "Mesazhi nuk u dërgua. Provoni përsëri."
           }
         }
