@@ -218,35 +218,14 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
           type="button"
           onClick={captureAll}
           disabled={analyzing}
-          className="group inline-flex items-center gap-2 rounded-md border border-amber-300/50 bg-gradient-to-r from-amber-400/15 via-amber-300/20 to-amber-400/15 px-4 py-2 font-display text-[0.65rem] font-bold tracking-[0.24em] text-amber-100 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition hover:border-amber-300/80 hover:bg-amber-400/25 hover:text-amber-50 hover:shadow-[0_0_22px_rgba(251,191,36,0.28)] disabled:cursor-not-allowed disabled:opacity-50"
           aria-busy={analyzing}
+          className="inline-flex items-center justify-center rounded-md px-5 py-2 font-display text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#1a1303] shadow-[0_4px_18px_rgba(251,191,36,0.25)] transition hover:brightness-110 hover:shadow-[0_6px_24px_rgba(251,191,36,0.4)] disabled:cursor-not-allowed disabled:opacity-60"
+          style={{
+            background:
+              'linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #d97706 100%)',
+          }}
         >
-          {analyzing ? (
-            <svg
-              className="h-3.5 w-3.5 animate-spin text-amber-200"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden
-            >
-              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
-              <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
-          ) : (
-            <svg
-              className="h-3.5 w-3.5 text-amber-200 transition group-hover:scale-110"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="m12 3 1.7 4.3 4.3 1.7-4.3 1.7-1.7 4.3-1.7-4.3-4.3-1.7 4.3-1.7L12 3Z" />
-              <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z" />
-            </svg>
-          )}
-          <span>{analyzing ? t('capturing') : t('capture')}</span>
+          {analyzing ? t('capturing') : t('capture')}
         </button>
       </div>
 
