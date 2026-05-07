@@ -265,7 +265,11 @@
       "now": "▶ 지금",
       "empty": "이번 주 {pair}에 예정된 중간 / 높은 영향 이벤트가 없습니다.",
       "forecast": "예",
-      "previous": "전"
+      "previous": "전",
+      "soon": "곧",
+      "predict": "영향 예측",
+      "predicting": "읽는 중…",
+      "predictionLabel": "// AI 읽기"
     },
     "vision": {
       "badge": "// 비전 ▸ 멀티-TF 해독",

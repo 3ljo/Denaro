@@ -265,7 +265,11 @@
       "now": "▶ MAINTENANT",
       "empty": "Aucun événement à impact moyen / élevé prévu pour {pair} cette semaine.",
       "forecast": "P",
-      "previous": "A"
+      "previous": "A",
+      "soon": "BIENTÔT",
+      "predict": "Prédire l'impact",
+      "predicting": "Lecture…",
+      "predictionLabel": "// LECTURE IA"
     },
     "vision": {
       "badge": "// VISION ▸ LECTURE MULTI-TF",

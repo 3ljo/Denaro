@@ -265,7 +265,11 @@
       "now": "▶ AHORA",
       "empty": "No hay eventos de impacto medio / alto para {pair} esta semana.",
       "forecast": "P",
-      "previous": "A"
+      "previous": "A",
+      "soon": "PRONTO",
+      "predict": "Predecir impacto",
+      "predicting": "Leyendo…",
+      "predictionLabel": "// LECTURA IA"
     },
     "vision": {
       "badge": "// VISIÓN ▸ LECTURA MULTI-TF",

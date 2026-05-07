@@ -265,7 +265,11 @@
       "now": "▶ ŞİMDİ",
       "empty": "Bu hafta {pair} için orta / yüksek etkili olay planlanmamış.",
       "forecast": "T",
-      "previous": "Ö"
+      "previous": "Ö",
+      "soon": "YAKINDA",
+      "predict": "Etkiyi tahmin et",
+      "predicting": "Okunuyor…",
+      "predictionLabel": "// YZ OKUMASI"
     },
     "vision": {
       "badge": "// GÖRÜŞ ▸ ÇOK-ZAMAN OKUMA",

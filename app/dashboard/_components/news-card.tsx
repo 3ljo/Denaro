@@ -1,11 +1,24 @@
 'use client'
 
+import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import type { Impact, NewsItem } from '@/lib/market/news'
 
-/** Window in seconds where an event is treated as "LIVE" (pulses red). */
-const LIVE_WINDOW = 15 * 60
+/** Last N seconds before the event — show "SOON" / amber pulse. */
+const IMMINENT_BEFORE = 5 * 60
+/** First N seconds after the event — show "LIVE" / red pulse. */
+const LIVE_AFTER = 5 * 60
+
+type EventStatus = 'past' | 'live' | 'imminent' | 'upcoming'
+
+/** delta = event.timeUtc - now (seconds). Positive = future, negative = past. */
+function statusOf(delta: number): EventStatus {
+  if (delta < -LIVE_AFTER) return 'past'
+  if (delta <= 0) return 'live'           // event has happened, still fresh
+  if (delta <= IMMINENT_BEFORE) return 'imminent' // last few minutes before
+  return 'upcoming'
+}
 
 export default function NewsCard({ pair }: { pair: string }) {
   const t = useTranslations('dashboard.newsCard')
@@ -45,7 +58,7 @@ export default function NewsCard({ pair }: { pair: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pair])
 
-  const liveCount = items.filter((e) => Math.abs(e.timeUtc - now) <= LIVE_WINDOW).length
+  const liveCount = items.filter((e) => statusOf(e.timeUtc - now) === 'live').length
   const highCount = items.filter((e) => e.impact === 'high').length
   const medCount = items.filter((e) => e.impact === 'medium').length
 
@@ -99,7 +112,7 @@ export default function NewsCard({ pair }: { pair: string }) {
         <ul className="space-y-2">
           {items.map((event) => (
             <li key={event.id}>
-              <EventRow event={event} now={now} />
+              <EventRow event={event} now={now} pair={pair} />
             </li>
           ))}
         </ul>
@@ -113,19 +126,59 @@ export default function NewsCard({ pair }: { pair: string }) {
   )
 }
 
-function EventRow({ event, now }: { event: NewsItem; now: number }) {
+function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: string }) {
   const t = useTranslations('dashboard.newsCard')
   const delta = event.timeUtc - now // seconds
-  const isLive = Math.abs(delta) <= LIVE_WINDOW
-  const isPast = delta < -LIVE_WINDOW
+  const status = statusOf(delta)
   const styles = IMPACT_STYLES[event.impact]
 
-  // Container classes — LIVE state overrides impact tint with a red pulse.
-  const containerClass = isLive
-    ? 'denaro-live border border-l-[3px] border-rose-400 bg-rose-500/10'
-    : `border border-l-[3px] ${styles.container} ${
-        isPast ? 'opacity-65' : ''
-      }`
+  // AI prediction state — only used for HIGH impact events that haven't fully passed.
+  const [prediction, setPrediction] = useState<string | null>(null)
+  const [predicting, setPredicting] = useState(false)
+  const [predictionError, setPredictionError] = useState<string | null>(null)
+
+  const canPredict =
+    event.impact === 'high' && status !== 'past'
+
+  async function fetchPrediction(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (predicting || prediction) return
+    setPredicting(true)
+    setPredictionError(null)
+    try {
+      const res = await fetch('/api/denaro/news-prediction', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pair,
+          title: event.title,
+          currency: event.currency,
+          impact: event.impact,
+          forecast: event.forecast,
+          previous: event.previous,
+          timeIso: new Date(event.timeUtc * 1000).toISOString(),
+        }),
+      })
+      const text = await res.text()
+      if (!res.ok) throw new Error(text || 'failed')
+      setPrediction(text)
+    } catch (err) {
+      setPredictionError(err instanceof Error ? err.message : 'failed')
+    } finally {
+      setPredicting(false)
+    }
+  }
+
+  // Container classes — status drives the visual tint.
+  const containerClass =
+    status === 'live'
+      ? 'denaro-live border border-l-[3px] border-rose-400 bg-rose-500/10'
+      : status === 'imminent'
+        ? 'denaro-live border border-l-[3px] border-amber-300/80 bg-amber-400/[0.07]'
+        : `border border-l-[3px] ${styles.container} ${
+            status === 'past' ? 'opacity-65' : ''
+          }`
 
   const Wrapper = event.url
     ? ('a' as const)
@@ -149,9 +202,14 @@ function EventRow({ event, now }: { event: NewsItem; now: number }) {
         </div>
         <div className="flex shrink-0 flex-col items-end gap-1">
           <ImpactBadge impact={event.impact} />
-          {isLive && (
+          {status === 'live' && (
             <span className="rounded border border-rose-400/80 bg-rose-500/25 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-rose-100">
               {t('live')}
+            </span>
+          )}
+          {status === 'imminent' && (
+            <span className="rounded border border-amber-300/80 bg-amber-400/20 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-amber-100">
+              {t('soon')}
             </span>
           )}
         </div>
@@ -159,7 +217,7 @@ function EventRow({ event, now }: { event: NewsItem; now: number }) {
 
       <div className="mt-1.5 flex items-center justify-between gap-2 font-mono text-[0.62rem]">
         <span className="text-cyan-200/65">{fmtTime(event.timeUtc)}</span>
-        <Countdown delta={delta} />
+        <Countdown delta={delta} status={status} />
       </div>
 
       {(event.forecast || event.previous) && (
@@ -176,22 +234,83 @@ function EventRow({ event, now }: { event: NewsItem; now: number }) {
           )}
         </div>
       )}
+
+      {canPredict && !prediction && !predictionError && (
+        <button
+          type="button"
+          onClick={fetchPrediction}
+          disabled={predicting}
+          className="mt-2 inline-flex items-center gap-1.5 rounded border border-amber-300/40 bg-amber-400/10 px-2 py-1 font-display text-[0.55rem] tracking-[0.22em] text-amber-100 transition hover:border-amber-300/70 hover:bg-amber-400/20 hover:text-amber-50 disabled:opacity-60"
+        >
+          {predicting ? (
+            <>
+              <Spinner />
+              <span>{t('predicting')}</span>
+            </>
+          ) : (
+            <>
+              <CrystalBallIcon />
+              <span>{t('predict')}</span>
+            </>
+          )}
+        </button>
+      )}
+
+      {prediction && (
+        <div className="mt-2 rounded border border-amber-300/30 bg-amber-400/[0.06] p-2">
+          <p className="mb-1 font-display text-[0.5rem] tracking-[0.22em] text-amber-200/85">
+            {t('predictionLabel')}
+          </p>
+          <p className="whitespace-pre-line text-[0.7rem] leading-snug text-cyan-50/90">
+            {prediction}
+          </p>
+        </div>
+      )}
+
+      {predictionError && (
+        <p className="mt-2 text-[0.6rem] text-rose-300/85">// {predictionError}</p>
+      )}
     </Wrapper>
   )
 }
 
-function Countdown({ delta }: { delta: number }) {
+function Spinner() {
+  return (
+    <svg className="h-3 w-3 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
+      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function CrystalBallIcon() {
+  return (
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="11" r="7" />
+      <path d="M5 18h14" />
+      <path d="M9 8.5a3 3 0 0 1 3-2.5" />
+    </svg>
+  )
+}
+
+function Countdown({ delta, status }: { delta: number; status: EventStatus }) {
   const t = useTranslations('dashboard.newsCard')
   // delta = event.timeUtc - now (seconds)
-  if (Math.abs(delta) <= LIVE_WINDOW) {
+  if (status === 'live') {
     return (
       <span className="font-display tracking-[0.22em] text-rose-200">
         {t('now')}
       </span>
     )
   }
-  if (delta < 0) {
-    // past
+  if (status === 'imminent') {
+    return (
+      <span className="font-display tracking-[0.22em] text-amber-200">
+        T-{fmtDuration(delta)}
+      </span>
+    )
+  }
+  if (status === 'past') {
     return (
       <span className="font-display tracking-[0.18em] text-cyan-200/45">
         +{fmtDuration(-delta)}

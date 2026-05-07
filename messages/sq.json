@@ -265,7 +265,11 @@
       "now": "▶ TANI",
       "empty": "Nuk ka ngjarje me ndikim mesatar / të lartë të planifikuara për {pair} këtë javë.",
       "forecast": "P",
-      "previous": "M"
+      "previous": "M",
+      "soon": "SHPEJT",
+      "predict": "Parashiko ndikimin",
+      "predicting": "Duke lexuar…",
+      "predictionLabel": "// LEXIM AI"
     },
     "vision": {
       "badge": "// VIZION ▸ LEXIM SHUMË-TF",

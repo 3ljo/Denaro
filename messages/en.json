@@ -265,7 +265,11 @@
       "now": "▶ NOW",
       "empty": "No medium / high-impact events scheduled for {pair} this week.",
       "forecast": "F",
-      "previous": "P"
+      "previous": "P",
+      "soon": "SOON",
+      "predict": "Predict impact",
+      "predicting": "Reading…",
+      "predictionLabel": "// AI READ"
     },
     "vision": {
       "badge": "// VISION ▸ MULTI-TF READ",

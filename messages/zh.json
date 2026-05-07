@@ -265,7 +265,11 @@
       "now": "▶ 现在",
       "empty": "本周没有 {pair} 的中／高影响事件。",
       "forecast": "预",
-      "previous": "前"
+      "previous": "前",
+      "soon": "即将",
+      "predict": "预测影响",
+      "predicting": "读取中…",
+      "predictionLabel": "// AI 解读"
     },
     "vision": {
       "badge": "// 视觉 ▸ 多周期解读",

@@ -265,7 +265,11 @@
       "now": "▶ 現在",
       "empty": "今週、{pair} に予定されている中／高インパクトのイベントはありません。",
       "forecast": "予",
-      "previous": "前"
+      "previous": "前",
+      "soon": "まもなく",
+      "predict": "影響を予測",
+      "predicting": "読込中…",
+      "predictionLabel": "// AI読み"
     },
     "vision": {
       "badge": "// ビジョン ▸ マルチTF読解",
