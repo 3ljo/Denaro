@@ -201,7 +201,11 @@
       "operatorFallback": "Operator",
       "openSettings": "Open settings",
       "settings": "Settings",
-      "language": "Language"
+      "language": "Language",
+      "plan": {
+        "upgradeHint": "Upgrade plan",
+        "manageHint": "Manage subscription"
+      }
     },
     "tabs": {
       "markets": "Markets",

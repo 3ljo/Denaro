@@ -201,7 +201,11 @@
       "operatorFallback": "Operator",
       "openSettings": "Hap cilësimet",
       "settings": "Cilësimet",
-      "language": "Gjuha"
+      "language": "Gjuha",
+      "plan": {
+        "upgradeHint": "Përmirëso planin",
+        "manageHint": "Menaxho abonimin"
+      }
     },
     "tabs": {
       "markets": "Tregjet",

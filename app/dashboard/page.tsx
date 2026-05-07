@@ -5,6 +5,7 @@ import { getProfile } from '@/lib/profile/actions'
 import { logout } from '@/lib/auth/actions'
 import DashboardContent from './_components/dashboard-content'
 import ProfileMenu from './_components/profile-menu'
+import PlanBadge from './_components/plan-badge'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
 export const metadata = { title: 'Dashboard' }
@@ -75,6 +76,7 @@ export default async function DashboardPage() {
               one unit. Language (globe + code) on the left, small red Sign out
               with icon, then the avatar menu on the right. */}
           <div className="denaro-panel flex shrink-0 items-center gap-1.5 rounded-md p-1">
+            <PlanBadge tier={profile.tier} />
             <LanguageSwitcher />
             <form action={logout} className="hidden sm:block">
               <button
