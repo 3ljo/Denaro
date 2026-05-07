@@ -25,6 +25,15 @@ export type Profile = {
   pairs: string[]
   strategy: Strategy
   tier: SubscriptionTier
+  // Lemon Squeezy state — populated by the LS webhook on subscription
+  // create/update and cleared on cancel/expire. Free-tier rows have these
+  // as null. customer_portal_url is what the Settings "Manage subscription"
+  // button links to.
+  lemonsqueezy_customer_id: string | null
+  lemonsqueezy_subscription_id: string | null
+  customer_portal_url: string | null
+  subscription_status: string | null
+  current_period_ends_at: string | null
   onboarded_at: string | null
   created_at: string
   updated_at: string

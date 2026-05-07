@@ -318,6 +318,9 @@ export default function SettingsForm({
 
       {tab === 'account' && (
         <div className="flex flex-col gap-4">
+          {/* Subscription */}
+          <SubscriptionSection profile={profile} />
+
           {/* Session */}
           <section className="denaro-panel rounded-md p-4">
             <SectionHeader
@@ -425,6 +428,100 @@ export default function SettingsForm({
         </div>
       )}
     </div>
+  )
+}
+
+/**
+ * Account → Subscription panel. Shows the operator's current tier with a
+ * colored badge, what's unlocked, and the right CTA: free → "Upgrade plan"
+ * to /pricing; pro/elite → "Manage subscription" to /api/billing/portal
+ * (which redirects to the LS customer portal once it's wired).
+ *
+ * If a paid user has no portal URL yet (webhook hasn't fired or LS isn't
+ * wired), the Manage button becomes disabled with a small note.
+ */
+function SubscriptionSection({ profile }: { profile: Profile }) {
+  const tSub = useTranslations('settings.sections.subscription')
+  const tTiers = useTranslations('settings.sections.strategy.tiers')
+  const tier = profile.tier
+  const portalUrl = profile.customer_portal_url
+  const periodEnd = profile.current_period_ends_at
+
+  const tierToneClass =
+    tier === 'elite'
+      ? 'border-amber-300/70 bg-amber-400/15 text-amber-100'
+      : tier === 'pro'
+        ? 'border-cyan-300/55 bg-cyan-500/12 text-cyan-100'
+        : 'border-cyan-400/30 bg-cyan-500/[0.06] text-cyan-200/85'
+
+  return (
+    <section className="denaro-panel rounded-md p-4">
+      <SectionHeader title={tSub('title')} subtitle={tSub('subtitle')} />
+
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-md border border-cyan-400/15 bg-cyan-500/[0.04] px-3 py-2.5">
+        <div className="min-w-0 flex-1">
+          <p className="font-display text-[0.55rem] tracking-[0.28em] text-cyan-200/65">
+            {tSub('currentPlan')}
+          </p>
+          <div className="mt-1 flex items-center gap-2">
+            <span
+              className={`rounded border px-2 py-0.5 font-display text-[0.62rem] font-bold uppercase tracking-[0.22em] ${tierToneClass}`}
+            >
+              {tTiers(tier)}
+            </span>
+            <span className="font-display text-[0.65rem] tracking-[0.18em] text-cyan-100/65">
+              {tSub(`includes.${tier}`)}
+            </span>
+          </div>
+          {periodEnd && (
+            <p className="mt-1.5 text-[0.65rem] tracking-wide text-cyan-100/45">
+              {tSub('renews', {
+                date: new Date(periodEnd).toLocaleDateString(),
+              })}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+        {tier === 'free' ? (
+          <Link
+            href="/pricing"
+            className="denaro-btn flex-1 text-center"
+          >
+            {tSub('upgrade')}
+          </Link>
+        ) : portalUrl ? (
+          <a
+            href="/api/billing/portal"
+            className="denaro-btn flex-1 text-center"
+          >
+            {tSub('manage')}
+          </a>
+        ) : (
+          <button
+            type="button"
+            disabled
+            title={tSub('manageUnavailable')}
+            className="denaro-btn flex-1 cursor-not-allowed opacity-50"
+          >
+            {tSub('manage')}
+          </button>
+        )}
+        <Link
+          href="/pricing"
+          className="denaro-btn-ghost flex-1 text-center sm:flex-initial"
+        >
+          {tSub('viewPlans')}
+        </Link>
+      </div>
+
+      {tier !== 'free' && !portalUrl && (
+        <p className="mt-2 text-[0.62rem] tracking-wide text-cyan-100/45">
+          {tSub('manageUnavailable')}
+        </p>
+      )}
+    </section>
   )
 }
 

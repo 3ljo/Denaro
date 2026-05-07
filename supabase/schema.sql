@@ -91,9 +91,25 @@ CREATE POLICY "profiles_insert_own" ON public.profiles
 -- Pro:  all 6 strategies.
 -- Elite: same as Pro for now; reserved for future custom strategies.
 --
--- Defaults to 'free' so legacy rows backfill safely. Tier flips manually in
--- Supabase Studio for now — Stripe webhook integration is a separate phase.
+-- Defaults to 'free' so legacy rows backfill safely. Tier flips via the
+-- Lemon Squeezy webhook (Phase 4); until that's wired, flip manually in
+-- Supabase Studio.
 -- =====================================================================
 ALTER TABLE public.profiles
   ADD COLUMN IF NOT EXISTS tier TEXT NOT NULL DEFAULT 'free'
     CHECK (tier IN ('free', 'pro', 'elite'));
+
+-- Lemon Squeezy state. Populated by the LS webhook on subscription_created /
+-- updated and cleared on subscription_cancelled / expired. All nullable —
+-- free-tier users never have these set.
+--   customer_portal_url: per-customer URL Lemon Squeezy returns in the
+--     webhook payload. Drives the "Manage subscription" button in settings.
+--   subscription_status: the LS status string ('active', 'cancelled',
+--     'expired', 'on_trial', 'past_due', etc.) so we can surface the right
+--     state in the settings panel without keeping our own enum in sync.
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS lemonsqueezy_customer_id TEXT,
+  ADD COLUMN IF NOT EXISTS lemonsqueezy_subscription_id TEXT,
+  ADD COLUMN IF NOT EXISTS customer_portal_url TEXT,
+  ADD COLUMN IF NOT EXISTS subscription_status TEXT,
+  ADD COLUMN IF NOT EXISTS current_period_ends_at TIMESTAMPTZ;

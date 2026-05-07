@@ -380,6 +380,21 @@
           "elite": "Elite"
         }
       },
+      "subscription": {
+        "title": "Subscription",
+        "subtitle": "Plan and billing.",
+        "currentPlan": "Current plan",
+        "renews": "Renews {date}",
+        "includes": {
+          "free": "1 strategy lens (SMC)",
+          "pro": "All 6 strategy lenses",
+          "elite": "All 6 lenses + custom"
+        },
+        "upgrade": "Upgrade plan",
+        "manage": "Manage subscription",
+        "manageUnavailable": "Available after first payment.",
+        "viewPlans": "View plans"
+      },
       "session": {
         "title": "Session",
         "subtitle": "Sign out everywhere on this device."
@@ -653,6 +668,15 @@
             "Early access to new features"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Current plan",
+        "upgrade": "Upgrade",
+        "manage": "Manage subscription"
+      },
+      "comingSoon": {
+        "badge": "// CHECKOUT IN SETUP",
+        "body": "Subscriptions are coming online shortly. Drop your email at the bottom of the page if you want to be notified when paid plans go live."
       },
       "comparison": {
         "title": "Compare plans",

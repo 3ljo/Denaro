@@ -13,10 +13,26 @@ import FaqArea from "@t/app/components/faq/faq-area";
 import FooterTwo from "@t/layout/footer/footer-2";
 import HomePricing from "./_components/home-pricing";
 
+import { isSubscriptionTier, type SubscriptionTier } from "@/lib/profile/types";
+
 export default async function HomeTwo() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const isAuthed = !!user;
+
+  // Same currentTier lookup as /pricing so the home pricing teaser shows
+  // "Current plan" / "Upgrade" labels for logged-in users.
+  let currentTier: SubscriptionTier | null = null;
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("tier")
+      .eq("id", user.id)
+      .maybeSingle();
+    currentTier = isSubscriptionTier(data?.tier)
+      ? (data.tier as SubscriptionTier)
+      : null;
+  }
 
   return (
     <Wrapper>
@@ -54,7 +70,7 @@ export default async function HomeTwo() {
         {/* upcoming matches end */}
 
         {/* pricing teaser */}
-        <HomePricing isAuthed={isAuthed} />
+        <HomePricing isAuthed={isAuthed} currentTier={currentTier} />
         {/* pricing teaser end */}
 
         {/* faq area start */}

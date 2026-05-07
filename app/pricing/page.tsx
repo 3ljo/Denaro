@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
+import { isSubscriptionTier, type SubscriptionTier } from '@/lib/profile/types'
 import Wrapper from '@t/layout/wrapper'
 import Header from '@t/layout/header/header'
 import FooterTwo from '@t/layout/footer/footer-2'
@@ -25,10 +26,29 @@ const COMPARISON_ROWS = [
 
 const FAQ_KEYS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'] as const
 
-export default async function PricingPage() {
+export default async function PricingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string }>
+}) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   const isAuthed = !!user
+
+  // Pull just the tier so the CTAs can render "Current plan" / "Upgrade"
+  // / "Manage" depending on what the user already has.
+  let currentTier: SubscriptionTier | null = null
+  if (user) {
+    const { data } = await supabase
+      .from('profiles')
+      .select('tier')
+      .eq('id', user.id)
+      .maybeSingle()
+    currentTier = isSubscriptionTier(data?.tier) ? (data.tier as SubscriptionTier) : null
+  }
+
+  const params = await searchParams
+  const showComingSoon = params?.status === 'coming-soon'
 
   const t = await getTranslations('marketing.pricing')
 
@@ -37,8 +57,21 @@ export default async function PricingPage() {
       <Header style_2={true} />
 
       <main className="main--area">
+        {showComingSoon && (
+          <div className="container pt-10">
+            <div className="mx-auto max-w-3xl rounded-md border border-amber-300/45 bg-amber-400/[0.06] px-4 py-3 text-center">
+              <p className="font-display text-[0.62rem] tracking-[0.28em] text-amber-200/85">
+                {t('comingSoon.badge')}
+              </p>
+              <p className="mt-1 text-[0.85rem] leading-snug text-white/85">
+                {t('comingSoon.body')}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Tier cards — template-styled, same component as the home page */}
-        <HomePricing isAuthed={isAuthed} />
+        <HomePricing isAuthed={isAuthed} currentTier={currentTier} />
 
         {/* COMPARISON */}
         <section className="denaro-pricing-extras">

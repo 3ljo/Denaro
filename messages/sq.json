@@ -375,6 +375,21 @@
           "elite": "Elite"
         }
       },
+      "subscription": {
+        "title": "Abonimi",
+        "subtitle": "Plani dhe pagesat.",
+        "currentPlan": "Plani aktual",
+        "renews": "Rinovohet më {date}",
+        "includes": {
+          "free": "1 lente strategjie (SMC)",
+          "pro": "Të 6 lentet e strategjisë",
+          "elite": "Të 6 lentet + të personalizuara"
+        },
+        "upgrade": "Përmirëso planin",
+        "manage": "Menaxho abonimin",
+        "manageUnavailable": "Disponohet pas pagesës së parë.",
+        "viewPlans": "Shih planet"
+      },
       "session": {
         "title": "Sesioni",
         "subtitle": "Shkëputu nga të gjitha sesionet në këtë pajisje."
@@ -653,6 +668,15 @@
             "Akses i hershëm në veçori"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Plani aktual",
+        "upgrade": "Përmirëso",
+        "manage": "Menaxho abonimin"
+      },
+      "comingSoon": {
+        "badge": "// PAGESA NË NDËRTIM",
+        "body": "Abonimet po vihen në punë së shpejti. Lëre email-in poshtë faqes nëse do të njoftohesh kur planet me pagesë të aktivizohen."
       },
       "comparison": {
         "title": "Krahaso planet",
