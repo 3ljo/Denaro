@@ -45,15 +45,15 @@ const Header = ({style_2=false}:{style_2?:boolean}) => {
                   </div>
                   <div className="tgmenu__action d-none d-md-block">
                     <ul className="list-wrap" style={{display:'flex',alignItems:'center',gap:'14px'}}>
-                      <li style={{listStyle:'none'}}>
-                        <TemplateLanguageSwitcher />
-                      </li>
                       <li className="header-btn">
                         <Link href="/login" className={`${style_2?'tg-btn-3 tg-svg':'tg-border-btn'}`}>
                           <BtnBg/>
                           {style_2 && <SvgIconCom icon={shape} id="svg-2" />}
                           <i className="flaticon-edit"></i> {t('signIn')}
                         </Link>
+                      </li>
+                      <li style={{listStyle:'none'}}>
+                        <TemplateLanguageSwitcher />
                       </li>
                     </ul>
                   </div>

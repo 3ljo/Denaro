@@ -22,8 +22,8 @@ const menu_data:IMenuDataType[] = [
   },
   {
     id:3,
-    i18nKey:'features',
-    link:'/#features',
+    i18nKey:'faq',
+    link:'/#faq',
   },
   {
     id:4,
