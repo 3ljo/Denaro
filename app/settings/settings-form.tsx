@@ -9,6 +9,8 @@ import {
   type Profile,
   type Strategy,
 } from '@/lib/profile/types'
+import { canUseStrategy } from '@/lib/profile/tier'
+import { STRATEGY_REGISTRY } from '@/lib/denaro/strategies'
 import { saveSettings } from '@/lib/profile/actions'
 import { deleteAccount, logout } from '@/lib/auth/actions'
 import LanguageSwitcher from '@/app/_components/language-switcher'
@@ -291,32 +293,22 @@ export default function SettingsForm({
             <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {STRATEGIES.map((s) => {
                 const selected = strategy === s
+                const unlocked = canUseStrategy(profile.tier, s)
+                const requiredTier = STRATEGY_REGISTRY[s].tier
                 return (
-                  <button
+                  <StrategyOption
                     key={s}
-                    type="button"
-                    onClick={() => setStrategy(s)}
-                    aria-pressed={selected}
-                    className={`block rounded-md border px-3 py-2.5 text-left transition ${
-                      selected
-                        ? 'border-amber-300/80 bg-amber-400/10 shadow-[0_0_22px_rgba(251,191,36,0.25)]'
-                        : 'border-cyan-400/25 bg-cyan-500/[0.04] hover:border-cyan-300/50 hover:bg-cyan-500/[0.07]'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-[0.74rem] font-bold uppercase tracking-[0.16em] text-cyan-50">
-                        {tStrat(`${s}.label`)}
-                      </span>
-                      {selected && (
-                        <span className="font-display text-[0.55rem] tracking-[0.25em] text-amber-300">
-                          {tSec('strategy.active')}
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/60">
-                      {tStrat(`${s}.blurb`)}
-                    </p>
-                  </button>
+                    label={tStrat(`${s}.label`)}
+                    blurb={tStrat(`${s}.blurb`)}
+                    selected={selected}
+                    unlocked={unlocked}
+                    activeLabel={tSec('strategy.active')}
+                    lockedLabel={tSec('strategy.locked', {
+                      tier: tSec(`strategy.tiers.${requiredTier}`),
+                    })}
+                    upgradeLabel={tSec('strategy.upgrade')}
+                    onSelect={() => setStrategy(s)}
+                  />
                 )
               })}
             </div>
@@ -433,6 +425,104 @@ export default function SettingsForm({
         </div>
       )}
     </div>
+  )
+}
+
+/**
+ * One strategy card in the picker. Locked strategies render with a muted
+ * style, a tier badge, and a link to /pricing instead of a click handler.
+ */
+function StrategyOption({
+  label,
+  blurb,
+  selected,
+  unlocked,
+  activeLabel,
+  lockedLabel,
+  upgradeLabel,
+  onSelect,
+}: {
+  label: string
+  blurb: string
+  selected: boolean
+  unlocked: boolean
+  activeLabel: string
+  lockedLabel: string
+  upgradeLabel: string
+  onSelect: () => void
+}) {
+  const baseClasses =
+    'block rounded-md border px-3 py-2.5 text-left transition'
+
+  if (!unlocked) {
+    return (
+      <Link
+        href="/pricing"
+        className={`${baseClasses} border-cyan-400/15 bg-cyan-500/[0.025] opacity-70 hover:border-amber-300/40 hover:bg-amber-400/[0.04] hover:opacity-100`}
+      >
+        <div className="flex items-center justify-between gap-2">
+          <span className="flex items-center gap-2 font-display text-[0.74rem] font-bold uppercase tracking-[0.16em] text-cyan-100/70">
+            <LockIcon />
+            {label}
+          </span>
+          <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/85">
+            {lockedLabel}
+          </span>
+        </div>
+        <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/45">
+          {blurb}
+        </p>
+        <p className="mt-1.5 font-display text-[0.55rem] tracking-[0.25em] text-amber-200/80">
+          {upgradeLabel} →
+        </p>
+      </Link>
+    )
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      className={`${baseClasses} ${
+        selected
+          ? 'border-amber-300/80 bg-amber-400/10 shadow-[0_0_22px_rgba(251,191,36,0.25)]'
+          : 'border-cyan-400/25 bg-cyan-500/[0.04] hover:border-cyan-300/50 hover:bg-cyan-500/[0.07]'
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <span className="font-display text-[0.74rem] font-bold uppercase tracking-[0.16em] text-cyan-50">
+          {label}
+        </span>
+        {selected && (
+          <span className="font-display text-[0.55rem] tracking-[0.25em] text-amber-300">
+            {activeLabel}
+          </span>
+        )}
+      </div>
+      <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/60">
+        {blurb}
+      </p>
+    </button>
+  )
+}
+
+function LockIcon() {
+  return (
+    <svg
+      width="11"
+      height="11"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="4" y="11" width="16" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
   )
 }
 

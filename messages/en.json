@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Could not update password. Please try again.",
       "unauthorized": "unauthorized",
       "pickAtLeastOnePair": "Pick at least 1 pair.",
+      "strategyLocked": "That strategy isn't unlocked on your plan. Upgrade to access it.",
       "deleteFailed": "Could not delete account. Please try again.",
       "deleteConfirmMismatch": "Type DELETE exactly to confirm."
     },
@@ -370,7 +371,14 @@
       "strategy": {
         "title": "Strategy lens",
         "subtitle": "The framework Denaro uses for every analysis.",
-        "active": "ACTIVE"
+        "active": "ACTIVE",
+        "locked": "{tier} only",
+        "upgrade": "Upgrade",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
       },
       "session": {
         "title": "Session",

@@ -2,7 +2,7 @@ import type { StrategyDefinition } from './types'
 
 export const MEAN_REVERSION: StrategyDefinition = {
   id: 'mean-reversion',
-  tier: 'free',
+  tier: 'pro',
   chatLens: `Operator's lens: Mean Reversion. Only fade extremes within established ranges — never inside a trending impulse. Anchor in H1/M15 range identification. Look for exhaustion at range bounds: rejection wicks, RSI overbought/oversold, divergence, double tops/bottoms. Vocabulary: range high, range low, mean, exhaustion, fade, divergence, return-to-mean. Avoid breakout/momentum framing. Invalidation = clean break + close outside the range.`,
   cardLens: `Frame the read in mean-reversion terms: range high, range low, mean, exhaustion zones at extremes, fade entries. If price is trending (no range), say so explicitly — don't force a fade thesis.`,
   visionLens: `Operator picked Mean Reversion. Read every section through that lens — range bounds, exhaustion, fades. If the chart is clearly trending without a range, acknowledge that and warn against forcing a fade.`,

@@ -14,5 +14,14 @@ export default async function OnboardingPage() {
   if (profile?.onboarded_at) redirect('/dashboard')
 
   const emailHint = user.email?.split('@')[0] ?? ''
-  return <OnboardingFlow defaultName={emailHint} email={user.email ?? ''} />
+  // New users default to 'free' tier; the auto-create trigger backfills the
+  // column. Pass it through so the strategy step can lock paid options.
+  const tier = profile?.tier ?? 'free'
+  return (
+    <OnboardingFlow
+      defaultName={emailHint}
+      email={user.email ?? ''}
+      tier={tier}
+    />
+  )
 }

@@ -84,3 +84,16 @@ ALTER TABLE public.profiles
 DROP POLICY IF EXISTS "profiles_insert_own" ON public.profiles;
 CREATE POLICY "profiles_insert_own" ON public.profiles
   FOR INSERT WITH CHECK (auth.uid() = id);
+
+-- =====================================================================
+-- Subscription tier — gates which strategies the operator can pick from.
+-- Free: SMC only (the existing default; preserves access for current users).
+-- Pro:  all 6 strategies.
+-- Elite: same as Pro for now; reserved for future custom strategies.
+--
+-- Defaults to 'free' so legacy rows backfill safely. Tier flips manually in
+-- Supabase Studio for now — Stripe webhook integration is a separate phase.
+-- =====================================================================
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS tier TEXT NOT NULL DEFAULT 'free'
+    CHECK (tier IN ('free', 'pro', 'elite'));

@@ -2,7 +2,7 @@ import type { StrategyDefinition } from './types'
 
 export const TREND: StrategyDefinition = {
   id: 'trend',
-  tier: 'free',
+  tier: 'pro',
   chatLens: `Operator's lens: Trend Following. Anchor in H4/H1 trend definition, M30/M15 pullback entry. Look for pullbacks to dynamic support (EMA cluster, prior swing), continuation patterns (bull/bear flags, breakout retests), momentum candles. Vocabulary: HH/HL or LH/LL, breakout retest, momentum, EMA stack, continuation, pullback. Ignore counter-trend reversal setups and range-fade ideas. Invalidation = lower-low (in uptrend) or higher-high (in downtrend) print on the entry timeframe.`,
   cardLens: `Frame the read in trend-following terms: trend phase (impulse / correction / exhaustion), pullback zones, breakout retest levels, continuation triggers. No fade/reversal framing unless the trend is clearly broken.`,
   visionLens: `Operator picked Trend Following. Read every section through that lens — trend phase, pullback zones, continuation triggers. Avoid counter-trend fade ideas; if the trend is unclear, say so.`,

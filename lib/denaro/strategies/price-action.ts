@@ -2,7 +2,7 @@ import type { StrategyDefinition } from './types'
 
 export const PRICE_ACTION: StrategyDefinition = {
   id: 'price-action',
-  tier: 'free',
+  tier: 'pro',
   chatLens: `Operator's lens: Pure Price Action. Anchor reads in raw structure — supply/demand zones, swing points, candlestick patterns, market profile. No SMC jargon (avoid OB / FVG / liquidity sweep) unless the operator uses it first. No indicators. Vocabulary: HH/HL, LH/LL, supply zone, demand zone, rejection wick, engulfing, inside bar, breakout, retest. Invalidation = clean break of the swing structure that defines the bias.`,
   cardLens: `Frame the read in pure price action: supply/demand zones, swing structure (HH/HL or LH/LL), candlestick reads. No SMC jargon (no OB/FVG/sweep). No indicators.`,
   visionLens: `Operator picked Pure Price Action. Read every section through that lens — swing points, supply/demand zones, candlestick patterns. Avoid SMC jargon and indicators.`,

@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Fjalëkalimi nuk u përditësua. Të lutem provo përsëri.",
       "unauthorized": "i paautorizuar",
       "pickAtLeastOnePair": "Zgjidh së paku 1 çift.",
+      "strategyLocked": "Kjo strategji nuk është aktive në planin tënd. Përditëso planin për ta përdorur.",
       "deleteFailed": "Llogaria nuk u fshi. Të lutem provo përsëri.",
       "deleteConfirmMismatch": "Shkruaj saktësisht DELETE për të konfirmuar."
     },
@@ -365,7 +366,14 @@
       "strategy": {
         "title": "Lentja e strategjisë",
         "subtitle": "Korniza që Denaro përdor për çdo analizë.",
-        "active": "AKTIVE"
+        "active": "AKTIVE",
+        "locked": "Vetëm {tier}",
+        "upgrade": "Përmirëso planin",
+        "tiers": {
+          "free": "Falas",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
       },
       "session": {
         "title": "Sesioni",

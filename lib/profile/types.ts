@@ -6,6 +6,17 @@ export type Strategy =
   | 'scalping'
   | 'swing'
 
+// Subscription tier — drives which strategies the operator can pick.
+// Defined here (instead of inside lib/denaro/strategies/) so server actions
+// in this folder can import the type without a circular dependency.
+export type SubscriptionTier = 'free' | 'pro' | 'elite'
+
+export const SUBSCRIPTION_TIERS: SubscriptionTier[] = ['free', 'pro', 'elite']
+
+export function isSubscriptionTier(value: unknown): value is SubscriptionTier {
+  return typeof value === 'string' && (SUBSCRIPTION_TIERS as string[]).includes(value)
+}
+
 export type Profile = {
   id: string
   email: string
@@ -13,6 +24,7 @@ export type Profile = {
   avatar_url: string | null
   pairs: string[]
   strategy: Strategy
+  tier: SubscriptionTier
   onboarded_at: string | null
   created_at: string
   updated_at: string

@@ -1,13 +1,17 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   POPULAR_PAIRS,
   STRATEGIES,
   type Strategy,
+  type SubscriptionTier,
 } from '@/lib/profile/types'
+import { canUseStrategy, defaultStrategyForTier } from '@/lib/profile/tier'
+import { STRATEGY_REGISTRY } from '@/lib/denaro/strategies'
 import { saveOnboarding } from '@/lib/profile/actions'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
@@ -17,16 +21,20 @@ const STEPS: Step[] = ['welcome', 'pairs', 'strategy', 'name']
 export default function OnboardingFlow({
   defaultName,
   email,
+  tier,
 }: {
   defaultName: string
   email: string
+  tier: SubscriptionTier
 }) {
   const t = useTranslations('onboarding')
   const tErr = useTranslations('auth.errors')
 
   const [step, setStep] = useState<Step>('welcome')
   const [pairs, setPairs] = useState<string[]>([])
-  const [strategy, setStrategy] = useState<Strategy>('smc')
+  // Initial strategy must be one the user can actually save — for free-tier
+  // signups that's 'smc'. defaultStrategyForTier guarantees an allowed pick.
+  const [strategy, setStrategy] = useState<Strategy>(defaultStrategyForTier(tier))
   const [name, setName] = useState(defaultName)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -139,6 +147,7 @@ export default function OnboardingFlow({
               <StrategyPick
                 strategy={strategy}
                 setStrategy={setStrategy}
+                tier={tier}
                 onBack={() => setStep('pairs')}
                 onContinue={() => setStep('name')}
               />
@@ -260,17 +269,20 @@ function Pairs({
 function StrategyPick({
   strategy,
   setStrategy,
+  tier,
   onBack,
   onContinue,
 }: {
   strategy: Strategy
   setStrategy: (s: Strategy) => void
+  tier: SubscriptionTier
   onBack: () => void
   onContinue: () => void
 }) {
   const t = useTranslations('onboarding.strategy')
   const tStrat = useTranslations('strategies')
   const tCommon = useTranslations('common')
+  const tSec = useTranslations('settings.sections')
   return (
     <div>
       <p className="font-display text-[0.55rem] tracking-[0.4em] text-amber-300/90">
@@ -286,6 +298,39 @@ function StrategyPick({
       <div className="mt-4 space-y-2">
         {STRATEGIES.map((s) => {
           const selected = strategy === s
+          const unlocked = canUseStrategy(tier, s)
+          const requiredTier = STRATEGY_REGISTRY[s].tier
+          const label = tStrat(`${s}.label`)
+          const blurb = tStrat(`${s}.blurb`)
+
+          if (!unlocked) {
+            return (
+              <Link
+                key={s}
+                href="/pricing"
+                className="block w-full rounded-md border border-cyan-400/15 bg-cyan-500/[0.025] px-3 py-2.5 text-left opacity-70 transition hover:border-amber-300/40 hover:bg-amber-400/[0.04] hover:opacity-100"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-cyan-100/70">
+                    <LockIcon />
+                    {label}
+                  </span>
+                  <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/85">
+                    {tSec('strategy.locked', {
+                      tier: tSec(`strategy.tiers.${requiredTier}`),
+                    })}
+                  </span>
+                </div>
+                <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/45">
+                  {blurb}
+                </p>
+                <p className="mt-1.5 font-display text-[0.55rem] tracking-[0.25em] text-amber-200/80">
+                  {tSec('strategy.upgrade')} →
+                </p>
+              </Link>
+            )
+          }
+
           return (
             <button
               key={s}
@@ -299,7 +344,7 @@ function StrategyPick({
             >
               <div className="flex items-center justify-between">
                 <span className="font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-cyan-50">
-                  {tStrat(`${s}.label`)}
+                  {label}
                 </span>
                 {selected && (
                   <span className="font-display text-[0.55rem] tracking-[0.25em] text-amber-300">
@@ -308,7 +353,7 @@ function StrategyPick({
                 )}
               </div>
               <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/60">
-                {tStrat(`${s}.blurb`)}
+                {blurb}
               </p>
             </button>
           )
@@ -324,6 +369,25 @@ function StrategyPick({
         </button>
       </div>
     </div>
+  )
+}
+
+function LockIcon() {
+  return (
+    <svg
+      width="11"
+      height="11"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="4" y="11" width="16" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
   )
 }
 

@@ -1,9 +1,7 @@
-import type { Strategy } from '@/lib/profile/types'
+import type { Strategy, SubscriptionTier } from '@/lib/profile/types'
 
-// Placeholder for the future subscription system. Phase 3 will gate strategy
-// selection in the settings UI and on the server. For now every strategy is
-// 'free' so picking one always works.
-export type SubscriptionTier = 'free' | 'pro' | 'elite'
+// Re-export for downstream callers that already import from this file.
+export type { SubscriptionTier }
 
 export type VisionSection = {
   heading: string

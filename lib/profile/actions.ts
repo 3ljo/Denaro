@@ -3,7 +3,14 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
-import { isStrategy, type Profile, type Strategy } from './types'
+import {
+  isStrategy,
+  isSubscriptionTier,
+  type Profile,
+  type Strategy,
+  type SubscriptionTier,
+} from './types'
+import { canUseStrategy } from './tier'
 
 /** Fetches the operator's profile, or null if signed out / row missing. */
 export async function getProfile(): Promise<Profile | null> {
@@ -24,7 +31,10 @@ export async function getProfile(): Promise<Profile | null> {
   return (data as Profile) ?? null
 }
 
-export type OnboardingErrorKey = 'unauthorized' | 'pickAtLeastOnePair'
+export type OnboardingErrorKey =
+  | 'unauthorized'
+  | 'pickAtLeastOnePair'
+  | 'strategyLocked'
 
 export async function saveOnboarding(input: {
   pairs: string[]
@@ -43,6 +53,21 @@ export async function saveOnboarding(input: {
   if (pairs.length === 0) return { errorKey: 'pickAtLeastOnePair' }
 
   const strategy: Strategy = isStrategy(input.strategy) ? input.strategy : 'smc'
+
+  // Tier check — read the operator's current tier (default 'free' for new
+  // users) and reject the strategy if it isn't unlocked. Onboarding usually
+  // hits this for never-seen-before users on the free tier picking anything
+  // other than SMC.
+  const { data: tierRow } = await supabase
+    .from('profiles')
+    .select('tier')
+    .eq('id', user.id)
+    .maybeSingle()
+  const tier: SubscriptionTier = isSubscriptionTier(tierRow?.tier)
+    ? (tierRow.tier as SubscriptionTier)
+    : 'free'
+  if (!canUseStrategy(tier, strategy)) return { errorKey: 'strategyLocked' }
+
   const displayName = (input.displayName ?? '').trim() || null
   const now = new Date().toISOString()
 
@@ -69,7 +94,10 @@ export async function saveOnboarding(input: {
   redirect('/dashboard')
 }
 
-export type SettingsErrorKey = 'unauthorized' | 'pickAtLeastOnePair'
+export type SettingsErrorKey =
+  | 'unauthorized'
+  | 'pickAtLeastOnePair'
+  | 'strategyLocked'
 
 /** Updates profile fields editable from /settings. Reuses the same validation
  *  as onboarding. Returns errorKey for the client to translate. */
@@ -90,6 +118,20 @@ export async function saveSettings(input: {
   if (pairs.length === 0) return { errorKey: 'pickAtLeastOnePair' }
 
   const strategy: Strategy = isStrategy(input.strategy) ? input.strategy : 'smc'
+
+  // Tier check — same gate as saveOnboarding. The client UI already disables
+  // locked strategies, but the server is the source of truth in case the
+  // user is on a downgraded tier and tries to roundtrip an old value.
+  const { data: tierRow } = await supabase
+    .from('profiles')
+    .select('tier')
+    .eq('id', user.id)
+    .maybeSingle()
+  const tier: SubscriptionTier = isSubscriptionTier(tierRow?.tier)
+    ? (tierRow.tier as SubscriptionTier)
+    : 'free'
+  if (!canUseStrategy(tier, strategy)) return { errorKey: 'strategyLocked' }
+
   const displayName = (input.displayName ?? '').trim() || null
   const now = new Date().toISOString()
 
