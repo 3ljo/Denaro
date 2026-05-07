@@ -3,7 +3,8 @@ import React,{useState} from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import MobileOffCanvas from "@t/app/components/common/mobile-offcanvas";
-import { BtnBg } from "@t/app/components/svg";
+import SvgIconCom from "@t/app/components/common/svg-icon-anim";
+import shape from '@t/assets/img/icons/shape02.svg';
 import HeaderNavMenus from "./header-nav-menus";
 import StickyWrapper from "./sticky-wrapper";
 import TemplateLanguageSwitcher from "./template-language-switcher";
@@ -44,9 +45,9 @@ const Header = ({style_2=false}:{style_2?:boolean}) => {
                   <div className="tgmenu__action d-none d-md-block">
                     <ul className="list-wrap" style={{display:'flex',alignItems:'center',gap:'14px'}}>
                       <li className="header-btn">
-                        <Link href="/login" className={`${style_2?'tg-btn-3 tg-svg':'tg-border-btn'}`}>
-                          <BtnBg/>
-                          {t('signIn')}
+                        <Link href="/login" className="tg-btn-3 tg-svg">
+                          <SvgIconCom icon={shape} id="svg-header-enter" />
+                          <span>{t('signIn')}</span>
                         </Link>
                       </li>
                       <li style={{listStyle:'none'}}>
