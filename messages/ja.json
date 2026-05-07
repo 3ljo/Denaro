@@ -593,6 +593,72 @@
           }
         }
       }
+    },
+    "home": {
+      "nav": {
+        "home": "ホーム",
+        "about": "概要",
+        "faq": "FAQ",
+        "pricing": "料金",
+        "news": "ニュース",
+        "contact": "お問い合わせ"
+      },
+      "heroCta": {
+        "eyebrow": "AIトレーディングアナリスト",
+        "title": "Denaro",
+        "subtitle": "真剣なトレーダーのためのインテリジェントなコパイロット。あらゆるチャート、あらゆるセッションでのリアルタイム分析 — 明晰さのために構築され、確信のために調整されています。",
+        "ctaPrimary": "はじめる",
+        "ctaSecondary": "料金を見る",
+        "trust": "クレジットカード不要 · 14日間Proトライアル · いつでもキャンセル可"
+      },
+      "about": {
+        "title": "リアルタイム分析、",
+        "titleLine2": "確信のために調整",
+        "body": "Denaroはシニアアナリストのように市場を読みます — あらゆる時間軸、あらゆるセッション、あらゆる銘柄で。ノイズもハイプもなく、あなたのエッジを実際に形作るインジケーターに基づく明確なシグナルだけ。",
+        "statsCharts": "チャート",
+        "statsCoverage": "カバレッジ",
+        "statsUptime": "稼働率",
+        "circleText": "ai · トレーディング · アナリスト · denaro ·",
+        "ctaPrimary": "料金を見る",
+        "ctaSecondary": "仕組み"
+      },
+      "news": {
+        "titlePart1": "ニュースを予測。",
+        "titlePart2": "ポジションを取れ",
+        "titleAccent": "前に",
+        "titlePart3": "ヘッドラインが出る。",
+        "subtitle": "市場を動かすイベントのAI予測。実際に起きる数時間前に。"
+      },
+      "social": {
+        "eyebrow": "つながろう",
+        "title": "ステイ・コネクテッド",
+        "form": {
+          "eyebrow": "お気軽にどうぞ",
+          "title": "メッセージを送る",
+          "name": "お名前",
+          "namePlaceholder": "お名前",
+          "email": "メール",
+          "emailPlaceholder": "you@example.com",
+          "subject": "件名",
+          "subjectPlaceholder": "件名（任意）",
+          "message": "メッセージ",
+          "messagePlaceholder": "お手伝いできることをお書きください…",
+          "submit": "メッセージを送信",
+          "sending": "送信中…",
+          "success": "ありがとうございます — メッセージは送信されました。",
+          "successTitle": "メッセージを送信しました",
+          "successBody": "お問い合わせありがとうございます — 1〜2営業日以内にご返信します。",
+          "sendAnother": "もう一通送る",
+          "privacy": "受信箱を尊重します。マーケティングも共有もなく、人間からの返信のみ。",
+          "errors": {
+            "invalidName": "お名前をご入力ください（2文字以上）。",
+            "invalidEmail": "有効なメールアドレスをご入力ください。",
+            "invalidMessage": "メッセージは10〜5000文字でご入力ください。",
+            "subjectTooLong": "件名が長すぎます。",
+            "sendFailed": "送信に失敗しました。もう一度お試しください。"
+          }
+        }
+      }
     }
   }
 }

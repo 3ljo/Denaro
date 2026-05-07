@@ -593,6 +593,72 @@
           }
         }
       }
+    },
+    "home": {
+      "nav": {
+        "home": "Ana sayfa",
+        "about": "Hakkında",
+        "faq": "SSS",
+        "pricing": "Fiyatlandırma",
+        "news": "Haberler",
+        "contact": "İletişim"
+      },
+      "heroCta": {
+        "eyebrow": "Yapay Zekâ Trading Analisti",
+        "title": "Denaro",
+        "subtitle": "Ciddi yatırımcılar için akıllı yardımcı pilot. Her grafikte, her seansta gerçek zamanlı analiz — netlik için tasarlandı, kararlılık için kalibre edildi.",
+        "ctaPrimary": "Başla",
+        "ctaSecondary": "Fiyatları gör",
+        "trust": "Kart gerekmez · 14 günlük Pro deneme · İstediğin zaman iptal"
+      },
+      "about": {
+        "title": "Gerçek zamanlı analiz,",
+        "titleLine2": "kararlılık için kalibre edildi",
+        "body": "Denaro, piyasayı kıdemli bir analist gibi okur — her zaman diliminde, her seansta, her enstrümanda. Gürültü yok, hype yok, yalnızca avantajını gerçekten şekillendiren göstergelere dayalı net sinyaller.",
+        "statsCharts": "Grafik",
+        "statsCoverage": "Kapsam",
+        "statsUptime": "Erişilebilirlik",
+        "circleText": "yapay zekâ · trading · analist · denaro ·",
+        "ctaPrimary": "fiyatları gör",
+        "ctaSecondary": "Nasıl çalışır"
+      },
+      "news": {
+        "titlePart1": "Haberi tahmin et.",
+        "titlePart2": "Pozisyon al",
+        "titleAccent": "haberden",
+        "titlePart3": "önce.",
+        "subtitle": "Piyasayı hareket ettiren olayların yapay zekâ destekli tahminleri, gerçekleşmeden saatler önce."
+      },
+      "social": {
+        "eyebrow": "bizimle bağlan",
+        "title": "bağlı kal",
+        "form": {
+          "eyebrow": "bize yaz",
+          "title": "Bize bir mesaj gönder",
+          "name": "Ad",
+          "namePlaceholder": "Adın",
+          "email": "E-posta",
+          "emailPlaceholder": "sen@ornek.com",
+          "subject": "Konu",
+          "subjectPlaceholder": "Konu nedir? (isteğe bağlı)",
+          "message": "Mesaj",
+          "messagePlaceholder": "Nasıl yardımcı olabileceğimizi anlat…",
+          "submit": "Mesajı gönder",
+          "sending": "Gönderiliyor…",
+          "success": "Teşekkürler — mesajın yolda.",
+          "successTitle": "Mesaj gönderildi",
+          "successBody": "Bizimle iletişime geçtiğin için teşekkürler — 1–2 iş günü içinde döneceğiz.",
+          "sendAnother": "Bir tane daha gönder",
+          "privacy": "Gelen kutuna saygı duyuyoruz. Pazarlama yok, paylaşım yok — sadece gerçek bir insandan yanıt.",
+          "errors": {
+            "invalidName": "Lütfen adını gir (en az 2 karakter).",
+            "invalidEmail": "Lütfen geçerli bir e-posta gir.",
+            "invalidMessage": "Mesaj 10 ile 5000 karakter arasında olmalı.",
+            "subjectTooLong": "Konu çok uzun.",
+            "sendFailed": "Mesaj gönderilemedi. Lütfen tekrar dene."
+          }
+        }
+      }
     }
   }
 }

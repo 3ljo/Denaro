@@ -593,6 +593,72 @@
           }
         }
       }
+    },
+    "home": {
+      "nav": {
+        "home": "Home",
+        "about": "Chi siamo",
+        "faq": "FAQ",
+        "pricing": "Prezzi",
+        "news": "News",
+        "contact": "Contatti"
+      },
+      "heroCta": {
+        "eyebrow": "Analista di Trading IA",
+        "title": "Denaro",
+        "subtitle": "Il copilota intelligente per trader seri. Analisi in tempo reale su ogni grafico, ogni sessione — costruito per la chiarezza, calibrato per la convinzione.",
+        "ctaPrimary": "Inizia",
+        "ctaSecondary": "Vedi i prezzi",
+        "trust": "Nessuna carta · Prova Pro di 14 giorni · Cancella quando vuoi"
+      },
+      "about": {
+        "title": "Analisi in tempo reale,",
+        "titleLine2": "calibrata per la convinzione",
+        "body": "Denaro legge il mercato come farebbe un analista senior — su ogni timeframe, ogni sessione, ogni strumento. Niente rumore, niente hype, solo segnali chiari basati sugli indicatori che davvero plasmano il tuo edge.",
+        "statsCharts": "Grafici",
+        "statsCoverage": "Copertura",
+        "statsUptime": "Disponibilità",
+        "circleText": "ia · trading · analista · denaro ·",
+        "ctaPrimary": "vedi i prezzi",
+        "ctaSecondary": "Come funziona"
+      },
+      "news": {
+        "titlePart1": "Prevedi le notizie.",
+        "titlePart2": "Posizionati",
+        "titleAccent": "prima",
+        "titlePart3": "che escano sul wire.",
+        "subtitle": "Previsioni IA degli eventi che muovono il mercato, ore prima che accadano."
+      },
+      "social": {
+        "eyebrow": "connettiti con noi",
+        "title": "resta connesso",
+        "form": {
+          "eyebrow": "scrivici",
+          "title": "Inviaci un messaggio",
+          "name": "Nome",
+          "namePlaceholder": "Il tuo nome",
+          "email": "Email",
+          "emailPlaceholder": "tu@esempio.com",
+          "subject": "Oggetto",
+          "subjectPlaceholder": "Di cosa si tratta? (opzionale)",
+          "message": "Messaggio",
+          "messagePlaceholder": "Dicci come possiamo aiutarti…",
+          "submit": "Invia messaggio",
+          "sending": "Invio in corso…",
+          "success": "Grazie — il tuo messaggio è in viaggio.",
+          "successTitle": "Messaggio inviato",
+          "successBody": "Grazie per averci contattato — ti risponderemo entro 1–2 giorni lavorativi.",
+          "sendAnother": "Inviane un altro",
+          "privacy": "Rispettiamo la tua casella. Niente marketing, niente condivisione — solo una risposta da una persona vera.",
+          "errors": {
+            "invalidName": "Inserisci il tuo nome (almeno 2 caratteri).",
+            "invalidEmail": "Inserisci un indirizzo email valido.",
+            "invalidMessage": "Il messaggio deve essere tra 10 e 5000 caratteri.",
+            "subjectTooLong": "L'oggetto è troppo lungo.",
+            "sendFailed": "Impossibile inviare il messaggio. Riprova."
+          }
+        }
+      }
     }
   }
 }

@@ -593,6 +593,72 @@
           }
         }
       }
+    },
+    "home": {
+      "nav": {
+        "home": "Startseite",
+        "about": "Über uns",
+        "faq": "FAQ",
+        "pricing": "Preise",
+        "news": "News",
+        "contact": "Kontakt"
+      },
+      "heroCta": {
+        "eyebrow": "KI-Tradinganalyst",
+        "title": "Denaro",
+        "subtitle": "Der intelligente Co-Pilot für ernsthafte Trader. Echtzeit-Analyse über jeden Chart, jede Session — gebaut für Klarheit, kalibriert für Überzeugung.",
+        "ctaPrimary": "Loslegen",
+        "ctaSecondary": "Preise ansehen",
+        "trust": "Keine Kreditkarte · 14 Tage Pro · Jederzeit kündbar"
+      },
+      "about": {
+        "title": "Echtzeit-Analyse,",
+        "titleLine2": "kalibriert für Überzeugung",
+        "body": "Denaro liest den Markt wie ein erfahrener Analyst — über jeden Zeitrahmen, jede Session, jedes Instrument. Kein Rauschen, kein Hype, nur klare Signale auf Basis der Indikatoren, die deinen Edge wirklich formen.",
+        "statsCharts": "Charts",
+        "statsCoverage": "Abdeckung",
+        "statsUptime": "Verfügbarkeit",
+        "circleText": "ki · trading · analyst · denaro ·",
+        "ctaPrimary": "preise ansehen",
+        "ctaSecondary": "So funktioniert's"
+      },
+      "news": {
+        "titlePart1": "Prognostiziere die News.",
+        "titlePart2": "Positioniere dich",
+        "titleAccent": "bevor",
+        "titlePart3": "die Meldung erscheint.",
+        "subtitle": "KI-gestützte Prognosen marktbewegender Ereignisse, Stunden bevor sie eintreten."
+      },
+      "social": {
+        "eyebrow": "verbinde dich mit uns",
+        "title": "bleib verbunden",
+        "form": {
+          "eyebrow": "schreib uns",
+          "title": "Sende uns eine Nachricht",
+          "name": "Name",
+          "namePlaceholder": "Dein Name",
+          "email": "E-Mail",
+          "emailPlaceholder": "du@beispiel.com",
+          "subject": "Betreff",
+          "subjectPlaceholder": "Worum geht es? (optional)",
+          "message": "Nachricht",
+          "messagePlaceholder": "Sag uns, wie wir helfen können…",
+          "submit": "Nachricht senden",
+          "sending": "Wird gesendet…",
+          "success": "Danke — deine Nachricht ist unterwegs.",
+          "successTitle": "Nachricht gesendet",
+          "successBody": "Danke für deine Nachricht — wir melden uns innerhalb von 1–2 Werktagen.",
+          "sendAnother": "Weitere senden",
+          "privacy": "Wir respektieren dein Postfach. Kein Marketing, kein Teilen — nur eine Antwort von einem echten Menschen.",
+          "errors": {
+            "invalidName": "Bitte gib deinen Namen ein (mindestens 2 Zeichen).",
+            "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
+            "invalidMessage": "Die Nachricht muss zwischen 10 und 5000 Zeichen lang sein.",
+            "subjectTooLong": "Der Betreff ist zu lang.",
+            "sendFailed": "Nachricht konnte nicht gesendet werden. Bitte versuche es erneut."
+          }
+        }
+      }
     }
   }
 }

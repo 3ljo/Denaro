@@ -593,6 +593,72 @@
           }
         }
       }
+    },
+    "home": {
+      "nav": {
+        "home": "首页",
+        "about": "关于",
+        "faq": "常见问题",
+        "pricing": "价格",
+        "news": "资讯",
+        "contact": "联系"
+      },
+      "heroCta": {
+        "eyebrow": "AI 交易分析师",
+        "title": "Denaro",
+        "subtitle": "为认真的交易者打造的智能副驾。对每张图表、每个交易时段进行实时分析——为清晰构建，为信念校准。",
+        "ctaPrimary": "开始使用",
+        "ctaSecondary": "查看价格",
+        "trust": "无需信用卡 · 14天 Pro 试用 · 随时取消"
+      },
+      "about": {
+        "title": "实时分析，",
+        "titleLine2": "为信念校准",
+        "body": "Denaro 像资深分析师一样解读市场——跨越每个时间周期、每个交易时段、每种品种。没有噪音，没有炒作，只有基于真正塑造你优势的指标的清晰信号。",
+        "statsCharts": "图表",
+        "statsCoverage": "覆盖",
+        "statsUptime": "在线率",
+        "circleText": "ai · 交易 · 分析师 · denaro ·",
+        "ctaPrimary": "查看价格",
+        "ctaSecondary": "工作原理"
+      },
+      "news": {
+        "titlePart1": "预测新闻。",
+        "titlePart2": "抢先",
+        "titleAccent": "之前",
+        "titlePart3": "头条发布。",
+        "subtitle": "AI 驱动的市场行情预测，提前数小时锁定走势。"
+      },
+      "social": {
+        "eyebrow": "与我们联络",
+        "title": "保持联系",
+        "form": {
+          "eyebrow": "给我们留言",
+          "title": "给我们发条消息",
+          "name": "姓名",
+          "namePlaceholder": "你的姓名",
+          "email": "邮箱",
+          "emailPlaceholder": "you@example.com",
+          "subject": "主题",
+          "subjectPlaceholder": "关于什么？（可选）",
+          "message": "消息",
+          "messagePlaceholder": "告诉我们如何帮助你…",
+          "submit": "发送消息",
+          "sending": "发送中…",
+          "success": "谢谢 — 你的消息已在路上。",
+          "successTitle": "消息已发送",
+          "successBody": "感谢你的来信 — 我们将在 1–2 个工作日内回复。",
+          "sendAnother": "再发一条",
+          "privacy": "我们尊重你的收件箱。无营销、无分享 — 只是来自真人的回复。",
+          "errors": {
+            "invalidName": "请输入你的姓名（至少 2 个字符）。",
+            "invalidEmail": "请输入有效的邮箱地址。",
+            "invalidMessage": "消息必须在 10 到 5000 个字符之间。",
+            "subjectTooLong": "主题过长。",
+            "sendFailed": "无法发送消息。请重试。"
+          }
+        }
+      }
     }
   }
 }

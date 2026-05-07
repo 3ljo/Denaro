@@ -593,6 +593,72 @@
           }
         }
       }
+    },
+    "home": {
+      "nav": {
+        "home": "홈",
+        "about": "소개",
+        "faq": "FAQ",
+        "pricing": "요금제",
+        "news": "뉴스",
+        "contact": "문의"
+      },
+      "heroCta": {
+        "eyebrow": "AI 트레이딩 분석가",
+        "title": "Denaro",
+        "subtitle": "진지한 트레이더를 위한 똑똑한 코파일럿. 모든 차트, 모든 세션을 가로지르는 실시간 분석 — 명확함을 위해 만들어지고, 확신을 위해 보정되었습니다.",
+        "ctaPrimary": "시작하기",
+        "ctaSecondary": "요금제 보기",
+        "trust": "카드 불필요 · 14일 Pro 체험 · 언제든 취소"
+      },
+      "about": {
+        "title": "실시간 분석,",
+        "titleLine2": "확신을 위해 보정됨",
+        "body": "Denaro는 시니어 분석가처럼 시장을 읽습니다 — 모든 시간 프레임, 모든 세션, 모든 상품에서. 노이즈도, 과대광고도 없이 — 당신의 엣지를 진짜로 만드는 지표에 기반한 명확한 신호만.",
+        "statsCharts": "차트",
+        "statsCoverage": "커버리지",
+        "statsUptime": "가동시간",
+        "circleText": "ai · 트레이딩 · 분석가 · denaro ·",
+        "ctaPrimary": "요금제 보기",
+        "ctaSecondary": "작동 방식"
+      },
+      "news": {
+        "titlePart1": "뉴스를 예측하세요.",
+        "titlePart2": "포지션을",
+        "titleAccent": "먼저",
+        "titlePart3": "잡으세요.",
+        "subtitle": "시장을 움직이는 이벤트에 대한 AI 기반 예측. 실제 발생 몇 시간 전에."
+      },
+      "social": {
+        "eyebrow": "우리와 연결하세요",
+        "title": "계속 연결되어 있기",
+        "form": {
+          "eyebrow": "메시지 남기기",
+          "title": "메시지를 보내주세요",
+          "name": "이름",
+          "namePlaceholder": "당신의 이름",
+          "email": "이메일",
+          "emailPlaceholder": "you@example.com",
+          "subject": "제목",
+          "subjectPlaceholder": "무슨 내용인가요? (선택)",
+          "message": "메시지",
+          "messagePlaceholder": "어떻게 도와드릴까요…",
+          "submit": "메시지 보내기",
+          "sending": "보내는 중…",
+          "success": "감사합니다 — 메시지가 전송되었습니다.",
+          "successTitle": "메시지 전송됨",
+          "successBody": "문의해 주셔서 감사합니다 — 영업일 기준 1~2일 내에 답변드리겠습니다.",
+          "sendAnother": "또 보내기",
+          "privacy": "당신의 받은편지함을 존중합니다. 마케팅도, 공유도 없이 — 실제 사람의 답변만.",
+          "errors": {
+            "invalidName": "이름을 입력해 주세요(최소 2자).",
+            "invalidEmail": "유효한 이메일 주소를 입력해 주세요.",
+            "invalidMessage": "메시지는 10~5000자 사이여야 합니다.",
+            "subjectTooLong": "제목이 너무 깁니다.",
+            "sendFailed": "메시지를 보낼 수 없습니다. 다시 시도해 주세요."
+          }
+        }
+      }
     }
   }
 }
