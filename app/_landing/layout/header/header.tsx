@@ -3,8 +3,6 @@ import React,{useState} from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import MobileOffCanvas from "@t/app/components/common/mobile-offcanvas";
-import SvgIconCom from "@t/app/components/common/svg-icon-anim";
-import shape from '@t/assets/img/icons/shape02.svg'
 import { BtnBg } from "@t/app/components/svg";
 import HeaderNavMenus from "./header-nav-menus";
 import StickyWrapper from "./sticky-wrapper";
@@ -48,7 +46,6 @@ const Header = ({style_2=false}:{style_2?:boolean}) => {
                       <li className="header-btn">
                         <Link href="/login" className={`${style_2?'tg-btn-3 tg-svg':'tg-border-btn'}`}>
                           <BtnBg/>
-                          {style_2 && <SvgIconCom icon={shape} id="svg-2" />}
                           {t('signIn')}
                         </Link>
                       </li>
