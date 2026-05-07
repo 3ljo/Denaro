@@ -31,8 +31,15 @@
    matching black bars top + bottom (handled by the section's own black
    background showing through). */
 .banner__area {
-  aspect-ratio: 1920 / 880;
-  max-height: 70vh;
+  /* Height is set directly with `min(aspect-vw, cap-vh)`. We avoid using
+     CSS `aspect-ratio` here because, when combined with `max-height`,
+     browsers will shrink the section's WIDTH to maintain the ratio when
+     the viewport is short (e.g. with DevTools docked). That left a wide
+     black gap on the right of the hero. Setting height directly keeps
+     `width: 100%` rock-solid regardless of viewport height. */
+  width: 100%;
+  height: min(45.83vw, 70vh); /* 880 / 1920 = 45.83% — desktop frame ratio */
+  min-height: 320px;
   position: relative;
   background-color: #0a0a0a;
 
@@ -51,8 +58,8 @@
 
   /* Tablet — tighter crop so the character fills the frame. */
   @media (max-width: 991.98px) {
-    aspect-ratio: 5 / 6;
-    max-height: 80vh;
+    height: min(120vw, 80vh); /* 5:6 portrait → height = 120% of width */
+    min-height: 360px;
     & .banner__bg {
       background-size: auto 130% !important;
       background-position: center 30% !important;
@@ -61,8 +68,8 @@
 
   /* Mobile — portrait crop, character only, head-to-mid-thigh. */
   @media (max-width: 575.98px) {
-    aspect-ratio: 4 / 5;
-    max-height: 75vh;
+    height: min(125vw, 75vh); /* 4:5 portrait → height = 125% of width */
+    min-height: 320px;
     & .banner__bg {
       background-size: auto 150% !important;
       background-position: center 30% !important;
