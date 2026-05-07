@@ -1,7 +1,14 @@
 import type { Strategy, SubscriptionTier } from '@/lib/profile/types'
+import type { Interval } from '@/lib/market/ohlc'
 
 // Re-export for downstream callers that already import from this file.
 export type { SubscriptionTier }
+
+// Vision chart stack: exactly 3 timeframes — HTF, MTF, LTF in that order.
+// SMC reads on D1/H4/M15-style bias; scalping wants M30/M15/M5; swing wants
+// W1/D1/H4. The vision card builds its 3-up grid from this and the system
+// prompt names the timeframes in the OUTPUT instructions.
+export type VisionStack = readonly [Interval, Interval, Interval]
 
 export type VisionSection = {
   heading: string
@@ -50,4 +57,7 @@ export type StrategyDefinition = {
   cardFields: CardField[]
   // Per-strategy quick-prompt chips shown above the Ask Denaro input.
   quickPrompts: QuickPrompt[]
+  // Per-strategy chart stack the vision card displays + screenshots.
+  // [HTF, MTF, LTF] — strict order, exactly 3 timeframes.
+  visionStack: VisionStack
 }

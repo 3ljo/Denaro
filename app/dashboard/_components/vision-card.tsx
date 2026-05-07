@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslations } from 'next-intl'
 import {
@@ -10,22 +10,52 @@ import {
   type ISeriesApi,
   type UTCTimestamp,
 } from 'lightweight-charts'
-import type { Interval, OHLCBar } from '@/lib/market/ohlc'
+import { intervalLabel, type Interval, type OHLCBar } from '@/lib/market/ohlc'
+import { getStrategyDef } from '@/lib/denaro/strategies'
+import type { Strategy } from '@/lib/profile/types'
 import { CHART_OPTIONS, CANDLE_OPTIONS } from './chart-theme'
 import FormattedAnalysis from './formatted-analysis'
 
+type StackPosition = 'htf' | 'mtf' | 'ltf'
+
 type Tf = {
   interval: Interval
-  labelKey: 'tf4h' | 'tf1h' | 'tf15m'
-  tagKey: 'htf' | 'mtf' | 'ltf'
+  /** Trader-notation label, e.g. '4H', 'D1', 'W1'. */
+  label: string
+  /** Position in the HTF→MTF→LTF stack. */
+  tag: StackPosition
+  /** TradingView widget interval string. */
   tvInterval: string
 }
 
-const STACK: Tf[] = [
-  { interval: '4h',  labelKey: 'tf4h',  tagKey: 'htf', tvInterval: '240' },
-  { interval: '1h',  labelKey: 'tf1h',  tagKey: 'mtf', tvInterval: '60'  },
-  { interval: '15m', labelKey: 'tf15m', tagKey: 'ltf', tvInterval: '15'  },
-]
+/** Map our `Interval` type to the string TradingView's widget expects. */
+function intervalToTv(interval: Interval): string {
+  switch (interval) {
+    case '5m':  return '5'
+    case '15m': return '15'
+    case '30m': return '30'
+    case '1h':  return '60'
+    case '4h':  return '240'
+    case '1d':  return 'D'
+    case '1wk': return 'W'
+    case '1mo': return 'M'
+  }
+}
+
+const TAG_LABEL: Record<StackPosition, string> = {
+  htf: 'HTF',
+  mtf: 'MTF',
+  ltf: 'LTF',
+}
+
+function buildStack(strategy: Strategy): Tf[] {
+  const [htf, mtf, ltf] = getStrategyDef(strategy).visionStack
+  return [
+    { interval: htf, label: intervalLabel(htf), tag: 'htf', tvInterval: intervalToTv(htf) },
+    { interval: mtf, label: intervalLabel(mtf), tag: 'mtf', tvInterval: intervalToTv(mtf) },
+    { interval: ltf, label: intervalLabel(ltf), tag: 'ltf', tvInterval: intervalToTv(ltf) },
+  ]
+}
 
 // Friendly asset names for the pair-selector cards.
 const PAIR_LABEL: Record<string, string> = {
@@ -71,11 +101,21 @@ const TV_SYMBOL: Record<string, string> = {
   SILVER: 'OANDA:XAGUSD',
 }
 
-export default function VisionCard({ pairs }: { pairs: string[] }) {
+export default function VisionCard({
+  pairs,
+  strategy,
+}: {
+  pairs: string[]
+  strategy: Strategy
+}) {
   const t = useTranslations('dashboard.vision')
-  const tStack = useTranslations('dashboard.vision.stack')
   const tCommon = useTranslations('common')
   const [selected, setSelected] = useState<string>(pairs[0] ?? 'XAUUSD')
+
+  // Stack is per-strategy: SMC/Trend = 4H/1H/15M, Swing = W1/D1/4H,
+  // Scalping = 30M/15M/5M, etc. Recomputed when the user flips strategy
+  // in settings — the dashboard re-mounts this component.
+  const stack = useMemo(() => buildStack(strategy), [strategy])
 
   const [analyzing, setAnalyzing] = useState(false)
   const [analysis, setAnalysis] = useState('')
@@ -113,9 +153,9 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
     try {
       const fd = new FormData()
 
-      for (let i = 0; i < STACK.length; i++) {
+      for (let i = 0; i < stack.length; i++) {
         const chart = chartRefs.current[i]
-        if (!chart) throw new Error(t('errorChartNotReady', { label: tStack(STACK[i].labelKey) }))
+        if (!chart) throw new Error(t('errorChartNotReady', { label: stack[i].label }))
 
         const source = chart.takeScreenshot()
         const out = document.createElement('canvas')
@@ -134,7 +174,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
 
         fd.append(
           'charts',
-          new File([blob], `${selected}-${tStack(STACK[i].labelKey)}.png`, {
+          new File([blob], `${selected}-${stack[i].label}.png`, {
             type: 'image/png',
           }),
         )
@@ -256,7 +296,7 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
 
       {/* Three-up timeframe stack */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-        {STACK.map((tf, i) => (
+        {stack.map((tf, i) => (
           <TfPanel
             key={`${selected}-${tf.interval}`}
             symbol={selected}
@@ -306,9 +346,9 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
       {expandedIdx !== null && (
         <ChartModal
           symbol={selected}
-          tf={STACK[expandedIdx]}
-          tagLabel={tStack(STACK[expandedIdx].tagKey)}
-          tfLabel={tStack(STACK[expandedIdx].labelKey)}
+          tf={stack[expandedIdx]}
+          tagLabel={TAG_LABEL[stack[expandedIdx].tag]}
+          tfLabel={stack[expandedIdx].label}
           closeLabel={t('expandClose')}
           onClose={() => setExpandedIdx(null)}
         />
@@ -335,7 +375,6 @@ function TfPanel({
   onExpand: () => void
   onChartRef: (chart: IChartApi | null) => void
 }) {
-  const tStack = useTranslations('dashboard.vision.stack')
   return (
     <div className="relative overflow-hidden rounded border border-cyan-400/20 bg-slate-950/60">
       <div className="flex items-center justify-between border-b border-cyan-400/15 bg-cyan-500/[0.04] px-2 py-1">
@@ -344,7 +383,7 @@ function TfPanel({
         </span>
         <div className="flex items-center gap-2">
           <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/80">
-            {tStack(tf.tagKey)} · {tStack(tf.labelKey)}
+            {TAG_LABEL[tf.tag]} · {tf.label}
           </span>
           <button
             type="button"

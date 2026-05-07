@@ -30,6 +30,7 @@ export const TREND: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario as continuation vs reversal of the prevailing trend. Hot may extend the trend or trigger a reversal — say which.`,
   newsHorizon: 'hours',
+  visionStack: ['4h', '1h', '15m'],
   cardFields: [
     {
       id: 'breakout_retests',

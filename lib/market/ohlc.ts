@@ -52,6 +52,20 @@ export const INTERVALS: Interval[] = [
   '1mo',
 ]
 
+/** Trader-notation label for an interval, e.g. '4h' → '4H', '1d' → 'D1'. */
+export function intervalLabel(interval: Interval): string {
+  switch (interval) {
+    case '5m':  return '5M'
+    case '15m': return '15M'
+    case '30m': return '30M'
+    case '1h':  return '1H'
+    case '4h':  return '4H'
+    case '1d':  return 'D1'
+    case '1wk': return 'W1'
+    case '1mo': return 'MN'
+  }
+}
+
 export type OHLCBar = {
   /** Unix epoch in seconds (UTC). */
   time: number

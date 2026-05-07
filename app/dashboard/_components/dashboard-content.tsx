@@ -50,7 +50,7 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
 
       <div className="flex-1">
         {tab === 'news' && <NewsTab pairs={profile.pairs} />}
-        {tab === 'vision' && <VisionCard pairs={profile.pairs} />}
+        {tab === 'vision' && <VisionCard pairs={profile.pairs} strategy={profile.strategy} />}
         {tab === 'channel' && (
           <AskDenaro pairs={profile.pairs} strategy={profile.strategy} />
         )}

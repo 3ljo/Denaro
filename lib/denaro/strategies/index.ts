@@ -1,5 +1,6 @@
 import type { Strategy } from '@/lib/profile/types'
 import { isStrategy } from '@/lib/profile/types'
+import { intervalLabel } from '@/lib/market/ohlc'
 import type { StrategyDefinition } from './types'
 import { SMC } from './smc'
 import { PRICE_ACTION } from './price-action'
@@ -11,6 +12,7 @@ import { SWING } from './swing'
 export type {
   StrategyDefinition,
   VisionSection,
+  VisionStack,
   NewsHorizon,
   SubscriptionTier,
   CardField,
@@ -37,17 +39,20 @@ export function getStrategyDefSafe(value: unknown): StrategyDefinition {
 }
 
 // Builds the vision system prompt for a given strategy. The base wrapper
-// stays constant so the FormattedAnalysis client parser keeps working; only
-// the section list and the lens block vary per strategy.
+// stays constant so the FormattedAnalysis client parser keeps working; the
+// section list, the chart stack description, and the lens block all vary
+// per strategy.
 export function buildVisionSystemPrompt(strategy: Strategy): string {
   const def = STRATEGY_REGISTRY[strategy]
   const sectionBlock = def.visionSections
     .map((s) => `**${s.heading}**\n${s.instruction}`)
     .join('\n\n')
+  const [htf, mtf, ltf] = def.visionStack
+  const stackLabel = `${intervalLabel(htf)} / ${intervalLabel(mtf)} / ${intervalLabel(ltf)}`
 
   return `You are Denaro reading a multi-timeframe chart stack.
 
-INPUT: 3 chart screenshots ordered highest TF to lowest. The user is on a fixed 4H / 1H / 15M stack.
+INPUT: 3 chart screenshots ordered highest TF to lowest — the operator is on the ${stackLabel} stack (HTF / MTF / LTF respectively).
 
 OUTPUT: structured analysis using these EXACT section headers (one per line, surrounded by **). Leave a blank line between sections. Max 220 words total. No fluff, no preamble, no closing remarks.
 
