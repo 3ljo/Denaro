@@ -140,6 +140,13 @@ export default function AuthShell({
 function HologramFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="denaro-panel relative overflow-hidden rounded-md">
+      {/* Near-opaque backdrop so the character behind the panel doesn't bleed
+          through and hurt readability of the auth copy. Sits below corners,
+          scanlines, and content. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[rgba(5,8,16,0.94)]"
+      />
       <Corner className="left-0 top-0" />
       <Corner className="right-0 top-0 rotate-90" />
       <Corner className="right-0 bottom-0 rotate-180" />
