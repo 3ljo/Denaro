@@ -227,36 +227,38 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
         </span>
       </div>
 
-      {/* Predict CTA — single line, integrated, compact */}
+      {/* Predict CTA — neutral surface with a small gold dot accent */}
       {canPredict && !prediction && (
         <button
           type="button"
           onClick={fetchPrediction}
           disabled={predicting}
-          className="mt-2.5 inline-flex items-center gap-1.5 rounded-md border border-amber-300/40 bg-amber-400/10 px-2.5 py-1 font-display text-[0.58rem] tracking-[0.22em] text-amber-100 transition hover:border-amber-300/70 hover:bg-amber-400/20 hover:text-amber-50 disabled:opacity-60"
+          className="mt-2.5 inline-flex items-center gap-2 rounded-md border border-slate-700/60 bg-slate-900/60 px-3 py-1.5 font-display text-[0.58rem] tracking-[0.22em] text-cyan-100/85 transition hover:border-amber-300/50 hover:bg-slate-900/80 hover:text-amber-100 disabled:opacity-60"
         >
+          <span className="flex h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.7)]" />
           {predicting ? <Spinner /> : <CrystalBallIcon />}
           <span>{predicting ? t('predicting') : t('predict')}</span>
         </button>
       )}
 
-      {/* AI read — 3 scenario cards if parseable, raw text fallback otherwise */}
+      {/* AI read — single dark tray with 3 labelled rows */}
       {prediction && (
-        <div className="mt-3">
-          <div className="mb-1.5 flex items-center gap-2">
-            <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-200/85">
+        <div className="mt-3 rounded-md border border-slate-700/50 bg-slate-950/60 p-2.5">
+          <div className="mb-2 flex items-center gap-2">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.7)]" />
+            <span className="font-display text-[0.55rem] font-bold tracking-[0.24em] text-amber-200/90">
               {t('predictionLabel')}
             </span>
-            <span className="h-px flex-1 bg-amber-300/15" />
+            <span className="h-px flex-1 bg-slate-700/40" />
           </div>
           {scenarios.length === 3 ? (
-            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
+            <div className="space-y-1.5">
               {scenarios.map((s) => (
-                <ScenarioCard key={s.kind} kind={s.kind} text={s.text} />
+                <ScenarioRow key={s.kind} kind={s.kind} text={s.text} />
               ))}
             </div>
           ) : (
-            <p className="whitespace-pre-line rounded border border-amber-300/20 bg-amber-400/[0.05] p-2 text-[0.72rem] leading-relaxed text-cyan-50/90">
+            <p className="whitespace-pre-line text-[0.72rem] leading-relaxed text-cyan-50/85">
               {prediction}
             </p>
           )}
@@ -273,57 +275,63 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
 /* -- Forecast / Previous chip with full-word label. -- */
 function DataChip({ label, value }: { label: string; value: string }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-cyan-400/15 bg-cyan-500/[0.04] px-1.5 py-0.5 font-mono text-[0.62rem] text-cyan-100/85">
-      <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-300/55">
+    <span className="inline-flex items-center gap-1.5 rounded border border-slate-700/50 bg-slate-900/50 px-2 py-0.5">
+      <span className="font-display text-[0.5rem] tracking-[0.22em] text-slate-400">
         {label}
       </span>
-      <span>{value}</span>
+      <span className="font-mono text-[0.65rem] text-cyan-50/90">{value}</span>
     </span>
   )
 }
 
-/* -- Single AI scenario tile (HOT / COLD / IN-LINE) with directional accent. -- */
+/* -- Single AI scenario row inside the dark tray.
+ *    The whole tray is one neutral dark surface; only the icon-pill on the
+ *    left and the label color signal the scenario kind. -- */
 type ScenarioKind = 'hot' | 'cold' | 'inline'
-function ScenarioCard({ kind, text }: { kind: ScenarioKind; text: string }) {
+function ScenarioRow({ kind, text }: { kind: ScenarioKind; text: string }) {
   const cfg = SCENARIO_STYLES[kind]
   return (
-    <div className={`rounded border ${cfg.border} ${cfg.bg} p-2`}>
-      <div className="mb-1 flex items-center gap-1.5">
-        <span className={cfg.icon}>{cfg.glyph}</span>
-        <span className={`font-display text-[0.55rem] font-bold tracking-[0.22em] ${cfg.label}`}>
+    <div className="flex items-start gap-2.5">
+      <span
+        className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded font-mono text-[0.65rem] font-bold ${cfg.iconBg} ${cfg.iconText}`}
+        aria-hidden
+      >
+        {cfg.glyph}
+      </span>
+      <div className="min-w-0 flex-1">
+        <span
+          className={`mr-1.5 font-display text-[0.55rem] font-bold tracking-[0.22em] ${cfg.label}`}
+        >
           {cfg.title}
         </span>
+        <span className="text-[0.72rem] leading-snug text-cyan-50/85">{text}</span>
       </div>
-      <p className="text-[0.7rem] leading-snug text-cyan-50/90">{text}</p>
     </div>
   )
 }
 
 const SCENARIO_STYLES: Record<
   ScenarioKind,
-  { border: string; bg: string; label: string; icon: string; glyph: string; title: string }
+  { iconBg: string; iconText: string; label: string; glyph: string; title: string }
 > = {
   hot: {
-    border: 'border-rose-400/30',
-    bg: 'bg-rose-500/[0.07]',
-    label: 'text-rose-200',
-    icon: 'text-rose-300',
+    iconBg: 'bg-orange-500/15',
+    iconText: 'text-orange-300',
+    label: 'text-orange-200',
     glyph: '▲',
     title: 'HOT',
   },
   cold: {
-    border: 'border-cyan-400/30',
-    bg: 'bg-cyan-500/[0.07]',
-    label: 'text-cyan-200',
-    icon: 'text-cyan-300',
+    iconBg: 'bg-sky-500/15',
+    iconText: 'text-sky-300',
+    label: 'text-sky-200',
     glyph: '▼',
     title: 'COLD',
   },
   inline: {
-    border: 'border-amber-300/25',
-    bg: 'bg-amber-400/[0.05]',
-    label: 'text-amber-200',
-    icon: 'text-amber-200/85',
+    iconBg: 'bg-slate-700/50',
+    iconText: 'text-slate-300',
+    label: 'text-slate-200',
     glyph: '＝',
     title: 'IN-LINE',
   },
