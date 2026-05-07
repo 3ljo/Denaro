@@ -51,11 +51,18 @@ export default async function DashboardPage() {
             <p className="block font-display text-[0.55rem] tracking-[0.32em] text-amber-300/70 sm:hidden">
               {t('welcomeShort')}
             </p>
-            <h1 className="break-words font-display text-base font-bold uppercase leading-tight tracking-[0.16em] text-cyan-50 sm:hidden">
+            <h1 className="break-words font-display text-2xl font-bold uppercase italic leading-tight tracking-[0.18em] text-cyan-50 sm:hidden">
               {greeting}
             </h1>
             <h1 className="hidden truncate font-display text-xl font-bold uppercase tracking-[0.2em] text-cyan-50 sm:block">
-              {t('welcomeBack', { name: greeting })}
+              {t.rich('welcomeBack', {
+                name: greeting,
+                b: (chunks) => (
+                  <span className="text-2xl italic tracking-[0.18em]">
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h1>
             <p className="mt-1 hidden text-[0.7rem] tracking-wide text-cyan-100/50 sm:block">
               {t('lens')}{' '}

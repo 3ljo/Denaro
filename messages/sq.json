@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// ANALISTI ▸ ONLINE",
-      "welcomeBack": "Mirë se u ktheve, {name}",
+      "welcomeBack": "Mirë se u ktheve, <b>{name}</b>",
       "welcomeShort": "// MIRË SE U KTHEVE",
       "lens": "Lentja:",
       "logout": "Shkëputu",

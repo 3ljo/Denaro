@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// アナリスト ▸ オンライン",
-      "welcomeBack": "おかえりなさい、{name}",
+      "welcomeBack": "おかえりなさい、<b>{name}</b>",
       "lens": "レンズ:",
       "logout": "切断",
       "operatorFallback": "Operator",

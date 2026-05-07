@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// 分析师 ▸ 在线",
-      "welcomeBack": "欢迎回来，{name}",
+      "welcomeBack": "欢迎回来，<b>{name}</b>",
       "lens": "视角:",
       "logout": "断开",
       "operatorFallback": "Operator",

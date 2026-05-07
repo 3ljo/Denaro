@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// ANALISTA ▸ ONLINE",
-      "welcomeBack": "Bentornato, {name}",
+      "welcomeBack": "Bentornato, <b>{name}</b>",
       "lens": "Lente:",
       "logout": "Disconnetti",
       "operatorFallback": "Operator",

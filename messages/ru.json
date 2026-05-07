@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// АНАЛИТИК ▸ ОНЛАЙН",
-      "welcomeBack": "С возвращением, {name}",
+      "welcomeBack": "С возвращением, <b>{name}</b>",
       "lens": "Линза:",
       "logout": "Отключиться",
       "operatorFallback": "Operator",

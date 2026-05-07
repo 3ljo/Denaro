@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// ANALİST ▸ ÇEVRİMİÇİ",
-      "welcomeBack": "Tekrar hoş geldin, {name}",
+      "welcomeBack": "Tekrar hoş geldin, <b>{name}</b>",
       "lens": "Mercek:",
       "logout": "Bağlantıyı kes",
       "operatorFallback": "Operator",

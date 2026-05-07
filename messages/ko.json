@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// 분석가 ▸ 온라인",
-      "welcomeBack": "다시 오신 것을 환영합니다, {name}",
+      "welcomeBack": "다시 오신 것을 환영합니다, <b>{name}</b>",
       "lens": "렌즈:",
       "logout": "연결 해제",
       "operatorFallback": "Operator",

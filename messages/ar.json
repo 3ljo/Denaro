@@ -193,7 +193,7 @@
   "dashboard": {
     "header": {
       "badge": "// المحلّل ▸ متصل",
-      "welcomeBack": "أهلًا بعودتك، {name}",
+      "welcomeBack": "أهلًا بعودتك، <b>{name}</b>",
       "lens": "العدسة:",
       "logout": "قطع الاتصال",
       "operatorFallback": "Operator",
