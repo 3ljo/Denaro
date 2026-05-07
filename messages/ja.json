@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "{pair} マルチタイムフレームスタック — チャート1 = HTF (4H)、チャート2 = MTF (1H)、チャート3 = LTF (15M)。"
+      "captureNote": "{pair} マルチタイムフレームスタック — チャート1 = HTF (4H)、チャート2 = MTF (1H)、チャート3 = LTF (15M)。",
+      "expand": "チャートを拡大",
+      "expandClose": "閉じる"
     },
     "ask": {
       "badge": "// チャネル",

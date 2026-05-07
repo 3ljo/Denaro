@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "{pair} 멀티-타임프레임 스택 — 차트 1 = HTF (4H), 차트 2 = MTF (1H), 차트 3 = LTF (15M)."
+      "captureNote": "{pair} 멀티-타임프레임 스택 — 차트 1 = HTF (4H), 차트 2 = MTF (1H), 차트 3 = LTF (15M).",
+      "expand": "차트 확대",
+      "expandClose": "닫기"
     },
     "ask": {
       "badge": "// 채널",

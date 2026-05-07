@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "{pair} çok-zaman dilimi yığını — grafik 1 = HTF (4H), grafik 2 = MTF (1H), grafik 3 = LTF (15M)."
+      "captureNote": "{pair} çok-zaman dilimi yığını — grafik 1 = HTF (4H), grafik 2 = MTF (1H), grafik 3 = LTF (15M).",
+      "expand": "Grafiği büyüt",
+      "expandClose": "Kapat"
     },
     "ask": {
       "badge": "// KANAL",

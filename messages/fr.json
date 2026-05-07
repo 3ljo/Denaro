@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "Pile multi-timeframe de {pair} — graphique 1 = HTF (4H), graphique 2 = MTF (1H), graphique 3 = LTF (15M)."
+      "captureNote": "Pile multi-timeframe de {pair} — graphique 1 = HTF (4H), graphique 2 = MTF (1H), graphique 3 = LTF (15M).",
+      "expand": "Agrandir le graphique",
+      "expandClose": "Fermer"
     },
     "ask": {
       "badge": "// CANAL",

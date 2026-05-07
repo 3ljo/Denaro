@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "{pair} 多周期堆栈 — 图表 1 = HTF (4H)，图表 2 = MTF (1H)，图表 3 = LTF (15M)。"
+      "captureNote": "{pair} 多周期堆栈 — 图表 1 = HTF (4H)，图表 2 = MTF (1H)，图表 3 = LTF (15M)。",
+      "expand": "放大图表",
+      "expandClose": "关闭"
     },
     "ask": {
       "badge": "// 频道",

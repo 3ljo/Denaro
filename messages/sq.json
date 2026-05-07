@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "Stiva shumë-kohore e {pair} — grafiku 1 = HTF (4H), grafiku 2 = MTF (1H), grafiku 3 = LTF (15M)."
+      "captureNote": "Stiva shumë-kohore e {pair} — grafiku 1 = HTF (4H), grafiku 2 = MTF (1H), grafiku 3 = LTF (15M).",
+      "expand": "Maksimo grafikun",
+      "expandClose": "Mbyll"
     },
     "ask": {
       "badge": "// KANALI",

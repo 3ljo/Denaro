@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useTranslations } from 'next-intl'
 import {
   CandlestickSeries,
@@ -61,6 +62,24 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
   // Hold IChartApi for each timeframe so we can take all 3 screenshots.
   // Charts live in off-screen capture canvases (not what the user sees).
   const chartRefs = useRef<(IChartApi | null)[]>([null, null, null])
+
+  // Which timeframe panel is currently maximized (null = none).
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null)
+
+  // ESC closes the maximized chart modal.
+  useEffect(() => {
+    if (expandedIdx === null) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setExpandedIdx(null)
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [expandedIdx])
 
   async function captureAll() {
     if (analyzing) return
@@ -184,6 +203,8 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
             key={`${selected}-${tf.interval}`}
             symbol={selected}
             tf={tf}
+            expandLabel={t('expand')}
+            onExpand={() => setExpandedIdx(i)}
             onChartRef={(chart) => {
               chartRefs.current[i] = chart
             }}
@@ -192,14 +213,42 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
       </div>
 
       {/* Action */}
-      <button
-        type="button"
-        onClick={captureAll}
-        disabled={analyzing}
-        className="denaro-btn"
-      >
-        {analyzing ? t('capturing') : t('capture')}
-      </button>
+      <div className="flex justify-end pt-1">
+        <button
+          type="button"
+          onClick={captureAll}
+          disabled={analyzing}
+          className="group inline-flex items-center gap-2 rounded-md border border-amber-300/50 bg-gradient-to-r from-amber-400/15 via-amber-300/20 to-amber-400/15 px-4 py-2 font-display text-[0.65rem] font-bold tracking-[0.24em] text-amber-100 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition hover:border-amber-300/80 hover:bg-amber-400/25 hover:text-amber-50 hover:shadow-[0_0_22px_rgba(251,191,36,0.28)] disabled:cursor-not-allowed disabled:opacity-50"
+          aria-busy={analyzing}
+        >
+          {analyzing ? (
+            <svg
+              className="h-3.5 w-3.5 animate-spin text-amber-200"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+            >
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
+              <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg
+              className="h-3.5 w-3.5 text-amber-200 transition group-hover:scale-110"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="m12 3 1.7 4.3 4.3 1.7-4.3 1.7-1.7 4.3-1.7-4.3-4.3-1.7 4.3-1.7L12 3Z" />
+              <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z" />
+            </svg>
+          )}
+          <span>{analyzing ? t('capturing') : t('capture')}</span>
+        </button>
+      </div>
 
       {/* Output */}
       {(analyzing || analysis || error) && (
@@ -215,6 +264,18 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
           {analysis && <FormattedAnalysis text={analysis} />}
         </div>
       )}
+
+      {/* Maximized chart modal */}
+      {expandedIdx !== null && (
+        <ChartModal
+          symbol={selected}
+          tf={STACK[expandedIdx]}
+          tagLabel={tStack(STACK[expandedIdx].tagKey)}
+          tfLabel={tStack(STACK[expandedIdx].labelKey)}
+          closeLabel={t('expandClose')}
+          onClose={() => setExpandedIdx(null)}
+        />
+      )}
     </section>
   )
 }
@@ -227,10 +288,14 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
 function TfPanel({
   symbol,
   tf,
+  expandLabel,
+  onExpand,
   onChartRef,
 }: {
   symbol: string
   tf: Tf
+  expandLabel: string
+  onExpand: () => void
   onChartRef: (chart: IChartApi | null) => void
 }) {
   const tStack = useTranslations('dashboard.vision.stack')
@@ -240,9 +305,35 @@ function TfPanel({
         <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-50">
           {symbol}
         </span>
-        <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/80">
-          {tStack(tf.tagKey)} · {tStack(tf.labelKey)}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-300/80">
+            {tStack(tf.tagKey)} · {tStack(tf.labelKey)}
+          </span>
+          <button
+            type="button"
+            onClick={onExpand}
+            aria-label={expandLabel}
+            title={expandLabel}
+            className="inline-flex h-5 w-5 items-center justify-center rounded border border-cyan-400/25 bg-cyan-500/[0.06] text-cyan-200/70 transition hover:border-amber-300/60 hover:bg-amber-300/10 hover:text-amber-200"
+          >
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <polyline points="15 3 21 3 21 9" />
+              <polyline points="9 21 3 21 3 15" />
+              <line x1="21" y1="3" x2="14" y2="10" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Visible TradingView live chart */}
@@ -401,4 +492,64 @@ function CaptureChart({
   }, [symbol, interval])
 
   return <div ref={containerRef} className="h-full w-full" />
+}
+
+/* -- Fullscreen modal showing one timeframe at large size. -- */
+
+function ChartModal({
+  symbol,
+  tf,
+  tagLabel,
+  tfLabel,
+  closeLabel,
+  onClose,
+}: {
+  symbol: string
+  tf: Tf
+  tagLabel: string
+  tfLabel: string
+  closeLabel: string
+  onClose: () => void
+}) {
+  if (typeof document === 'undefined') return null
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[100] flex flex-col bg-slate-950/85 p-3 backdrop-blur-sm sm:p-6"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+    >
+      <div
+        className="flex flex-1 flex-col overflow-hidden rounded-md border border-cyan-400/25 bg-slate-950/85 shadow-[0_0_60px_rgba(0,0,0,0.5)]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between border-b border-cyan-400/15 bg-cyan-500/[0.05] px-3 py-2">
+          <div className="flex items-center gap-3">
+            <span className="font-display text-[0.7rem] font-bold tracking-[0.22em] text-cyan-50">
+              {symbol}
+            </span>
+            <span className="font-display text-[0.6rem] tracking-[0.22em] text-amber-300/80">
+              {tagLabel} · {tfLabel}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={closeLabel}
+            title={closeLabel}
+            className="inline-flex h-7 w-7 items-center justify-center rounded border border-cyan-400/25 bg-cyan-500/[0.08] text-cyan-100/80 transition hover:border-rose-300/60 hover:bg-rose-400/15 hover:text-rose-100"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div className="relative flex-1">
+          <TradingViewMini symbol={symbol} tvInterval={tf.tvInterval} />
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )
 }

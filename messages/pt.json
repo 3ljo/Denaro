@@ -287,7 +287,9 @@
         "tf1h": "1H",
         "tf15m": "15M"
       },
-      "captureNote": "Stack multi-timeframe de {pair} — gráfico 1 = HTF (4H), gráfico 2 = MTF (1H), gráfico 3 = LTF (15M)."
+      "captureNote": "Stack multi-timeframe de {pair} — gráfico 1 = HTF (4H), gráfico 2 = MTF (1H), gráfico 3 = LTF (15M).",
+      "expand": "Maximizar gráfico",
+      "expandClose": "Fechar"
     },
     "ask": {
       "badge": "// CANAL",
