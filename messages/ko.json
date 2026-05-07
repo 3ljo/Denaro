@@ -269,7 +269,14 @@
       "soon": "곧",
       "predict": "영향 예측",
       "predicting": "읽는 중…",
-      "predictionLabel": "// AI 읽기"
+      "predictionLabel": "// AI 읽기",
+      "eventCount": "이벤트 {count}건",
+      "thisWeek": "이번 주",
+      "colTime": "시간",
+      "colCcy": "통화",
+      "colEvent": "이벤트",
+      "colImpact": "영향",
+      "colIn": "남음"
     },
     "vision": {
       "badge": "// 비전 ▸ 멀티-TF 해독",

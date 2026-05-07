@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl'
 import type { ReactNode, SVGProps } from 'react'
 
-export type TabId = 'markets' | 'news' | 'vision' | 'channel'
+export type TabId = 'news' | 'vision' | 'channel'
 
 export type Tab = { id: TabId; icon: ReactNode }
 
@@ -20,17 +20,6 @@ const baseIcon: SVGProps<SVGSVGElement> = {
 }
 
 export const DASHBOARD_TABS: Tab[] = [
-  {
-    id: 'markets',
-    icon: (
-      <svg {...baseIcon}>
-        <rect x="4" y="13" width="3.5" height="7" />
-        <rect x="10.25" y="8" width="3.5" height="12" />
-        <rect x="16.5" y="11" width="3.5" height="9" />
-        <line x1="3" y1="20" x2="21" y2="20" />
-      </svg>
-    ),
-  },
   {
     id: 'news',
     icon: (
@@ -115,7 +104,7 @@ export function MobileBottomNav({ active, onSelect }: Props) {
       {/* hairline glow on top edge */}
       <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
       <div className="border-t border-cyan-400/25 bg-denaro-bg/90 backdrop-blur-lg safe-bottom shadow-[0_-12px_36px_rgba(0,0,0,0.55)]">
-        <div className="mx-auto grid max-w-lg grid-cols-4">
+        <div className="mx-auto grid max-w-lg grid-cols-3">
           {DASHBOARD_TABS.map((tab) => {
             const on = active === tab.id
             return (

@@ -269,7 +269,14 @@
       "soon": "即将",
       "predict": "预测影响",
       "predicting": "读取中…",
-      "predictionLabel": "// AI 解读"
+      "predictionLabel": "// AI 解读",
+      "eventCount": "{count} 项事件",
+      "thisWeek": "本周",
+      "colTime": "时间",
+      "colCcy": "币种",
+      "colEvent": "事件",
+      "colImpact": "影响",
+      "colIn": "剩余"
     },
     "vision": {
       "badge": "// 视觉 ▸ 多周期解读",

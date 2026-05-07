@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { resolveLocale } from '@/i18n/request'
 import { getChatLanguageInstruction } from '@/lib/i18n/language-instruction'
+import { fetchSpotPrice } from '@/lib/market/price'
 import OpenAI from 'openai'
 
 export const runtime = 'nodejs'
@@ -19,19 +20,19 @@ type Body = {
 
 const SYSTEM_PROMPT = `You are Denaro, an AI trading analyst.
 
-The user is watching a market pair and is about to face a high-impact economic release. Give a short, professional read of what the event could do to the pair if the print comes in HOT (above forecast), COLD (below forecast), or IN-LINE.
+The user is watching a market pair and is about to face a high-impact economic release. Return a strict JSON object with exactly three keys: "hot", "cold", "inline". Each value is one short reaction sentence describing what happens to THE USER'S PAIR if the print comes in above forecast (hot), below forecast (cold), or matches it (inline).
 
-Style:
-- 3 short bullet points, one per scenario (HOT / COLD / IN-LINE).
-- Each bullet: max 2 sentences, plain English, no hedging fluff.
-- Mention likely directional bias on the requested pair, what level/zone to watch, and one concrete behavior to look for (impulse vs fade, retest, sweep).
-- Never give explicit "buy" or "sell" calls. This is analysis, not advice.
-- No preamble, no disclaimer at the end. Lead straight with the bullets.
+Hard rules — every sentence MUST satisfy ALL of these:
+1. Begin with "Bullish <pair-short>" / "Bearish <pair-short>" / "Range <pair-short>".
+2. Include ONE concrete numeric level or zone derived from the LIVE SPOT PRICE the user provides. Levels must sit within ±5% of that spot. NEVER invent levels from training data.
+3. End with one setup keyword: impulse, fade, retest, sweep, breakout, reclaim, continuation, or rejection.
+4. Max 14 words. Direct trader voice. No "could / may / potential / likely / watch for / consider / if" hedging.
+5. No preamble, no disclaimer, no "buy" or "sell" calls. Describe the pair's reaction, not what the trader should do.
 
-Format exactly:
-HOT (above forecast): <line>
-COLD (below forecast): <line>
-IN-LINE: <line>`
+Output JSON shape (no other keys, no markdown, no commentary):
+{"hot": "...", "cold": "...", "inline": "..."}
+
+If no spot price is provided, write the level as "[level]" — do NOT make one up.`
 
 export async function POST(req: Request) {
   const supabase = await createClient()
@@ -57,7 +58,17 @@ export async function POST(req: Request) {
     return new Response('predictions are only enabled for high-impact events', { status: 400 })
   }
 
+  // Anchor the model to the actual live price so it doesn't hallucinate
+  // levels from outdated training data.
+  const spot = await fetchSpotPrice(pair).catch(() => null)
+  const spotLine =
+    spot && spot.price != null
+      ? `LIVE SPOT PRICE for ${pair}: ${spot.price} (as of ${spot.asOf}).`
+      : `LIVE SPOT PRICE for ${pair}: unavailable — write the level as "[level]" rather than invent one.`
+
   const userPrompt = [
+    spotLine,
+    '',
     `Pair the user is watching: ${pair}`,
     `Event: ${title}`,
     currency ? `Event currency: ${currency}` : null,
@@ -65,7 +76,7 @@ export async function POST(req: Request) {
     body.previous ? `Previous reading: ${body.previous}` : null,
     body.timeIso ? `Scheduled time (UTC): ${body.timeIso}` : null,
     '',
-    'Give the 3-bullet read in the format above.',
+    'Write the 3 lines now. Levels MUST sit within ±5% of the live spot above.',
   ]
     .filter(Boolean)
     .join('\n')
@@ -81,10 +92,28 @@ export async function POST(req: Request) {
         { role: 'system', content: SYSTEM_PROMPT + langSuffix },
         { role: 'user', content: userPrompt },
       ],
-      max_tokens: 220,
-      temperature: 0.4,
+      max_tokens: 200,
+      temperature: 0.3,
+      response_format: { type: 'json_object' },
     })
-    const text = completion.choices[0]?.message?.content?.trim() ?? ''
+
+    const raw = completion.choices[0]?.message?.content?.trim() ?? '{}'
+    let parsed: { hot?: unknown; cold?: unknown; inline?: unknown } = {}
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      return new Response('invalid model output', { status: 502 })
+    }
+
+    const hot = typeof parsed.hot === 'string' ? parsed.hot.trim() : ''
+    const cold = typeof parsed.cold === 'string' ? parsed.cold.trim() : ''
+    const inline = typeof parsed.inline === 'string' ? parsed.inline.trim() : ''
+    if (!hot || !cold || !inline) {
+      return new Response('incomplete model output', { status: 502 })
+    }
+
+    // Re-stringify into the exact format the client parser already understands.
+    const text = `HOT: ${hot}\nCOLD: ${cold}\nIN-LINE: ${inline}`
     return new Response(text, {
       headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
     })

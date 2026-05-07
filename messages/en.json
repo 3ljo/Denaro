@@ -269,7 +269,14 @@
       "soon": "SOON",
       "predict": "Predict impact",
       "predicting": "Reading…",
-      "predictionLabel": "// AI READ"
+      "predictionLabel": "// AI READ",
+      "eventCount": "{count} events",
+      "thisWeek": "this week",
+      "colTime": "Time",
+      "colCcy": "CCY",
+      "colEvent": "Event",
+      "colImpact": "Impact",
+      "colIn": "In"
     },
     "vision": {
       "badge": "// VISION ▸ MULTI-TF READ",

@@ -269,7 +269,14 @@
       "soon": "PRONTO",
       "predict": "Predecir impacto",
       "predicting": "Leyendo…",
-      "predictionLabel": "// LECTURA IA"
+      "predictionLabel": "// LECTURA IA",
+      "eventCount": "{count} eventos",
+      "thisWeek": "esta semana",
+      "colTime": "Hora",
+      "colCcy": "DIV",
+      "colEvent": "Evento",
+      "colImpact": "Impacto",
+      "colIn": "En"
     },
     "vision": {
       "badge": "// VISIÓN ▸ LECTURA MULTI-TF",

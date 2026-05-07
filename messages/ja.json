@@ -269,7 +269,14 @@
       "soon": "まもなく",
       "predict": "影響を予測",
       "predicting": "読込中…",
-      "predictionLabel": "// AI読み"
+      "predictionLabel": "// AI読み",
+      "eventCount": "イベント {count} 件",
+      "thisWeek": "今週",
+      "colTime": "時刻",
+      "colCcy": "通貨",
+      "colEvent": "イベント",
+      "colImpact": "影響",
+      "colIn": "残り"
     },
     "vision": {
       "badge": "// ビジョン ▸ マルチTF読解",

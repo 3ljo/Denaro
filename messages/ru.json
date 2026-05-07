@@ -269,7 +269,14 @@
       "soon": "СКОРО",
       "predict": "Спрогнозировать",
       "predicting": "Чтение…",
-      "predictionLabel": "// ЧТЕНИЕ ИИ"
+      "predictionLabel": "// ЧТЕНИЕ ИИ",
+      "eventCount": "{count} событий",
+      "thisWeek": "на этой неделе",
+      "colTime": "Время",
+      "colCcy": "ВАЛ",
+      "colEvent": "Событие",
+      "colImpact": "Влияние",
+      "colIn": "Через"
     },
     "vision": {
       "badge": "// ЗРЕНИЕ ▸ МУЛЬТИ-TF ЧТЕНИЕ",

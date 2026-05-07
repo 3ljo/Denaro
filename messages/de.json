@@ -269,7 +269,14 @@
       "soon": "BALD",
       "predict": "Auswirkung prognostizieren",
       "predicting": "Wird gelesen…",
-      "predictionLabel": "// KI-LESEART"
+      "predictionLabel": "// KI-LESEART",
+      "eventCount": "{count} Termine",
+      "thisWeek": "diese Woche",
+      "colTime": "Zeit",
+      "colCcy": "WHG",
+      "colEvent": "Termin",
+      "colImpact": "Impact",
+      "colIn": "In"
     },
     "vision": {
       "badge": "// VISION ▸ MULTI-TF LESUNG",

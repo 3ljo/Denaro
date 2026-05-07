@@ -27,6 +27,28 @@ const STACK: Tf[] = [
   { interval: '15m', labelKey: 'tf15m', tagKey: 'ltf', tvInterval: '15'  },
 ]
 
+// Friendly asset names for the pair-selector cards.
+const PAIR_LABEL: Record<string, string> = {
+  XAUUSD: 'Gold',
+  EURUSD: 'EUR / USD',
+  GBPUSD: 'GBP / USD',
+  USDJPY: 'USD / JPY',
+  AUDUSD: 'AUD / USD',
+  USDCAD: 'USD / CAD',
+  NZDUSD: 'NZD / USD',
+  EURJPY: 'EUR / JPY',
+  GBPJPY: 'GBP / JPY',
+  BTCUSD: 'Bitcoin',
+  ETHUSD: 'Ethereum',
+  NAS100: 'Nasdaq 100',
+  SPX500: 'S&P 500',
+  US30: 'Dow',
+  GER40: 'DAX',
+  UK100: 'FTSE 100',
+  OIL: 'Crude Oil',
+  SILVER: 'Silver',
+}
+
 // Same map used by the Markets-tab chart + ticker.
 const TV_SYMBOL: Record<string, string> = {
   XAUUSD: 'OANDA:XAUUSD',
@@ -175,22 +197,58 @@ export default function VisionCard({ pairs }: { pairs: string[] }) {
         )}
       </header>
 
-      {/* Pair selector */}
-      <div className="flex flex-wrap gap-1.5">
+      {/* Pair selector — two-line cards: pair code + friendly name. */}
+      <div
+        role="tablist"
+        aria-label="Pair to analyze"
+        className="flex flex-wrap gap-2"
+      >
         {pairs.map((p) => {
           const on = p === selected
+          const label = PAIR_LABEL[p.toUpperCase()] ?? p
           return (
             <button
               key={p}
               type="button"
+              role="tab"
+              aria-selected={on}
               onClick={() => setSelected(p)}
-              className={`rounded border px-2.5 py-1 font-display text-[0.65rem] tracking-[0.18em] transition ${
+              className={`group relative flex items-center gap-2.5 overflow-hidden rounded-md border px-3 py-2 text-left transition ${
                 on
-                  ? 'border-amber-300/70 bg-amber-400/15 text-amber-100 shadow-[0_0_12px_rgba(251,191,36,0.3)]'
-                  : 'border-cyan-400/25 bg-cyan-500/[0.04] text-cyan-100/75 hover:border-cyan-300/45 hover:bg-cyan-500/[0.08]'
+                  ? 'border-amber-300/70 bg-gradient-to-br from-amber-400/20 via-amber-300/10 to-transparent shadow-[0_0_22px_rgba(251,191,36,0.28)]'
+                  : 'border-cyan-400/20 bg-cyan-500/[0.04] hover:border-cyan-300/50 hover:bg-cyan-500/[0.08]'
               }`}
             >
-              {p}
+              <span
+                aria-hidden
+                className={`h-2 w-2 shrink-0 rounded-full transition ${
+                  on
+                    ? 'bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.8)]'
+                    : 'bg-cyan-400/40 group-hover:bg-cyan-300/70'
+                }`}
+              />
+              <span className="flex flex-col leading-tight">
+                <span
+                  className={`font-display text-[0.7rem] font-bold tracking-[0.2em] ${
+                    on ? 'text-amber-50' : 'text-cyan-100/90'
+                  }`}
+                >
+                  {p}
+                </span>
+                <span
+                  className={`font-display text-[0.5rem] tracking-[0.2em] ${
+                    on ? 'text-amber-200/80' : 'text-cyan-200/45'
+                  }`}
+                >
+                  {label}
+                </span>
+              </span>
+              {on && (
+                <span
+                  aria-hidden
+                  className="absolute inset-x-2 -bottom-px h-px bg-gradient-to-r from-transparent via-amber-300 to-transparent"
+                />
+              )}
             </button>
           )
         })}

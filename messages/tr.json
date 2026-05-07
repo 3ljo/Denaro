@@ -269,7 +269,14 @@
       "soon": "YAKINDA",
       "predict": "Etkiyi tahmin et",
       "predicting": "Okunuyor…",
-      "predictionLabel": "// YZ OKUMASI"
+      "predictionLabel": "// YZ OKUMASI",
+      "eventCount": "{count} olay",
+      "thisWeek": "bu hafta",
+      "colTime": "Saat",
+      "colCcy": "PARA",
+      "colEvent": "Olay",
+      "colImpact": "Etki",
+      "colIn": "Sonra"
     },
     "vision": {
       "badge": "// GÖRÜŞ ▸ ÇOK-ZAMAN OKUMA",

@@ -6,8 +6,6 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { Profile } from '@/lib/profile/types'
 import SessionBar from './session-bar'
 import TickerBar from './ticker-bar'
-import ChartCard from './chart-card'
-import PairCard from './pair-card'
 import NewsCard from './news-card'
 import VisionCard from './vision-card'
 import AskDenaro from './ask-denaro'
@@ -17,7 +15,8 @@ import {
   type TabId,
 } from './dashboard-nav'
 
-const VALID_TABS: TabId[] = ['markets', 'news', 'vision', 'channel']
+const VALID_TABS: TabId[] = ['news', 'vision', 'channel']
+const DEFAULT_TAB: TabId = 'news'
 
 function isTabId(v: string | null): v is TabId {
   return !!v && (VALID_TABS as string[]).includes(v)
@@ -28,12 +27,12 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
   const pathname = usePathname()
   const params = useSearchParams()
   const urlTab = params.get('tab')
-  const tab: TabId = isTabId(urlTab) ? urlTab : 'markets'
+  const tab: TabId = isTabId(urlTab) ? urlTab : DEFAULT_TAB
 
   const setTab = useCallback(
     (next: TabId) => {
       const usp = new URLSearchParams(params.toString())
-      if (next === 'markets') usp.delete('tab')
+      if (next === DEFAULT_TAB) usp.delete('tab')
       else usp.set('tab', next)
       const qs = usp.toString()
       router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
@@ -50,9 +49,6 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
       <DesktopTabBar active={tab} onSelect={setTab} />
 
       <div className="flex-1">
-        {tab === 'markets' && (
-          <MarketsTab pairs={profile.pairs} strategy={profile.strategy} />
-        )}
         {tab === 'news' && <NewsTab pairs={profile.pairs} />}
         {tab === 'vision' && <VisionCard pairs={profile.pairs} />}
         {tab === 'channel' && (
@@ -66,37 +62,6 @@ export default function DashboardContent({ profile }: { profile: Profile }) {
 }
 
 /* --- Tab content --- */
-
-/**
- * Markets — single-pair-open accordion. Opening one closes the others so the
- * page never becomes a wall. On lg+ the expanded body splits chart-left /
- * analysis-right to use the wide screen.
- */
-function MarketsTab({
-  pairs,
-  strategy,
-}: {
-  pairs: string[]
-  strategy: Profile['strategy']
-}) {
-  // Single open pair — null means everything collapsed.
-  const [openPair, setOpenPair] = useState<string | null>(pairs[0] ?? null)
-  return (
-    <div className="space-y-2">
-      {pairs.map((pair) => (
-        <PairAccordion
-          key={pair}
-          pair={pair}
-          strategy={strategy}
-          open={openPair === pair}
-          onToggle={() =>
-            setOpenPair((curr) => (curr === pair ? null : pair))
-          }
-        />
-      ))}
-    </div>
-  )
-}
 
 function PairAccordion({
   pair,

@@ -38,7 +38,7 @@ export default function NewsCard({ pair }: { pair: string }) {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch(`/api/news?symbol=${pair}&count=8`, {
+      const res = await fetch(`/api/news?symbol=${pair}&count=20`, {
         cache: 'no-store',
       })
       if (!res.ok) throw new Error(`request failed (${res.status})`)
@@ -63,32 +63,36 @@ export default function NewsCard({ pair }: { pair: string }) {
   const medCount = items.filter((e) => e.impact === 'medium').length
 
   return (
-    <div className="denaro-panel relative flex flex-col gap-3 rounded-md p-4">
-      <header className="flex items-start justify-between gap-3">
-        <div>
-          <p className="font-display text-[0.55rem] tracking-[0.32em] text-amber-300/80">
-            {t('badge')}
-          </p>
-          <h3 className="font-display text-lg font-bold uppercase tracking-[0.18em] text-cyan-50">
-            {t('feedTitle', { pair })}
-          </h3>
-          {items.length > 0 && (
-            <div className="mt-1 flex items-center gap-2 font-display text-[0.55rem] tracking-[0.18em]">
+    <div className="denaro-panel relative flex flex-col gap-3 rounded-md p-3 sm:p-4">
+      {/* Compact meta header — pair name comes from the parent accordion. */}
+      <header className="flex items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-[0.55rem] tracking-[0.22em]">
+          {items.length > 0 ? (
+            <>
+              <span className="text-cyan-200/65">
+                {t('eventCount', { count: items.length })} · {t('thisWeek')}
+              </span>
               {liveCount > 0 && (
                 <span className="flex items-center gap-1 text-rose-200 animate-pulse">
                   <span className="h-1.5 w-1.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(248,113,113,0.9)]" />
                   {liveCount} {t('live')}
                 </span>
               )}
-              <span className="flex items-center gap-1 text-rose-300/85">
-                <ImpactDot impact="high" />
-                {highCount} {t('high')}
-              </span>
-              <span className="flex items-center gap-1 text-amber-200/85">
-                <ImpactDot impact="medium" />
-                {medCount} {t('med')}
-              </span>
-            </div>
+              {highCount > 0 && (
+                <span className="flex items-center gap-1 text-rose-300/85">
+                  <ImpactDot impact="high" />
+                  {highCount} {t('high')}
+                </span>
+              )}
+              {medCount > 0 && (
+                <span className="flex items-center gap-1 text-amber-200/85">
+                  <ImpactDot impact="medium" />
+                  {medCount} {t('med')}
+                </span>
+              )}
+            </>
+          ) : (
+            <span className="text-cyan-200/55">{t('thisWeek')}</span>
           )}
         </div>
         <button
@@ -109,13 +113,32 @@ export default function NewsCard({ pair }: { pair: string }) {
         </div>
       )}
       {items.length > 0 && (
-        <ul className="space-y-2">
-          {items.map((event) => (
-            <li key={event.id}>
-              <EventRow event={event} now={now} pair={pair} />
-            </li>
-          ))}
-        </ul>
+        <div className="-mx-3 overflow-x-auto sm:-mx-4">
+          <table className="w-full min-w-[720px] border-collapse text-left text-[0.72rem]">
+            <thead>
+              <tr className="border-y border-cyan-400/15 bg-cyan-500/[0.04] font-display text-[0.55rem] tracking-[0.22em] text-cyan-200/70">
+                <th className="px-3 py-2 font-medium">{t('colTime')}</th>
+                <th className="px-2 py-2 font-medium">{t('colCcy')}</th>
+                <th className="px-2 py-2 font-medium">{t('colEvent')}</th>
+                <th className="px-2 py-2 font-medium">{t('colImpact')}</th>
+                <th className="px-2 py-2 text-right font-medium">{t('forecast')}</th>
+                <th className="px-2 py-2 text-right font-medium">{t('previous')}</th>
+                <th className="px-2 py-2 text-right font-medium">{t('colIn')}</th>
+                <th className="px-2 py-2 pr-3" aria-label={t('predict')} />
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((event) => (
+                <EventTableRow
+                  key={event.id}
+                  event={event}
+                  now={now}
+                  pair={pair}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {!loading && !error && items.length === 0 && (
         <p className="text-[0.7rem] text-cyan-100/40">
@@ -126,13 +149,11 @@ export default function NewsCard({ pair }: { pair: string }) {
   )
 }
 
-function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: string }) {
+function EventTableRow({ event, now, pair }: { event: NewsItem; now: number; pair: string }) {
   const t = useTranslations('dashboard.newsCard')
-  const delta = event.timeUtc - now // seconds
+  const delta = event.timeUtc - now
   const status = statusOf(delta)
-  const styles = IMPACT_STYLES[event.impact]
 
-  // AI prediction state — only used for HIGH impact events that haven't fully passed.
   const [prediction, setPrediction] = useState<string | null>(null)
   const [predicting, setPredicting] = useState(false)
   const [predictionError, setPredictionError] = useState<string | null>(null)
@@ -140,9 +161,7 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
   const canPredict = event.impact === 'high' && status !== 'past'
   const scenarios = prediction ? parseScenarios(prediction) : []
 
-  async function fetchPrediction(e: React.MouseEvent) {
-    e.preventDefault()
-    e.stopPropagation()
+  async function fetchPrediction() {
     if (predicting || prediction) return
     setPredicting(true)
     setPredictionError(null)
@@ -170,142 +189,147 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
     }
   }
 
-  // Container classes — status drives the visual tint.
-  const containerClass =
+  // Per-status row styling — kept subtle so the table stays calm.
+  const rowTint =
     status === 'live'
-      ? 'denaro-live border border-l-[3px] border-rose-400 bg-rose-500/10'
+      ? 'denaro-live bg-rose-500/[0.10]'
       : status === 'imminent'
-        ? 'denaro-live border border-l-[3px] border-amber-300/80 bg-amber-400/[0.07]'
-        : `border border-l-[3px] ${styles.container} ${
-            status === 'past' ? 'opacity-65' : ''
-          }`
-
-  const Wrapper = event.url ? ('a' as const) : ('div' as const)
-  const wrapperProps = event.url
-    ? { href: event.url, target: '_blank', rel: 'noopener noreferrer' as const }
-    : {}
+        ? 'denaro-live bg-amber-400/[0.06]'
+        : status === 'past'
+          ? 'opacity-60'
+          : event.impact === 'high'
+            ? 'bg-rose-500/[0.03]'
+            : ''
 
   return (
-    <Wrapper
-      {...wrapperProps}
-      className={`block rounded px-3 py-2.5 transition ${containerClass}`}
-    >
-      {/* Top row: currency + title + status pill cluster */}
-      <div className="flex items-start gap-2.5">
-        <CurrencyTag currency={event.currency} />
-        <p className="line-clamp-2 flex-1 text-[0.82rem] font-medium leading-snug text-cyan-50">
-          {event.title}
-        </p>
-        <div className="flex shrink-0 items-center gap-1.5">
-          <ImpactBadge impact={event.impact} />
-          {status === 'live' && (
-            <span className="rounded border border-rose-400/80 bg-rose-500/25 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-rose-100">
-              {t('live')}
-            </span>
-          )}
-          {status === 'imminent' && (
-            <span className="rounded border border-amber-300/80 bg-amber-400/20 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-amber-100">
-              {t('soon')}
-            </span>
-          )}
-        </div>
-      </div>
-
-      {/* Meta row: time on the left, F/P chips in the middle, big countdown on the right */}
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-        <span className="font-mono text-[0.68rem] text-cyan-200/65">
+    <>
+      <tr
+        className={`border-b border-cyan-400/10 transition hover:bg-cyan-500/[0.03] ${rowTint}`}
+      >
+        <td className="whitespace-nowrap px-3 py-2 align-top font-mono text-[0.68rem] text-cyan-100/85">
           {fmtTime(event.timeUtc)}
-        </span>
-        {event.forecast && (
-          <DataChip label={t('forecast')} value={event.forecast} />
-        )}
-        {event.previous && (
-          <DataChip label={t('previous')} value={event.previous} />
-        )}
-        <span className="ml-auto">
-          <Countdown delta={delta} status={status} />
-        </span>
-      </div>
-
-      {/* Predict CTA — neutral surface with a small gold dot accent */}
-      {canPredict && !prediction && (
-        <button
-          type="button"
-          onClick={fetchPrediction}
-          disabled={predicting}
-          className="mt-2.5 inline-flex items-center gap-2 rounded-md border border-slate-700/60 bg-slate-900/60 px-3 py-1.5 font-display text-[0.58rem] tracking-[0.22em] text-cyan-100/85 transition hover:border-amber-300/50 hover:bg-slate-900/80 hover:text-amber-100 disabled:opacity-60"
-        >
-          <span className="flex h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.7)]" />
-          {predicting ? <Spinner /> : <CrystalBallIcon />}
-          <span>{predicting ? t('predicting') : t('predict')}</span>
-        </button>
-      )}
-
-      {/* AI read — single dark tray with 3 labelled rows */}
-      {prediction && (
-        <div className="mt-3 rounded-md border border-slate-700/50 bg-slate-950/60 p-2.5">
-          <div className="mb-2 flex items-center gap-2">
-            <span className="flex h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.7)]" />
-            <span className="font-display text-[0.55rem] font-bold tracking-[0.24em] text-amber-200/90">
-              {t('predictionLabel')}
-            </span>
-            <span className="h-px flex-1 bg-slate-700/40" />
-          </div>
-          {scenarios.length === 3 ? (
-            <div className="space-y-1.5">
-              {scenarios.map((s) => (
-                <ScenarioRow key={s.kind} kind={s.kind} text={s.text} />
-              ))}
-            </div>
+        </td>
+        <td className="px-2 py-2 align-top">
+          <CurrencyTag currency={event.currency} />
+        </td>
+        <td className="px-2 py-2 align-top">
+          {event.url ? (
+            <a
+              href={event.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.78rem] font-medium text-cyan-50 transition hover:text-amber-200"
+            >
+              {event.title}
+            </a>
           ) : (
-            <p className="whitespace-pre-line text-[0.72rem] leading-relaxed text-cyan-50/85">
-              {prediction}
-            </p>
+            <span className="text-[0.78rem] font-medium text-cyan-50">{event.title}</span>
           )}
-        </div>
-      )}
+        </td>
+        <td className="whitespace-nowrap px-2 py-2 align-top">
+          <div className="flex items-center gap-1.5">
+            <ImpactBadge impact={event.impact} />
+            {status === 'live' && (
+              <span className="rounded border border-rose-400/80 bg-rose-500/25 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-rose-100">
+                {t('live')}
+              </span>
+            )}
+            {status === 'imminent' && (
+              <span className="rounded border border-amber-300/80 bg-amber-400/20 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-amber-100">
+                {t('soon')}
+              </span>
+            )}
+          </div>
+        </td>
+        <td className="whitespace-nowrap px-2 py-2 text-right align-top font-mono text-[0.7rem] text-cyan-50/85">
+          {event.forecast ?? '—'}
+        </td>
+        <td className="whitespace-nowrap px-2 py-2 text-right align-top font-mono text-[0.7rem] text-cyan-50/65">
+          {event.previous ?? '—'}
+        </td>
+        <td className="whitespace-nowrap px-2 py-2 text-right align-top">
+          <Countdown delta={delta} status={status} />
+        </td>
+        <td className="whitespace-nowrap px-2 py-2 pr-3 text-right align-top">
+          {canPredict && !prediction && (
+            <button
+              type="button"
+              onClick={fetchPrediction}
+              disabled={predicting}
+              aria-label={t('predict')}
+              title={t('predict')}
+              className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-md border border-amber-300/50 bg-gradient-to-r from-amber-400/10 via-amber-300/25 to-amber-400/10 px-2.5 py-1 font-display text-[0.58rem] font-bold uppercase tracking-[0.22em] text-amber-100 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition hover:border-amber-300/80 hover:from-amber-400/20 hover:via-amber-300/40 hover:to-amber-400/20 hover:text-amber-50 hover:shadow-[0_0_18px_rgba(251,191,36,0.35)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {/* Subtle shimmer on hover */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-amber-200/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+              />
+              <span className="relative flex items-center gap-1.5">
+                {predicting ? <Spinner /> : <SparkleIcon />}
+                <span className="hidden lg:inline">
+                  {predicting ? t('predicting') : t('predict')}
+                </span>
+              </span>
+            </button>
+          )}
+        </td>
+      </tr>
 
-      {predictionError && (
-        <p className="mt-2 text-[0.62rem] text-rose-300/85">// {predictionError}</p>
+      {(prediction || predictionError) && (
+        <tr className={rowTint}>
+          <td colSpan={8} className="px-3 pb-3 pt-0">
+            {prediction && (
+              <div className="rounded-md border border-slate-700/50 bg-slate-950/60 p-2.5">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="flex h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.7)]" />
+                  <span className="font-display text-[0.55rem] font-bold tracking-[0.24em] text-amber-200/90">
+                    {t('predictionLabel')}
+                  </span>
+                  <span className="h-px flex-1 bg-slate-700/40" />
+                </div>
+                {scenarios.length === 3 ? (
+                  <div className="space-y-1.5">
+                    {scenarios.map((s) => (
+                      <ScenarioRow key={s.kind} kind={s.kind} text={s.text} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="whitespace-pre-line text-[0.72rem] leading-relaxed text-cyan-50/85">
+                    {prediction}
+                  </p>
+                )}
+              </div>
+            )}
+            {predictionError && (
+              <p className="text-[0.62rem] text-rose-300/85">// {predictionError}</p>
+            )}
+          </td>
+        </tr>
       )}
-    </Wrapper>
-  )
-}
-
-/* -- Forecast / Previous chip with full-word label. -- */
-function DataChip({ label, value }: { label: string; value: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded border border-slate-700/50 bg-slate-900/50 px-2 py-0.5">
-      <span className="font-display text-[0.5rem] tracking-[0.22em] text-slate-400">
-        {label}
-      </span>
-      <span className="font-mono text-[0.65rem] text-cyan-50/90">{value}</span>
-    </span>
+    </>
   )
 }
 
 /* -- Single AI scenario row inside the dark tray.
- *    The whole tray is one neutral dark surface; only the icon-pill on the
- *    left and the label color signal the scenario kind. -- */
+ *    Compact 3-column grid: icon · label · body, vertically aligned across rows. -- */
 type ScenarioKind = 'hot' | 'cold' | 'inline'
 function ScenarioRow({ kind, text }: { kind: ScenarioKind; text: string }) {
   const cfg = SCENARIO_STYLES[kind]
   return (
-    <div className="flex items-start gap-2.5">
+    <div className="grid grid-cols-[auto_56px_1fr] items-center gap-x-2.5 gap-y-0 py-1">
       <span
-        className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded font-mono text-[0.65rem] font-bold ${cfg.iconBg} ${cfg.iconText}`}
+        className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-mono text-[0.7rem] font-bold ${cfg.iconBg} ${cfg.iconText}`}
         aria-hidden
       >
         {cfg.glyph}
       </span>
-      <div className="min-w-0 flex-1">
-        <span
-          className={`mr-1.5 font-display text-[0.55rem] font-bold tracking-[0.22em] ${cfg.label}`}
-        >
-          {cfg.title}
-        </span>
-        <span className="text-[0.72rem] leading-snug text-cyan-50/85">{text}</span>
-      </div>
+      <span
+        className={`font-display text-[0.6rem] font-bold tracking-[0.22em] ${cfg.label}`}
+      >
+        {cfg.title}
+      </span>
+      <span className="text-[0.78rem] leading-snug text-cyan-50/90">{text}</span>
     </div>
   )
 }
@@ -365,12 +389,20 @@ function Spinner() {
   )
 }
 
-function CrystalBallIcon() {
+function SparkleIcon() {
   return (
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <circle cx="12" cy="11" r="7" />
-      <path d="M5 18h14" />
-      <path d="M9 8.5a3 3 0 0 1 3-2.5" />
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+      className="drop-shadow-[0_0_4px_rgba(251,191,36,0.6)]"
+    >
+      {/* Big 4-point star */}
+      <path d="M12 2.5 13.6 9 20 10.5 13.6 12 12 18.5 10.4 12 4 10.5 10.4 9 12 2.5Z" />
+      {/* Small accent star */}
+      <path d="M19 16l.7 2.1L22 19l-2.3.9L19 22l-.7-2.1L16 19l2.3-.9L19 16Z" opacity="0.8" />
     </svg>
   )
 }
@@ -412,20 +444,6 @@ function CurrencyTag({ currency }: { currency: string }) {
       {currency}
     </span>
   )
-}
-
-const IMPACT_STYLES: Record<Impact, { container: string }> = {
-  high: {
-    container:
-      'border-cyan-400/15 border-l-rose-500/80 bg-rose-500/[0.06] hover:border-l-rose-400 hover:bg-rose-500/[0.10]',
-  },
-  medium: {
-    container:
-      'border-cyan-400/15 border-l-amber-400/80 bg-amber-400/[0.05] hover:border-l-amber-300 hover:bg-amber-400/[0.09]',
-  },
-  low: {
-    container: 'border-cyan-400/15 border-l-cyan-400/40 bg-cyan-500/[0.04]',
-  },
 }
 
 function ImpactBadge({ impact }: { impact: Impact }) {

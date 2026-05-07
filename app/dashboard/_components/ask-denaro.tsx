@@ -178,13 +178,45 @@ export default function AskDenaro({ pairs, strategy }: Props) {
         className="denaro-input resize-none"
       />
 
-      <button
-        onClick={send}
-        disabled={loading || !input.trim()}
-        className="denaro-btn"
-      >
-        {loading ? t('sending') : t('send')}
-      </button>
+      <div className="flex items-center justify-end">
+        <button
+          onClick={send}
+          disabled={loading || !input.trim()}
+          aria-busy={loading}
+          className="inline-flex items-center justify-center gap-2 rounded-md px-5 py-2 font-display text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#1a1303] shadow-[0_4px_18px_rgba(251,191,36,0.25)] transition hover:brightness-110 hover:shadow-[0_6px_24px_rgba(251,191,36,0.4)] disabled:cursor-not-allowed disabled:opacity-50"
+          style={{
+            background:
+              'linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #d97706 100%)',
+          }}
+        >
+          {loading ? (
+            <svg
+              className="h-3.5 w-3.5 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+            >
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
+              <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M22 2 11 13" />
+              <path d="M22 2 15 22 11 13 2 9 22 2Z" />
+            </svg>
+          )}
+          <span>{loading ? t('sending') : t('send')}</span>
+        </button>
+      </div>
 
       {error && <p className="text-[0.7rem] text-rose-300/90">// {error}</p>}
       {(output || (loading && !error)) && (

@@ -77,18 +77,21 @@ async function getAllEvents(): Promise<NewsItem[]> {
   })
 }
 
-export async function fetchNews(symbol: string, count = 8): Promise<NewsItem[]> {
+export async function fetchNews(symbol: string, count = 20): Promise<NewsItem[]> {
   const upper = symbol.toUpperCase()
   const allowed = new Set(PAIR_TO_CURRENCIES[upper] ?? ['USD'])
 
   const all = await getAllEvents()
   const nowSec = Math.floor(Date.now() / 1000)
+  // ForexFactory weekly XML is already bounded to the current week. Keep the
+  // whole week visible — past events are visually greyed by the UI, but the
+  // user still wants to see what already fired this week.
+  const weekFloor = nowSec - 7 * 24 * 3600
   return all
     .filter((e) => allowed.has(e.currency))
     // High + medium only — low impact = noise. Holidays already filtered.
     .filter((e) => e.impact !== 'low')
-    // Drop deeply-past events (>2h ago) but keep recent ones so "+15m" reads.
-    .filter((e) => e.timeUtc > nowSec - 2 * 3600)
+    .filter((e) => e.timeUtc > weekFloor)
     .sort((a, b) => a.timeUtc - b.timeUtc)
     .slice(0, count)
 }

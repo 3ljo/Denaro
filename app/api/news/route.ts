@@ -6,8 +6,8 @@ export const dynamic = 'force-dynamic'
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const symbol = (url.searchParams.get('symbol') ?? '').toUpperCase().trim()
-  const countRaw = parseInt(url.searchParams.get('count') ?? '6', 10)
-  const count = Math.max(1, Math.min(10, Number.isFinite(countRaw) ? countRaw : 6))
+  const countRaw = parseInt(url.searchParams.get('count') ?? '20', 10)
+  const count = Math.max(1, Math.min(40, Number.isFinite(countRaw) ? countRaw : 20))
 
   if (!symbol) {
     return Response.json({ error: 'missing symbol' }, { status: 400 })

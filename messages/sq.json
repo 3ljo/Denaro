@@ -269,7 +269,14 @@
       "soon": "SHPEJT",
       "predict": "Parashiko ndikimin",
       "predicting": "Duke lexuar…",
-      "predictionLabel": "// LEXIM AI"
+      "predictionLabel": "// LEXIM AI",
+      "eventCount": "{count} ngjarje",
+      "thisWeek": "këtë javë",
+      "colTime": "Ora",
+      "colCcy": "MVL",
+      "colEvent": "Ngjarja",
+      "colImpact": "Impakti",
+      "colIn": "Pas"
     },
     "vision": {
       "badge": "// VIZION ▸ LEXIM SHUMË-TF",

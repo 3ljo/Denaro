@@ -269,7 +269,14 @@
       "soon": "قريبًا",
       "predict": "توقع التأثير",
       "predicting": "جارٍ القراءة…",
-      "predictionLabel": "// قراءة AI"
+      "predictionLabel": "// قراءة AI",
+      "eventCount": "{count} حدث",
+      "thisWeek": "هذا الأسبوع",
+      "colTime": "الوقت",
+      "colCcy": "العملة",
+      "colEvent": "الحدث",
+      "colImpact": "التأثير",
+      "colIn": "بعد"
     },
     "vision": {
       "badge": "// الرؤية ▸ قراءة متعددة الأطر",

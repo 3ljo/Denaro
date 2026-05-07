@@ -269,7 +269,14 @@
       "soon": "BIENTÔT",
       "predict": "Prédire l'impact",
       "predicting": "Lecture…",
-      "predictionLabel": "// LECTURE IA"
+      "predictionLabel": "// LECTURE IA",
+      "eventCount": "{count} événements",
+      "thisWeek": "cette semaine",
+      "colTime": "Heure",
+      "colCcy": "DEV",
+      "colEvent": "Événement",
+      "colImpact": "Impact",
+      "colIn": "Dans"
     },
     "vision": {
       "badge": "// VISION ▸ LECTURE MULTI-TF",
