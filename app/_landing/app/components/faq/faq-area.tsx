@@ -1,104 +1,60 @@
 'use client';
-import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image';
-import { useState } from 'react';
+import React from 'react';
+import { useTranslations } from 'next-intl';
+import TextAnimation from '../common/text-animation';
 
-import s_1_img from '@t/assets/img/others/services_img01.jpg';
-import s_2_img from '@t/assets/img/others/services_img02.jpg';
-import s_3_img from '@t/assets/img/others/services_img03.jpg';
-import s_4_img from '@t/assets/img/others/services_img04.jpg';
-
-// service images
-const service_images: StaticImageData[] = [s_1_img, s_2_img, s_3_img, s_4_img];
-// faq data type 
-type IFaq = {
-  id: string;
-  active?: boolean;
-  title: string;
-  desc: string;
-}
-// faq data 
-const faq_data: IFaq[] = [
-  {
-    id: 'one',
-    active: true,
-    title: 'Best NFT Game',
-    desc: 'Been the industries standard dummy text ever since the 1500s, when an unknown printer took a galley'
-  },
-  {
-    id: 'two',
-    title: 'Where can I get some?',
-    desc: 'Been the industries standard dummy text ever since the 1500s, when an unknown printer took a galley'
-  },
-  {
-    id: 'three',
-    title: 'Does it come from?',
-    desc: 'Been the industries standard dummy text ever since the 1500s, when an unknown printer took a galley'
-  },
-]
+const FAQ_KEYS = ['1', '2', '3', '4', '5', '6', '7'] as const;
 
 const FaqArea = () => {
+  const t = useTranslations('marketing.home.faq');
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
-
-  const handleMouseOver = (index: number) => {
-    setActiveIndex(index);
+  // JSON-LD FAQPage schema for Google rich results.
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_KEYS.map((k) => ({
+      '@type': 'Question',
+      name: t(`items.${k}.q`),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: t(`items.${k}.a`),
+      },
+    })),
   };
 
-  const handleMouseOut = (index: number) => {
-    setActiveIndex(index);
-  };
-
-  const handleToggle = (index: number) => {
-    setActiveIndex(prev => (prev === index ? null : index));
-  };
   return (
-    <section className="faq-area">
+    <section id="faq" className="faq__area">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <div className="faq__content-wrap">
-              <div className="section__title text-start">
-                <span className="sub-title tg__animate-text">Get your answer</span>
-                <h3 className="title">Frequently asked questions</h3>
-                <p>Lorem ipsum dolor sit amet, consteur adipiscing Duis elementum <br /> sollicitudin is yaugue euismods.</p>
-              </div>
-              <div className="faq__wrapper">
-                <div className="accordion" id="accordionExample">
-                  {faq_data.map((item, i) => (
-                    <div key={i} className="accordion-item" onClick={() => handleMouseOver(i)}>
-                      <h2 className="accordion-header" id={`heading-${item.id}`}>
-                        <button
-                          className={`accordion-button ${activeIndex === i ? '' : 'collapsed'
-                            }`}
-                          type="button"
-                          onClick={() => handleToggle(i)}
-                          aria-expanded={activeIndex === i}
-                        >
-                          <span className="count">{i + 1}</span>
-                          {item.title}
-                        </button>
-                      </h2>
-                      <div className={`accordion-collapse collapse ${activeIndex === i ? 'show' : ''}`}>
-                        <div className="accordion-body">
-                          {item.desc}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        <div className="row justify-content-center">
+          <div className="col-xl-7 col-lg-9 col-md-10">
+            <div className="section__title text-center mb-50">
+              <TextAnimation title={t('eyebrow')} />
+              <h3 className="title">{t('title')}</h3>
+              <p className="faq__lead">{t('lead')}</p>
             </div>
           </div>
-          <div className="col-lg-6">
-            <div className="services__images">
-              {service_images.map((s, i) => (
-                <div key={i} className={`services__images-item ${activeIndex === i ? "active" : ""}`}>
-                  <Image src={s} alt="img" style={{ width: '100%', height: '100%' }} />
-                  <Link href="/service-details" className="services__link">
-                    <i className="flaticon-next"></i>
-                  </Link>
-                </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-xl-9 col-lg-10">
+            <div className="faq__list">
+              {FAQ_KEYS.map((k) => (
+                <details key={k} className="faq__item">
+                  <summary className="faq__question">
+                    <span className="faq__q-text">{t(`items.${k}.q`)}</span>
+                    <span className="faq__icon" aria-hidden>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="faq__answer">
+                    <p>{t(`items.${k}.a`)}</p>
+                  </div>
+                </details>
               ))}
             </div>
           </div>

@@ -658,6 +658,41 @@
             "sendFailed": "No se pudo enviar el mensaje. Inténtalo de nuevo."
           }
         }
+      },
+      "faq": {
+        "eyebrow": "preguntas frecuentes",
+        "title": "Preguntas que merecen respuesta",
+        "lead": "Respuestas rápidas a lo que la gente pregunta antes de registrarse. ¿No ves la tuya? Escríbenos abajo.",
+        "items": {
+          "1": {
+            "q": "¿Qué es Denaro exactamente?",
+            "a": "Denaro es un analista de trading con IA — un copiloto que lee el mercado en tiempo real en cada marco temporal y entrega señales alineadas con la estrategia que eliges al registrarte. Como un analista senior disponible 24/7."
+          },
+          "2": {
+            "q": "¿Es un servicio de señales?",
+            "a": "No. Denaro no te dice qué operar. Te muestra qué está haciendo el gráfico, por qué y con qué nivel de confianza. La decisión — y el riesgo — son tuyos."
+          },
+          "3": {
+            "q": "¿Qué mercados están soportados?",
+            "a": "Forex mayores y menores, oro (XAUUSD), los principales índices y los principales pares de cripto. Se añaden nuevos instrumentos en cada release."
+          },
+          "4": {
+            "q": "¿Necesito conectar mi bróker?",
+            "a": "No. Denaro lee los datos del mercado de forma independiente. Tú mantienes el control de la ejecución en el bróker que ya usas."
+          },
+          "5": {
+            "q": "¿Cómo funciona la lente de estrategia?",
+            "a": "En el onboarding eliges una de seis lentes — Smart Money, Price Action, Trend Following, Mean Reversion, Scalping o Swing — y Denaro ajusta cada análisis a ese estilo. Puedes cambiarla cuando quieras desde ajustes."
+          },
+          "6": {
+            "q": "¿Hay una prueba gratis? ¿Necesito tarjeta?",
+            "a": "Sí — toda cuenta recibe una prueba Pro de 14 días. Sin tarjeta, cancela cuando quieras, y luego te queda el plan gratuito."
+          },
+          "7": {
+            "q": "¿Esto es asesoramiento financiero?",
+            "a": "No. Denaro es software que te ayuda a pensar — no es fiduciario, ni bróker, ni sustituto de tu propio análisis y gestión de riesgo. Opera tu propia tesis."
+          }
+        }
       }
     }
   }

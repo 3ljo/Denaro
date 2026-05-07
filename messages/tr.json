@@ -658,6 +658,41 @@
             "sendFailed": "Mesaj gönderilemedi. Lütfen tekrar dene."
           }
         }
+      },
+      "faq": {
+        "eyebrow": "sıkça sorulanlar",
+        "title": "Cevap hak eden sorular",
+        "lead": "Kayıt olmadan önce sorulan şeylere hızlı yanıtlar. Seninkini göremiyor musun? Aşağıdan yaz.",
+        "items": {
+          "1": {
+            "q": "Denaro tam olarak nedir?",
+            "a": "Denaro yapay zekâ destekli bir trading analisti — her zaman diliminde piyasayı gerçek zamanlı okuyan ve onboarding'de seçtiğin stratejiyle uyumlu sinyaller sunan bir yardımcı pilot. 7/24 hazır bir kıdemli analist gibi düşün."
+          },
+          "2": {
+            "q": "Bu bir sinyal servisi mi?",
+            "a": "Hayır. Denaro sana ne işlem yapacağını söylemez. Grafiğin ne yaptığını, neden yaptığını ve okumanın ne kadar güvenli olduğunu gösterir. Karar — ve risk — sende kalır."
+          },
+          "3": {
+            "q": "Hangi piyasalar destekleniyor?",
+            "a": "Forex major ve minor çiftleri, altın (XAUUSD), büyük endeksler ve önde gelen kripto çiftleri. Her güncellemeyle yeni enstrümanlar eklenir."
+          },
+          "4": {
+            "q": "Aracı kurumumu bağlamam gerekiyor mu?",
+            "a": "Hayır. Denaro piyasa verilerini bağımsız okur. Halihazırda kullandığın aracı kurumda emir kontrolü tamamen sende."
+          },
+          "5": {
+            "q": "Strateji merceği nasıl çalışır?",
+            "a": "Onboarding'de altı mercekten birini seçersin — Smart Money, Price Action, Trend Following, Mean Reversion, Scalping veya Swing — ve Denaro her analizi o stile göre ayarlar. Ayarlardan istediğin zaman değiştirebilirsin."
+          },
+          "6": {
+            "q": "Ücretsiz deneme var mı? Kart gerekiyor mu?",
+            "a": "Evet — her hesap 14 günlük Pro deneme alır. Kart gerekmez, istediğin zaman iptal edersin, sonrasında ücretsiz kademede kalırsın."
+          },
+          "7": {
+            "q": "Bu finansal tavsiye mi?",
+            "a": "Hayır. Denaro düşünmene yardım eden bir yazılımdır — fiduciary değil, broker değil, kendi analiz ve risk yönetiminin yerini tutmaz. Kendi tezini al-sat."
+          }
+        }
       }
     }
   }

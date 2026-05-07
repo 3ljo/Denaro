@@ -658,6 +658,41 @@
             "sendFailed": "L'envoi du message a échoué. Réessaie."
           }
         }
+      },
+      "faq": {
+        "eyebrow": "questions fréquentes",
+        "title": "Des questions qui méritent une réponse",
+        "lead": "Des réponses rapides à ce que les gens demandent avant de s'inscrire. Vous ne voyez pas la vôtre ? Écrivez-nous ci-dessous.",
+        "items": {
+          "1": {
+            "q": "Qu'est-ce que Denaro, exactement ?",
+            "a": "Denaro est un analyste de trading IA — un copilote qui lit le marché en temps réel sur chaque échéance et fournit des signaux alignés sur la stratégie choisie à l'inscription. Comme un analyste senior, 24h/24."
+          },
+          "2": {
+            "q": "Est-ce un service de signaux ?",
+            "a": "Non. Denaro ne vous dit pas quoi trader. Il montre ce que fait le graphique, pourquoi, et avec quelle confiance. La décision — et le risque — restent les vôtres."
+          },
+          "3": {
+            "q": "Quels marchés sont supportés ?",
+            "a": "Forex majeurs et mineurs, or (XAUUSD), principaux indices et principales paires crypto. De nouveaux instruments sont ajoutés à chaque version."
+          },
+          "4": {
+            "q": "Dois-je connecter mon broker ?",
+            "a": "Non. Denaro lit les données du marché indépendamment. Vous gardez le contrôle de l'exécution chez le broker que vous utilisez déjà."
+          },
+          "5": {
+            "q": "Comment fonctionne la lentille de stratégie ?",
+            "a": "À l'inscription vous choisissez une lentille parmi six — Smart Money, Price Action, Trend Following, Mean Reversion, Scalping ou Swing — et Denaro accorde chaque analyse à ce style. Vous pouvez changer à tout moment dans les paramètres."
+          },
+          "6": {
+            "q": "Y a-t-il un essai gratuit ? Carte requise ?",
+            "a": "Oui — chaque compte bénéficie d'un essai Pro de 14 jours. Pas de carte, annulable à tout moment, et vous gardez le plan gratuit ensuite."
+          },
+          "7": {
+            "q": "Est-ce un conseil financier ?",
+            "a": "Non. Denaro est un logiciel qui vous aide à réfléchir — ce n'est pas un fiduciaire, pas un broker, et pas un substitut à votre propre due diligence et gestion du risque. Tradez votre propre thèse."
+          }
+        }
       }
     }
   }

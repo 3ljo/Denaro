@@ -658,6 +658,41 @@
             "sendFailed": "Nachricht konnte nicht gesendet werden. Bitte versuche es erneut."
           }
         }
+      },
+      "faq": {
+        "eyebrow": "häufig gefragt",
+        "title": "Fragen, die Antworten verdienen",
+        "lead": "Schnelle Antworten auf das, was Menschen vor der Anmeldung fragen. Deine Frage fehlt? Schreib uns unten.",
+        "items": {
+          "1": {
+            "q": "Was ist Denaro genau?",
+            "a": "Denaro ist ein KI-Tradinganalyst — ein Co-Pilot, der den Markt in Echtzeit über jeden Zeitrahmen liest und Signale liefert, die zu der Strategie passen, die du beim Onboarding wählst. Wie ein Senior-Analyst rund um die Uhr."
+          },
+          "2": {
+            "q": "Ist das ein Signaldienst?",
+            "a": "Nein. Denaro sagt dir nicht, was du traden sollst. Es zeigt dir, was der Chart macht, warum, und wie sicher die Einschätzung ist. Die Entscheidung — und das Risiko — bleibt bei dir."
+          },
+          "3": {
+            "q": "Welche Märkte werden unterstützt?",
+            "a": "Forex-Majors und -Minors, Gold (XAUUSD), die wichtigsten Indizes und die Top-Krypto-Paare. Neue Instrumente kommen mit jedem Release dazu."
+          },
+          "4": {
+            "q": "Muss ich meinen Broker verbinden?",
+            "a": "Nein. Denaro liest Marktdaten unabhängig. Du behältst die Kontrolle über die Ausführung bei dem Broker, den du bereits nutzt."
+          },
+          "5": {
+            "q": "Wie funktioniert die Strategie-Lens?",
+            "a": "Beim Onboarding wählst du eine von sechs Lenses — Smart Money, Price Action, Trend Following, Mean Reversion, Scalping oder Swing — und Denaro stimmt jede Analyse auf diesen Stil ab. Du kannst sie jederzeit in den Einstellungen wechseln."
+          },
+          "6": {
+            "q": "Gibt es eine kostenlose Testphase?",
+            "a": "Ja — jedes Konto erhält 14 Tage Pro-Test. Keine Kreditkarte nötig, jederzeit kündbar, danach bleibt der kostenlose Tarif."
+          },
+          "7": {
+            "q": "Ist das eine Finanzberatung?",
+            "a": "Nein. Denaro ist Software, die dir beim Denken hilft — kein Treuhänder, kein Broker und kein Ersatz für deine eigene Analyse und dein Risikomanagement. Trade deine eigene These."
+          }
+        }
       }
     }
   }

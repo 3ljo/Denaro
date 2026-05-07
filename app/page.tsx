@@ -10,6 +10,7 @@ import MarketsArea from "@t/app/components/streamers/streamers-area";
 import UpcomingMatches from "@t/app/components/upcoming-match/upcoming-matches";
 import SocialArea from "@t/app/components/social/social-area";
 import BrandArea from "@t/app/components/brand/brand-area";
+import FaqArea from "@t/app/components/faq/faq-area";
 import FooterTwo from "@t/layout/footer/footer-2";
 import HomePricing from "./_components/home-pricing";
 
@@ -61,6 +62,10 @@ export default async function HomeTwo() {
         {/* pricing teaser */}
         <HomePricing isAuthed={isAuthed} />
         {/* pricing teaser end */}
+
+        {/* faq area start */}
+        <FaqArea/>
+        {/* faq area end */}
 
         {/* social area start */}
         <SocialArea/>

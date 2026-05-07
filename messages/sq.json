@@ -457,6 +457,41 @@
             "sendFailed": "Mesazhi nuk u dërgua. Provoni përsëri."
           }
         }
+      },
+      "faq": {
+        "eyebrow": "pyetjet e shpeshta",
+        "title": "Pyetje që meritojnë përgjigje",
+        "lead": "Përgjigje të shpejta për gjërat që njerëzit pyesin para se të regjistrohen. Nuk e gjen tëndin? Na shkruaj më poshtë.",
+        "items": {
+          "1": {
+            "q": "Çfarë është saktësisht Denaro?",
+            "a": "Denaro është një analist tregtimi me AI — një bashkë-pilot që lexon tregun në kohë reale në çdo afat kohor dhe nxjerr sinjale të lidhura me strategjinë që zgjedh në regjistrim. Mendoje si një analist i lartë i disponueshëm 24/7."
+          },
+          "2": {
+            "q": "A është ky shërbim sinjalesh?",
+            "a": "Jo. Denaro nuk të thotë çfarë të tregtosh. Ai të tregon çfarë po bën grafiku, pse, dhe sa i sigurt është leximi. Vendimi — dhe rreziku — mbetet yti."
+          },
+          "3": {
+            "q": "Cilat tregje mbulohen?",
+            "a": "Forex majore dhe minore, ari (XAUUSD), indekset kryesore dhe çiftet kryesore të kriptos. Instrumente të reja shtohen me çdo lëshim."
+          },
+          "4": {
+            "q": "A duhet ta lidh brokerin tim?",
+            "a": "Jo. Denaro lexon të dhënat e tregut në mënyrë të pavarur. Ti mbetesh në kontroll të ekzekutimit me brokerin që përdor."
+          },
+          "5": {
+            "q": "Si funksionon lentja e strategjisë?",
+            "a": "Në regjistrim zgjedh një nga gjashtë lente — Smart Money, Price Action, Trend Following, Mean Reversion, Scalping ose Swing — dhe Denaro akordon çdo analizë me atë stil. Mund ta ndryshosh kur të duash nga cilësimet."
+          },
+          "6": {
+            "q": "A ka provë falas? A më duhet kartë?",
+            "a": "Po — çdo llogari merr një provë Pro 14-ditore. Pa kartë krediti, anulim në çdo kohë, dhe pas saj mbetesh në planin falas."
+          },
+          "7": {
+            "q": "A është kjo këshillë financiare?",
+            "a": "Jo. Denaro është softuer që të ndihmon të mendosh — nuk është fiduciar, broker, as zëvendësim për kujdesin tënd të vlerësimit dhe menaxhimit të rrezikut. Tregto tezën tënde."
+          }
+        }
       }
     },
     "landing": {

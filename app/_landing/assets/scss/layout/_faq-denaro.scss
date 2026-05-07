@@ -1,0 +1,147 @@
+@use '../utils' as *;
+
+/*=============================
+    FAQ — Denaro home section
+===============================*/
+.faq__area {
+    padding: 120px 0 130px;
+    position: relative;
+    background-color: #050608;
+    @media #{$lg} {
+        padding: 100px 0 110px;
+    }
+    @media #{$xs} {
+        padding: 80px 0 90px;
+    }
+
+    & .section__title .title {
+        font-size: 45px;
+        font-weight: var(--tg-fw-extra-bold);
+        line-height: 1.1;
+        margin: 0 0 16px;
+        @media #{$xs} {
+            font-size: 34px;
+        }
+    }
+}
+
+.faq__lead {
+    margin: 0 auto;
+    max-width: 560px;
+    color: #adb0bc;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faq__item {
+    background-color: #0a0b0f;
+    border: 1px solid #1b242e;
+    position: relative;
+    @include transition(.25s);
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: -1px;
+        bottom: -6px;
+        width: 48px;
+        height: 4px;
+        background: var(--tg-common-color-teal);
+        clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 4px 100%);
+        opacity: 0;
+        @include transition(.25s);
+    }
+
+    &[open] {
+        border-color: var(--tg-common-color-teal);
+        background-color: #0c0e13;
+        &::after {
+            opacity: 1;
+        }
+        .faq__icon {
+            transform: rotate(180deg);
+            color: var(--tg-common-color-teal);
+        }
+        .faq__q-text {
+            color: var(--tg-common-color-white);
+        }
+    }
+
+    &:hover:not([open]) {
+        border-color: #2c3137;
+        .faq__icon {
+            color: var(--tg-common-color-teal);
+        }
+    }
+}
+
+.faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 28px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    @media #{$xs} {
+        padding: 18px 22px;
+    }
+
+    /* hide native details marker */
+    &::-webkit-details-marker {
+        display: none;
+    }
+    &::marker {
+        display: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--tg-common-color-teal);
+        outline-offset: -2px;
+    }
+}
+
+.faq__q-text {
+    font-family: var(--tg-heading-font-family);
+    font-weight: var(--tg-fw-bold);
+    font-size: 17px;
+    color: #e6e9ee;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+    @include transition(.2s);
+    @media #{$xs} {
+        font-size: 15px;
+    }
+}
+
+.faq__icon {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #5d6670;
+    @include transition(.25s);
+}
+
+.faq__answer {
+    padding: 0 28px 24px;
+    @media #{$xs} {
+        padding: 0 22px 20px;
+    }
+
+    & p {
+        margin: 0;
+        color: #adb0bc;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+}

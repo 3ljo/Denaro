@@ -658,6 +658,41 @@
             "sendFailed": "Impossibile inviare il messaggio. Riprova."
           }
         }
+      },
+      "faq": {
+        "eyebrow": "domande frequenti",
+        "title": "Domande che meritano risposta",
+        "lead": "Risposte rapide a ciò che la gente chiede prima di registrarsi. Non vedi la tua? Scrivici qui sotto.",
+        "items": {
+          "1": {
+            "q": "Cos'è esattamente Denaro?",
+            "a": "Denaro è un analista di trading IA — un copilota che legge il mercato in tempo reale su ogni timeframe e fornisce segnali allineati alla strategia che scegli al primo accesso. Come un analista senior, 24 ore su 24."
+          },
+          "2": {
+            "q": "È un servizio di segnali?",
+            "a": "No. Denaro non ti dice cosa tradare. Ti mostra cosa sta facendo il grafico, perché, e con quanta confidenza. La decisione — e il rischio — restano tuoi."
+          },
+          "3": {
+            "q": "Quali mercati sono supportati?",
+            "a": "Forex major e minor, oro (XAUUSD), indici principali e le principali coppie crypto. Nuovi strumenti vengono aggiunti a ogni release."
+          },
+          "4": {
+            "q": "Devo collegare il mio broker?",
+            "a": "No. Denaro legge i dati di mercato in modo indipendente. Tu mantieni il controllo dell'esecuzione sul broker che già usi."
+          },
+          "5": {
+            "q": "Come funziona la lente di strategia?",
+            "a": "In onboarding scegli una di sei lenti — Smart Money, Price Action, Trend Following, Mean Reversion, Scalping o Swing — e Denaro calibra ogni analisi su quello stile. Puoi cambiarla in qualsiasi momento dalle impostazioni."
+          },
+          "6": {
+            "q": "C'è una prova gratuita? Serve la carta?",
+            "a": "Sì — ogni account riceve una prova Pro di 14 giorni. Nessuna carta, cancella quando vuoi, e dopo resti sul piano gratuito."
+          },
+          "7": {
+            "q": "È un consiglio finanziario?",
+            "a": "No. Denaro è software che ti aiuta a ragionare — non è un fiduciario, non è un broker, e non sostituisce la tua analisi e gestione del rischio. Tradare la tua tesi."
+          }
+        }
       }
     }
   }
