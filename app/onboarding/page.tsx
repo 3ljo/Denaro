@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import { getProfile } from '@/lib/profile/actions'
 import OnboardingFlow from './onboarding-flow'
 
+export const metadata = { title: 'Welcome' }
+
 export default async function OnboardingPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

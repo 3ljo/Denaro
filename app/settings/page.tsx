@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import { getProfile } from '@/lib/profile/actions'
 import SettingsForm from './settings-form'
 
+export const metadata = { title: 'Settings' }
+
 export default async function SettingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

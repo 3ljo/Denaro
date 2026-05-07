@@ -7,6 +7,8 @@ import DashboardContent from './_components/dashboard-content'
 import ProfileMenu from './_components/profile-menu'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
+export const metadata = { title: 'Dashboard' }
+
 export default async function DashboardPage() {
   // Defense in depth — middleware does the first check.
   const supabase = await createClient()

@@ -55,7 +55,10 @@ const berlin = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Denaro',
+  title: {
+    default: 'Denaro — AI Trading Analyst',
+    template: '%s · Denaro',
+  },
   description: 'AI trading analyst — multi-timeframe reads, live news, and a 24/7 channel that thinks in your strategy.',
   manifest: '/manifest.webmanifest',
   applicationName: 'Denaro',

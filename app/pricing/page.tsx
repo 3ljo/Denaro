@@ -6,7 +6,7 @@ import FooterTwo from '@t/layout/footer/footer-2'
 import HomePricing from '../_components/home-pricing'
 
 export const metadata = {
-  title: 'Denaro // Pricing',
+  title: 'Pricing',
   description: 'Plans that scale with you. Start free, upgrade any time.',
 }
 

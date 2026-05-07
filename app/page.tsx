@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import Wrapper from "@t/layout/wrapper";
 import Header from "@t/layout/header/header";
@@ -13,11 +12,6 @@ import BrandArea from "@t/app/components/brand/brand-area";
 import FaqArea from "@t/app/components/faq/faq-area";
 import FooterTwo from "@t/layout/footer/footer-2";
 import HomePricing from "./_components/home-pricing";
-
-
-export const metadata: Metadata = {
-  title: "Denaro // Home",
-};
 
 export default async function HomeTwo() {
   const supabase = await createClient();

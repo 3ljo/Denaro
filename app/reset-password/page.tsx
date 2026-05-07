@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import AuthShell from '@/app/_components/auth-shell'
 import ResetPasswordForm from './form'
 
+export const metadata = { title: 'Reset password' }
+
 export default async function ResetPasswordPage() {
   // SECURITY: This page is only accessible if the user came through a valid
   // /auth/confirm flow with type='recovery'. That flow gives them a session.
