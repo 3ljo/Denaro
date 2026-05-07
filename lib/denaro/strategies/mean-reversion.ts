@@ -30,4 +30,40 @@ export const MEAN_REVERSION: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario as range continuation or range break. Hot may extend the range or break it — say which and where.`,
   newsHorizon: 'hours',
+  cardFields: [
+    {
+      id: 'range_high',
+      label: 'Range High / Fade',
+      kind: 'level-list',
+      tone: 'rose',
+      count: 2,
+    },
+    {
+      id: 'range_low',
+      label: 'Range Low / Fade',
+      kind: 'level-list',
+      tone: 'emerald',
+      count: 2,
+    },
+    { id: 'fade_setup', label: 'Fade Setup', kind: 'text-line' },
+    { id: 'invalidation', label: 'Range Break Invalidation', kind: 'text-line' },
+  ],
+  quickPrompts: [
+    {
+      label: 'Range bounds',
+      prompt: 'Is [pair] in a range? Identify range high, range low, and the mean.',
+    },
+    {
+      label: 'Exhaustion at edge',
+      prompt: 'Is [pair] showing exhaustion at a range bound? Rejection wick, divergence, RSI extreme, double top/bottom?',
+    },
+    {
+      label: 'Fade or chase',
+      prompt: 'Is the current move on [pair] a fade opportunity or trend continuation? Which framing fits and why?',
+    },
+    {
+      label: 'Time the bounce',
+      prompt: 'On [pair], where is the next mean-reversion entry? Range edge trigger, mean target, invalidation level.',
+    },
+  ],
 }

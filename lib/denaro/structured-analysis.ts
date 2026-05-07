@@ -2,34 +2,24 @@ import { STRATEGY_LABEL, type Strategy } from '@/lib/profile/types'
 import { getStrategyDef } from '@/lib/denaro/strategies'
 import type { SpotPrice } from '@/lib/market/price'
 
+// Card system prompt is now built per-strategy in
+// `lib/denaro/strategies/index.ts` as `buildCardSystemPrompt(strategy)` —
+// the JSON schema lists the strategy's own field ids (e.g. SMC returns
+// "resistance_zones", Trend returns "pullback_zones") so the model output
+// matches what `pair-card.tsx` renders for that strategy.
+
 /**
- * System prompt for the dashboard pair cards. Returns a single JSON object
- * matching the Card schema below — never markdown, never prose outside JSON.
+ * Card type returned by /api/denaro/card. Bias / summary / confluence_score
+ * are common to every strategy. The `fields` map holds the strategy-specific
+ * level lists and text lines — keys are defined in the strategy's
+ * `cardFields` array (lib/denaro/strategies/<id>.ts) and the renderer in
+ * `pair-card.tsx` looks them up by id.
  */
-export const CARD_SYSTEM_PROMPT = `You are Denaro, a senior trading analyst returning a single JSON object describing a trading instrument for a dashboard card.
-
-Return ONLY valid JSON matching this schema (no markdown, no prose outside JSON):
-{
-  "bias": "bullish" | "bearish" | "range",
-  "summary": string  // one punchy sentence (~14 words)
-  "key_supports": string[]  // 2-3 levels with brief context, e.g. "2640 — daily demand + prior swing low"
-  "key_resistances": string[]  // 2-3 levels with brief context
-  "invalidation": string  // one sentence — what kills this bias
-  "next_move": string  // one sentence — most probable next leg
-  "confluence_score": integer  // 0-100, how many factors align (HTF bias, structure, level proximity, session, momentum)
-}
-
-Use trader vocabulary. Use the operator's chosen strategy lens. Probabilistic language only.`
-
-/** Card type matching the JSON schema returned by the model. */
 export type Card = {
   bias: 'bullish' | 'bearish' | 'range'
   summary: string
-  key_supports: string[]
-  key_resistances: string[]
-  invalidation: string
-  next_move: string
   confluence_score: number
+  fields: Record<string, string | string[]>
 }
 
 export function buildCardPrompt(

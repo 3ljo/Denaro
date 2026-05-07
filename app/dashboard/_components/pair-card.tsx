@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import type { Card } from '@/lib/denaro/structured-analysis'
 import type { Strategy } from '@/lib/profile/types'
+import { getStrategyDef, type CardField, type CardFieldTone } from '@/lib/denaro/strategies'
 
 export default function PairCard({
   pair,
@@ -69,13 +70,27 @@ export default function PairCard({
 
       {loading && !card && <Skeleton />}
       {error && !card && <ErrorView error={error} />}
-      {card && <CardBody card={card} />}
+      {card && <CardBody card={card} strategy={strategy} />}
     </div>
   )
 }
 
-function CardBody({ card }: { card: Card }) {
-  const t = useTranslations('dashboard.pairCard')
+function CardBody({ card, strategy }: { card: Card; strategy: Strategy }) {
+  const def = getStrategyDef(strategy)
+
+  // Two-column grid takes the first 2 level-list fields. Anything beyond
+  // that stacks below alongside text-line fields. Strategies in the
+  // registry are designed for exactly 2 level-lists + N text-lines, but
+  // the renderer is tolerant if a future strategy diverges.
+  const levelLists = def.cardFields.filter(
+    (f): f is Extract<CardField, { kind: 'level-list' }> => f.kind === 'level-list',
+  )
+  const textLines = def.cardFields.filter(
+    (f): f is Extract<CardField, { kind: 'text-line' }> => f.kind === 'text-line',
+  )
+  const gridLists = levelLists.slice(0, 2)
+  const overflowLists = levelLists.slice(2)
+
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
@@ -86,15 +101,51 @@ function CardBody({ card }: { card: Card }) {
         {card.summary}
       </p>
 
-      <div className="grid grid-cols-2 gap-2">
-        <LevelList title={t('resistance')} levels={card.key_resistances} tone="rose" />
-        <LevelList title={t('support')} levels={card.key_supports} tone="emerald" />
-      </div>
+      {gridLists.length > 0 && (
+        <div className="grid grid-cols-2 gap-2">
+          {gridLists.map((f) => {
+            const value = card.fields[f.id]
+            const items = Array.isArray(value) ? value : []
+            return (
+              <LevelList
+                key={f.id}
+                title={f.label}
+                levels={items}
+                tone={f.tone}
+                count={f.count}
+              />
+            )
+          })}
+        </div>
+      )}
 
-      <div className="space-y-1.5 border-t border-cyan-400/15 pt-2.5">
-        <Field label={t('nextMove')} value={card.next_move} />
-        <Field label={t('invalidation')} value={card.invalidation} />
-      </div>
+      {overflowLists.length > 0 && (
+        <div className="space-y-2">
+          {overflowLists.map((f) => {
+            const value = card.fields[f.id]
+            const items = Array.isArray(value) ? value : []
+            return (
+              <LevelList
+                key={f.id}
+                title={f.label}
+                levels={items}
+                tone={f.tone}
+                count={f.count}
+              />
+            )
+          })}
+        </div>
+      )}
+
+      {textLines.length > 0 && (
+        <div className="space-y-1.5 border-t border-cyan-400/15 pt-2.5">
+          {textLines.map((f) => {
+            const value = card.fields[f.id]
+            const text = typeof value === 'string' ? value : ''
+            return <Field key={f.id} label={f.label} value={text} />
+          })}
+        </div>
+      )}
     </div>
   )
 }
@@ -115,28 +166,37 @@ function BiasPill({ bias }: { bias: 'bullish' | 'bearish' | 'range' }) {
   )
 }
 
+const DOT_BY_TONE: Record<CardFieldTone, string> = {
+  rose: 'bg-rose-400',
+  emerald: 'bg-emerald-400',
+  amber: 'bg-amber-300',
+  cyan: 'bg-cyan-300',
+}
+
 function LevelList({
   title,
   levels,
   tone,
+  count,
 }: {
   title: string
   levels: string[]
-  tone: 'rose' | 'emerald'
+  tone: CardFieldTone
+  count?: number
 }) {
-  const dot = tone === 'rose' ? 'bg-rose-400' : 'bg-emerald-400'
+  const max = count ?? 3
   return (
     <div>
       <p className="mb-1 font-display text-[0.55rem] tracking-[0.22em] text-cyan-200/70">
         {title}
       </p>
       <ul className="space-y-1">
-        {levels.slice(0, 3).map((lv, i) => (
+        {levels.slice(0, max).map((lv, i) => (
           <li
             key={i}
             className="flex items-start gap-1.5 text-[0.72rem] leading-tight text-cyan-100/85"
           >
-            <span className={`mt-1 h-1 w-1 shrink-0 rounded-full ${dot}`} />
+            <span className={`mt-1 h-1 w-1 shrink-0 rounded-full ${DOT_BY_TONE[tone]}`} />
             <span className="break-words">{lv}</span>
           </li>
         ))}

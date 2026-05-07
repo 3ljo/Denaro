@@ -8,7 +8,15 @@ import { MEAN_REVERSION } from './mean-reversion'
 import { SCALPING } from './scalping'
 import { SWING } from './swing'
 
-export type { StrategyDefinition, VisionSection, NewsHorizon, SubscriptionTier } from './types'
+export type {
+  StrategyDefinition,
+  VisionSection,
+  NewsHorizon,
+  SubscriptionTier,
+  CardField,
+  CardFieldTone,
+  QuickPrompt,
+} from './types'
 
 export const STRATEGY_REGISTRY: Record<Strategy, StrategyDefinition> = {
   'smc': SMC,
@@ -49,6 +57,36 @@ STRATEGY LENS:
 ${def.visionLens}
 
 Use trader vocabulary. Probabilistic language only ("probable", "expected", "invalidation at"). Never "guaranteed" or "100%".`
+}
+
+// Builds the pair-card system prompt for a given strategy. The JSON schema
+// lists the strategy's own field ids (e.g. SMC returns "resistance_zones",
+// Trend returns "pullback_zones") so the model and the renderer agree.
+export function buildCardSystemPrompt(strategy: Strategy): string {
+  const def = STRATEGY_REGISTRY[strategy]
+  const fieldsBlock = def.cardFields
+    .map((f) => {
+      if (f.kind === 'level-list') {
+        const n = f.count ?? 3
+        return `    "${f.id}": string[]  // ${n} items, each "<price level> — <2-4 word context>"`
+      }
+      return `    "${f.id}": string  // one sentence`
+    })
+    .join('\n')
+
+  return `You are Denaro, a senior trading analyst returning a single JSON object describing a trading instrument for a dashboard card.
+
+Return ONLY valid JSON matching this schema (no markdown, no prose outside JSON):
+{
+  "bias": "bullish" | "bearish" | "range",
+  "summary": string,  // one punchy sentence (~14 words)
+  "confluence_score": integer,  // 0-100, how many factors align (HTF bias, structure, level proximity, session, momentum)
+  "fields": {
+${fieldsBlock}
+  }
+}
+
+Use trader vocabulary that fits the operator's strategy lens. Probabilistic language only. Every level must include a brief context phrase, not just a bare number.`
 }
 
 // Maps the strategy's news-prediction horizon to a phrase that goes into the

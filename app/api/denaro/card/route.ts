@@ -1,9 +1,9 @@
 import { createClient } from '@/lib/supabase/server'
 import {
-  CARD_SYSTEM_PROMPT,
   buildCardPrompt,
   type Card,
 } from '@/lib/denaro/structured-analysis'
+import { buildCardSystemPrompt } from '@/lib/denaro/strategies'
 import { fetchSpotPrice } from '@/lib/market/price'
 import { isStrategy } from '@/lib/profile/types'
 import { resolveLocale } from '@/i18n/request'
@@ -40,7 +40,8 @@ export async function POST(req: Request) {
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const locale = await resolveLocale()
-  const systemContent = CARD_SYSTEM_PROMPT + getCardLanguageInstruction(locale)
+  const systemContent =
+    buildCardSystemPrompt(strategy) + getCardLanguageInstruction(locale)
 
   try {
     const completion = await openai.chat.completions.create({

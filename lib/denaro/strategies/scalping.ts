@@ -30,4 +30,40 @@ export const SCALPING: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario as the IMMEDIATE next 30-60 minute reaction. Tight, fast, intraday — no multi-day talk.`,
   newsHorizon: 'minutes',
+  cardFields: [
+    {
+      id: 'session_highs',
+      label: 'Session Highs / Liquidity',
+      kind: 'level-list',
+      tone: 'rose',
+      count: 3,
+    },
+    {
+      id: 'session_lows',
+      label: 'Session Lows / Liquidity',
+      kind: 'level-list',
+      tone: 'emerald',
+      count: 3,
+    },
+    { id: 'micro_trigger', label: 'M1 / M5 Trigger', kind: 'text-line' },
+    { id: 'tight_invalidation', label: 'Tight Invalidation', kind: 'text-line' },
+  ],
+  quickPrompts: [
+    {
+      label: 'M5 read',
+      prompt: 'Quick M5 read on [pair]. Micro-bias, session context, where is the chop?',
+    },
+    {
+      label: 'Session levels',
+      prompt: 'List the intraday session highs and lows on [pair]. Which is the next liquidity magnet?',
+    },
+    {
+      label: 'Opening drive',
+      prompt: 'How did the most recent session open on [pair]? Drive, fade, or chop? What is the bias for the next 30 minutes?',
+    },
+    {
+      label: 'Setup now',
+      prompt: 'Is there an M5/M1 setup on [pair] right now? Trigger, tight stop, RR target.',
+    },
+  ],
 }

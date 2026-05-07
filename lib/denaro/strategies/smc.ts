@@ -30,4 +30,40 @@ export const SMC: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario through SMC: a hot print sweeps liquidity at the prior high then mitigates lower, etc. Use BoS/CHoCH/OB/FVG/sweep vocabulary.`,
   newsHorizon: 'hours',
+  cardFields: [
+    {
+      id: 'resistance_zones',
+      label: 'Supply / OBs',
+      kind: 'level-list',
+      tone: 'rose',
+      count: 3,
+    },
+    {
+      id: 'demand_zones',
+      label: 'Demand / OBs',
+      kind: 'level-list',
+      tone: 'emerald',
+      count: 3,
+    },
+    { id: 'next_move', label: 'Next Probable Move', kind: 'text-line' },
+    { id: 'invalidation', label: 'Structural Invalidation', kind: 'text-line' },
+  ],
+  quickPrompts: [
+    {
+      label: 'H4 sweep',
+      prompt: 'What liquidity has H4 swept on [pair]? Identify the most recent sweep and what mitigation looks like next.',
+    },
+    {
+      label: 'Unfilled FVGs',
+      prompt: 'Map the unfilled FVGs on [pair] across H4 and H1. Which one is most likely to fill next?',
+    },
+    {
+      label: 'Premium / discount',
+      prompt: 'Is [pair] currently trading in premium or discount of the recent H4 dealing range? Where is the equilibrium?',
+    },
+    {
+      label: 'BoS or CHoCH',
+      prompt: 'Read the most recent H1 structural shift on [pair]. BoS, CHoCH, or just retracement?',
+    },
+  ],
 }

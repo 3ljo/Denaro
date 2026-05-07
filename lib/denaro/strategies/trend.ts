@@ -30,4 +30,40 @@ export const TREND: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario as continuation vs reversal of the prevailing trend. Hot may extend the trend or trigger a reversal — say which.`,
   newsHorizon: 'hours',
+  cardFields: [
+    {
+      id: 'breakout_retests',
+      label: 'Breakout Retests',
+      kind: 'level-list',
+      tone: 'amber',
+      count: 3,
+    },
+    {
+      id: 'pullback_zones',
+      label: 'Pullback Zones',
+      kind: 'level-list',
+      tone: 'cyan',
+      count: 3,
+    },
+    { id: 'continuation_trigger', label: 'Continuation Trigger', kind: 'text-line' },
+    { id: 'invalidation', label: 'Trend Invalidation', kind: 'text-line' },
+  ],
+  quickPrompts: [
+    {
+      label: 'Next pullback',
+      prompt: 'On [pair], where is the next pullback zone in the prevailing trend? EMA cluster, prior swing, breakout retest?',
+    },
+    {
+      label: 'Trend phase',
+      prompt: 'What phase is the [pair] trend in? Impulse, correction, exhaustion, or no-trend?',
+    },
+    {
+      label: 'Continuation trigger',
+      prompt: 'What confirms continuation on [pair]? Pullback rejection, breakout + retest, momentum candle?',
+    },
+    {
+      label: 'Trend strength',
+      prompt: 'Rate trend strength on [pair] 1-10 and explain. HH/HL print history, momentum, EMA stack.',
+    },
+  ],
 }

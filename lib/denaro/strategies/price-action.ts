@@ -30,4 +30,40 @@ export const PRICE_ACTION: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario in raw price action: supply/demand zones tested, swing levels broken or held, candle reactions.`,
   newsHorizon: 'hours',
+  cardFields: [
+    {
+      id: 'supply_zones',
+      label: 'Supply Zones',
+      kind: 'level-list',
+      tone: 'rose',
+      count: 3,
+    },
+    {
+      id: 'demand_zones',
+      label: 'Demand Zones',
+      kind: 'level-list',
+      tone: 'emerald',
+      count: 3,
+    },
+    { id: 'entry_setup', label: 'Entry Setup', kind: 'text-line' },
+    { id: 'invalidation', label: 'Invalidation', kind: 'text-line' },
+  ],
+  quickPrompts: [
+    {
+      label: 'Active zones',
+      prompt: 'List the active supply and demand zones on [pair]. Which one is closest to current price?',
+    },
+    {
+      label: 'Daily candle',
+      prompt: 'Read the most recent daily candle on [pair]. What is the structural read — engulfing, rejection, inside bar, breaker?',
+    },
+    {
+      label: 'Swing structure',
+      prompt: 'What is the swing structure on [pair] right now? HH/HL uptrend, LH/LL downtrend, or sideways?',
+    },
+    {
+      label: 'Range bounds',
+      prompt: 'Is [pair] in a range? Where are the bounds and is it nearing one?',
+    },
+  ],
 }

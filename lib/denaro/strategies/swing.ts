@@ -30,4 +30,40 @@ export const SWING: StrategyDefinition = {
   ],
   newsLens: `Frame each scenario as a multi-day bias adjustment. Hot may shift the weekly bias; describe the level + horizon, not the next-hour reaction.`,
   newsHorizon: 'days',
+  cardFields: [
+    {
+      id: 'weekly_resistances',
+      label: 'Weekly Resistance',
+      kind: 'level-list',
+      tone: 'rose',
+      count: 3,
+    },
+    {
+      id: 'weekly_supports',
+      label: 'Weekly Support',
+      kind: 'level-list',
+      tone: 'emerald',
+      count: 3,
+    },
+    { id: 'entry_window', label: 'Entry Window (D1 / H4)', kind: 'text-line' },
+    { id: 'invalidation', label: 'Daily Close Invalidation', kind: 'text-line' },
+  ],
+  quickPrompts: [
+    {
+      label: 'Weekly bias',
+      prompt: 'Read [pair] from the weekly chart. Bias for the next 1-2 weeks, key weekly levels, invalidation.',
+    },
+    {
+      label: 'Entry window',
+      prompt: 'On [pair], where is the next D1/H4 entry window? What confluence to wait for?',
+    },
+    {
+      label: 'Multi-day target',
+      prompt: 'Map the next multi-day target on [pair]. Weekly level, prior swing high/low, structural target.',
+    },
+    {
+      label: 'Patient or live',
+      prompt: 'Is [pair] a patient setup or live now? D1/H4 confluence check.',
+    },
+  ],
 }

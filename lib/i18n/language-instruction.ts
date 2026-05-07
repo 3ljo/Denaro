@@ -36,10 +36,10 @@ export function getChatLanguageInstruction(locale: Locale): string {
 
 export function getCardLanguageInstruction(locale: Locale): string {
   if (locale === 'en') return ''
-  return `\n\nLANGUAGE: Write every JSON string value (summary, key_supports[], key_resistances[], invalidation, next_move) in ${NATIVE_LANGUAGE_NAME[locale]}. KEEP these in English exactly: the JSON keys themselves, the "bias" field's enum value (must be one of "bullish" | "bearish" | "range"), trading vocabulary (HH/HL, BoS, CHoCH, FVG, OB, liquidity sweep, supply, demand), and ticker symbols. Translate only the natural-language explanations.`
+  return `\n\nLANGUAGE: Write every JSON string value (the "summary" field and every string inside the "fields" object) in ${NATIVE_LANGUAGE_NAME[locale]}. KEEP these in English exactly: the JSON keys themselves, the "bias" field's enum value (must be one of "bullish" | "bearish" | "range"), trading vocabulary (HH/HL, BoS, CHoCH, FVG, OB, liquidity sweep, supply, demand, range, mean, pullback, retest), and ticker symbols. Translate only the natural-language explanations.`
 }
 
 export function getVisionLanguageInstruction(locale: Locale): string {
   if (locale === 'en') return ''
-  return `\n\nLANGUAGE: Write the body of every section in ${NATIVE_LANGUAGE_NAME[locale]}. KEEP these in English exactly: the section headers (\`**HTF Bias**\`, \`**Key Levels**\`, \`**Entry Zone**\`, \`**Bias**\`, \`**Invalidation**\`), the single-word bias keyword in the **Bias** section (must be BULLISH, BEARISH, or NEUTRAL), trading vocabulary (BoS, CHoCH, FVG, OB, supply, demand, liquidity), and ticker symbols. Translate only the natural-language explanations.`
+  return `\n\nLANGUAGE: Write the body of every section in ${NATIVE_LANGUAGE_NAME[locale]}. KEEP these in English exactly: every section header given to you (the **Header** lines, including any strategy-specific name), the single-word bias keyword in the **Bias** section (must be BULLISH, BEARISH, or NEUTRAL), trading vocabulary (BoS, CHoCH, FVG, OB, supply, demand, liquidity, pullback, retest, range, mean), and ticker symbols. Translate only the natural-language explanations.`
 }

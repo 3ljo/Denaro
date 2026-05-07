@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { type Strategy } from '@/lib/profile/types'
+import { getStrategyDef } from '@/lib/denaro/strategies'
 import FormattedAnalysis from './formatted-analysis'
 
 type Props = {
@@ -13,38 +14,15 @@ type Props = {
 type QuickAsk = { label: string; build: () => string }
 
 function useQuickAsks(pairs: string[], strategy: Strategy): QuickAsk[] {
-  const tQuick = useTranslations('dashboard.ask.quick')
-  const tStrat = useTranslations('strategies')
-  const lens = tStrat(`${strategy}.label`)
+  const def = getStrategyDef(strategy)
   const first = pairs[0] ?? 'XAUUSD'
-  const list = pairs.length > 0 ? pairs.join(', ') : 'XAUUSD'
 
-  return [
-    {
-      label: tQuick('concept'),
-      build: () => tQuick('conceptPrompt'),
-    },
-    {
-      label: tQuick('whyMoving', { pair: first }),
-      build: () => tQuick('whyMovingPrompt', { pair: first }),
-    },
-    {
-      label: tQuick('sizing'),
-      build: () => tQuick('sizingPrompt', { pair: first }),
-    },
-    {
-      label: tQuick('review'),
-      build: () => tQuick('reviewPrompt', { pair: first, lens }),
-    },
-    {
-      label: tQuick('session'),
-      build: () => tQuick('sessionPrompt', { list, lens }),
-    },
-    {
-      label: tQuick('backtest'),
-      build: () => tQuick('backtestPrompt', { pair: first, lens }),
-    },
-  ]
+  // Each strategy file ships its own quickPrompts. `[pair]` is replaced at
+  // click time with the operator's first watched pair.
+  return def.quickPrompts.map((qp) => ({
+    label: qp.label,
+    build: () => qp.prompt.replace(/\[pair\]/g, first),
+  }))
 }
 
 export default function AskDenaro({ pairs, strategy }: Props) {
