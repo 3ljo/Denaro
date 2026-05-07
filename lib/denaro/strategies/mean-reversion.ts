@@ -31,6 +31,8 @@ export const MEAN_REVERSION: StrategyDefinition = {
   newsLens: `Frame each scenario as range continuation or range break. Hot may extend the range or break it — say which and where.`,
   newsHorizon: 'hours',
   visionStack: ['1h', '30m', '15m'],
+  visionBlurb:
+    'Maps the range bounds, mean, and exhaustion signals — and returns the fade entry plus what breaks the range.',
   cardFields: [
     {
       id: 'range_high',

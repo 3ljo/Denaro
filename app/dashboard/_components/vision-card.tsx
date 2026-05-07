@@ -219,7 +219,7 @@ export default function VisionCard({
             {t('title')}
           </h2>
           <p className="mt-1 text-[0.7rem] leading-snug text-cyan-100/55">
-            {t('subtitle')}
+            {getStrategyDef(strategy).visionBlurb}
           </p>
         </div>
 

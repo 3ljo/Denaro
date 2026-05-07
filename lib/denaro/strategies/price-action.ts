@@ -31,6 +31,8 @@ export const PRICE_ACTION: StrategyDefinition = {
   newsLens: `Frame each scenario in raw price action: supply/demand zones tested, swing levels broken or held, candle reactions.`,
   newsHorizon: 'hours',
   visionStack: ['1d', '4h', '1h'],
+  visionBlurb:
+    'Reads raw structure across the stack — supply/demand zones, swing points, candlestick reactions — and returns the entry setup plus structural invalidation.',
   cardFields: [
     {
       id: 'supply_zones',

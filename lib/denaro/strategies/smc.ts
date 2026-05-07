@@ -31,6 +31,8 @@ export const SMC: StrategyDefinition = {
   newsLens: `Frame each scenario through SMC: a hot print sweeps liquidity at the prior high then mitigates lower, etc. Use BoS/CHoCH/OB/FVG/sweep vocabulary.`,
   newsHorizon: 'hours',
   visionStack: ['4h', '1h', '15m'],
+  visionBlurb:
+    'Reads order flow across the stack — order blocks, FVGs, swept liquidity, mitigations — and returns the SMC entry trigger with structural invalidation.',
   cardFields: [
     {
       id: 'resistance_zones',

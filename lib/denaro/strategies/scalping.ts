@@ -31,6 +31,8 @@ export const SCALPING: StrategyDefinition = {
   newsLens: `Frame each scenario as the IMMEDIATE next 30-60 minute reaction. Tight, fast, intraday — no multi-day talk.`,
   newsHorizon: 'minutes',
   visionStack: ['30m', '15m', '5m'],
+  visionBlurb:
+    'Scans the intraday stack for session highs/lows and micro-liquidity, and returns the M5 trigger with tight invalidation in pip distance.',
   cardFields: [
     {
       id: 'session_highs',

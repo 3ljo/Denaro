@@ -31,6 +31,8 @@ export const SWING: StrategyDefinition = {
   newsLens: `Frame each scenario as a multi-day bias adjustment. Hot may shift the weekly bias; describe the level + horizon, not the next-hour reaction.`,
   newsHorizon: 'days',
   visionStack: ['1wk', '1d', '4h'],
+  visionBlurb:
+    'Anchors on weekly structure, marks weekly + daily levels, and identifies the patient D1/H4 entry window — multi-day horizon, no intraday noise.',
   cardFields: [
     {
       id: 'weekly_resistances',

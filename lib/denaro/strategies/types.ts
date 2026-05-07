@@ -60,4 +60,8 @@ export type StrategyDefinition = {
   // Per-strategy chart stack the vision card displays + screenshots.
   // [HTF, MTF, LTF] — strict order, exactly 3 timeframes.
   visionStack: VisionStack
+  // One-sentence user-facing copy shown as the vision card subtitle. Tells
+  // the operator what the AI will produce *for this strategy* — vocabulary,
+  // sections, what to expect — rather than the generic "let Denaro read".
+  visionBlurb: string
 }
