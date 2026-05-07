@@ -256,6 +256,18 @@ export async function deleteAccount(formData: FormData) {
     return { errorKey: 'deleteFailed' as AuthErrorKey }
   }
 
+  // Anonymize rows in tables whose FK to auth.users isn't ON DELETE CASCADE,
+  // otherwise auth.admin.deleteUser fails with a constraint violation.
+  // Contact messages should outlive the account (support history), so we
+  // detach instead of deleting.
+  const { error: contactErr } = await admin
+    .from('contact_messages')
+    .update({ user_id: null })
+    .eq('user_id', user.id)
+  if (contactErr) {
+    console.error('deleteAccount: contact_messages detach failed', contactErr.message)
+  }
+
   const { error } = await admin.auth.admin.deleteUser(user.id)
   if (error) {
     console.error('deleteAccount', error.message)
