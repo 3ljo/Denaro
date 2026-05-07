@@ -1,4 +1,5 @@
 import { STRATEGY_LABEL, type Strategy } from '@/lib/profile/types'
+import { getStrategyDef } from '@/lib/denaro/strategies'
 import type { SpotPrice } from '@/lib/market/price'
 
 /**
@@ -38,6 +39,7 @@ export function buildCardPrompt(
   spot?: SpotPrice,
 ) {
   const lens = STRATEGY_LABEL[strategy]
+  const def = getStrategyDef(strategy)
 
   // CRITICAL: pass the live price into the prompt, otherwise the model
   // anchors levels to whatever range was current in its training data
@@ -59,34 +61,14 @@ prior price era, replace it.`
 
   return `Analyze ${pair} from a ${lens} perspective. Today is ${dateISO}.${liveBlock}
 
+STRATEGY LENS:
+${def.cardLens}
+
 Return the JSON card.`
 }
 
-/**
- * Vision system prompt — for multi-timeframe chart screenshot analysis.
- * Operator sends 3 charts in HTF → MTF → LTF order. Output is plain text
- * with the exact section headers below — VisionCard's parser keys off
- * "**Header**" lines to render proper sections.
- */
-export const VISION_SYSTEM_PROMPT = `You are Denaro reading a multi-timeframe chart stack.
-
-INPUT: 3 chart screenshots in this exact order — HTF (highest), MTF (middle), LTF (lowest). Typically 4H / 1H / 15M.
-
-OUTPUT: structured analysis using these EXACT section headers (one per line, surrounded by **). Leave a blank line between sections. Max 220 words total. No fluff, no preamble, no closing remarks.
-
-**HTF Bias**
-1-2 sentences from the highest TF — structure (BoS / CHoCH / range), dominant order flow.
-
-**Key Levels**
-- Bullet each level visible (price + 2-4 word context, e.g. "4612 — 4H supply flip").
-
-**Entry Zone**
-1-2 sentences — where the operator's setup forms on the lowest TF.
-
-**Bias**
-ONE word: BULLISH, BEARISH, or NEUTRAL. Then one sentence justification.
-
-**Invalidation**
-One sentence — what kills this setup (price + reason).
-
-Use trader vocabulary. Probabilistic language only ("probable", "expected", "invalidation at"). Never "guaranteed" or "100%".`
+// Vision system prompt now lives in `lib/denaro/strategies/index.ts` as
+// `buildVisionSystemPrompt(strategy)` — section headers and the lens block
+// vary per strategy. The base wrapper keeps `**Bias**` and `**Key Levels**`
+// section names intact so the FormattedAnalysis client parser still picks
+// up the BULL/BEAR pill and gold price formatting.

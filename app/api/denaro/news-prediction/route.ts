@@ -1,4 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
+import { getOperatorStrategy } from '@/lib/profile/get-strategy'
+import { getStrategyDef, getNewsHorizonPhrase } from '@/lib/denaro/strategies'
 import { resolveLocale } from '@/i18n/request'
 import { getChatLanguageInstruction } from '@/lib/i18n/language-instruction'
 import { fetchSpotPrice } from '@/lib/market/price'
@@ -18,9 +20,10 @@ type Body = {
   timeIso?: string
 }
 
-const SYSTEM_PROMPT = `You are Denaro, an AI trading analyst.
+function buildSystemPrompt(horizonPhrase: string, lens: string): string {
+  return `You are Denaro, an AI trading analyst.
 
-The user is watching a market pair and is about to face a high-impact economic release. Return a strict JSON object with exactly three keys: "hot", "cold", "inline". Each value is one short reaction sentence describing what happens to THE USER'S PAIR if the print comes in above forecast (hot), below forecast (cold), or matches it (inline).
+The user is watching a market pair and is about to face a high-impact economic release. Return a strict JSON object with exactly three keys: "hot", "cold", "inline". Each value is one short reaction sentence describing what happens to THE USER'S PAIR over ${horizonPhrase} if the print comes in above forecast (hot), below forecast (cold), or matches it (inline).
 
 Hard rules — every sentence MUST satisfy ALL of these:
 1. Begin with "Bullish <pair-short>" / "Bearish <pair-short>" / "Range <pair-short>".
@@ -29,10 +32,14 @@ Hard rules — every sentence MUST satisfy ALL of these:
 4. Max 14 words. Direct trader voice. No "could / may / potential / likely / watch for / consider / if" hedging.
 5. No preamble, no disclaimer, no "buy" or "sell" calls. Describe the pair's reaction, not what the trader should do.
 
+STRATEGY LENS:
+${lens}
+
 Output JSON shape (no other keys, no markdown, no commentary):
 {"hot": "...", "cold": "...", "inline": "..."}
 
 If no spot price is provided, write the level as "[level]" — do NOT make one up.`
+}
 
 export async function POST(req: Request) {
   const supabase = await createClient()
@@ -84,12 +91,16 @@ export async function POST(req: Request) {
   const locale = await resolveLocale()
   const langSuffix = getChatLanguageInstruction(locale)
 
+  const strategy = await getOperatorStrategy()
+  const def = getStrategyDef(strategy)
+  const systemPrompt = buildSystemPrompt(getNewsHorizonPhrase(strategy), def.newsLens)
+
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT + langSuffix },
+        { role: 'system', content: systemPrompt + langSuffix },
         { role: 'user', content: userPrompt },
       ],
       max_tokens: 200,

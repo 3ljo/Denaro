@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
-import { VISION_SYSTEM_PROMPT } from '@/lib/denaro/structured-analysis'
+import { getOperatorStrategy } from '@/lib/profile/get-strategy'
+import { buildVisionSystemPrompt } from '@/lib/denaro/strategies'
 import { resolveLocale } from '@/i18n/request'
 import { getVisionLanguageInstruction } from '@/lib/i18n/language-instruction'
 import OpenAI from 'openai'
@@ -53,7 +54,9 @@ export async function POST(req: Request) {
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const locale = await resolveLocale()
-  const systemContent = VISION_SYSTEM_PROMPT + getVisionLanguageInstruction(locale)
+  const strategy = await getOperatorStrategy()
+  const systemContent =
+    buildVisionSystemPrompt(strategy) + getVisionLanguageInstruction(locale)
 
   const userText =
     `Analyze these ${files.length} chart screenshot(s), ordered highest TF to lowest.` +

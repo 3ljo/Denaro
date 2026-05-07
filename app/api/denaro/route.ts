@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { DENARO_SYSTEM_PROMPT } from '@/lib/denaro/system-prompt'
+import { getOperatorStrategy } from '@/lib/profile/get-strategy'
+import { getStrategyDef } from '@/lib/denaro/strategies'
 import { resolveLocale } from '@/i18n/request'
 import { getChatLanguageInstruction } from '@/lib/i18n/language-instruction'
 import OpenAI from 'openai'
@@ -43,7 +45,12 @@ export async function POST(req: Request) {
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const locale = await resolveLocale()
-  const systemContent = DENARO_SYSTEM_PROMPT + getChatLanguageInstruction(locale)
+  const strategy = await getOperatorStrategy()
+  const def = getStrategyDef(strategy)
+  const systemContent =
+    DENARO_SYSTEM_PROMPT +
+    `\n\nSTRATEGY LENS:\n${def.chatLens}` +
+    getChatLanguageInstruction(locale)
 
   try {
     const stream = await openai.chat.completions.create({
