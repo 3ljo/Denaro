@@ -137,8 +137,8 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
   const [predicting, setPredicting] = useState(false)
   const [predictionError, setPredictionError] = useState<string | null>(null)
 
-  const canPredict =
-    event.impact === 'high' && status !== 'past'
+  const canPredict = event.impact === 'high' && status !== 'past'
+  const scenarios = prediction ? parseScenarios(prediction) : []
 
   async function fetchPrediction(e: React.MouseEvent) {
     e.preventDefault()
@@ -180,10 +180,7 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
             status === 'past' ? 'opacity-65' : ''
           }`
 
-  const Wrapper = event.url
-    ? ('a' as const)
-    : ('div' as const)
-
+  const Wrapper = event.url ? ('a' as const) : ('div' as const)
   const wrapperProps = event.url
     ? { href: event.url, target: '_blank', rel: 'noopener noreferrer' as const }
     : {}
@@ -191,16 +188,15 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
   return (
     <Wrapper
       {...wrapperProps}
-      className={`block rounded px-2.5 py-2 transition ${containerClass}`}
+      className={`block rounded px-3 py-2.5 transition ${containerClass}`}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex flex-1 items-start gap-2 overflow-hidden">
-          <CurrencyTag currency={event.currency} />
-          <p className="line-clamp-2 flex-1 text-[0.78rem] leading-snug text-cyan-50">
-            {event.title}
-          </p>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-1">
+      {/* Top row: currency + title + status pill cluster */}
+      <div className="flex items-start gap-2.5">
+        <CurrencyTag currency={event.currency} />
+        <p className="line-clamp-2 flex-1 text-[0.82rem] font-medium leading-snug text-cyan-50">
+          {event.title}
+        </p>
+        <div className="flex shrink-0 items-center gap-1.5">
           <ImpactBadge impact={event.impact} />
           {status === 'live' && (
             <span className="rounded border border-rose-400/80 bg-rose-500/25 px-1.5 py-0.5 font-display text-[0.5rem] tracking-[0.22em] text-rose-100">
@@ -215,63 +211,141 @@ function EventRow({ event, now, pair }: { event: NewsItem; now: number; pair: st
         </div>
       </div>
 
-      <div className="mt-1.5 flex items-center justify-between gap-2 font-mono text-[0.62rem]">
-        <span className="text-cyan-200/65">{fmtTime(event.timeUtc)}</span>
-        <Countdown delta={delta} status={status} />
+      {/* Meta row: time on the left, F/P chips in the middle, big countdown on the right */}
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span className="font-mono text-[0.68rem] text-cyan-200/65">
+          {fmtTime(event.timeUtc)}
+        </span>
+        {event.forecast && (
+          <DataChip label={t('forecast')} value={event.forecast} />
+        )}
+        {event.previous && (
+          <DataChip label={t('previous')} value={event.previous} />
+        )}
+        <span className="ml-auto">
+          <Countdown delta={delta} status={status} />
+        </span>
       </div>
 
-      {(event.forecast || event.previous) && (
-        <div className="mt-1 flex gap-3 text-[0.6rem] text-cyan-200/55">
-          {event.forecast && (
-            <span>
-              <span className="text-cyan-300/45">{t('forecast')}</span> {event.forecast}
-            </span>
-          )}
-          {event.previous && (
-            <span>
-              <span className="text-cyan-300/45">{t('previous')}</span> {event.previous}
-            </span>
-          )}
-        </div>
-      )}
-
-      {canPredict && !prediction && !predictionError && (
+      {/* Predict CTA — single line, integrated, compact */}
+      {canPredict && !prediction && (
         <button
           type="button"
           onClick={fetchPrediction}
           disabled={predicting}
-          className="mt-2 inline-flex items-center gap-1.5 rounded border border-amber-300/40 bg-amber-400/10 px-2 py-1 font-display text-[0.55rem] tracking-[0.22em] text-amber-100 transition hover:border-amber-300/70 hover:bg-amber-400/20 hover:text-amber-50 disabled:opacity-60"
+          className="mt-2.5 inline-flex items-center gap-1.5 rounded-md border border-amber-300/40 bg-amber-400/10 px-2.5 py-1 font-display text-[0.58rem] tracking-[0.22em] text-amber-100 transition hover:border-amber-300/70 hover:bg-amber-400/20 hover:text-amber-50 disabled:opacity-60"
         >
-          {predicting ? (
-            <>
-              <Spinner />
-              <span>{t('predicting')}</span>
-            </>
-          ) : (
-            <>
-              <CrystalBallIcon />
-              <span>{t('predict')}</span>
-            </>
-          )}
+          {predicting ? <Spinner /> : <CrystalBallIcon />}
+          <span>{predicting ? t('predicting') : t('predict')}</span>
         </button>
       )}
 
+      {/* AI read — 3 scenario cards if parseable, raw text fallback otherwise */}
       {prediction && (
-        <div className="mt-2 rounded border border-amber-300/30 bg-amber-400/[0.06] p-2">
-          <p className="mb-1 font-display text-[0.5rem] tracking-[0.22em] text-amber-200/85">
-            {t('predictionLabel')}
-          </p>
-          <p className="whitespace-pre-line text-[0.7rem] leading-snug text-cyan-50/90">
-            {prediction}
-          </p>
+        <div className="mt-3">
+          <div className="mb-1.5 flex items-center gap-2">
+            <span className="font-display text-[0.55rem] tracking-[0.22em] text-amber-200/85">
+              {t('predictionLabel')}
+            </span>
+            <span className="h-px flex-1 bg-amber-300/15" />
+          </div>
+          {scenarios.length === 3 ? (
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
+              {scenarios.map((s) => (
+                <ScenarioCard key={s.kind} kind={s.kind} text={s.text} />
+              ))}
+            </div>
+          ) : (
+            <p className="whitespace-pre-line rounded border border-amber-300/20 bg-amber-400/[0.05] p-2 text-[0.72rem] leading-relaxed text-cyan-50/90">
+              {prediction}
+            </p>
+          )}
         </div>
       )}
 
       {predictionError && (
-        <p className="mt-2 text-[0.6rem] text-rose-300/85">// {predictionError}</p>
+        <p className="mt-2 text-[0.62rem] text-rose-300/85">// {predictionError}</p>
       )}
     </Wrapper>
   )
+}
+
+/* -- Forecast / Previous chip with full-word label. -- */
+function DataChip({ label, value }: { label: string; value: string }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded border border-cyan-400/15 bg-cyan-500/[0.04] px-1.5 py-0.5 font-mono text-[0.62rem] text-cyan-100/85">
+      <span className="font-display text-[0.55rem] tracking-[0.22em] text-cyan-300/55">
+        {label}
+      </span>
+      <span>{value}</span>
+    </span>
+  )
+}
+
+/* -- Single AI scenario tile (HOT / COLD / IN-LINE) with directional accent. -- */
+type ScenarioKind = 'hot' | 'cold' | 'inline'
+function ScenarioCard({ kind, text }: { kind: ScenarioKind; text: string }) {
+  const cfg = SCENARIO_STYLES[kind]
+  return (
+    <div className={`rounded border ${cfg.border} ${cfg.bg} p-2`}>
+      <div className="mb-1 flex items-center gap-1.5">
+        <span className={cfg.icon}>{cfg.glyph}</span>
+        <span className={`font-display text-[0.55rem] font-bold tracking-[0.22em] ${cfg.label}`}>
+          {cfg.title}
+        </span>
+      </div>
+      <p className="text-[0.7rem] leading-snug text-cyan-50/90">{text}</p>
+    </div>
+  )
+}
+
+const SCENARIO_STYLES: Record<
+  ScenarioKind,
+  { border: string; bg: string; label: string; icon: string; glyph: string; title: string }
+> = {
+  hot: {
+    border: 'border-rose-400/30',
+    bg: 'bg-rose-500/[0.07]',
+    label: 'text-rose-200',
+    icon: 'text-rose-300',
+    glyph: '▲',
+    title: 'HOT',
+  },
+  cold: {
+    border: 'border-cyan-400/30',
+    bg: 'bg-cyan-500/[0.07]',
+    label: 'text-cyan-200',
+    icon: 'text-cyan-300',
+    glyph: '▼',
+    title: 'COLD',
+  },
+  inline: {
+    border: 'border-amber-300/25',
+    bg: 'bg-amber-400/[0.05]',
+    label: 'text-amber-200',
+    icon: 'text-amber-200/85',
+    glyph: '＝',
+    title: 'IN-LINE',
+  },
+}
+
+/* Parse the AI response into 3 scenarios. Returns [] if format doesn't match. */
+function parseScenarios(text: string): { kind: ScenarioKind; text: string }[] {
+  const out: { kind: ScenarioKind; text: string }[] = []
+  // Split by lines, looking for "HOT (...): body" / "COLD ...:" / "IN-LINE...:"
+  const re = /^\s*(HOT|COLD|IN[-\s]?LINE)\b[^:]*:\s*(.+)$/i
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim()
+    if (!line) continue
+    const m = re.exec(line)
+    if (!m) continue
+    const headRaw = m[1].toUpperCase().replace(/\s/g, '')
+    const kind: ScenarioKind =
+      headRaw === 'HOT' ? 'hot' : headRaw === 'COLD' ? 'cold' : 'inline'
+    if (out.find((s) => s.kind === kind)) continue
+    out.push({ kind, text: m[2].trim() })
+  }
+  return out
 }
 
 function Spinner() {
