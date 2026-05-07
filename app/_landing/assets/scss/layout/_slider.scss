@@ -85,50 +85,53 @@
             }
         }
         & .title {
-            margin: 0 0 21px;
-            font-size: 150px;
+            margin: 0 0 18px;
+            font-size: 88px;
             font-family: var(--tg-berlin-font-family);
-            line-height: 0.8;
-            text-shadow: -1px 5px 0px rgb(69 248 130 / 66%);
+            line-height: 0.95;
+            letter-spacing: 0.04em;
+            text-shadow: 0 6px 24px rgba(0, 0, 0, 0.7);
             @media #{$xl} {
-                font-size: 118px;
+                font-size: 76px;
             }
             @media #{$lg} {
-                font-size: 94px;
+                font-size: 64px;
             }
             @media #{$md} {
-                font-size: 120px;
+                font-size: 64px;
             }
             @media #{$xs} {
-                font-size: 18vw;
-                text-shadow: -1px 3px 0px rgb(69 248 130 / 66%);
+                font-size: 12vw;
             }
             @media #{$sm} {
-                font-size: 17vw;
-                text-shadow: -1px 5px 0px rgb(69 248 130 / 66%);
+                font-size: 11vw;
             }
         }
         & p {
-            margin: 0 0;
-            font-size: 26px;
+            margin: 0 auto;
+            max-width: 620px;
+            font-size: 16px;
             text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 5px;
-            line-height: 1.4;
+            font-weight: 600;
+            letter-spacing: 3px;
+            line-height: 1.5;
             color: var(--tg-common-color-white);
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
             @media #{$lg} {
-                font-size: 22px;
+                font-size: 15px;
+                letter-spacing: 2.5px;
             }
             @media #{$md} {
-                font-size: 24px;
+                font-size: 15px;
             }
             @media #{$xs} {
-                font-size: 20px;
-                letter-spacing: 3px;
+                font-size: 13px;
+                letter-spacing: 2px;
+                max-width: 100%;
             }
             @media #{$sm} {
-                font-size: 24px;
-                letter-spacing: 5px;
+                font-size: 14px;
+                letter-spacing: 2.5px;
             }
         }
     }
@@ -270,6 +273,9 @@
     }
     &__area {
         position: relative;
+        // Bottom diagonal accent stripes — Denaro: deep amber bronze
+        // (was theme-primary green/gold). Subtle alpha so they read
+        // as a transition into the next section, not a neon slash.
         &::before,
         &::after {
             content: "";
@@ -279,16 +285,16 @@
             width: 50%;
             -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%);
             clip-path: polygon(0 0, 0 100%, 100% 100%);
-            background-color: var(--tg-theme-primary);
-            height: 50px;
+            background-color: rgba(217, 119, 6, 0.6);
+            height: 28px;
             @media #{$xl} {
-                height: 40px;
+                height: 24px;
             }
             @media #{$lg} {
-                height: 30px;
+                height: 20px;
             }
             @media #{$xs} {
-                height: 20px;
+                height: 14px;
             }
         }
         &::after {
@@ -301,17 +307,24 @@
 }
 .banner {
     &__padding {
-        padding: 310px 0 295px;
+        // Denaro: anchor text near the top of the hero so it sits ABOVE the
+        // centered character (template's original 310/295 left text dead-center,
+        // overlapping the character body).
+        padding: 165px 0 360px;
         position: relative;
         z-index: 1;
         @media #{$xl} {
-            padding: 260px 0 220px;
+            padding: 145px 0 300px;
+        }
+        @media #{$lg} {
+            padding: 130px 0 260px;
+        }
+        @media #{$md} {
+            padding: 120px 0 220px;
         }
         @media #{$xs} {
-            padding: 180px 0 150px;
+            padding: 110px 0 180px;
             min-height: auto;
-            display: flex;
-            align-items: center;
         }
     }
     &__bg {
