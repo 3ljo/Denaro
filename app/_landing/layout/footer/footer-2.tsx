@@ -50,31 +50,14 @@ const FooterTwo = () => {
                         <div className="footer-el-widget">
                             <h4 className="title">Product</h4>
                             <ul className="list-wrap">
+                                <li><Link href="/">Home</Link></li>
                                 <li><Link href="/#features">Features</Link></li>
-                                <li><Link href="/#strategies">Strategies</Link></li>
+                                <li><Link href="/strategies">Strategies</Link></li>
                                 <li><Link href="/pricing">Pricing</Link></li>
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4 col-sm-5 order-0 order-md-2">
-                        <div className="footer-el-widget text-start text-md-center widget_nav_menu">
-                            <div className="footer-el-logo mb-35">
-                                <Link href="/" style={{display:'inline-flex',alignItems:'center'}}>
-                                    <span style={{fontFamily:'var(--tg-heading-font-family)',fontWeight:800,letterSpacing:'0.18em',fontSize:'1.55rem',lineHeight:1}}>
-                                        <span style={{color:'#fbbf24'}}>D</span>
-                                        <span style={{color:'#fff'}}>ENARO</span>
-                                    </span>
-                                </Link>
-                            </div>
-                            <div className="footer-el-menu">
-                                <ul className="list-wrap">
-                                    <li><Link href="/">Home</Link></li>
-                                    <li><Link href="/pricing">Pricing</Link></li>
-                                    <li><Link href="/login">Sign in</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <div className="col-md-4 d-none d-md-block order-0 order-md-2" aria-hidden="true" />
                     <div className="col-md-4 col-sm-7 order-3">
                         <div className="footer-el-widget text-start text-md-end">
                             <h4 className="title">Company</h4>
@@ -101,7 +84,7 @@ const FooterTwo = () => {
                             <ul className="list-wrap d-flex flex-wrap justify-content-center justify-content-lg-end">
                                 <li><Link href="/pricing">Pricing</Link></li>
                                 <li><Link href="/register">Get started</Link></li>
-                                <li><Link href="#">Privacy Policy</Link></li>
+                                <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                             </ul>
                         </div>
                     </div>

@@ -8,7 +8,6 @@ import AboutAreaTwo from "@t/app/components/about-area/about-area-2";
 import MarketsArea from "@t/app/components/streamers/streamers-area";
 import UpcomingMatches from "@t/app/components/upcoming-match/upcoming-matches";
 import SocialArea from "@t/app/components/social/social-area";
-import BrandArea from "@t/app/components/brand/brand-area";
 import FaqArea from "@t/app/components/faq/faq-area";
 import FooterTwo from "@t/layout/footer/footer-2";
 import HomePricing from "./_components/home-pricing";
@@ -80,10 +79,6 @@ export default async function HomeTwo() {
         {/* social area start */}
         <SocialArea/>
         {/* social area end */}
-
-        {/* brand area start */}
-        <BrandArea/>
-        {/* brand area end */}
 
       </main>
       {/* main area end */}
