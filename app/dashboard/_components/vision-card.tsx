@@ -338,7 +338,7 @@ export default function VisionCard({
               {t('reading')}
             </p>
           )}
-          {analysis && <FormattedAnalysis text={analysis} />}
+          {analysis && <FormattedAnalysis text={analysis} pair={selected} />}
         </div>
       )}
 

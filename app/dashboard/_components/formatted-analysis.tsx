@@ -9,7 +9,13 @@ import { useState, type ReactNode } from 'react'
  * lifted out and rendered as a structured trade ticket above the prose
  * reasoning.
  */
-export default function FormattedAnalysis({ text }: { text: string }) {
+export default function FormattedAnalysis({
+  text,
+  pair,
+}: {
+  text: string
+  pair?: string
+}) {
   const blocks = splitBlocks(text)
   const planIdx = blocks.findIndex(
     (b) => b.kind === 'list' && b.section === 'plan',
@@ -29,7 +35,7 @@ export default function FormattedAnalysis({ text }: { text: string }) {
 
     return (
       <div className="space-y-3.5">
-        <TradeTicket plan={planData} bias={bias} />
+        <TradeTicket plan={planData} bias={bias} pair={pair} />
         {rest.length > 0 && (
           <div className="space-y-3 border-t border-cyan-400/15 pt-3.5">
             {rest.map((block, i) => (
@@ -232,9 +238,11 @@ function extractBiasWord(blocks: Block[]): BiasWord | null {
 function TradeTicket({
   plan,
   bias,
+  pair,
 }: {
   plan: PlanData
   bias: BiasWord | null
+  pair?: string
 }) {
   if (plan.noTrade) {
     return (
@@ -284,14 +292,16 @@ function TradeTicket({
       <div className="flex items-center justify-between gap-2 pb-2.5">
         <div className="flex min-w-0 items-center gap-2">
           {bias && <BiasPill word={bias} />}
-          <span className="hidden truncate font-display text-[0.55rem] font-semibold tracking-[0.28em] uppercase text-cyan-200/45 sm:inline">
-            Trade Plan
-          </span>
+          {pair && (
+            <span className="truncate font-display text-[0.62rem] font-bold tracking-[0.22em] uppercase text-cyan-100/85">
+              {pair}
+            </span>
+          )}
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
           {plan.confidence && <ConfChip value={plan.confidence} />}
           <CopyButton
-            text={buildPlanText(plan, bias)}
+            text={buildPlanText(plan, bias, pair)}
             label="Copy full plan"
             variant="all"
           />
@@ -402,31 +412,57 @@ function extractPriceForCopy(raw: string): string {
   return m ? m[0] : ''
 }
 
-function buildPlanText(plan: PlanData, bias: BiasWord | null): string {
+function buildPlanText(
+  plan: PlanData,
+  bias: BiasWord | null,
+  pair: string | undefined,
+): string {
   const lines: string[] = []
-  if (bias) lines.push(bias)
+
+  const biasEmoji =
+    bias === 'BULLISH' ? '📈' : bias === 'BEARISH' ? '📉' : '〰️'
+  const headerParts: string[] = []
+  if (pair) headerParts.push(pair)
+  if (bias) headerParts.push(bias)
+  if (headerParts.length > 0) {
+    lines.push(`${biasEmoji} ${headerParts.join(' · ')}`)
+    lines.push('')
+  }
+
   if (plan.entry) {
     lines.push(
-      `Entry: ${plan.entry.price}${plan.entry.diff ? ` (${plan.entry.diff})` : ''}`,
+      `🎯 Entry: ${plan.entry.price}${plan.entry.diff ? ` (${plan.entry.diff})` : ''}`,
     )
   }
   if (plan.sl) {
     lines.push(
-      `SL: ${plan.sl.price}${plan.sl.diff ? ` (${plan.sl.diff})` : ''}`,
+      `🛑 Stop: ${plan.sl.price}${plan.sl.diff ? ` (${plan.sl.diff})` : ''}`,
     )
   }
   if (plan.tp1) {
     lines.push(
-      `TP1: ${plan.tp1.price}${plan.tp1.diff ? ` (${plan.tp1.diff})` : ''}`,
+      `✅ TP1: ${plan.tp1.price}${plan.tp1.diff ? ` (${plan.tp1.diff})` : ''}`,
     )
   }
   if (plan.tp2) {
     lines.push(
-      `TP2: ${plan.tp2.price}${plan.tp2.diff ? ` (${plan.tp2.diff})` : ''}`,
+      `✅ TP2: ${plan.tp2.price}${plan.tp2.diff ? ` (${plan.tp2.diff})` : ''}`,
     )
   }
-  if (plan.rr) lines.push(`R:R: ${plan.rr}`)
-  if (plan.confidence) lines.push(`Confidence: ${plan.confidence}`)
+  if (plan.rr) lines.push(`⚖️ R:R: ${plan.rr}`)
+  if (plan.confidence) {
+    const c =
+      plan.confidence === 'HIGH'
+        ? '🟢'
+        : plan.confidence === 'MEDIUM'
+          ? '🟡'
+          : '🔴'
+    lines.push(`${c} Confidence: ${plan.confidence}`)
+  }
+
+  lines.push('')
+  lines.push('— via Denaro')
+
   return lines.join('\n')
 }
 
