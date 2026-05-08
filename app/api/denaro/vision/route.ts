@@ -77,7 +77,7 @@ export async function POST(req: Request) {
           ],
         },
       ],
-      max_tokens: 600,
+      max_tokens: 800,
       temperature: 0.55,
       stream: true,
     })

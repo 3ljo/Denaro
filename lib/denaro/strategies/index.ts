@@ -41,7 +41,8 @@ export function getStrategyDefSafe(value: unknown): StrategyDefinition {
 // Builds the vision system prompt for a given strategy. The base wrapper
 // stays constant so the FormattedAnalysis client parser keeps working; the
 // section list, the chart stack description, and the lens block all vary
-// per strategy.
+// per strategy. A universal **Plan** section is appended last so the
+// renderer can lift it into a structured trade ticket.
 export function buildVisionSystemPrompt(strategy: Strategy): string {
   const def = STRATEGY_REGISTRY[strategy]
   const sectionBlock = def.visionSections
@@ -50,13 +51,30 @@ export function buildVisionSystemPrompt(strategy: Strategy): string {
   const [htf, mtf, ltf] = def.visionStack
   const stackLabel = `${intervalLabel(htf)} / ${intervalLabel(mtf)} / ${intervalLabel(ltf)}`
 
+  const planBlock = `**Plan**
+Commit to a single actionable trade plan in this EXACT bullet format. Pick TP1 and TP2 from the levels you already named in **Key Levels** — TP1 = nearest opposing structure beyond entry, TP2 = next major level past TP1. Use the same units you used in Key Levels (pips for FX, dollars/points for indices/metals).
+- Entry: <price>  (a single number; if waiting for confirmation, write "above <price>" or "below <price>")
+- SL: <price> (<distance>)
+- TP1: <price> (<distance>)
+- TP2: <price> (<distance>)
+- R:R: 1:<ratio computed at TP2>
+- Confidence: LOW | MEDIUM | HIGH
+
+If no clean trade exists (no edge, conflicting bias, mid-range chop), instead output exactly two bullets and nothing else under **Plan**:
+- No-Trade: <one-sentence reason>
+- Confidence: LOW
+
+Never invent levels not visible on the screenshots. Never output prose under **Plan** — only the bullets above.`
+
   return `You are Denaro reading a multi-timeframe chart stack.
 
 INPUT: 3 chart screenshots ordered highest TF to lowest — the operator is on the ${stackLabel} stack (HTF / MTF / LTF respectively).
 
-OUTPUT: structured analysis using these EXACT section headers (one per line, surrounded by **). Leave a blank line between sections. Max 220 words total. No fluff, no preamble, no closing remarks.
+OUTPUT: structured analysis using these EXACT section headers (one per line, surrounded by **). Leave a blank line between sections. Max 280 words total. No fluff, no preamble, no closing remarks.
 
 ${sectionBlock}
+
+${planBlock}
 
 STRATEGY LENS:
 ${def.visionLens}
