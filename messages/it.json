@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Impossibile aggiornare la password. Riprova.",
       "unauthorized": "non autorizzato",
       "pickAtLeastOnePair": "Scegli almeno 1 coppia.",
+      "strategyLocked": "Questa strategia non è sbloccata nel tuo piano. Aggiorna per accedervi.",
       "deleteFailed": "Impossibile eliminare l'account. Riprova.",
       "deleteConfirmMismatch": "Digita esattamente DELETE per confermare."
     },
@@ -200,7 +201,11 @@
       "openSettings": "Apri impostazioni",
       "welcomeShort": "// BENTORNATO",
       "settings": "Impostazioni",
-      "language": "Lingua"
+      "language": "Lingua",
+      "plan": {
+        "upgradeHint": "Aggiorna piano",
+        "manageHint": "Gestisci abbonamento"
+      }
     },
     "tabs": {
       "markets": "Mercati",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "Lente strategica",
         "subtitle": "Il framework che Denaro usa per ogni analisi.",
-        "active": "ATTIVA"
+        "active": "ATTIVA",
+        "locked": "Solo {tier}",
+        "upgrade": "Aggiorna",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "Abbonamento",
+        "subtitle": "Piano e fatturazione.",
+        "currentPlan": "Piano attuale",
+        "renews": "Si rinnova il {date}",
+        "includes": {
+          "free": "1 lente strategica (SMC)",
+          "pro": "Tutte le 6 lenti strategiche",
+          "elite": "Le 6 lenti + personalizzate"
+        },
+        "upgrade": "Aggiorna piano",
+        "manage": "Gestisci abbonamento",
+        "manageUnavailable": "Disponibile dopo il primo pagamento.",
+        "viewPlans": "Vedi piani"
       },
       "session": {
         "title": "Sessione",
@@ -544,6 +571,15 @@
             "Accesso anticipato alle novità"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Piano attuale",
+        "upgrade": "Aggiorna",
+        "manage": "Gestisci abbonamento"
+      },
+      "comingSoon": {
+        "badge": "// PAGAMENTO IN ALLESTIMENTO",
+        "body": "Gli abbonamenti saranno presto attivi. Lascia la tua email in fondo alla pagina per essere avvisato quando i piani a pagamento andranno online."
       },
       "comparison": {
         "title": "Confronta i piani",

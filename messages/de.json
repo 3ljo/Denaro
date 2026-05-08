@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Passwort konnte nicht aktualisiert werden. Bitte versuche es erneut.",
       "unauthorized": "nicht autorisiert",
       "pickAtLeastOnePair": "Wähle mindestens 1 Paar.",
+      "strategyLocked": "Diese Strategie ist in deinem Plan nicht freigeschaltet. Upgrade, um sie zu nutzen.",
       "deleteFailed": "Konto konnte nicht gelöscht werden. Bitte versuche es erneut.",
       "deleteConfirmMismatch": "Tippe genau DELETE zur Bestätigung."
     },
@@ -200,7 +201,11 @@
       "openSettings": "Einstellungen öffnen",
       "welcomeShort": "// WILLKOMMEN ZURÜCK",
       "settings": "Einstellungen",
-      "language": "Sprache"
+      "language": "Sprache",
+      "plan": {
+        "upgradeHint": "Plan upgraden",
+        "manageHint": "Abonnement verwalten"
+      }
     },
     "tabs": {
       "markets": "Märkte",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "Strategie-Linse",
         "subtitle": "Das Framework, das Denaro für jede Analyse verwendet.",
-        "active": "AKTIV"
+        "active": "AKTIV",
+        "locked": "Nur {tier}",
+        "upgrade": "Upgrade",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "Abonnement",
+        "subtitle": "Plan und Abrechnung.",
+        "currentPlan": "Aktueller Plan",
+        "renews": "Verlängert sich am {date}",
+        "includes": {
+          "free": "1 Strategie-Linse (SMC)",
+          "pro": "Alle 6 Strategie-Linsen",
+          "elite": "Alle 6 Linsen + eigene"
+        },
+        "upgrade": "Plan upgraden",
+        "manage": "Abonnement verwalten",
+        "manageUnavailable": "Verfügbar nach der ersten Zahlung.",
+        "viewPlans": "Pläne ansehen"
       },
       "session": {
         "title": "Session",
@@ -544,6 +571,15 @@
             "Früher Zugang zu Features"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Aktueller Plan",
+        "upgrade": "Upgrade",
+        "manage": "Abonnement verwalten"
+      },
+      "comingSoon": {
+        "badge": "// CHECKOUT IM AUFBAU",
+        "body": "Abonnements werden bald verfügbar sein. Hinterlasse deine E-Mail unten auf der Seite, um benachrichtigt zu werden, wenn kostenpflichtige Pläne live gehen."
       },
       "comparison": {
         "title": "Pläne vergleichen",

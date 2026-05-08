@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "비밀번호를 갱신할 수 없습니다. 다시 시도하세요.",
       "unauthorized": "권한 없음",
       "pickAtLeastOnePair": "최소 1개의 페어를 선택하세요.",
+      "strategyLocked": "현재 플랜에서는 이 전략이 잠겨 있습니다. 업그레이드하여 사용하세요.",
       "deleteFailed": "계정을 삭제할 수 없습니다. 다시 시도하세요.",
       "deleteConfirmMismatch": "확인을 위해 정확히 DELETE를 입력하세요."
     },
@@ -200,7 +201,11 @@
       "openSettings": "설정 열기",
       "welcomeShort": "// 다시 오신 것을 환영합니다",
       "settings": "설정",
-      "language": "언어"
+      "language": "언어",
+      "plan": {
+        "upgradeHint": "플랜 업그레이드",
+        "manageHint": "구독 관리"
+      }
     },
     "tabs": {
       "markets": "시장",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "전략 렌즈",
         "subtitle": "Denaro가 모든 분석에서 사용하는 프레임워크.",
-        "active": "활성"
+        "active": "활성",
+        "locked": "{tier} 전용",
+        "upgrade": "업그레이드",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "구독",
+        "subtitle": "플랜과 결제.",
+        "currentPlan": "현재 플랜",
+        "renews": "{date}에 갱신",
+        "includes": {
+          "free": "1개 전략 렌즈 (SMC)",
+          "pro": "전략 렌즈 6종",
+          "elite": "렌즈 6종 + 커스텀"
+        },
+        "upgrade": "플랜 업그레이드",
+        "manage": "구독 관리",
+        "manageUnavailable": "첫 결제 후 사용 가능.",
+        "viewPlans": "플랜 보기"
       },
       "session": {
         "title": "세션",
@@ -544,6 +571,15 @@
             "신기능 얼리 액세스"
           ]
         }
+      },
+      "ctaState": {
+        "current": "현재 플랜",
+        "upgrade": "업그레이드",
+        "manage": "구독 관리"
+      },
+      "comingSoon": {
+        "badge": "// 결제 준비 중",
+        "body": "구독이 곧 활성화됩니다. 유료 플랜이 출시되면 알림을 받으려면 페이지 하단에 이메일을 남겨 주세요."
       },
       "comparison": {
         "title": "플랜 비교",

@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "パスワードを更新できませんでした。もう一度お試しください。",
       "unauthorized": "未承認",
       "pickAtLeastOnePair": "少なくとも1ペアを選択してください。",
+      "strategyLocked": "このストラテジーは現在のプランでは利用できません。アップグレードしてアクセスしてください。",
       "deleteFailed": "アカウントを削除できませんでした。もう一度お試しください。",
       "deleteConfirmMismatch": "確認のため正確に DELETE と入力してください。"
     },
@@ -200,7 +201,11 @@
       "openSettings": "設定を開く",
       "welcomeShort": "// おかえりなさい",
       "settings": "設定",
-      "language": "言語"
+      "language": "言語",
+      "plan": {
+        "upgradeHint": "プランをアップグレード",
+        "manageHint": "サブスクリプションを管理"
+      }
     },
     "tabs": {
       "markets": "マーケット",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "戦略レンズ",
         "subtitle": "Denaroが全分析で使うフレームワーク。",
-        "active": "アクティブ"
+        "active": "アクティブ",
+        "locked": "{tier} 専用",
+        "upgrade": "アップグレード",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "サブスクリプション",
+        "subtitle": "プランと請求。",
+        "currentPlan": "現在のプラン",
+        "renews": "{date} に更新",
+        "includes": {
+          "free": "1 つの戦略レンズ (SMC)",
+          "pro": "6 つの戦略レンズすべて",
+          "elite": "6 つのレンズ + カスタム"
+        },
+        "upgrade": "プランをアップグレード",
+        "manage": "サブスクリプションを管理",
+        "manageUnavailable": "初回決済後に利用可能になります。",
+        "viewPlans": "プランを見る"
       },
       "session": {
         "title": "セッション",
@@ -544,6 +571,15 @@
             "新機能への早期アクセス"
           ]
         }
+      },
+      "ctaState": {
+        "current": "現在のプラン",
+        "upgrade": "アップグレード",
+        "manage": "サブスクリプションを管理"
+      },
+      "comingSoon": {
+        "badge": "// 決済を準備中",
+        "body": "サブスクリプションは間もなく開始されます。有料プランが公開されたら通知を受け取りたい場合は、ページ下部にメールアドレスを入力してください。"
       },
       "comparison": {
         "title": "プラン比較",

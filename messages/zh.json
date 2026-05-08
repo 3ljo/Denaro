@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "无法更新密码，请重试。",
       "unauthorized": "未授权",
       "pickAtLeastOnePair": "请至少选择 1 个交易对。",
+      "strategyLocked": "该策略未在您的方案中解锁。升级以使用。",
       "deleteFailed": "无法删除账户，请重试。",
       "deleteConfirmMismatch": "请准确输入 DELETE 以确认。"
     },
@@ -200,7 +201,11 @@
       "openSettings": "打开设置",
       "welcomeShort": "// 欢迎回来",
       "settings": "设置",
-      "language": "语言"
+      "language": "语言",
+      "plan": {
+        "upgradeHint": "升级方案",
+        "manageHint": "管理订阅"
+      }
     },
     "tabs": {
       "markets": "市场",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "策略视角",
         "subtitle": "Denaro 在每次分析中使用的框架。",
-        "active": "激活"
+        "active": "激活",
+        "locked": "仅 {tier}",
+        "upgrade": "升级",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "订阅",
+        "subtitle": "方案与账单。",
+        "currentPlan": "当前方案",
+        "renews": "续订日期：{date}",
+        "includes": {
+          "free": "1 个策略视角 (SMC)",
+          "pro": "全部 6 个策略视角",
+          "elite": "6 个视角 + 自定义"
+        },
+        "upgrade": "升级方案",
+        "manage": "管理订阅",
+        "manageUnavailable": "首次付款后可用。",
+        "viewPlans": "查看方案"
       },
       "session": {
         "title": "会话",
@@ -544,6 +571,15 @@
             "新功能抢先体验"
           ]
         }
+      },
+      "ctaState": {
+        "current": "当前方案",
+        "upgrade": "升级",
+        "manage": "管理订阅"
+      },
+      "comingSoon": {
+        "badge": "// 结账配置中",
+        "body": "订阅功能即将上线。如果你希望在付费方案上线时收到通知，请在页面底部留下邮箱。"
       },
       "comparison": {
         "title": "方案对比",

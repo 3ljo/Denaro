@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Não foi possível atualizar a senha. Tente novamente.",
       "unauthorized": "não autorizado",
       "pickAtLeastOnePair": "Escolha pelo menos 1 par.",
+      "strategyLocked": "Essa estratégia não está desbloqueada no seu plano. Faça upgrade para acessá-la.",
       "deleteFailed": "Não foi possível excluir a conta. Tente novamente.",
       "deleteConfirmMismatch": "Digite DELETE exatamente para confirmar."
     },
@@ -200,7 +201,11 @@
       "openSettings": "Abrir configurações",
       "welcomeShort": "// BEM-VINDO DE VOLTA",
       "settings": "Definições",
-      "language": "Idioma"
+      "language": "Idioma",
+      "plan": {
+        "upgradeHint": "Upgrade do plano",
+        "manageHint": "Gerenciar assinatura"
+      }
     },
     "tabs": {
       "markets": "Mercados",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "Lente de estratégia",
         "subtitle": "O framework que Denaro usa em cada análise.",
-        "active": "ATIVA"
+        "active": "ATIVA",
+        "locked": "Só {tier}",
+        "upgrade": "Upgrade",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "Assinatura",
+        "subtitle": "Plano e cobrança.",
+        "currentPlan": "Plano atual",
+        "renews": "Renova em {date}",
+        "includes": {
+          "free": "1 lente de estratégia (SMC)",
+          "pro": "As 6 lentes de estratégia",
+          "elite": "As 6 lentes + personalizadas"
+        },
+        "upgrade": "Upgrade do plano",
+        "manage": "Gerenciar assinatura",
+        "manageUnavailable": "Disponível após o primeiro pagamento.",
+        "viewPlans": "Ver planos"
       },
       "session": {
         "title": "Sessão",
@@ -544,6 +571,15 @@
             "Acesso antecipado a novidades"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Plano atual",
+        "upgrade": "Upgrade",
+        "manage": "Gerenciar assinatura"
+      },
+      "comingSoon": {
+        "badge": "// CHECKOUT EM CONFIGURAÇÃO",
+        "body": "Assinaturas estarão disponíveis em breve. Deixe seu email ao final da página para ser avisado quando os planos pagos forem ativados."
       },
       "comparison": {
         "title": "Comparar planos",

@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Impossible de mettre à jour le mot de passe. Réessaie.",
       "unauthorized": "non autorisé",
       "pickAtLeastOnePair": "Choisis au moins 1 paire.",
+      "strategyLocked": "Cette stratégie n'est pas débloquée sur ton plan. Passe à un plan supérieur pour y accéder.",
       "deleteFailed": "Impossible de supprimer le compte. Réessaie.",
       "deleteConfirmMismatch": "Tape exactement DELETE pour confirmer."
     },
@@ -200,7 +201,11 @@
       "openSettings": "Ouvrir les paramètres",
       "welcomeShort": "// BON RETOUR",
       "settings": "Paramètres",
-      "language": "Langue"
+      "language": "Langue",
+      "plan": {
+        "upgradeHint": "Mettre à niveau",
+        "manageHint": "Gérer l'abonnement"
+      }
     },
     "tabs": {
       "markets": "Marchés",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "Lentille stratégique",
         "subtitle": "Le cadre que Denaro utilise pour chaque analyse.",
-        "active": "ACTIVE"
+        "active": "ACTIVE",
+        "locked": "{tier} uniquement",
+        "upgrade": "Mettre à niveau",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "Abonnement",
+        "subtitle": "Plan et facturation.",
+        "currentPlan": "Plan actuel",
+        "renews": "Se renouvelle le {date}",
+        "includes": {
+          "free": "1 lentille de stratégie (SMC)",
+          "pro": "Les 6 lentilles de stratégie",
+          "elite": "Les 6 lentilles + personnalisées"
+        },
+        "upgrade": "Mettre à niveau",
+        "manage": "Gérer l'abonnement",
+        "manageUnavailable": "Disponible après le premier paiement.",
+        "viewPlans": "Voir les plans"
       },
       "session": {
         "title": "Session",
@@ -544,6 +571,15 @@
             "Accès anticipé aux nouveautés"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Plan actuel",
+        "upgrade": "Mettre à niveau",
+        "manage": "Gérer l'abonnement"
+      },
+      "comingSoon": {
+        "badge": "// PAIEMENT EN COURS DE CONFIGURATION",
+        "body": "Les abonnements arrivent bientôt. Laisse ton email en bas de la page pour être notifié quand les plans payants seront en ligne."
       },
       "comparison": {
         "title": "Comparer les plans",

@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "تعذّر تحديث كلمة المرور. الرجاء المحاولة مرة أخرى.",
       "unauthorized": "غير مصرح",
       "pickAtLeastOnePair": "اختر زوجًا واحدًا على الأقل.",
+      "strategyLocked": "هذه الإستراتيجية ليست مفتوحة في خطتك. قم بالترقية للوصول إليها.",
       "deleteFailed": "تعذّر حذف الحساب. الرجاء المحاولة مرة أخرى.",
       "deleteConfirmMismatch": "اكتب DELETE تمامًا للتأكيد."
     },
@@ -200,7 +201,11 @@
       "openSettings": "فتح الإعدادات",
       "welcomeShort": "// مرحبًا بعودتك",
       "settings": "الإعدادات",
-      "language": "اللغة"
+      "language": "اللغة",
+      "plan": {
+        "upgradeHint": "ترقية الخطة",
+        "manageHint": "إدارة الاشتراك"
+      }
     },
     "tabs": {
       "markets": "الأسواق",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "عدسة الاستراتيجية",
         "subtitle": "الإطار الذي يستخدمه Denaro لكل تحليل.",
-        "active": "نشطة"
+        "active": "نشطة",
+        "locked": "{tier} فقط",
+        "upgrade": "ترقية",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "الاشتراك",
+        "subtitle": "الخطة والفوترة.",
+        "currentPlan": "الخطة الحالية",
+        "renews": "يتجدد في {date}",
+        "includes": {
+          "free": "عدسة إستراتيجية واحدة (SMC)",
+          "pro": "جميع العدسات الست",
+          "elite": "جميع العدسات الست + مخصصة"
+        },
+        "upgrade": "ترقية الخطة",
+        "manage": "إدارة الاشتراك",
+        "manageUnavailable": "متاحة بعد الدفع الأول.",
+        "viewPlans": "عرض الخطط"
       },
       "session": {
         "title": "الجلسة",
@@ -544,6 +571,15 @@
             "وصول مبكر للميزات"
           ]
         }
+      },
+      "ctaState": {
+        "current": "الخطة الحالية",
+        "upgrade": "ترقية",
+        "manage": "إدارة الاشتراك"
+      },
+      "comingSoon": {
+        "badge": "// الدفع قيد الإعداد",
+        "body": "الاشتراكات قادمة قريبًا. اترك بريدك الإلكتروني في أسفل الصفحة لتلقي إشعار عند تفعيل الخطط المدفوعة."
       },
       "comparison": {
         "title": "قارن الخطط",

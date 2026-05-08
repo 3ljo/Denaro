@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "No se pudo actualizar la contraseña. Inténtalo de nuevo.",
       "unauthorized": "no autorizado",
       "pickAtLeastOnePair": "Elige al menos 1 par.",
+      "strategyLocked": "Esa estrategia no está desbloqueada en tu plan. Actualiza para acceder.",
       "deleteFailed": "No se pudo eliminar la cuenta. Inténtalo de nuevo.",
       "deleteConfirmMismatch": "Escribe DELETE exactamente para confirmar."
     },
@@ -200,7 +201,11 @@
       "openSettings": "Abrir ajustes",
       "welcomeShort": "// BIENVENIDO",
       "settings": "Ajustes",
-      "language": "Idioma"
+      "language": "Idioma",
+      "plan": {
+        "upgradeHint": "Actualizar plan",
+        "manageHint": "Gestionar suscripción"
+      }
     },
     "tabs": {
       "markets": "Mercados",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "Lente de estrategia",
         "subtitle": "El marco que Denaro usa para cada análisis.",
-        "active": "ACTIVA"
+        "active": "ACTIVA",
+        "locked": "Solo {tier}",
+        "upgrade": "Actualizar",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "Suscripción",
+        "subtitle": "Plan y facturación.",
+        "currentPlan": "Plan actual",
+        "renews": "Se renueva el {date}",
+        "includes": {
+          "free": "1 lente estratégica (SMC)",
+          "pro": "Las 6 lentes estratégicas",
+          "elite": "Las 6 lentes + personalizadas"
+        },
+        "upgrade": "Actualizar plan",
+        "manage": "Gestionar suscripción",
+        "manageUnavailable": "Disponible tras el primer pago.",
+        "viewPlans": "Ver planes"
       },
       "session": {
         "title": "Sesión",
@@ -544,6 +571,15 @@
             "Acceso anticipado a novedades"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Plan actual",
+        "upgrade": "Actualizar",
+        "manage": "Gestionar suscripción"
+      },
+      "comingSoon": {
+        "badge": "// PAGOS EN CONFIGURACIÓN",
+        "body": "Las suscripciones estarán disponibles pronto. Déjanos tu email al final de la página si quieres que te avisemos cuando los planes de pago se activen."
       },
       "comparison": {
         "title": "Comparar planes",

@@ -124,6 +124,7 @@
       "couldNotUpdatePassword": "Şifre güncellenemedi. Lütfen tekrar dene.",
       "unauthorized": "yetkisiz",
       "pickAtLeastOnePair": "En az 1 parite seç.",
+      "strategyLocked": "Bu strateji planında kilitli değil. Erişmek için yükselt.",
       "deleteFailed": "Hesap silinemedi. Lütfen tekrar dene.",
       "deleteConfirmMismatch": "Onaylamak için DELETE yazısını tam olarak yaz."
     },
@@ -200,7 +201,11 @@
       "openSettings": "Ayarları aç",
       "welcomeShort": "// TEKRAR HOŞ GELDİN",
       "settings": "Ayarlar",
-      "language": "Dil"
+      "language": "Dil",
+      "plan": {
+        "upgradeHint": "Planı yükselt",
+        "manageHint": "Aboneliği yönet"
+      }
     },
     "tabs": {
       "markets": "Piyasalar",
@@ -365,7 +370,29 @@
       "strategy": {
         "title": "Strateji merceği",
         "subtitle": "Denaro'nun her analizde kullandığı çerçeve.",
-        "active": "AKTİF"
+        "active": "AKTİF",
+        "locked": "Sadece {tier}",
+        "upgrade": "Yükselt",
+        "tiers": {
+          "free": "Free",
+          "pro": "Pro",
+          "elite": "Elite"
+        }
+      },
+      "subscription": {
+        "title": "Abonelik",
+        "subtitle": "Plan ve faturalama.",
+        "currentPlan": "Mevcut plan",
+        "renews": "{date} tarihinde yenilenir",
+        "includes": {
+          "free": "1 strateji merceği (SMC)",
+          "pro": "6 strateji merceğinin tümü",
+          "elite": "6 mercek + özel"
+        },
+        "upgrade": "Planı yükselt",
+        "manage": "Aboneliği yönet",
+        "manageUnavailable": "İlk ödemeden sonra kullanılabilir.",
+        "viewPlans": "Planları gör"
       },
       "session": {
         "title": "Seans",
@@ -544,6 +571,15 @@
             "Yeni özelliklere erken erişim"
           ]
         }
+      },
+      "ctaState": {
+        "current": "Mevcut plan",
+        "upgrade": "Yükselt",
+        "manage": "Aboneliği yönet"
+      },
+      "comingSoon": {
+        "badge": "// ÖDEME KURULUMDA",
+        "body": "Abonelikler yakında devreye girecek. Ücretli planlar yayına alındığında bildirim almak için sayfanın altına e-postanı bırak."
       },
       "comparison": {
         "title": "Planları karşılaştır",
