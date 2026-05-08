@@ -100,8 +100,17 @@ export default async function RootLayout({
     >
       <body
         suppressHydrationWarning
-        className="min-h-dvh bg-denaro-bg font-sans text-cyan-50 antialiased"
+        className="min-h-dvh bg-[var(--dash-bg,#050810)] font-sans text-cyan-50 antialiased"
       >
+        {/* Pre-hydration: applies the user's saved background brightness
+            globally, before first paint, so navigation between dashboard
+            and other authenticated pages doesn't flash back to dark. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var b=localStorage.getItem('denaro-bg');var m={cosmos:'#050810','deep-navy':'#0a1424',navy:'#0d1a2e',twilight:'#142844',slate:'#1f3a5e',dusk:'#4a648c'};if(b&&m[b]&&document.body){document.body.style.setProperty('--dash-bg',m[b]);}}catch(e){}})();",
+          }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

@@ -9,10 +9,6 @@ import PlanBadge from './_components/plan-badge'
 import BgToggle from './_components/bg-toggle'
 import LanguageSwitcher from '@/app/_components/language-switcher'
 
-// Pre-hydration script — applies the user's saved background choice before
-// the first paint to avoid a flash from the SSR fallback color.
-const BG_INIT_SCRIPT = `(function(){try{var b=localStorage.getItem('denaro-bg');var m={cosmos:'#050810','deep-navy':'#0a1424',navy:'#0d1a2e',twilight:'#142844',slate:'#1f3a5e',dusk:'#4a648c'};if(b&&m[b]&&document.body){document.body.style.setProperty('--dash-bg',m[b]);}}catch(e){}})();`
-
 export const metadata = { title: 'Dashboard' }
 
 export default async function DashboardPage() {
@@ -31,9 +27,7 @@ export default async function DashboardPage() {
     profile.display_name || user.email?.split('@')[0] || t('operatorFallback')
 
   return (
-    <>
-    <script dangerouslySetInnerHTML={{ __html: BG_INIT_SCRIPT }} />
-    <main className="relative min-h-dvh w-full bg-[var(--dash-bg,#0d1a2e)] safe-top safe-bottom">
+    <main className="relative min-h-dvh w-full bg-[var(--dash-bg,#050810)] safe-top safe-bottom">
       {/* Cosmic backdrop */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-50" />
@@ -108,7 +102,6 @@ export default async function DashboardPage() {
         <DashboardContent profile={profile} />
       </div>
     </main>
-    </>
   )
 }
 

@@ -14,7 +14,7 @@ export default async function SettingsPage() {
   if (!profile?.onboarded_at) redirect('/onboarding')
 
   return (
-    <main className="relative min-h-dvh w-full bg-denaro-bg safe-top safe-bottom">
+    <main className="relative min-h-dvh w-full bg-[var(--dash-bg,#050810)] safe-top safe-bottom">
       {/* Cosmic backdrop — same as dashboard */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-50" />
