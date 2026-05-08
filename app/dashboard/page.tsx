@@ -11,7 +11,7 @@ import LanguageSwitcher from '@/app/_components/language-switcher'
 
 // Pre-hydration script — applies the user's saved background choice before
 // the first paint to avoid a flash from the SSR fallback color.
-const BG_INIT_SCRIPT = `(function(){try{var b=localStorage.getItem('denaro-bg');var m={cosmos:'#050810','deep-navy':'#0a1424',navy:'#0d1a2e',twilight:'#142844',slate:'#1f3a5e',dusk:'#4a648c'};if(b&&m[b]){document.documentElement.style.setProperty('--dash-bg',m[b]);}}catch(e){}})();`
+const BG_INIT_SCRIPT = `(function(){try{var b=localStorage.getItem('denaro-bg');var m={cosmos:'#050810','deep-navy':'#0a1424',navy:'#0d1a2e',twilight:'#142844',slate:'#1f3a5e',dusk:'#4a648c'};if(b&&m[b]&&document.body){document.body.style.setProperty('--dash-bg',m[b]);}}catch(e){}})();`
 
 export const metadata = { title: 'Dashboard' }
 

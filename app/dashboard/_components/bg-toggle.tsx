@@ -51,7 +51,7 @@ export default function BgToggle() {
     if (!mode) return
     setActive(id)
     setOpen(false)
-    document.documentElement.style.setProperty('--dash-bg', mode.value)
+    document.body.style.setProperty('--dash-bg', mode.value)
     try {
       localStorage.setItem(BG_STORAGE_KEY, id)
     } catch {}
