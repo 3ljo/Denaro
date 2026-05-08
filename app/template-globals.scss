@@ -48,10 +48,9 @@
   }
 
   & .banner__bg {
-    /* Use `contain` so the FULL source image is always visible — head,
-       body, and legs all fit inside the section. Section's dark
-       #0a0a0a fills any horizontal gaps on ultra-wide viewports. */
-    background-size: contain !important;
+    /* Cover so the wide hero scene fills edge-to-edge. Slight top/bottom
+       crop is acceptable; pillar-box gaps on the sides are not. */
+    background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
   }
