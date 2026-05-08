@@ -6,7 +6,12 @@ import { logout } from '@/lib/auth/actions'
 import DashboardContent from './_components/dashboard-content'
 import ProfileMenu from './_components/profile-menu'
 import PlanBadge from './_components/plan-badge'
+import BgToggle from './_components/bg-toggle'
 import LanguageSwitcher from '@/app/_components/language-switcher'
+
+// Pre-hydration script — applies the user's saved background choice before
+// the first paint to avoid a flash from the SSR fallback color.
+const BG_INIT_SCRIPT = `(function(){try{var b=localStorage.getItem('denaro-bg');var m={cosmos:'#050810','deep-navy':'#0a1424',navy:'#0d1a2e',twilight:'#142844',slate:'#1f3a5e',dusk:'#4a648c'};if(b&&m[b]){document.documentElement.style.setProperty('--dash-bg',m[b]);}}catch(e){}})();`
 
 export const metadata = { title: 'Dashboard' }
 
@@ -26,14 +31,16 @@ export default async function DashboardPage() {
     profile.display_name || user.email?.split('@')[0] || t('operatorFallback')
 
   return (
-    <main className="relative min-h-dvh w-full bg-denaro-bg safe-top safe-bottom">
+    <>
+    <script dangerouslySetInnerHTML={{ __html: BG_INIT_SCRIPT }} />
+    <main className="relative min-h-dvh w-full bg-[var(--dash-bg,#0d1a2e)] safe-top safe-bottom">
       {/* Cosmic backdrop */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-50" />
         <div className="absolute inset-0 denaro-grid" />
         <div className="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]" />
         <div className="absolute -bottom-40 right-0 h-[28rem] w-[28rem] rounded-full bg-amber-500/10 blur-[140px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.7)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.45)_100%)]" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-4 px-3 py-3 sm:px-5 sm:py-5">
@@ -77,6 +84,7 @@ export default async function DashboardPage() {
               with icon, then the avatar menu on the right. */}
           <div className="denaro-panel flex shrink-0 items-center gap-1.5 rounded-md p-1">
             <PlanBadge tier={profile.tier} />
+            <BgToggle />
             <LanguageSwitcher />
             <form action={logout} className="hidden sm:block">
               <button
@@ -100,6 +108,7 @@ export default async function DashboardPage() {
         <DashboardContent profile={profile} />
       </div>
     </main>
+    </>
   )
 }
 
