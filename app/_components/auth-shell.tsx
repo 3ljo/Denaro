@@ -56,7 +56,7 @@ export default function AuthShell({
         aria-hidden
         className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center"
       >
-        <div className="relative h-full w-full max-w-[560px] origin-bottom scale-[1.35] sm:max-w-[600px] sm:scale-100 lg:max-w-[820px]">
+        <div className="relative h-full w-full max-w-[480px] origin-bottom scale-[1.15] sm:max-w-[600px] sm:scale-100 lg:max-w-[820px]">
           <Image
             src={image}
             alt={imageAlt}
