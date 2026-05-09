@@ -7,6 +7,7 @@ import { getDir, type Locale } from '@/i18n/config'
 import './globals.css'
 import './template-globals.scss'
 import ServiceWorkerRegister from './sw-register'
+import HelpChat from './_components/help-chat'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -113,6 +114,7 @@ export default async function RootLayout({
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
+          <HelpChat />
         </NextIntlClientProvider>
         <ServiceWorkerRegister />
       </body>
