@@ -49,7 +49,11 @@ export async function POST(req: Request) {
   const strategy = await getOperatorStrategy()
   const def = getStrategyDef(strategy)
   const market = getMarketContext()
+  const weekendGate = market.isWeekend
+    ? `HARD GATE — MARKETS CLOSED (weekend): For this entire conversation, do NOT issue any entry, stop-loss, take-profit, or "trade idea". If asked for a setup, briefly state markets are closed and pivot to a weekend overview (weekly bias, levels carried into Monday open, news/macro to watch, watchlist).\n\n`
+    : ''
   const systemContent =
+    weekendGate +
     DENARO_SYSTEM_PROMPT +
     `\n\nMARKET CONTEXT (live):\n${market.block}` +
     `\n\nSTRATEGY LENS:\n${def.chatLens}` +

@@ -58,7 +58,7 @@ export async function POST(req: Request) {
   const strategy = await getOperatorStrategy()
   const market = getMarketContext()
   const systemContent =
-    buildVisionSystemPrompt(strategy) +
+    buildVisionSystemPrompt(strategy, market.isWeekend) +
     `\n\nMARKET CONTEXT (live):\n${market.block}` +
     getVisionLanguageInstruction(locale)
 

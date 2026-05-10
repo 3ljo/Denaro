@@ -44,7 +44,14 @@ export function getStrategyDefSafe(value: unknown): StrategyDefinition {
 // section list, the chart stack description, and the lens block all vary
 // per strategy. A universal **Plan** section is appended last so the
 // renderer can lift it into a structured trade ticket.
-export function buildVisionSystemPrompt(strategy: Strategy): string {
+//
+// When `isWeekend` is true the Plan section is replaced with a Weekend
+// Overview directive — markets are closed so signaling is suppressed and
+// the model produces a forward-looking weekly read instead.
+export function buildVisionSystemPrompt(
+  strategy: Strategy,
+  isWeekend = false,
+): string {
   const def = STRATEGY_REGISTRY[strategy]
   const sectionBlock = def.visionSections
     .map((s) => `**${s.heading}**\n${s.instruction}`)
@@ -52,7 +59,12 @@ export function buildVisionSystemPrompt(strategy: Strategy): string {
   const [htf, mtf, ltf] = def.visionStack
   const stackLabel = `${intervalLabel(htf)} / ${intervalLabel(mtf)} / ${intervalLabel(ltf)}`
 
-  const planBlock = `**Plan**
+  const planBlock = isWeekend
+    ? `**Plan**
+Markets are CLOSED — it's the weekend. Do NOT output Entry / SL / TP / R:R bullets. Emit exactly these two bullets and nothing else under **Plan**:
+- No-Trade: Markets closed (weekend) — see weekend overview above; revisit at the Monday open.
+- Confidence: LOW`
+    : `**Plan**
 Commit to a single actionable trade plan in this EXACT bullet format. Pick TP1 and TP2 from the levels you already named in **Key Levels** — TP1 = nearest opposing structure beyond entry, TP2 = next major level past TP1. Use the same units you used in Key Levels (pips for FX, dollars/points for indices/metals).
 - Entry: <price>  (a single number; if waiting for confirmation, write "above <price>" or "below <price>")
 - SL: <price> (<distance>)
@@ -67,7 +79,11 @@ If no clean trade exists (no edge, conflicting bias, mid-range chop), instead ou
 
 Never invent levels not visible on the screenshots. Never output prose under **Plan** — only the bullets above.`
 
-  return `You are Denaro reading a multi-timeframe chart stack.
+  const weekendBanner = isWeekend
+    ? `\n\nHARD GATE — MARKETS CLOSED (weekend): Do NOT issue an entry, stop, or take-profit anywhere in this response. Frame everything as a weekend read for the upcoming session: weekly bias, levels carried into Monday open, news/macro to watch. The Plan section MUST follow the weekend bullet format below.`
+    : ''
+
+  return `You are Denaro reading a multi-timeframe chart stack.${weekendBanner}
 
 INPUT: 3 chart screenshots ordered highest TF to lowest — the operator is on the ${stackLabel} stack (HTF / MTF / LTF respectively).
 
