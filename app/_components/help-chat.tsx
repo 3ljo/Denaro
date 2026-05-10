@@ -4,6 +4,13 @@ import { useEffect, useRef, useState } from 'react'
 
 type Msg = { role: 'user' | 'assistant'; content: string }
 
+const QUICK_QUESTIONS = [
+  'What is Denaro?',
+  'How does pricing work?',
+  'How do I sign up?',
+  'What can the AI analyze?',
+]
+
 export default function HelpChat() {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
@@ -16,8 +23,8 @@ export default function HelpChat() {
     if (el) el.scrollTop = el.scrollHeight
   }, [messages, loading])
 
-  async function send() {
-    const text = input.trim()
+  async function send(textArg?: string) {
+    const text = (textArg ?? input).trim()
     if (!text || loading) return
     const next: Msg[] = [...messages, { role: 'user', content: text }]
     setMessages(next)
@@ -129,9 +136,24 @@ export default function HelpChat() {
         className="max-h-[55vh] min-h-[180px] overflow-y-auto px-3 py-2 text-[0.78rem]"
       >
         {messages.length === 0 ? (
-          <p className="py-4 text-center text-cyan-100/50">
-            Ask me anything about Denaro.
-          </p>
+          <div className="py-3">
+            <p className="mb-2 text-center text-cyan-100/50">
+              Ask me anything about Denaro.
+            </p>
+            <div className="flex flex-wrap justify-center gap-1.5">
+              {QUICK_QUESTIONS.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  onClick={() => void send(q)}
+                  disabled={loading}
+                  className="rounded-full border border-cyan-400/30 bg-cyan-400/5 px-2.5 py-1 text-[0.7rem] text-cyan-100/80 transition hover:border-cyan-300/60 hover:bg-cyan-400/10 hover:text-cyan-50 disabled:opacity-40"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
         ) : (
           <div className="space-y-2">
             {messages.map((m, i) => (
@@ -167,7 +189,7 @@ export default function HelpChat() {
         />
         <button
           type="button"
-          onClick={() => void send()}
+          onClick={() => void send(input)}
           disabled={loading || !input.trim()}
           className="rounded border border-amber-300/60 bg-amber-300/10 px-2.5 py-1 font-display text-[0.6rem] tracking-[0.2em] text-amber-200 hover:bg-amber-300/20 disabled:opacity-40"
         >
