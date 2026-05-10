@@ -1,6 +1,7 @@
 import type { Strategy } from '@/lib/profile/types'
 import { isStrategy } from '@/lib/profile/types'
 import { intervalLabel } from '@/lib/market/ohlc'
+import { MARKET_DISCIPLINE_RULES } from '../system-prompt'
 import type { StrategyDefinition } from './types'
 import { SMC } from './smc'
 import { PRICE_ACTION } from './price-action'
@@ -79,7 +80,9 @@ ${planBlock}
 STRATEGY LENS:
 ${def.visionLens}
 
-Use trader vocabulary. Probabilistic language only ("probable", "expected", "invalidation at"). Never "guaranteed" or "100%".`
+Use trader vocabulary. Probabilistic language only ("probable", "expected", "invalidation at"). Never "guaranteed" or "100%".
+
+${MARKET_DISCIPLINE_RULES}`
 }
 
 // Builds the pair-card system prompt for a given strategy. The JSON schema
