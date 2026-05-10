@@ -3,6 +3,7 @@ import { getOperatorStrategy } from '@/lib/profile/get-strategy'
 import { buildVisionSystemPrompt } from '@/lib/denaro/strategies'
 import { resolveLocale } from '@/i18n/request'
 import { getVisionLanguageInstruction } from '@/lib/i18n/language-instruction'
+import { getMarketContext } from '@/lib/market/session-context'
 import OpenAI from 'openai'
 
 export const runtime = 'nodejs'
@@ -55,8 +56,11 @@ export async function POST(req: Request) {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const locale = await resolveLocale()
   const strategy = await getOperatorStrategy()
+  const market = getMarketContext()
   const systemContent =
-    buildVisionSystemPrompt(strategy) + getVisionLanguageInstruction(locale)
+    buildVisionSystemPrompt(strategy) +
+    `\n\nMARKET CONTEXT (live):\n${market.block}` +
+    getVisionLanguageInstruction(locale)
 
   const userText =
     `Analyze these ${files.length} chart screenshot(s), ordered highest TF to lowest.` +

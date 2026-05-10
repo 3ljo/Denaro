@@ -4,6 +4,7 @@ import { getOperatorStrategy } from '@/lib/profile/get-strategy'
 import { getStrategyDef } from '@/lib/denaro/strategies'
 import { resolveLocale } from '@/i18n/request'
 import { getChatLanguageInstruction } from '@/lib/i18n/language-instruction'
+import { getMarketContext } from '@/lib/market/session-context'
 import OpenAI from 'openai'
 
 export const runtime = 'nodejs'
@@ -47,8 +48,10 @@ export async function POST(req: Request) {
   const locale = await resolveLocale()
   const strategy = await getOperatorStrategy()
   const def = getStrategyDef(strategy)
+  const market = getMarketContext()
   const systemContent =
     DENARO_SYSTEM_PROMPT +
+    `\n\nMARKET CONTEXT (live):\n${market.block}` +
     `\n\nSTRATEGY LENS:\n${def.chatLens}` +
     getChatLanguageInstruction(locale)
 
