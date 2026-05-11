@@ -46,14 +46,15 @@
   .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
-  /* Cosmic grid backdrop */
+  /* Cosmic grid backdrop — mask uses an ellipse with explicit size so it
+     reaches the edges on ultrawide displays rather than fading out too early. */
   .denaro-grid {
     background-image:
       linear-gradient(rgba(125, 211, 252, 0.07) 1px, transparent 1px),
       linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
     background-size: 44px 44px;
-    -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
-            mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 110% at center, black 40%, transparent 95%);
+            mask-image: radial-gradient(ellipse 90% 110% at center, black 40%, transparent 95%);
   }
 
   .denaro-stars {
@@ -63,7 +64,13 @@
       radial-gradient(1px 1px at 40% 80%,  rgba(186, 230, 253, 0.45) 50%, transparent 100%),
       radial-gradient(1px 1px at 85% 20%,  rgba(186, 230, 253, 0.45) 50%, transparent 100%),
       radial-gradient(1px 1px at 10% 70%,  rgba(254, 240, 138, 0.35) 50%, transparent 100%),
-      radial-gradient(1px 1px at 55% 15%,  rgba(186, 230, 253, 0.35) 50%, transparent 100%);
+      radial-gradient(1px 1px at 55% 15%,  rgba(186, 230, 253, 0.35) 50%, transparent 100%),
+      radial-gradient(1px 1px at 5% 40%,   rgba(186, 230, 253, 0.45) 50%, transparent 100%),
+      radial-gradient(1px 1px at 95% 50%,  rgba(186, 230, 253, 0.45) 50%, transparent 100%),
+      radial-gradient(1px 1px at 92% 85%,  rgba(254, 240, 138, 0.35) 50%, transparent 100%),
+      radial-gradient(1px 1px at 8% 10%,   rgba(186, 230, 253, 0.4)  50%, transparent 100%),
+      radial-gradient(1px 1px at 30% 5%,   rgba(186, 230, 253, 0.35) 50%, transparent 100%),
+      radial-gradient(1px 1px at 78% 90%,  rgba(186, 230, 253, 0.4)  50%, transparent 100%);
     background-size: 100% 100%;
   }
 
