@@ -245,6 +245,45 @@ function TradeTicket({
   pair?: string
 }) {
   if (plan.noTrade) {
+    const isWeekend = /weekend|markets?\s*closed/i.test(plan.noTrade)
+    if (isWeekend) {
+      return (
+        <div className="relative overflow-hidden rounded-lg border-2 border-amber-400/80 bg-gradient-to-br from-amber-500/20 via-rose-500/10 to-amber-500/20 p-4 shadow-[0_0_40px_rgba(251,191,36,0.45)]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 animate-pulse bg-amber-400/[0.06]"
+          />
+          <div className="relative flex items-start gap-3">
+            <span
+              aria-hidden
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-amber-300/80 bg-amber-400/25 text-amber-200 shadow-[0_0_18px_rgba(251,191,36,0.6)]"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                className="h-5 w-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"
+                />
+              </svg>
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-[0.78rem] font-bold uppercase tracking-[0.28em] text-amber-200 drop-shadow-[0_0_8px_rgba(251,191,36,0.7)]">
+                Markets Closed
+              </p>
+              <p className="mt-1.5 text-[0.85rem] font-semibold leading-relaxed text-amber-50">
+                {plan.noTrade}
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    }
     return (
       <div className="rounded-lg border border-amber-300/45 bg-amber-400/[0.06] p-3 shadow-[0_0_22px_rgba(251,191,36,0.15)]">
         <div className="flex items-center justify-between gap-2">
