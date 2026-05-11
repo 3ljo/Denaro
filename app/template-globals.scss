@@ -401,22 +401,25 @@
 }
 
 /* ===========================================================================
-   Ultrawide-safe page frame — cap the layout on monitors wider than ~1920px
-   so the design doesn't visually drift to the left edge with empty black
-   space on the right. Body gets a max-width with auto margins; the
-   position-fixed header is re-centered to match.
+   Ultrawide-safe page frame — cap the LANDING template on monitors wider than
+   ~1920px so the design doesn't visually drift to the left edge with empty
+   black space on the right. Scoped to pages that render the landing main
+   (`.main--area`) so the authenticated app (dashboard / settings) — which
+   uses its own --dash-bg system and is responsive at any width — is NOT
+   capped or forced to a fixed black background here.
    =========================================================================== */
 @media (min-width: 1921px) {
-  html {
+  html:has(.main--area) {
     background-color: #050810;
   }
-  body {
+  body:has(.main--area) {
     max-width: 1920px;
     margin-inline: auto;
   }
   /* Position-fixed sticky header — recenter to the same 1920px frame.
      Using left + width (not transform) so it doesn't fight the sticky
-     slide-in animation, which already uses translateY. */
+     slide-in animation, which already uses translateY. These selectors
+     are already landing-only since the dashboard doesn't render either. */
   .transparent-header,
   .tg-sticky-menu {
     left: calc((100vw - 1920px) / 2);
