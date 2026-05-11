@@ -415,6 +415,27 @@
   body:has(.main--area) {
     max-width: 1920px;
     margin-inline: auto;
+    /* Body still needs to read as solid in the middle so the bleed only
+       shows in the side gutters. Sections below the hero have their own
+       backgrounds; this just covers the rare transparent gaps. */
+    background-color: #050810;
+  }
+  /* Cinematic side-bleed — blurred + darkened copy of the hero banner
+     pinned to the viewport, so the gutters past the 1920px frame read as
+     a halo of the hero instead of dead black bars. Fixed so it stays put
+     as the user scrolls; pointer-events:none so it never intercepts clicks. */
+  html:has(.main--area)::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: url('/pic/banner_bg.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    filter: blur(80px) brightness(0.45) saturate(1.15);
+    transform: scale(1.15);
+    pointer-events: none;
   }
   /* Position-fixed sticky header — recenter to the same 1920px frame.
      Using left + width (not transform) so it doesn't fight the sticky
