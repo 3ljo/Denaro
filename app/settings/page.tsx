@@ -15,12 +15,11 @@ export default async function SettingsPage() {
 
   return (
     <main className="relative min-h-dvh w-full bg-[var(--dash-bg,#050810)] safe-top safe-bottom">
-      {/* Cosmic backdrop — same as dashboard */}
+      {/* Cosmic backdrop — same as dashboard, glows removed for uniform color
+          on lighter brightness modes. */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-50" />
         <div className="absolute inset-0 denaro-grid" />
-        <div className="absolute -top-[20vw] left-1/2 h-[min(60rem,80vw)] w-[min(110rem,150vw)] -translate-x-1/2 rounded-[50%] bg-cyan-500/10 blur-[160px]" />
-        <div className="absolute -bottom-[15vw] -right-[10vw] h-[min(45rem,55vw)] w-[min(55rem,60vw)] rounded-full bg-amber-500/10 blur-[160px]" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-3xl px-3 py-5 sm:px-5 sm:py-8">

@@ -49,15 +49,14 @@
   .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
-  /* Cosmic grid backdrop — mask uses an ellipse with explicit size so it
-     reaches the edges on ultrawide displays rather than fading out too early. */
+  /* Cosmic grid backdrop — uniform across the whole viewport (no fade mask)
+     so ultrawide displays don't show a noticeably different pattern in the
+     center vs. the edges. */
   .denaro-grid {
     background-image:
       linear-gradient(rgba(125, 211, 252, 0.07) 1px, transparent 1px),
       linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
     background-size: 44px 44px;
-    -webkit-mask-image: radial-gradient(ellipse 90% 110% at center, black 40%, transparent 95%);
-            mask-image: radial-gradient(ellipse 90% 110% at center, black 40%, transparent 95%);
   }
 
   .denaro-stars {

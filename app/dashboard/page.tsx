@@ -28,17 +28,13 @@ export default async function DashboardPage() {
 
   return (
     <main className="relative min-h-dvh w-full bg-[var(--dash-bg,#050810)] safe-top safe-bottom">
-      {/* Cosmic backdrop — sized in vw so glows reach the edges on ultrawide
-          displays instead of leaving the sides pure black. */}
+      {/* Cosmic backdrop — only neutral patterns (stars, grid) so the chosen
+          --dash-bg color reads uniformly across the whole viewport on ultrawide.
+          Color glows were removed because they made the center brighter than
+          the edges on lighter brightness modes (slate, dusk). */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 denaro-stars opacity-50" />
         <div className="absolute inset-0 denaro-grid" />
-        {/* Center cyan glow — wide ellipse so it spans across the viewport */}
-        <div className="absolute -top-[20vw] left-1/2 h-[min(60rem,80vw)] w-[min(110rem,150vw)] -translate-x-1/2 rounded-[50%] bg-cyan-500/10 blur-[160px]" />
-        {/* Right amber glow */}
-        <div className="absolute -bottom-[15vw] -right-[10vw] h-[min(45rem,55vw)] w-[min(55rem,60vw)] rounded-full bg-amber-500/10 blur-[160px]" />
-        {/* Left cyan glow — balances the amber on wide displays */}
-        <div className="absolute -bottom-[15vw] -left-[10vw] h-[min(40rem,50vw)] w-[min(50rem,55vw)] rounded-full bg-cyan-500/[0.08] blur-[160px]" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-4 px-3 py-3 sm:px-5 sm:py-5">
