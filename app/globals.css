@@ -8,13 +8,16 @@
     -webkit-tap-highlight-color: transparent;
     text-rendering: optimizeLegibility;
     color-scheme: dark;
+    /* Bg lives on :root so the whole viewport (incl. anything outside the
+       <main> on ultrawide) fills with the user's chosen brightness. */
+    background-color: var(--dash-bg, #050810);
   }
 
   body {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
     overscroll-behavior-y: none;
-    background-color: #050810;
+    background-color: transparent;
     color: #e0f2fe;
     overflow-x: clip;
   }

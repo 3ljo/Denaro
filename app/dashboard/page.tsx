@@ -39,9 +39,6 @@ export default async function DashboardPage() {
         <div className="absolute -bottom-[15vw] -right-[10vw] h-[min(45rem,55vw)] w-[min(55rem,60vw)] rounded-full bg-amber-500/10 blur-[160px]" />
         {/* Left cyan glow — balances the amber on wide displays */}
         <div className="absolute -bottom-[15vw] -left-[10vw] h-[min(40rem,50vw)] w-[min(50rem,55vw)] rounded-full bg-cyan-500/[0.08] blur-[160px]" />
-        {/* Softer vignette — fades later and to a lighter dark so ultrawide
-            edges keep the cosmic tone instead of going flat black. */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_70%,rgba(0,0,0,0.30)_100%)]" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-4 px-3 py-3 sm:px-5 sm:py-5">
