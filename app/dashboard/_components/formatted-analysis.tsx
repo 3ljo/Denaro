@@ -21,6 +21,8 @@ export default function FormattedAnalysis({
     (b) => b.kind === 'list' && b.section === 'plan',
   )
   const bias = extractBiasWord(blocks)
+  const disciplineText = extractDiscipline(blocks)
+  const blocksNoDiscipline = blocks.filter((b) => b.section !== 'discipline')
 
   if (planIdx >= 0) {
     const plan = blocks[planIdx] as Extract<Block, { kind: 'list' }>
@@ -31,7 +33,7 @@ export default function FormattedAnalysis({
     if (prev && prev.kind === 'heading' && prev.section === 'plan') {
       skip.add(planIdx - 1)
     }
-    const rest = blocks.filter((_, i) => !skip.has(i))
+    const rest = blocksNoDiscipline.filter((b) => !skip.has(blocks.indexOf(b)))
 
     return (
       <div className="space-y-3.5">
@@ -43,20 +45,64 @@ export default function FormattedAnalysis({
             ))}
           </div>
         )}
+        {disciplineText && <DisciplineChip text={disciplineText} />}
       </div>
     )
   }
 
   return (
     <div className="space-y-3">
-      {blocks.map((block, i) => (
+      {blocksNoDiscipline.map((block, i) => (
         <Block key={i} block={block} />
       ))}
+      {disciplineText && <DisciplineChip text={disciplineText} />}
     </div>
   )
 }
 
-type Section = 'bias' | 'levels' | 'plan' | 'other'
+function extractDiscipline(blocks: Block[]): string | null {
+  for (const b of blocks) {
+    if (b.section === 'discipline' && b.kind === 'paragraph') {
+      return b.text
+    }
+  }
+  return null
+}
+
+function DisciplineChip({ text }: { text: string }) {
+  return (
+    <div className="flex items-start gap-2 rounded-md border border-emerald-400/30 bg-gradient-to-r from-emerald-500/[0.08] via-emerald-500/[0.04] to-transparent px-3 py-2 shadow-[0_0_18px_rgba(16,185,129,0.12)]">
+      <span
+        aria-hidden
+        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-emerald-300/60 bg-emerald-400/15 text-emerald-200"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          className="h-3 w-3"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6l-8-4Z"
+          />
+        </svg>
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="font-display text-[0.55rem] font-bold uppercase tracking-[0.28em] text-emerald-300/90">
+          Discipline
+        </p>
+        <p className="mt-0.5 text-[0.78rem] leading-snug text-emerald-50/90">
+          {text}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+type Section = 'bias' | 'levels' | 'plan' | 'discipline' | 'other'
 
 type Block =
   | { kind: 'heading'; text: string; section: Section }
@@ -69,6 +115,7 @@ function classify(heading: string): Section {
   if (h === 'plan' || h.includes('trade plan') || h.includes('trade ticket')) {
     return 'plan'
   }
+  if (h === 'discipline' || h.includes('discipline')) return 'discipline'
   if (h.includes('level')) return 'levels'
   return 'other'
 }
@@ -245,6 +292,45 @@ function TradeTicket({
   pair?: string
 }) {
   if (plan.noTrade) {
+    const isWeekend = /weekend|markets?\s*closed/i.test(plan.noTrade)
+    if (isWeekend) {
+      return (
+        <div className="relative overflow-hidden rounded-lg border-2 border-amber-400/80 bg-gradient-to-br from-amber-500/20 via-rose-500/10 to-amber-500/20 p-4 shadow-[0_0_40px_rgba(251,191,36,0.45)]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 animate-pulse bg-amber-400/[0.06]"
+          />
+          <div className="relative flex items-start gap-3">
+            <span
+              aria-hidden
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-amber-300/80 bg-amber-400/25 text-amber-200 shadow-[0_0_18px_rgba(251,191,36,0.6)]"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                className="h-5 w-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"
+                />
+              </svg>
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-[0.78rem] font-bold uppercase tracking-[0.28em] text-amber-200 drop-shadow-[0_0_8px_rgba(251,191,36,0.7)]">
+                Markets Closed
+              </p>
+              <p className="mt-1.5 text-[0.85rem] font-semibold leading-relaxed text-amber-50">
+                {plan.noTrade}
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    }
     return (
       <div className="rounded-lg border border-amber-300/45 bg-amber-400/[0.06] p-3 shadow-[0_0_22px_rgba(251,191,36,0.15)]">
         <div className="flex items-center justify-between gap-2">
